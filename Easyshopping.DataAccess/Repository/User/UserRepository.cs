@@ -20,6 +20,7 @@ namespace Easyshopping.DataAccess.Repository.Users
             {
                 return _db.Users.SingleOrDefault(x => (x.Email.Equals(email) || x.UserName.Equals(user_name))
                                                     && x.PassWord.Equals(password));
+
             }
             catch
             {
