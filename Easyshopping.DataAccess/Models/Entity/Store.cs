@@ -19,6 +19,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         {
             this.Partners = new HashSet<Partner>();
             this.Products = new HashSet<Product>();
+            this.StroreRatings = new HashSet<StroreRating>();
         }
     
         public int ID { get; set; }
@@ -37,5 +38,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual ICollection<Product> Products { get; set; }
         public virtual Store_Status Store_Status { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StroreRating> StroreRatings { get; set; }
     }
 }

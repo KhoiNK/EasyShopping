@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace EasyShopping.Models.User
+namespace EasyShopping.Models
 {
     public class UserViewModel
     {
@@ -25,5 +25,6 @@ namespace EasyShopping.Models.User
         public int RoleID { get; set; }
         public System.DateTime Modified_Date { get; set; }
         public int CountryID { get; set; }
+        public bool isSocialLogin { get; set; }
     }
 }

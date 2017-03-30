@@ -22,7 +22,7 @@ namespace EasyShopping
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/lib/bootstrap.css",
-                      "~/Content/lib/site.css"));
+                      "~/Content/CSS/site.css"));
         }
     }
 }

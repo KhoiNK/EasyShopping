@@ -34,10 +34,10 @@ namespace Easyshopping.DataAccess.Models.Entity
         public Nullable<bool> Taken { get; set; }
     
         public virtual OrderStatu OrderStatu { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingDetail> ShippingDetails { get; set; }
-        public virtual User User { get; set; }
     }
 }

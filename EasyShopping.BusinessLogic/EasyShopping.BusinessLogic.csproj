@@ -200,21 +200,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
+    <Compile Include="CommonMethod\Encryptor.cs" />
     <Compile Include="Models\UserDTO\UserDTO.cs" />
     <Compile Include="Models\UserDTO\UserTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Easyshopping.DataAccess\EasyShopping.DataAccess.csproj">
       <Project>{bcff4bbb-4a78-41e0-a5a0-660fe1d38cdd}</Project>
       <Name>EasyShopping.DataAccess</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

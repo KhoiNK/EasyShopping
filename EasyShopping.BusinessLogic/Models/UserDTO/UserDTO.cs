@@ -25,5 +25,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int RoleID { get; set; }
         public System.DateTime Modified_Date { get; set; }
         public int CountryID { get; set; }
+        public bool isSocialLogin { get; set; }
     }
 }

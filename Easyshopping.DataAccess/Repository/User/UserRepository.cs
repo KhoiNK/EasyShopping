@@ -1,26 +1,31 @@
 ﻿using Easyshopping.DataAccess.Models.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace Easyshopping.DataAccess.Repository.Users
 {
     public class UserRepository
     {
-        EasyShoppingEntities _db = null;
+        private EasyShoppingEntities _db = null;
+        private UserManager<IdentityUser> _usermanger;
         public UserRepository()
         {
             _db = new EasyShoppingEntities();
+            _usermanger = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_db));
         }
-        
-        public User FindUser(string user_name, string password, string email)
+
+        public User FindUser(string user_name, string password)
         {
             try
             {
-                return _db.Users.SingleOrDefault(x => (x.Email.Equals(email) || x.UserName.Equals(user_name))
-                                                    && x.PassWord.Equals(password));
-
+                User user = _db.Users.SingleOrDefault(x => ((x.UserName.Equals(user_name.Trim())) || (x.Email.Equals(user_name.Trim())))
+                                                && (x.PassWord.Equals(password.Trim())));
+                return user;
             }
             catch
             {
@@ -38,7 +43,7 @@ namespace Easyshopping.DataAccess.Repository.Users
             {
                 return null;
             }
-            
+
         }
 
         public IEnumerable<User> GetListUser()
@@ -57,7 +62,9 @@ namespace Easyshopping.DataAccess.Repository.Users
         {
             try
             {
-                return _db.Users.Add(user);
+                User newuser = _db.Users.Add(user);
+                _db.SaveChanges();
+                return newuser;
             }
             catch
             {
@@ -67,7 +74,7 @@ namespace Easyshopping.DataAccess.Repository.Users
 
         public bool RemoveUser(int id)
         {
-            if(FindUserByID(id) == null) { return false; }
+            if (FindUserByID(id) == null) { return false; }
             try
             {
                 FindUserByID(id).StatusID = 3;

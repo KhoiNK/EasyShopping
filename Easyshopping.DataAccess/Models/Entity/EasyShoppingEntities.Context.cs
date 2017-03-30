@@ -46,8 +46,10 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual DbSet<Store_Status> Store_Status { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<User_Status> User_Status { get; set; }
+        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Wish_list> Wish_lists { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<ShipperRating> ShipperRatings { get; set; }
+        public virtual DbSet<StroreRating> StroreRatings { get; set; }
     }
 }

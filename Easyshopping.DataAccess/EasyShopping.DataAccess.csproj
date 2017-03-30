@@ -266,6 +266,9 @@
     <Compile Include="Models\Entity\Role.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\ShipperRating.cs">
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\ShippingDetail.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
@@ -273,6 +276,9 @@
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Store_Status.cs">
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entity\StroreRating.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\User.cs">
@@ -306,9 +312,6 @@
       <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
       <LastGenOutput>EasyShoppingEntities.cs</LastGenOutput>
     </Content>
-    <Content Include="web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -319,17 +322,21 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>EasyShoppingEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Models\Entity\EasyShoppingEntities.edmx.diagram">
       <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
     </Content>
-    <None Include="web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.Config" />
+    <None Include="Web.Debug.Config">
+      <DependentUpon>Web.Config</DependentUpon>
     </None>
-    <None Include="web.Release.config">
-      <DependentUpon>web.config</DependentUpon>
+    <None Include="Web.Release.Config">
+      <DependentUpon>Web.Config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -24,6 +24,9 @@ namespace Easyshopping.DataAccess.Models.Entity
             this.ShippingDetails = new HashSet<ShippingDetail>();
             this.Stores = new HashSet<Store>();
             this.Wish_list = new HashSet<Wish_list>();
+            this.ShipperRatings = new HashSet<ShipperRating>();
+            this.ShipperRatings1 = new HashSet<ShipperRating>();
+            this.StroreRatings = new HashSet<StroreRating>();
         }
     
         public int ID { get; set; }
@@ -44,6 +47,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         public int RoleID { get; set; }
         public System.DateTime Modified_Date { get; set; }
         public int CountryID { get; set; }
+        public bool isSocialLogin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
@@ -64,5 +68,11 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual User_Status User_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wish_list> Wish_list { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShipperRating> ShipperRatings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShipperRating> ShipperRatings1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StroreRating> StroreRatings { get; set; }
     }
 }
