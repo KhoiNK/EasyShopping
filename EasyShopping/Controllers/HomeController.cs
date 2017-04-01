@@ -13,5 +13,15 @@ namespace EasyShopping.Controllers
         {
             return View();
         }
+
+        public ActionResult Header()
+        {
+            return View("~/Views/Shared/Header.cshtml");
+        }
+
+        public ActionResult Footer()
+        {
+            return View("~/Views/Shared/Footer.cshtml");
+        }
     }
 }

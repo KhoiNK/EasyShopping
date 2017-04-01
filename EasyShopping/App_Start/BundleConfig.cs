@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using EasyShopping.Constants;
+using System.Web;
 using System.Web.Optimization;
 
 namespace EasyShopping
@@ -8,21 +9,29 @@ namespace EasyShopping
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Content/Scripts/jquery-{version}.js"));
+            const string LibPath = "~/Scripts/lib/",
+                AppPath = "~/Scripts/Ang2/",
+                StylePath = "~/Content/";
 
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Content/Scripts/modernizr-*"));
+            bundles.Add(new ScriptBundle(ViewConstants.LibBundle).Include(
+                LibPath + "jquery-{version}.js",
+                LibPath + "modernizr-*",
+                LibPath + "bootstrap.js",
+                LibPath + "respond.js"
+            ));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Content/Scripts/bootstrap.js",
-                      "~/Content/Scripts/respond.js"));
+            bundles.Add(new ScriptBundle(ViewConstants.AppBundle).Include(
+                AppPath + "node_modules/core-js/client/shim.min.js",
+                AppPath + "node_modules/zone.js/dist/zone.js",
+                AppPath + "node_modules/systemjs/dist/system.src.js",
+                //AppPath + "dist/systemjs-angular-loader.js",
+                AppPath + "dist/systemjs.config.js" // Lazy loading JS files.
+            ));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/lib/bootstrap.css",
-                      "~/Content/CSS/site.css"));
+            bundles.Add(new StyleBundle(ViewConstants.CssBundle).Include(
+                StylePath + "lib/bootstrap.css",
+                StylePath + "CSS/site.css"
+            ));
         }
     }
 }

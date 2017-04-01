@@ -15,6 +15,7 @@ namespace EasyShopping
         {
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
+            ConfigureAuth(app);
             app.UseWebApi(config);
         }
     }

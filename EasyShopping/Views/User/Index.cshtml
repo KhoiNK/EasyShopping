@@ -1,8 +1,18 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<User-Component></User-Component>
-
+﻿<table class="table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>DOB</td>
+            <td>StatusID</td>
+            <td>Password</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.UserName}}</td>
+            <td>{{user.DOB}}</td>
+            <td>{{user.StatusID}}</td>
+            <td>{{user.PassWord}}</td>
+        </tr>
+    </tbody>
+</table>

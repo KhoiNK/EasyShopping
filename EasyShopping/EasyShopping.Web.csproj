@@ -18,7 +18,7 @@
     <AssemblyName>EasyShopping</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort>44383</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -207,8 +208,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Constants\ViewConstants.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\User\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\User\UserTranslator.cs" />
     <Compile Include="Models\User\UserViewModel.cs" />
@@ -220,13 +225,22 @@
     <Content Include="Content\lib\bootstrap.css" />
     <Content Include="Content\lib\bootstrap.min.css" />
     <Content Include="Content\Scripts\Ang2\.gitignore" />
+    <Content Include="Content\Scripts\Ang2\e2e\app.e2e-spec.js" />
     <Content Include="Content\Scripts\Ang2\karma-test-shim.js" />
     <Content Include="Content\Scripts\Ang2\karma.conf.js" />
     <Content Include="Content\Scripts\Ang2\non-essential-files.osx.txt" />
     <Content Include="Content\Scripts\Ang2\non-essential-files.txt" />
     <Content Include="Content\Scripts\Ang2\protractor.config.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.component.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.component.spec.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.module.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\footer.component.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\header.component.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\UserComponent\User.Component.js" />
+    <Content Include="Content\Scripts\Ang2\src\app\UserComponent\UserComponent.js" />
     <Content Include="Content\Scripts\Ang2\src\favicon.ico" />
     <Content Include="Content\Scripts\Ang2\src\index.html" />
+    <Content Include="Content\Scripts\Ang2\src\main.js" />
     <Content Include="Content\Scripts\Ang2\src\styles.css" />
     <Content Include="Content\Scripts\Ang2\src\systemjs-angular-loader.js" />
     <Content Include="Content\Scripts\Ang2\src\systemjs.config.extras.js" />
@@ -249,6 +263,16 @@
     <Content Include="Content\Scripts\Ang2\README.md" />
     <Content Include="Content\Scripts\Ang2\src\tsconfig.json" />
     <Content Include="Content\Scripts\Ang2\tslint.json" />
+    <Content Include="Content\Scripts\Ang2\src\main.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.component.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.component.spec.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\app.module.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\UserComponent\User.Component.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\UserComponent\UserComponent.js.map" />
+    <Content Include="Content\Scripts\Ang2\e2e\app.e2e-spec.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\footer.component.js.map" />
+    <Content Include="Content\Scripts\Ang2\src\app\header.component.js.map" />
+    <Content Include="Content\Scripts\Ang2\npm-debug.log" />
     <None Include="Content\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.js" />
     <Content Include="Content\Scripts\jquery-1.10.2.min.js" />
@@ -260,6 +284,38 @@
     <Content Include="Content\Scripts\modernizr-2.6.2.js" />
     <Content Include="Content\Scripts\respond.js" />
     <Content Include="Content\Scripts\respond.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\Ang2\.gitignore" />
+    <Content Include="Scripts\Ang2\e2e\app.e2e-spec.js" />
+    <Content Include="Scripts\Ang2\gulpfile.js" />
+    <Content Include="Scripts\Ang2\karma-test-shim.js" />
+    <Content Include="Scripts\Ang2\karma.conf.js" />
+    <Content Include="Scripts\Ang2\non-essential-files.osx.txt" />
+    <Content Include="Scripts\Ang2\non-essential-files.txt" />
+    <Content Include="Scripts\Ang2\protractor.config.js" />
+    <Content Include="Scripts\Ang2\src\favicon.ico" />
+    <Content Include="Scripts\Ang2\src\index.html" />
+    <Content Include="Scripts\Ang2\src\styles.css" />
+    <Content Include="Scripts\Ang2\src\systemjs-angular-loader.js" />
+    <Content Include="Scripts\Ang2\src\systemjs.config.extras.js" />
+    <Content Include="Scripts\Ang2\src\systemjs.config.js" />
+    <Content Include="Scripts\lib\bootstrap.js" />
+    <Content Include="Scripts\lib\bootstrap.min.js" />
+    <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\lib\jquery-1.10.2.js" />
+    <Content Include="Scripts\lib\jquery-1.10.2.min.js" />
+    <None Include="Scripts\lib\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\lib\jquery.validate.js" />
+    <Content Include="Scripts\lib\jquery.validate.min.js" />
+    <Content Include="Scripts\lib\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\lib\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lib\modernizr-2.6.2.js" />
+    <Content Include="Scripts\lib\respond.js" />
+    <Content Include="Scripts\lib\respond.min.js" />
+    <None Include="Scripts\lib\_references.js" />
+    <None Include="Views\Shared\Footer.cshtml" />
+    <None Include="Views\Shared\Header.cshtml" />
+    <None Include="Views\User\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -273,12 +329,24 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\Ang2\.travis.yml" />
+    <Content Include="Scripts\Ang2\bs-config.e2e.json" />
+    <Content Include="Scripts\Ang2\bs-config.json" />
+    <Content Include="Scripts\Ang2\CHANGELOG.md" />
+    <Content Include="Scripts\Ang2\e2e\app.e2e-spec.js.map" />
+    <Content Include="Scripts\Ang2\e2e\tsconfig.json" />
+    <Content Include="Scripts\Ang2\LICENSE" />
+    <Content Include="Scripts\Ang2\package.json" />
+    <Content Include="Scripts\Ang2\README.md" />
+    <Content Include="Scripts\Ang2\tsconfig.json" />
+    <Content Include="Scripts\Ang2\tslint.json" />
+    <Content Include="Scripts\lib\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Scripts\quickstart-master\" />
+    <Folder Include="Scripts\lib\quickstart-master\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -301,12 +369,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Content\Scripts\Ang2\e2e\app.e2e-spec.ts" />
-    <TypeScriptCompile Include="Content\Scripts\Ang2\src\app\app.component.spec.ts" />
-    <TypeScriptCompile Include="Content\Scripts\Ang2\src\app\app.component.ts" />
-    <TypeScriptCompile Include="Content\Scripts\Ang2\src\app\app.module.ts" />
-    <TypeScriptCompile Include="Content\Scripts\Ang2\src\app\User\User.Component.ts" />
-    <TypeScriptCompile Include="Content\Scripts\Ang2\src\main.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\services\user\user.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user-list\user-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\test\app.component.spec.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\app.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\app.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\main.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -327,7 +397,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>42089</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:42089/</IISUrl>
+          <IISUrl>http://localhost:5678/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
