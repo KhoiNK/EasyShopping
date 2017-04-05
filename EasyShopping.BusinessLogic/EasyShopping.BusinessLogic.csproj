@@ -199,6 +199,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\CountryLogic\CountryBusinessLogic.cs" />
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
     <Compile Include="Models\CountryDTO\CountryDTO.cs" />

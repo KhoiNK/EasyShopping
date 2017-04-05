@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using Easyshopping.DataAccess.Repository.Users;
+using Easyshopping.DataAccess.Repository.UserRepo;
 using EasyShopping.BusinessLogic.Models;
 using Easyshopping.DataAccess.Models.Entity;
 using EasyShopping.BusinessLogic.CommonMethod;

@@ -10,6 +10,7 @@ namespace EasyShopping.BusinessLogic.Models
     {
         public static WardDTO ToWardBusiness(this Ward ward)
         {
+
             if (ward == null) { return null; }
 
             return new WardDTO
