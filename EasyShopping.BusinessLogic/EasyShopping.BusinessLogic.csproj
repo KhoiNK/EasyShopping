@@ -201,8 +201,15 @@
   <ItemGroup>
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
+    <Compile Include="Models\CountryDTO\CountryDTO.cs" />
+    <Compile Include="Models\CountryDTO\CountryTranslator.cs" />
+    <Compile Include="Models\DistrictDTO\DisctrictTranslator.cs" />
+    <Compile Include="Models\DistrictDTO\DistrictDTO.cs" />
+    <Compile Include="Models\Province\ProvinceDTO.cs" />
     <Compile Include="Models\UserDTO\UserDTO.cs" />
     <Compile Include="Models\UserDTO\UserTranslator.cs" />
+    <Compile Include="Models\WardDTO\WardDTO.cs" />
+    <Compile Include="Models\WardDTO\WardTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

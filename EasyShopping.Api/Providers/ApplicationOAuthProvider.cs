@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using EasyShopping.BusinessLogic.Models;
+using EasyShopping.BusinessLogic.Business;
 using EasyShopping.Api.Models;
 
 namespace EasyShopping.Api.Providers
@@ -16,6 +18,12 @@ namespace EasyShopping.Api.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
+
+        private UserBusinessLogic _business;
+        public ApplicationOAuthProvider()
+        {
+            _business = new UserBusinessLogic();
+        }
 
         public ApplicationOAuthProvider(string publicClientId)
         {

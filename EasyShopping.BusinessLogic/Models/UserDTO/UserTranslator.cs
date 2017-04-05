@@ -75,7 +75,7 @@ namespace EasyShopping.BusinessLogic.Models
 
         public static IEnumerable<User> ToUserEntity(this IList<UserDTO> users)
         {
-            if(users != null || !users.Any()) { return null; }
+            if(users == null || !users.Any()) { return null; }
             return users.Select(e => e.ToUserEntity()).ToList();
         }
     }

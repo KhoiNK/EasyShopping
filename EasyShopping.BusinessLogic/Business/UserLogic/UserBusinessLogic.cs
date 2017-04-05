@@ -44,6 +44,11 @@ namespace EasyShopping.BusinessLogic.Business
 
         }
 
+        public UserDTO GetUserByID(int id)
+        {
+            return _repo.FindUserByID(id).ToUserBusiness();
+        }
+
         public bool Update(UserDTO user)
         {
             ClearCache(user.UserName);
@@ -74,7 +79,7 @@ namespace EasyShopping.BusinessLogic.Business
             return true;
         }
 
-        public IEnumerable<UserDTO> GetAll()
+        public IList<UserDTO> GetAll()
         {
             return _repo.GetListUser().ToUserBusiness();
         }

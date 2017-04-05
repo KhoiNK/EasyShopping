@@ -201,99 +201,100 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Entity\Category.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Comment.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Country.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\District.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\EasyShoppingEntities.Context.cs">
+    <Compile Include="Models\Entity\EasyShoppingEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EasyShoppingEntities.Context.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\EasyShoppingEntities.cs">
+    <Compile Include="Models\Entity\EasyShoppingEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\EasyShoppingEntities.Designer.cs">
+    <Compile Include="Models\Entity\EasyShoppingEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Image.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Order.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\OrderDetail.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\OrderStatu.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Partner.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Producer.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\ProducerStatu.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Product.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\ProductStatu.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Product_Type.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Province.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Rating.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Role.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\ShipperRating.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\ShippingDetail.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Store.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Store_Status.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\StroreRating.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\User.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\User_Status.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Ward.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Wish_list.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+      <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Country\CountryRepository.cs" />
     <Compile Include="Repository\User\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -302,15 +303,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\Entity\EasyShoppingEntities.Context.tt">
+    <Content Include="Models\Entity\EasyShoppingEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
-      <LastGenOutput>EasyShoppingEntities.Context.cs</LastGenOutput>
+      <DependentUpon>EasyShoppingEntity.edmx</DependentUpon>
+      <LastGenOutput>EasyShoppingEntity.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Entity\EasyShoppingEntities.tt">
+    <Content Include="Models\Entity\EasyShoppingEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
-      <LastGenOutput>EasyShoppingEntities.cs</LastGenOutput>
+      <DependentUpon>EasyShoppingEntity.edmx</DependentUpon>
+      <LastGenOutput>EasyShoppingEntity.cs</LastGenOutput>
     </Content>
     <Content Include="packages.config" />
   </ItemGroup>
@@ -318,18 +319,14 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\Entity\EasyShoppingEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EasyShoppingEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\Entity\EasyShoppingEntities.edmx.diagram">
-      <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Web.Config" />
+    <EntityDeploy Include="Models\Entity\EasyShoppingEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EasyShoppingEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entity\EasyShoppingEntity.edmx.diagram">
+      <DependentUpon>EasyShoppingEntity.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.Config">
       <DependentUpon>Web.Config</DependentUpon>
     </None>

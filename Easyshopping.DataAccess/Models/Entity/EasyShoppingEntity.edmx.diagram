@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="41df4bc388704527b78e8e4d57ec44b0" Name="Diagram1">
+        <EntityTypeShape EntityType="EasyShoppingModel.Category" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Comment" Width="1.5" PointX="9.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Country" Width="1.5" PointX="0.75" PointY="19.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.District" Width="1.5" PointX="5.25" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Image" Width="1.5" PointX="5.25" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Order" Width="1.5" PointX="12.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.OrderDetail" Width="1.5" PointX="5.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.OrderStatu" Width="1.5" PointX="10.5" PointY="36.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Partner" Width="1.5" PointX="9.75" PointY="18.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Producer" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ProducerStatu" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Product" Width="1.5" PointX="3" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Product_Type" Width="1.5" PointX="0.75" PointY="26.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ProductStatu" Width="1.5" PointX="0.75" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Province" Width="1.5" PointX="3" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Rating" Width="1.5" PointX="12.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Role" Width="1.5" PointX="5.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShipperRating" Width="1.5" PointX="9.75" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShippingDetail" Width="1.5" PointX="9.75" PointY="28.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Store_Status" Width="1.5" PointX="13.5" PointY="17.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Store" Width="1.5" PointX="15.75" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.StroreRating" Width="1.5" PointX="18" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.User_Status" Width="1.5" PointX="5.25" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.User" Width="1.5" PointX="7.5" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Ward" Width="1.5" PointX="7.5" PointY="31.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Wish_list" Width="1.5" PointX="12.75" PointY="19.875" IsExpanded="true" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Product_Type_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Comment_ProductDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Comment_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Province_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Users_Country" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_District_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShippingDetail_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Users_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Ward_District" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Image_ProductDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Order_OrderStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Order_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShippingDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_OrderDetail_ProductDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Partner_Stores" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Partner_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Producer_ProducerStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_Producer" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_Product_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_ProductStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ProductDetail_Stores" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Rating_ProductDetail" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Wish_list_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShippingDetail_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Users_Province" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Rating_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Users_Roles" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShipperRating_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShipperRating_Users1" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShippingDetail_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_ShippingDetail_Ward" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Stores_Store_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Stores_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_StroreRating_Stores" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_StroreRating_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Users_User_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="EasyShoppingModel.FK_Wish_list_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
