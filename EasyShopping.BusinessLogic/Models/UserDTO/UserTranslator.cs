@@ -77,6 +77,6 @@ namespace EasyShopping.BusinessLogic.Models
         {
             if(users == null || !users.Any()) { return null; }
             return users.Select(e => e.ToUserEntity()).ToList();
-        }
+        } 
     }
 }
