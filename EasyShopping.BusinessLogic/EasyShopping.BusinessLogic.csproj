@@ -201,6 +201,8 @@
   <ItemGroup>
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
+    <Compile Include="Models\CategoryDTO\CategoryDTO.cs" />
+    <Compile Include="Models\CategoryDTO\CategoryTranslator.cs" />
     <Compile Include="Models\CountryDTO\CountryDTO.cs" />
     <Compile Include="Models\CountryDTO\CountryTranslator.cs" />
     <Compile Include="Models\DistrictDTO\DisctrictTranslator.cs" />
