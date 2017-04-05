@@ -8,5 +8,10 @@ namespace EasyShopping.Controllers.User
         {
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
     }
 }

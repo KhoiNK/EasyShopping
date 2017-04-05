@@ -30,9 +30,15 @@ namespace EasyShopping.Api.Controllers
             return user;
         }
 
-        // POST api/values
-        public void Post([FromBody]string value)
+        //POST api/values
+        public UserApiModel Post([FromBody]UserApiModel user)
         {
+            UserBusinessLogic _business = new UserBusinessLogic();
+            if(_business.Register(user.ToUserBusiness()) == null)
+            {
+                return null;
+            }
+            return user;
         }
 
         // PUT api/values/5

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Easyshopping.DataAccess.Repository.Users
+namespace Easyshopping.DataAccess.Repository.UserRepo
 {
     public class UserRepository
     {
