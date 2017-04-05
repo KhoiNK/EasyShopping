@@ -201,7 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EasyShopping.BusinessLogic\EasyShopping.BusinessLogic.csproj">
-      <Project>{53CB982F-6F5A-4422-A437-5BA88C5ED23E}</Project>
+      <Project>{53cb982f-6f5a-4422-a437-5ba88c5ed23e}</Project>
       <Name>EasyShopping.BusinessLogic</Name>
     </ProjectReference>
   </ItemGroup>

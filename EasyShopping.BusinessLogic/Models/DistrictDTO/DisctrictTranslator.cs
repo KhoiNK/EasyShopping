@@ -50,10 +50,10 @@ namespace EasyShopping.BusinessLogic.Models
             };
         }
 
-        public static IEnumerable<District> ToDistrictEntity(this IList<DistrictDTO> districts)
-        {
-            if (districts == null || !districts.Any()) { return null; }
-            return districts.Select(e => e.ToDistrictEntity()).ToList();
-        }
+        //public static IEnumerable<District> ToDistrictEntity(this IList<DistrictDTO> districts)
+        //{
+        //    if (districts == null || !districts.Any()) { return null; }
+        //    return districts.Select(e => e.ToDistrictEntity()).ToList();
+        //}
     }
 }
