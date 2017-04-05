@@ -19,7 +19,7 @@ namespace EasyShopping.BusinessLogic.Models
                 ProductID = comment.ProductID,
                 UserID = comment.UserID,
                 ParentCmt = comment.ParentCmt,
-                CreatedDate = comment.Created_Date,
+                CreateDate = comment.Created_Date,
                 ModifiedDate = comment.Modified_Date
             };
         }
@@ -36,13 +36,13 @@ namespace EasyShopping.BusinessLogic.Models
             if (comment == null) { return null; }
             return new Comment
             {
-                Id = ,
+                ID = comment.Id,
                 Description = comment.Description,
                 ProductID = comment.ProductID,
                 UserID = comment.UserID,
                 ParentCmt = comment.ParentCmt,
-                CreatedDate = comment.Created_Date,
-                ModifiedDate = comment.Modified_Date
+                Created_Date = comment.CreateDate,
+                Modified_Date = comment.ModifiedDate
             };
         }
     }
