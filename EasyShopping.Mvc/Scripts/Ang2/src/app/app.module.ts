@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { Header } from './header.component';
 import { Footer } from './footer.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { GetListCountries } from './country-list/country-list.component';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { UserListComponent } from './user-list/user-list.component';
         AppComponent,
         Header,
         Footer,
-        UserListComponent], 
+        UserListComponent,
+        GetListCountries], 
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

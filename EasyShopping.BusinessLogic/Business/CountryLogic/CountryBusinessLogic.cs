@@ -9,7 +9,7 @@ namespace EasyShopping.BusinessLogic.Business.CountryLogic
 {
     public class CountryBusinessLogic
     {
-        private CountryRepository _repo = null;
+        private CountryRepository _repo;
         public CountryBusinessLogic()
         {
             _repo = new CountryRepository();

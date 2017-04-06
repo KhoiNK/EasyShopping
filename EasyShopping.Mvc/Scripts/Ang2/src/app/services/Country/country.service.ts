@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 declare var window: any;
 
 @Injectable()
-export class UserServices {
+export class CountryServices {
     private apiUrl = window.GlobalSettings.ApiBase + 'Country';
 
     constructor(private _http: Http) {
