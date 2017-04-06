@@ -6,7 +6,7 @@ using System.Web;
 
 namespace EasyShopping.BusinessLogic.Models
 {
-    public static class DisctrictTranslator
+    public static class DistrictTranslator
     {
         public static DistrictDTO ToDistrictBusiness(this District district)
         {
@@ -49,11 +49,5 @@ namespace EasyShopping.BusinessLogic.Models
                 Type = district.Type
             };
         }
-
-        //public static IEnumerable<District> ToDistrictEntity(this IList<DistrictDTO> districts)
-        //{
-        //    if (districts == null || !districts.Any()) { return null; }
-        //    return districts.Select(e => e.ToDistrictEntity()).ToList();
-        //}
     }
 }
