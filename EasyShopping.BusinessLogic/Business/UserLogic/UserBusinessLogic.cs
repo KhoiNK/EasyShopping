@@ -7,6 +7,7 @@ using Easyshopping.DataAccess.Repository.UserRepo;
 using EasyShopping.BusinessLogic.Models;
 using Easyshopping.DataAccess.Models.Entity;
 using EasyShopping.BusinessLogic.CommonMethod;
+using System.Threading.Tasks;
 
 namespace EasyShopping.BusinessLogic.Business
 {
@@ -21,32 +22,35 @@ namespace EasyShopping.BusinessLogic.Business
             _repo = new UserRepository();
         }
 
-        public UserDTO Login(string username, string password)
+        public Task<UserDTO> Login(string username, string password)
         {
-            string hash = Encryptor.MD5Hash(password);
-            string key = string.Format("{0}:{1}", username, password);
-            UserDTO user = null;
-
-            // Look in memory
-            if (Cache.ContainsKey(key))
+            return Task.Factory.StartNew(() =>
             {
-                user = Cache[key];
-            }
-            else
-            {
-                user = _repo.FindUser(username, hash).ToUserBusiness();
+                string hash = Encryptor.MD5Hash(password);
+                string key = string.Format("{0}:{1}", username, password);
+                UserDTO user = null;
 
-                // TODO: Must delete this key, when update user
-                Cache[key] = user;
-            }
+                // Look in memory
+                if (Cache.ContainsKey(key))
+                {
+                    user = Cache[key];
+                }
+                else
+                {
+                    user = _repo.FindUser(username, hash).Translate<User, UserDTO>();
 
-            return user;
+                    // TODO: Must delete this key, when update user
+                    Cache[key] = user;
+                }
+
+                return user;
+            });
 
         }
 
         public UserDTO GetUserByID(int id)
         {
-            return _repo.FindUserByID(id).ToUserBusiness();
+            return _repo.FindUserByID(id).Translate<User, UserDTO>();
         }
 
         public bool Update(UserDTO user)
@@ -64,8 +68,8 @@ namespace EasyShopping.BusinessLogic.Business
             user.RegDate = System.DateTime.Now;
             user.Modified_Date = System.DateTime.Now;
 
-            User userEntity = user.ToUserEntity();
-            UserDTO newUser = _repo.AddUser(userEntity).ToUserBusiness();
+            User userEntity = user.Translate<UserDTO, User>();
+            UserDTO newUser = _repo.AddUser(userEntity).Translate<User, UserDTO>();
 
             return newUser;
         }
@@ -81,7 +85,7 @@ namespace EasyShopping.BusinessLogic.Business
 
         public IList<UserDTO> GetAll()
         {
-            return _repo.GetListUser().ToUserBusiness();
+            return _repo.GetListUser().Translate<User, UserDTO>();
         }
 
 

@@ -48,14 +48,7 @@ namespace Easyshopping.DataAccess.Repository.UserRepo
 
         public IEnumerable<User> GetListUser()
         {
-            try
-            {
-                return _db.Users.ToList();
-            }
-            catch
-            {
-                return null;
-            }
+            return _db.Users.ToList();
         }
 
         public User AddUser(User user)

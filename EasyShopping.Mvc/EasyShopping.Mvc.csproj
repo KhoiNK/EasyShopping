@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.2</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -198,8 +199,6 @@
     <Content Include="Scripts\Ang2\src\favicon.ico" />
     <Content Include="Scripts\Ang2\src\index.html" />
     <Content Include="Scripts\Ang2\src\styles.css" />
-    <Content Include="Scripts\Ang2\src\systemjs-angular-loader.js" />
-    <Content Include="Scripts\Ang2\src\systemjs.config.extras.js" />
     <Content Include="Scripts\Ang2\src\systemjs.config.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
@@ -256,6 +255,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\Ang2\src\app\services\City\" />
     <Folder Include="Scripts\Ang2\src\app\services\Province\" />
+    <Folder Include="Scripts\Ang2\src\app\services\user\" />
     <Folder Include="Scripts\Ang2\src\app\services\Ward\" />
     <Folder Include="Scripts\lib\quickstart-master\" />
   </ItemGroup>
@@ -270,12 +270,19 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\app.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\auth.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country-list\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\services\Country\country.service.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\services\user\user.service.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\user-list\user-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\main.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\test\app.component.spec.ts" />
   </ItemGroup>

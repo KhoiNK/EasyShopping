@@ -33,32 +33,26 @@ namespace EasyShopping.Api.Providers
             }
 
             _publicClientId = publicClientId;
+            //System.Diagnostics.Debugger.Launch();
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+            var userLogic = new UserBusinessLogic();
 
-            // Load DTO model
-            // UserLogic.Login(username, passoword)
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userLogic.Login(context.UserName, context.Password);
 
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
-
-            // Convert DTO -> ViewModel
-            ClaimsIdentity oAuthIdentity = await /* ViewModel */ user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
+            
+            ClaimsIdentity oAuthIdentity = CreateUserIdentity(user);
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+            var ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -101,9 +95,20 @@ namespace EasyShopping.Api.Providers
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "userName", userName }
+                { "userName", userName },
+                //{ "avatar", userName },
+                //{ "roles", roleArr },
             };
             return new AuthenticationProperties(data);
         }
+
+
+        private ClaimsIdentity CreateUserIdentity(UserDTO user)
+        {
+            var claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            return new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
+        }
+
     }
 }

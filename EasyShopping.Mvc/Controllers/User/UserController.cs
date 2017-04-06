@@ -6,12 +6,12 @@ namespace EasyShopping.Controllers.User
     {
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult Login()
         {
-            return View();
+            return PartialView();
         }
     }
 }

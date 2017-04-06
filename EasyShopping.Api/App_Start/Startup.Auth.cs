@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using EasyShopping.Api.Providers;
 using EasyShopping.Api.Models;
+using EasyShopping.Api.Constants;
 
 namespace EasyShopping.Api
 {
@@ -33,9 +34,10 @@ namespace EasyShopping.Api
                 TokenEndpointPath = new PathString("/Token"), // POST to /Token will call ApplicationOAuthProvider
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = Const.TokenTimeSpan,
                 // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                AllowInsecureHttp = true,
+                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
             };
 
             // Enable the application to use bearer tokens to authenticate users

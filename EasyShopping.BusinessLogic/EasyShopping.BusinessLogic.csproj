@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -202,8 +206,7 @@
     <Compile Include="Business\CountryLogic\CountryBusinessLogic.cs" />
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
-    <Compile Include="Models\CategoryDTO\CategoryDTO.cs" />
-    <Compile Include="Models\CategoryDTO\CategoryTranslator.cs" />
+    <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\CommentDTO\CommentDTO.cs" />
     <Compile Include="Models\CommentDTO\CommentTranslator.cs" />
     <Compile Include="Models\CountryDTO\CountryDTO.cs" />
@@ -224,18 +227,31 @@
     <Compile Include="Models\ProducerDTO\ProducerTranslator.cs" />
     <Compile Include="Models\ProvinceDTO\ProvinceDTO.cs" />
     <Compile Include="Models\ProvinceDTO\ProvinceTranslator.cs" />
-    <Compile Include="Models\UserDTO\UserDTO.cs" />
-    <Compile Include="Models\UserDTO\UserTranslator.cs" />
+    <Compile Include="Models\Translators.cs" />
+    <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\WardDTO\WardDTO.cs" />
     <Compile Include="Models\WardDTO\WardTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Easyshopping.DataAccess\EasyShopping.DataAccess.csproj">
       <Project>{bcff4bbb-4a78-41e0-a5a0-660fe1d38cdd}</Project>
       <Name>EasyShopping.DataAccess</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

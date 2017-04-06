@@ -8,7 +8,7 @@ namespace EasyShopping.BusinessLogic.Models
 {
     public static class OrderStatusTranslator
     {
-        public static OrderStatusDTO ToOrderStatusBusiness(this OrderStatus orderstatus)
+        public static OrderStatusDTO ToOrderStatusBusiness(this OrderStatu orderstatus)
         {
             if (orderstatus == null) { return null; }
 
@@ -20,7 +20,7 @@ namespace EasyShopping.BusinessLogic.Models
 
         }
 
-        public static IList<OrderStatusDTO> ToOrderStatusBusiness(this IEnumerable<OrderStatus> orderstatus)
+        public static IList<OrderStatusDTO> ToOrderStatusBusiness(this IEnumerable<OrderStatu> orderstatus)
         {
             if (orderstatus == null || !orderstatus.Any()) { return null; }
 
@@ -28,17 +28,17 @@ namespace EasyShopping.BusinessLogic.Models
 
         }
 
-        public static OrderStatus ToOrderStatusEntity(this OrderStatusDTO orderstatus)
+        public static OrderStatu ToOrderStatusEntity(this OrderStatusDTO orderstatus)
         {
             if (orderstatus == null) { return null; }
-            return new OrderStatus
+            return new OrderStatu
             {
                 ID = orderstatus.ID,
                 Description = orderstatus.Description
             };
         }
 
-        public static IEnumerable<OrderStatus> ToOrderStatusEntity(this IList<OrderStatusDTO> orderstatus)
+        public static IEnumerable<OrderStatu> ToOrderStatusEntity(this IList<OrderStatusDTO> orderstatus)
         {
             if (orderstatus == null || !orderstatus.Any()) { return null; }
             return orderstatus.Select(e => e.ToOrderStatusEntity()).ToList();
