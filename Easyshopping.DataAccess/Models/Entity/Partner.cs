@@ -23,5 +23,7 @@ namespace Easyshopping.DataAccess.Models.Entity
     
         public virtual Store Store { get; set; }
         public virtual User User { get; set; }
+        public int? UserID { get; set; }
+        public DateTime? CreateDate { get; set; }
     }
 }
