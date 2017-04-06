@@ -174,7 +174,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Country\CountryApiModel.cs" />
     <Compile Include="Models\Country\CountryTranslator.cs" />
+    <Compile Include="Models\District\DistrictApiModel.cs" />
+    <Compile Include="Models\District\DistrictTranslator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Province\ProvinceApiModel.cs" />
+    <Compile Include="Models\Province\ProvinceTranslator.cs" />
     <Compile Include="Models\User\UserApiModel.cs" />
     <Compile Include="Models\User\UserTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
