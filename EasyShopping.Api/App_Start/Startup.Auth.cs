@@ -12,6 +12,11 @@ using EasyShopping.Api.Providers;
 using EasyShopping.Api.Models;
 using EasyShopping.Api.Constants;
 
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Microsoft.Owin.Security.Jwt;
+using System.Threading.Tasks;
+
 namespace EasyShopping.Api
 {
     public partial class Startup
@@ -33,6 +38,7 @@ namespace EasyShopping.Api
             {
                 TokenEndpointPath = new PathString("/Token"), // POST to /Token will call ApplicationOAuthProvider
                 Provider = new ApplicationOAuthProvider(PublicClientId),
+                AccessTokenFormat = new CustomJwtFormat(Const.Issuer),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = Const.TokenTimeSpan,
                 // In production mode set AllowInsecureHttp = false
@@ -43,8 +49,28 @@ namespace EasyShopping.Api
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
 
+            app.UseJwtBearerAuthentication(
+               new JwtBearerAuthenticationOptions
+               {
+                   AuthenticationMode = AuthenticationMode.Active,
+                   AllowedAudiences = new[] { "admin" },
+                   IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
+                   {
+                        new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)
+                   },
+                   Provider = new OAuthBearerAuthenticationProvider
+                   {
+                       OnValidateIdentity = context =>
+                       {
+                           // Add new claim here
+                           // context.Ticket.Identity.AddClaim(new System.Security.Claims.Claim("newCustomClaim", "newValue"));
+                           return Task.FromResult<object>(null);
+                       }
+                   }
+               });
+
             // Uncomment the following lines to enable logging in with third party login providers
-            
+
             //app.UseFacebookAuthentication(
             //    appId: "",
             //    appSecret: "");

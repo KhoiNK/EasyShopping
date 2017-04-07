@@ -22,6 +22,22 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<UserDTO, User>();
                 cfg.CreateMap<User, UserDTO>();
 
+                cfg.CreateMap<CommentDTO, Comment>();
+                cfg.CreateMap<Comment, CommentDTO>();
+
+                cfg.CreateMap<CountryDTO, Country>();
+                cfg.CreateMap<Country, CountryDTO>();
+
+                cfg.CreateMap<DistrictDTO, District>();
+                cfg.CreateMap<District, DistrictDTO>();
+
+                cfg.CreateMap<ImageDTO, Image>();
+                cfg.CreateMap<Image, ImageDTO>();
+
+                cfg.CreateMap<OrderDTO, Order>();
+                cfg.CreateMap<Order, OrderDTO>();
+
+
                 //cfg.CreateMap<..., ...>();
             });
 

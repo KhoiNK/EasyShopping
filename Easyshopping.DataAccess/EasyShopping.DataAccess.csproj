@@ -254,7 +254,7 @@
     <Compile Include="Models\Entity\ProductStatu.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Product_Type.cs">
+    <Compile Include="Models\Entity\ProductType.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Province.cs">
@@ -275,7 +275,7 @@
     <Compile Include="Models\Entity\Store.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Store_Status.cs">
+    <Compile Include="Models\Entity\StoreStatu.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\StroreRating.cs">
@@ -284,13 +284,13 @@
     <Compile Include="Models\Entity\User.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\User_Status.cs">
+    <Compile Include="Models\Entity\UserStatu.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Ward.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Wish_list.cs">
+    <Compile Include="Models\Entity\Wishlist.cs">
       <DependentUpon>EasyShoppingEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

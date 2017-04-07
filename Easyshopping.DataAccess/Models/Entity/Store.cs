@@ -36,7 +36,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual ICollection<Partner> Partners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
-        public virtual Store_Status Store_Status { get; set; }
+        public virtual StoreStatu StoreStatu { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StroreRating> StroreRatings { get; set; }

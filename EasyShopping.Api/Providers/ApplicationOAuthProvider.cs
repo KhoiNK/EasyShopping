@@ -33,7 +33,7 @@ namespace EasyShopping.Api.Providers
             }
 
             _publicClientId = publicClientId;
-            //System.Diagnostics.Debugger.Launch();
+            System.Diagnostics.Debugger.Launch();
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -100,6 +100,21 @@ namespace EasyShopping.Api.Providers
                 //{ "roles", roleArr },
             };
             return new AuthenticationProperties(data);
+        }
+
+        public override Task MatchEndpoint(OAuthMatchEndpointContext context)
+        {
+            if (context.IsTokenEndpoint && context.Request.Method == "OPTIONS")
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+                //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers", new[] { "authorization" });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Headers",
+                    new[] { "Content-Type", "Access-Control-Allow-Headers", "Authorization", "X-Requested-With" });
+                context.RequestCompleted();
+                return Task.FromResult(0);
+            }
+
+            return base.MatchEndpoint(context);
         }
 
 

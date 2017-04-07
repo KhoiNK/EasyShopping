@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 import 'rxjs/add/operator/map';
 
 declare var window: any;
@@ -9,11 +9,11 @@ declare var window: any;
 export class UserServices {
     private apiUrl = window.GlobalSettings.ApiBase + 'User';
 
-    constructor(private _http: Http) {
+    constructor(private _http: AuthHttp) {
 
     }
 
     GetUserList(): Observable<any[]> {
-        return this._http.get(this.apiUrl).map((response: Response) => response.json())
+        return this._http.get(this.apiUrl).map(res => res.json())
     }
 }

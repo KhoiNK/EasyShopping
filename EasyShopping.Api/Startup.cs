@@ -16,6 +16,7 @@ namespace EasyShopping.Api
         {
             var config = new HttpConfiguration();
             WebApiConfig.Register(config);
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             ConfigureAuth(app);
             app.UseWebApi(config);
 

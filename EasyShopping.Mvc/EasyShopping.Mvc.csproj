@@ -273,6 +273,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\auth.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country-list\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />

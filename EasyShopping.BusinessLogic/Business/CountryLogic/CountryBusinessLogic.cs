@@ -1,4 +1,5 @@
-﻿using Easyshopping.DataAccess.Repository.CountryRepo;
+﻿using Easyshopping.DataAccess.Models.Entity;
+using Easyshopping.DataAccess.Repository.CountryRepo;
 using EasyShopping.BusinessLogic.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace EasyShopping.BusinessLogic.Business.CountryLogic
         }
         public IList<CountryDTO> GetAll()
         {
-            return _repo.GetAll().ToCountryBusiness();
+            return _repo.GetAll().Translate<Country, CountryDTO>();
         }
     }
 }

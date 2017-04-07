@@ -11,3 +11,4 @@ export const loginRoutes: Routes = [
     }
 ];
 
+export const routing = RouterModule.forChild(loginRoutes);

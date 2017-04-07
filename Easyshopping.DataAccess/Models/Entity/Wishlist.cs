@@ -12,18 +12,14 @@ namespace Easyshopping.DataAccess.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Store_Status
+    public partial class Wishlist
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Store_Status()
-        {
-            this.Stores = new HashSet<Store>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int ProductDetailID { get; set; }
+        public int UserID { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Store> Stores { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

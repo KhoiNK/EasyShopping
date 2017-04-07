@@ -21,13 +21,13 @@ namespace Easyshopping.DataAccess.Models.Entity
             this.Images = new HashSet<Image>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.Ratings = new HashSet<Rating>();
-            this.Wish_list = new HashSet<Wish_list>();
+            this.Wishlists = new HashSet<Wishlist>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int ProductID { get; set; }
+        public string ProductID { get; set; }
         public int Manufactured_CountryID { get; set; }
         public int ProducerID { get; set; }
         public double Weight { get; set; }
@@ -36,7 +36,6 @@ namespace Easyshopping.DataAccess.Models.Entity
         public int ProductTypeID { get; set; }
         public int StoreID { get; set; }
     
-        public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Country Country { get; set; }
@@ -45,12 +44,12 @@ namespace Easyshopping.DataAccess.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Producer Producer { get; set; }
-        public virtual Product_Type Product_Type { get; set; }
+        public virtual ProductType ProductType { get; set; }
         public virtual ProductStatu ProductStatu { get; set; }
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wish_list> Wish_list { get; set; }
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

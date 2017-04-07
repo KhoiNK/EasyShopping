@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tokenNotExpired } from 'angular2-jwt';
@@ -45,7 +45,7 @@ export class AuthService extends IAuthService {
 
     private _authSubject: BehaviorSubject<IAuthenticatedEvent>;
     private _profile: Profile;
-
+    
     get profile(): Profile {
         return this._profile;
     }
@@ -66,9 +66,7 @@ export class AuthService extends IAuthService {
     }
 
     public isAuthenticated(): boolean {
-        // Check if there's an unexpired JWT
-        // This searches for an item in localStorage with key == 'id_token'
-        return tokenNotExpired() ? true : false; // Somehow, tokenNotExpired() may return null
+        return this.getAuthToken() ? true : false;        
     }
 
     public authenticatedObservable(): Observable<IAuthenticatedEvent> {
@@ -95,14 +93,18 @@ export class AuthService extends IAuthService {
     public getAuthToken(): string {
         return localStorage.getItem(ACCESS_TOKEN);
     }
-    
+
     public signIn(username: string, password: string): void {
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let options = new RequestOptions({ headers: headers });
+        let body = new URLSearchParams();
+        body.set('username', username);
+        body.set('password', password);
+        body.set('grant_type', 'password');
+
         this.ngHttp
-            .post('login URL', {
-                UserName: username,
-                Password: password
-            })
-            .subscribe((response) => {
+            .post(window.GlobalSettings.LoginUrl, body, options)
+            .subscribe((response: any) => {
                 if (response.ok) {
                     let json = response.json();
                     localStorage.setItem(ACCESS_TOKEN, json.access_token);
@@ -113,6 +115,7 @@ export class AuthService extends IAuthService {
                         isAuthenticated: true,
                         profile: this._profile
                     });
+                   
                 }
             });
     }

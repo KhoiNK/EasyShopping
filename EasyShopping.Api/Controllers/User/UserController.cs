@@ -9,8 +9,8 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
-    [Authorize]
-    [Route("v1/nguoidung")]
+    //[Authorize]
+    //[Route("v1/nguoidung")]
     public class UserController : ApiController
     {
         //private UserBusinessLogic _business = null;

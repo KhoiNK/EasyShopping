@@ -7,9 +7,8 @@ declare var Auth0Lock: any;
 declare var window: any;
 
 @Component({
-    template: `
-        <input [(ngModel)]="username" name="username" />
-    `
+    selector: 'my-login',
+    templateUrl: 'User/Login'
 })
 export class LoginComponent implements OnInit {
 
@@ -26,8 +25,8 @@ export class LoginComponent implements OnInit {
         } else {
             this.authService
                 .authenticatedObservable()
-                .subscribe((authenticated) => {
-                    if (authenticated) {
+                .subscribe((res) => {
+                    if (res.isAuthenticated) {
                         this.router.navigate(['/']);
                     }
                 });

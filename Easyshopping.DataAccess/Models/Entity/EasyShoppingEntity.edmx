@@ -139,7 +139,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="nvarchar" MaxLength="250" />
           <Property Name="Manufactured CountryID" Type="int" Nullable="false" />
           <Property Name="ProducerID" Type="int" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
@@ -148,20 +148,20 @@
           <Property Name="ProductTypeID" Type="int" Nullable="false" />
           <Property Name="StoreID" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Product Type">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ProductID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="ProductStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CateID" Type="int" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -220,13 +220,6 @@
           <Property Name="DistrictID" Type="int" />
           <Property Name="WardID" Type="int" />
         </EntityType>
-        <EntityType Name="Store Status">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="Stores">
           <Key>
             <PropertyRef Name="ID" />
@@ -241,6 +234,13 @@
           <Property Name="Img Link" Type="nvarchar" MaxLength="100" />
           <Property Name="StatusID" Type="int" />
         </EntityType>
+        <EntityType Name="StoreStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="StroreRating">
           <Key>
             <PropertyRef Name="ID" />
@@ -250,13 +250,6 @@
           <Property Name="StoreID" Type="int" />
           <Property Name="Rate" Type="int" />
           <Property Name="Comment" Type="nvarchar" MaxLength="250" />
-        </EntityType>
-        <EntityType Name="User Status">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -282,6 +275,13 @@
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="isSocialLogin" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="Ward">
           <Key>
             <PropertyRef Name="Id" />
@@ -295,7 +295,7 @@
           <Property Name="IsPublished" Type="bit" />
           <Property Name="IsDeleted" Type="bit" />
         </EntityType>
-        <EntityType Name="Wish list">
+        <EntityType Name="Wishlist">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -303,6 +303,18 @@
           <Property Name="ProductDetailID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__ProductTy__CateI__534D60F1">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductType">
+              <PropertyRef Name="CateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Comment_ProductDetail">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
@@ -435,30 +447,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product Type_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Product Type" Type="Self.Product Type" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product Type">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductDetail_Categories">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductDetail_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -484,10 +472,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductDetail_Product Type">
-          <End Role="Product Type" Type="Self.Product Type" Multiplicity="1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product Type">
+            <Principal Role="ProductType">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Product">
@@ -642,10 +630,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stores_Store Status">
-          <End Role="Store Status" Type="Self.Store Status" Multiplicity="0..1" />
+          <End Role="StoreStatus" Type="Self.StoreStatus" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Store Status">
+            <Principal Role="StoreStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Stores">
@@ -738,14 +726,26 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_User Status">
-          <End Role="User Status" Type="Self.User Status" Multiplicity="1" />
+          <End Role="UserStatus" Type="Self.UserStatus" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User Status">
+            <Principal Role="UserStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Users">
               <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserWishlist">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -763,24 +763,24 @@
         </Association>
         <Association Name="FK_Wish list_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Wish list" Type="Self.Wish list" Multiplicity="*" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Wish list">
+            <Dependent Role="Wishlist">
               <PropertyRef Name="ProductDetailID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wish list_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Wish list" Type="Self.Wish list" Multiplicity="*" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Wish list">
+            <Dependent Role="Wishlist">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -798,20 +798,24 @@
           <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProducerStatus" EntityType="Self.ProducerStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Product Type" EntityType="Self.Product Type" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipperRating" EntityType="Self.ShipperRating" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShippingDetail" EntityType="Self.ShippingDetail" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Store Status" EntityType="Self.Store Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreStatus" EntityType="Self.StoreStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StroreRating" EntityType="Self.StroreRating" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User Status" EntityType="Self.User Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Wish list" EntityType="Self.Wish list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ProductTy__CateI__534D60F1" Association="Self.FK__ProductTy__CateI__534D60F1">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="ProductType" EntitySet="ProductType" />
+          </AssociationSet>
           <AssociationSet Name="FK_Comment_ProductDetail" Association="Self.FK_Comment_ProductDetail">
             <End Role="Product" EntitySet="Product" />
             <End Role="Comment" EntitySet="Comment" />
@@ -856,14 +860,6 @@
             <End Role="ProducerStatus" EntitySet="ProducerStatus" />
             <End Role="Producer" EntitySet="Producer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Product Type_Categories" Association="Self.FK_Product Type_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Product Type" EntitySet="Product Type" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetail_Categories" Association="Self.FK_ProductDetail_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Country" Association="Self.FK_ProductDetail_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Product" EntitySet="Product" />
@@ -873,7 +869,7 @@
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Product Type" Association="Self.FK_ProductDetail_Product Type">
-            <End Role="Product Type" EntitySet="Product Type" />
+            <End Role="ProductType" EntitySet="ProductType" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_ProductStatus" Association="Self.FK_ProductDetail_ProductStatus">
@@ -925,7 +921,7 @@
             <End Role="ShippingDetail" EntitySet="ShippingDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_Stores_Store Status" Association="Self.FK_Stores_Store Status">
-            <End Role="Store Status" EntitySet="Store Status" />
+            <End Role="StoreStatus" EntitySet="StoreStatus" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_Stores_Users" Association="Self.FK_Stores_Users">
@@ -957,8 +953,12 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_User Status" Association="Self.FK_Users_User Status">
-            <End Role="User Status" EntitySet="User Status" />
+            <End Role="UserStatus" EntitySet="UserStatus" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserWishlist" Association="Self.FK_UserWishlist">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
           <AssociationSet Name="FK_Ward_District" Association="Self.FK_Ward_District">
             <End Role="District" EntitySet="District" />
@@ -966,11 +966,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Wish list_Product" Association="Self.FK_Wish list_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="Wish list" EntitySet="Wish list" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
           <AssociationSet Name="FK_Wish list_Users" Association="Self.FK_Wish list_Users">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Wish list" EntitySet="Wish list" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -984,8 +984,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Product_Type" Relationship="Self.FK_Product_Type_Categories" FromRole="Categories" ToRole="Product_Type" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Categories" FromRole="Categories" ToRole="Product" />
+          <NavigationProperty Name="ProductTypes" Relationship="Self.FK__ProductTy__CateI__534D60F1" FromRole="Categories" ToRole="ProductType" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
@@ -1136,7 +1135,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Manufactured_CountryID" Type="Int32" Nullable="false" />
           <Property Name="ProducerID" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
@@ -1144,27 +1143,16 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
           <Property Name="StoreID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_ProductDetail_Categories" FromRole="Product" ToRole="Categories" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ProductDetail" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="Country" Relationship="Self.FK_ProductDetail_Country" FromRole="Product" ToRole="Country" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Image_ProductDetail" FromRole="Product" ToRole="Image" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_ProductDetail" FromRole="Product" ToRole="OrderDetail" />
           <NavigationProperty Name="Producer" Relationship="Self.FK_ProductDetail_Producer" FromRole="Product" ToRole="Producer" />
-          <NavigationProperty Name="Product_Type" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="Product" ToRole="Product_Type" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="Product" ToRole="ProductType" />
           <NavigationProperty Name="ProductStatu" Relationship="Self.FK_ProductDetail_ProductStatus" FromRole="Product" ToRole="ProductStatus" />
           <NavigationProperty Name="Store" Relationship="Self.FK_ProductDetail_Stores" FromRole="Product" ToRole="Stores" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_ProductDetail" FromRole="Product" ToRole="Rating" />
-          <NavigationProperty Name="Wish_list" Relationship="Self.FK_Wish_list_Product" FromRole="Product" ToRole="Wish_list" />
-        </EntityType>
-        <EntityType Name="Product_Type">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Type_Categories" FromRole="Product_Type" ToRole="Categories" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="Product_Type" ToRole="Product" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK_Wish_list_Product" FromRole="Product" ToRole="Wishlist" />
         </EntityType>
         <EntityType Name="ProductStatu">
           <Key>
@@ -1173,6 +1161,16 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_ProductStatus" FromRole="ProductStatus" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CateID" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__ProductTy__CateI__534D60F1" FromRole="ProductType" ToRole="Categories" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="ProductType" ToRole="Product" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -1245,14 +1243,6 @@
           <NavigationProperty Name="User" Relationship="Self.FK_ShippingDetail_Users" FromRole="ShippingDetail" ToRole="Users" />
           <NavigationProperty Name="Ward" Relationship="Self.FK_ShippingDetail_Ward" FromRole="ShippingDetail" ToRole="Ward" />
         </EntityType>
-        <EntityType Name="Store_Status">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Store_Status" FromRole="Store_Status" ToRole="Stores" />
-        </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="ID" />
@@ -1268,9 +1258,17 @@
           <Property Name="StatusID" Type="Int32" />
           <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Stores" FromRole="Stores" ToRole="Partner" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Stores" FromRole="Stores" ToRole="Product" />
-          <NavigationProperty Name="Store_Status" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="Store_Status" />
+          <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Stores_Users" FromRole="Stores" ToRole="Users" />
           <NavigationProperty Name="StroreRatings" Relationship="Self.FK_StroreRating_Stores" FromRole="Stores" ToRole="StroreRating" />
+        </EntityType>
+        <EntityType Name="StoreStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Store_Status" FromRole="StoreStatus" ToRole="Stores" />
         </EntityType>
         <EntityType Name="StroreRating">
           <Key>
@@ -1283,14 +1281,6 @@
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Store" Relationship="Self.FK_StroreRating_Stores" FromRole="StroreRating" ToRole="Stores" />
           <NavigationProperty Name="User" Relationship="Self.FK_StroreRating_Users" FromRole="StroreRating" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="User_Status">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.FK_Users_User_Status" FromRole="User_Status" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1328,8 +1318,17 @@
           <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Users" FromRole="Users" ToRole="ShippingDetail" />
           <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Users" FromRole="Users" ToRole="Stores" />
           <NavigationProperty Name="StroreRatings" Relationship="Self.FK_StroreRating_Users" FromRole="Users" ToRole="StroreRating" />
-          <NavigationProperty Name="User_Status" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="User_Status" />
-          <NavigationProperty Name="Wish_list" Relationship="Self.FK_Wish_list_Users" FromRole="Users" ToRole="Wish_list" />
+          <NavigationProperty Name="UserStatu" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="UserStatus" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK_UserWishlist" FromRole="Users" ToRole="Wishlist" />
+          <NavigationProperty Name="Wishlists1" Relationship="Self.FK_Wish_list_Users" FromRole="Users" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_User_Status" FromRole="UserStatus" ToRole="Users" />
         </EntityType>
         <EntityType Name="Ward">
           <Key>
@@ -1346,37 +1345,26 @@
           <NavigationProperty Name="District" Relationship="Self.FK_Ward_District" FromRole="Ward" ToRole="District" />
           <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Ward" FromRole="Ward" ToRole="ShippingDetail" />
         </EntityType>
-        <EntityType Name="Wish_list">
+        <EntityType Name="Wishlist">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ProductDetailID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_Wish_list_Product" FromRole="Wish_list" ToRole="Product" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Wish_list_Users" FromRole="Wish_list" ToRole="Users" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Wish_list_Product" FromRole="Wishlist" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserWishlist" FromRole="Wishlist" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Wish_list_Users" FromRole="Wishlist" ToRole="Users" />
         </EntityType>
-        <Association Name="FK_Product_Type_Categories">
-          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="*" />
+        <Association Name="FK__ProductTy__CateI__534D60F1">
+          <End Role="Categories" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Product_Type">
-              <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductDetail_Categories">
-          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Categories">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProductID" />
+            <Dependent Role="ProductType">
+              <PropertyRef Name="CateID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1611,10 +1599,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductDetail_Product_Type">
-          <End Role="Product_Type" Type="Self.Product_Type" Multiplicity="1" />
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Product_Type">
+            <Principal Role="ProductType">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Product">
@@ -1660,12 +1648,12 @@
         </Association>
         <Association Name="FK_Wish_list_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Wish_list" Type="Self.Wish_list" Multiplicity="*" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Wish_list">
+            <Dependent Role="Wishlist">
               <PropertyRef Name="ProductDetailID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1767,10 +1755,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stores_Store_Status">
-          <End Role="Store_Status" Type="Self.Store_Status" Multiplicity="0..1" />
+          <End Role="StoreStatus" Type="Self.StoreStatu" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Store_Status">
+            <Principal Role="StoreStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Stores">
@@ -1815,10 +1803,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_User_Status">
-          <End Role="User_Status" Type="Self.User_Status" Multiplicity="1" />
+          <End Role="UserStatus" Type="Self.UserStatu" Multiplicity="1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User_Status">
+            <Principal Role="UserStatus">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Users">
@@ -1826,14 +1814,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Wish_list_Users">
+        <Association Name="FK_UserWishlist">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Wish_list" Type="Self.Wish_list" Multiplicity="*" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="Wish_list">
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wish_list_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Wishlist">
               <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1851,27 +1851,23 @@
           <EntitySet Name="Producers" EntityType="Self.Producer" />
           <EntitySet Name="ProducerStatus" EntityType="Self.ProducerStatu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Product_Types" EntityType="Self.Product_Type" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatu" />
+          <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="Ratings" EntityType="Self.Rating" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="ShipperRatings" EntityType="Self.ShipperRating" />
           <EntitySet Name="ShippingDetails" EntityType="Self.ShippingDetail" />
-          <EntitySet Name="Store_Status" EntityType="Self.Store_Status" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
+          <EntitySet Name="StoreStatus" EntityType="Self.StoreStatu" />
           <EntitySet Name="StroreRatings" EntityType="Self.StroreRating" />
-          <EntitySet Name="User_Status" EntityType="Self.User_Status" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatu" />
           <EntitySet Name="Wards" EntityType="Self.Ward" />
-          <EntitySet Name="Wish_lists" EntityType="Self.Wish_list" />
-          <AssociationSet Name="FK_Product_Type_Categories" Association="Self.FK_Product_Type_Categories">
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+          <AssociationSet Name="FK__ProductTy__CateI__534D60F1" Association="Self.FK__ProductTy__CateI__534D60F1">
             <End Role="Categories" EntitySet="Categories" />
-            <End Role="Product_Type" EntitySet="Product_Types" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetail_Categories" Association="Self.FK_ProductDetail_Categories">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductType" EntitySet="ProductTypes" />
           </AssociationSet>
           <AssociationSet Name="FK_Comment_ProductDetail" Association="Self.FK_Comment_ProductDetail">
             <End Role="Product" EntitySet="Products" />
@@ -1950,7 +1946,7 @@
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Product_Type" Association="Self.FK_ProductDetail_Product_Type">
-            <End Role="Product_Type" EntitySet="Product_Types" />
+            <End Role="ProductType" EntitySet="ProductTypes" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_ProductStatus" Association="Self.FK_ProductDetail_ProductStatus">
@@ -1967,7 +1963,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Wish_list_Product" Association="Self.FK_Wish_list_Product">
             <End Role="Product" EntitySet="Products" />
-            <End Role="Wish_list" EntitySet="Wish_lists" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
           <AssociationSet Name="FK_ShippingDetail_Province" Association="Self.FK_ShippingDetail_Province">
             <End Role="Province" EntitySet="Provinces" />
@@ -2002,7 +1998,7 @@
             <End Role="ShippingDetail" EntitySet="ShippingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Stores_Store_Status" Association="Self.FK_Stores_Store_Status">
-            <End Role="Store_Status" EntitySet="Store_Status" />
+            <End Role="StoreStatus" EntitySet="StoreStatus" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_Stores_Users" Association="Self.FK_Stores_Users">
@@ -2018,12 +2014,16 @@
             <End Role="StroreRating" EntitySet="StroreRatings" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_User_Status" Association="Self.FK_Users_User_Status">
-            <End Role="User_Status" EntitySet="User_Status" />
+            <End Role="UserStatus" EntitySet="UserStatus" />
             <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserWishlist" Association="Self.FK_UserWishlist">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
           <AssociationSet Name="FK_Wish_list_Users" Association="Self.FK_Wish_list_Users">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Wish_list" EntitySet="Wish_lists" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -2187,20 +2187,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Product_Types">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Product_Type">
-              <MappingFragment StoreEntitySet="Product Type">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ProductStatus">
             <EntityTypeMapping TypeName="EasyShoppingModel.ProductStatu">
               <MappingFragment StoreEntitySet="ProductStatus">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="EasyShoppingModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CateID" ColumnName="CateID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2266,14 +2266,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Store_Status">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Store_Status">
-              <MappingFragment StoreEntitySet="Store Status">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="EasyShoppingModel.Store">
               <MappingFragment StoreEntitySet="Stores">
@@ -2289,6 +2281,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StoreStatus">
+            <EntityTypeMapping TypeName="EasyShoppingModel.StoreStatu">
+              <MappingFragment StoreEntitySet="StoreStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="StroreRatings">
             <EntityTypeMapping TypeName="EasyShoppingModel.StroreRating">
               <MappingFragment StoreEntitySet="StroreRating">
@@ -2297,14 +2297,6 @@
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="User_Status">
-            <EntityTypeMapping TypeName="EasyShoppingModel.User_Status">
-              <MappingFragment StoreEntitySet="User Status">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2333,6 +2325,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="EasyShoppingModel.UserStatu">
+              <MappingFragment StoreEntitySet="UserStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Wards">
             <EntityTypeMapping TypeName="EasyShoppingModel.Ward">
               <MappingFragment StoreEntitySet="Ward">
@@ -2347,9 +2347,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Wish_lists">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Wish_list">
-              <MappingFragment StoreEntitySet="Wish list">
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="EasyShoppingModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />

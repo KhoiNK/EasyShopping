@@ -26,7 +26,8 @@ namespace Easyshopping.DataAccess.Models.Entity
             this.ShippingDetails = new HashSet<ShippingDetail>();
             this.Stores = new HashSet<Store>();
             this.StroreRatings = new HashSet<StroreRating>();
-            this.Wish_list = new HashSet<Wish_list>();
+            this.Wishlists = new HashSet<Wishlist>();
+            this.Wishlists1 = new HashSet<Wishlist>();
         }
     
         public int ID { get; set; }
@@ -71,8 +72,10 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual ICollection<Store> Stores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StroreRating> StroreRatings { get; set; }
-        public virtual User_Status User_Status { get; set; }
+        public virtual UserStatu UserStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wish_list> Wish_list { get; set; }
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists1 { get; set; }
     }
 }

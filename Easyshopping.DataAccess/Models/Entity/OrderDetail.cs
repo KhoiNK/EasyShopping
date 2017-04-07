@@ -24,6 +24,5 @@ namespace Easyshopping.DataAccess.Models.Entity
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
-        public object CreateDate { get; set; }
     }
 }
