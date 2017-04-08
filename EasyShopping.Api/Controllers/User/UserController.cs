@@ -1,4 +1,4 @@
-﻿using EasyShopping.Api.Models.User;
+﻿using EasyShopping.Api.Models;
 using EasyShopping.BusinessLogic.Business;
 using System;
 using System.Collections.Generic;

@@ -1,9 +1,9 @@
 ﻿
 using System;
 
-namespace EasyShopping.BusinessLogic.Models
+namespace EasyShopping.Api.Models
 {
-    public class CommentDTO
+    public class CommentApiModel
     {
         public int Id { get; set; }
         public string Description { get; set; }

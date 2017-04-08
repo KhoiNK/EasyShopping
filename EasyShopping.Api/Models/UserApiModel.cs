@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace EasyShopping.Api.Models.User
+namespace EasyShopping.Api.Models
 {
     public class UserApiModel
     {
@@ -12,9 +9,9 @@ namespace EasyShopping.Api.Models.User
         public string PassWord { get; set; }
         public string First_Name { get; set; }
         public string Last_Name { get; set; }
-        public System.DateTime DOB { get; set; }
+        public DateTime DOB { get; set; }
         public string Email { get; set; }
-        public System.DateTime RegDate { get; set; }
+        public DateTime RegDate { get; set; }
         public int StatusID { get; set; }
         public string Phone { get; set; }
         public bool Sex { get; set; }
@@ -23,7 +20,7 @@ namespace EasyShopping.Api.Models.User
         public string Address { get; set; }
         public string Img_Link { get; set; }
         public int RoleID { get; set; }
-        public System.DateTime Modified_Date { get; set; }
+        public DateTime Modified_Date { get; set; }
         public int CountryID { get; set; }
         public bool isSocialLogin { get; set; }
     }

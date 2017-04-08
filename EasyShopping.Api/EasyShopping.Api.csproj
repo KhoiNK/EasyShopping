@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -198,16 +202,21 @@
     <Compile Include="Controllers\User\UserController.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Country\CountryApiModel.cs" />
-    <Compile Include="Models\Country\CountryTranslator.cs" />
-    <Compile Include="Models\District\DistrictApiModel.cs" />
-    <Compile Include="Models\District\DistrictTranslator.cs" />
+    <Compile Include="Models\CategoryApiModel.cs" />
+    <Compile Include="Models\CommentApiModel.cs" />
+    <Compile Include="Models\CountryApiModel.cs" />
+    <Compile Include="Models\DistrictApiModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Province\ProvinceApiModel.cs" />
-    <Compile Include="Models\Province\ProvinceTranslator.cs" />
+    <Compile Include="Models\ImageApiModel.cs" />
+    <Compile Include="Models\OrderDetailApiModel.cs" />
+    <Compile Include="Models\OrderApiModel.cs" />
+    <Compile Include="Models\OrderStatusDTO.cs" />
+    <Compile Include="Models\PartnerDTO.cs" />
+    <Compile Include="Models\ProducerDTO.cs" />
+    <Compile Include="Models\ProvinceApiModel.cs" />
     <Compile Include="Models\Translator.cs" />
-    <Compile Include="Models\User\UserApiModel.cs" />
-    <Compile Include="Models\User\UserTranslator.cs" />
+    <Compile Include="Models\UserApiModel.cs" />
+    <Compile Include="Models\WardDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\ApplicationRefreshTokenProvider.cs" />

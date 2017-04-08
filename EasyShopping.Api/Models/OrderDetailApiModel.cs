@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace EasyShopping.BusinessLogic.Models
+namespace EasyShopping.Api.Models
 {
-    public class OrderDetailDTO
+    public class OrderDetailApiModel
     {
         public int ID { get; set; }
         public int OrderID { get; set; }

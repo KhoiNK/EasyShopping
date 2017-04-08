@@ -21,9 +21,9 @@ namespace EasyShopping.BusinessLogic.Models
         public string CountryCode3 { get; set; }
         public string CountryNumber { get; set; }
         public string InternetCountryCode { get; set; }
-        public Nullable<int> SortOrder { get; set; }
-        public Nullable<bool> IsPublished { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsPublished { get; set; }
         public string Flags { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -5,14 +5,13 @@ using System.Web;
 
 namespace EasyShopping.BusinessLogic.Models
 {
-    public class OrderDetailDTO
+    public class PartnerDTO
     {
         public int ID { get; set; }
-        public int OrderID { get; set; }
+        public int StoreID { get; set; }
         public DateTime CreateDate { get; set; }
-        public int ProductID { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int ModifiedID { get; set; }
-        public int Quantity { get; set; }
+        public int UserID { get; set; }
     }
 }

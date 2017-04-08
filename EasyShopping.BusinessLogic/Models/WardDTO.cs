@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace EasyShopping.BusinessLogic.Models
+﻿namespace EasyShopping.BusinessLogic.Models
 {
     public class WardDTO
     {
@@ -13,7 +8,7 @@ namespace EasyShopping.BusinessLogic.Models
         public string LatiLongTude { get; set; }
         public int DistrictID { get; set; }
         public int SortOrder { get; set; }
-        public Nullable<bool> IsPublished { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsPublished { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
