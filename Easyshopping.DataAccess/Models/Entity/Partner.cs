@@ -20,6 +20,8 @@ namespace Easyshopping.DataAccess.Models.Entity
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedID { get; set; }
         public Nullable<int> UseID { get; set; }
+        public Nullable<bool> isClosed { get; set; }
+        public Nullable<bool> isWorking { get; set; }
     
         public virtual Store Store { get; set; }
         public virtual User User { get; set; }

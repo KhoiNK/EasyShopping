@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="ID" />
@@ -113,6 +113,8 @@
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedID" Type="int" />
           <Property Name="UseID" Type="int" />
+          <Property Name="isClosed" Type="bit" />
+          <Property Name="isWorking" Type="bit" />
         </EntityType>
         <EntityType Name="Producer">
           <Key>
@@ -219,6 +221,7 @@
           <Property Name="ProvinceID" Type="int" />
           <Property Name="DistrictID" Type="int" />
           <Property Name="WardID" Type="int" />
+          <Property Name="ShipperID" Type="int" />
         </EntityType>
         <EntityType Name="Stores">
           <Key>
@@ -617,6 +620,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ShippingDetail_Users1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="ShipperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShippingDetail_Ward">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
@@ -916,6 +931,10 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ShippingDetail" EntitySet="ShippingDetail" />
           </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Users1" Association="Self.FK_ShippingDetail_Users1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetail" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShippingDetail_Ward" Association="Self.FK_ShippingDetail_Ward">
             <End Role="Ward" EntitySet="Ward" />
             <End Role="ShippingDetail" EntitySet="ShippingDetail" />
@@ -973,8 +992,7 @@
             <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1039,9 +1057,9 @@
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Province" Relationship="Self.FK_District_Province" FromRole="District" ToRole="Province" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_District" FromRole="District" ToRole="ShippingDetail" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_District" FromRole="District" ToRole="Users" />
           <NavigationProperty Name="Wards" Relationship="Self.FK_Ward_District" FromRole="District" ToRole="Ward" />
+          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_District" FromRole="District" ToRole="ShippingDetail" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -1070,7 +1088,7 @@
           <NavigationProperty Name="OrderStatu" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_Users" FromRole="Order" ToRole="Users" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Order" FromRole="Order" ToRole="ShippingDetail" />
+          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_Order" FromRole="Order" ToRole="ShippingDetail" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -1093,19 +1111,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_OrderStatus" FromRole="OrderStatus" ToRole="Order" />
-        </EntityType>
-        <EntityType Name="Partner">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StoreID" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedID" Type="Int32" />
-          <Property Name="UseID" Type="Int32" />
-          <NavigationProperty Name="Store" Relationship="Self.FK_Partner_Stores" FromRole="Partner" ToRole="Stores" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Partner_Users" FromRole="Partner" ToRole="Users" />
         </EntityType>
         <EntityType Name="Producer">
           <Key>
@@ -1188,8 +1193,8 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Country" Relationship="Self.FK_Province_Country" FromRole="Province" ToRole="Country" />
           <NavigationProperty Name="Districts" Relationship="Self.FK_District_Province" FromRole="Province" ToRole="District" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Province" FromRole="Province" ToRole="ShippingDetail" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Province" FromRole="Province" ToRole="Users" />
+          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_Province" FromRole="Province" ToRole="ShippingDetail" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -1222,27 +1227,6 @@
           <NavigationProperty Name="User" Relationship="Self.FK_ShipperRating_Users" FromRole="ShipperRating" ToRole="Users" />
           <NavigationProperty Name="User1" Relationship="Self.FK_ShipperRating_Users1" FromRole="ShipperRating" ToRole="Users" />
         </EntityType>
-        <EntityType Name="ShippingDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderID" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedID" Type="Int32" />
-          <Property Name="UseID" Type="Int32" />
-          <Property Name="Delay" Type="Boolean" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="ProvinceID" Type="Int32" />
-          <Property Name="DistrictID" Type="Int32" />
-          <Property Name="WardID" Type="Int32" />
-          <NavigationProperty Name="District" Relationship="Self.FK_ShippingDetail_District" FromRole="ShippingDetail" ToRole="District" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_ShippingDetail_Order" FromRole="ShippingDetail" ToRole="Order" />
-          <NavigationProperty Name="Province" Relationship="Self.FK_ShippingDetail_Province" FromRole="ShippingDetail" ToRole="Province" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ShippingDetail_Users" FromRole="ShippingDetail" ToRole="Users" />
-          <NavigationProperty Name="Ward" Relationship="Self.FK_ShippingDetail_Ward" FromRole="ShippingDetail" ToRole="Ward" />
-        </EntityType>
         <EntityType Name="Store">
           <Key>
             <PropertyRef Name="ID" />
@@ -1256,11 +1240,11 @@
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Img_Link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StatusID" Type="Int32" />
-          <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Stores" FromRole="Stores" ToRole="Partner" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Stores" FromRole="Stores" ToRole="Product" />
           <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Stores_Users" FromRole="Stores" ToRole="Users" />
           <NavigationProperty Name="StroreRatings" Relationship="Self.FK_StroreRating_Stores" FromRole="Stores" ToRole="StroreRating" />
+          <NavigationProperty Name="Partners" Relationship="EasyShoppingModel.FK_Partner_Stores" FromRole="Store" ToRole="Partner" />
         </EntityType>
         <EntityType Name="StoreStatu">
           <Key>
@@ -1309,18 +1293,19 @@
           <NavigationProperty Name="Country" Relationship="Self.FK_Users_Country" FromRole="Users" ToRole="Country" />
           <NavigationProperty Name="District" Relationship="Self.FK_Users_District" FromRole="Users" ToRole="District" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Users" FromRole="Users" ToRole="Order" />
-          <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Users" FromRole="Users" ToRole="Partner" />
           <NavigationProperty Name="Province" Relationship="Self.FK_Users_Province" FromRole="Users" ToRole="Province" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_Users" FromRole="Users" ToRole="Rating" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_Users" FromRole="Users" ToRole="ShipperRating" />
           <NavigationProperty Name="ShipperRatings1" Relationship="Self.FK_ShipperRating_Users1" FromRole="Users" ToRole="ShipperRating" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Users" FromRole="Users" ToRole="ShippingDetail" />
           <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Users" FromRole="Users" ToRole="Stores" />
           <NavigationProperty Name="StroreRatings" Relationship="Self.FK_StroreRating_Users" FromRole="Users" ToRole="StroreRating" />
           <NavigationProperty Name="UserStatu" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="UserStatus" />
           <NavigationProperty Name="Wishlists" Relationship="Self.FK_UserWishlist" FromRole="Users" ToRole="Wishlist" />
           <NavigationProperty Name="Wishlists1" Relationship="Self.FK_Wish_list_Users" FromRole="Users" ToRole="Wishlist" />
+          <NavigationProperty Name="Partners" Relationship="EasyShoppingModel.FK_Partner_Users" FromRole="User" ToRole="Partner" />
+          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_Users" FromRole="User" ToRole="ShippingDetail" />
+          <NavigationProperty Name="ShippingDetails1" Relationship="EasyShoppingModel.FK_ShippingDetail_Users1" FromRole="User" ToRole="ShippingDetail" />
         </EntityType>
         <EntityType Name="UserStatu">
           <Key>
@@ -1343,7 +1328,7 @@
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="District" Relationship="Self.FK_Ward_District" FromRole="Ward" ToRole="District" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Ward" FromRole="Ward" ToRole="ShippingDetail" />
+          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_Ward" FromRole="Ward" ToRole="ShippingDetail" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -1442,18 +1427,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShippingDetail_District">
-          <End Role="District" Type="Self.District" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="District">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="DistrictID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_District">
           <End Role="District" Type="Self.District" Multiplicity="1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
@@ -1526,18 +1499,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShippingDetail_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="OrderID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderDetail_ProductDetail">
           <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -1547,30 +1508,6 @@
             </Principal>
             <Dependent Role="OrderDetail">
               <PropertyRef Name="ProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Partner_Stores">
-          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
-          <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stores">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Partner">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Partner_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Partner">
-              <PropertyRef Name="UseID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1658,18 +1595,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShippingDetail_Province">
-          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="ProvinceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Province">
           <End Role="Province" Type="Self.Province" Multiplicity="1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
@@ -1727,30 +1652,6 @@
             </Principal>
             <Dependent Role="ShipperRating">
               <PropertyRef Name="ShipperID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShippingDetail_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="UseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShippingDetail_Ward">
-          <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ward">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="WardID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1847,7 +1748,6 @@
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
-          <EntitySet Name="Partners" EntityType="Self.Partner" />
           <EntitySet Name="Producers" EntityType="Self.Producer" />
           <EntitySet Name="ProducerStatus" EntityType="Self.ProducerStatu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -1857,7 +1757,6 @@
           <EntitySet Name="Ratings" EntityType="Self.Rating" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="ShipperRatings" EntityType="Self.ShipperRating" />
-          <EntitySet Name="ShippingDetails" EntityType="Self.ShippingDetail" />
           <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="StoreStatus" EntityType="Self.StoreStatu" />
           <EntitySet Name="StroreRatings" EntityType="Self.StroreRating" />
@@ -1893,10 +1792,6 @@
             <End Role="Province" EntitySet="Provinces" />
             <End Role="District" EntitySet="Districts" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_District" Association="Self.FK_ShippingDetail_District">
-            <End Role="District" EntitySet="Districts" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_District" Association="Self.FK_Users_District">
             <End Role="District" EntitySet="Districts" />
             <End Role="Users" EntitySet="Users" />
@@ -1921,21 +1816,9 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Order" Association="Self.FK_ShippingDetail_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_ProductDetail" Association="Self.FK_OrderDetail_ProductDetail">
             <End Role="Product" EntitySet="Products" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Partner_Stores" Association="Self.FK_Partner_Stores">
-            <End Role="Stores" EntitySet="Stores" />
-            <End Role="Partner" EntitySet="Partners" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Partner_Users" Association="Self.FK_Partner_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Partner" EntitySet="Partners" />
           </AssociationSet>
           <AssociationSet Name="FK_Producer_ProducerStatus" Association="Self.FK_Producer_ProducerStatus">
             <End Role="ProducerStatus" EntitySet="ProducerStatus" />
@@ -1965,10 +1848,6 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Province" Association="Self.FK_ShippingDetail_Province">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_Province" Association="Self.FK_Users_Province">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Users" EntitySet="Users" />
@@ -1988,14 +1867,6 @@
           <AssociationSet Name="FK_ShipperRating_Users1" Association="Self.FK_ShipperRating_Users1">
             <End Role="Users" EntitySet="Users" />
             <End Role="ShipperRating" EntitySet="ShipperRatings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Users" Association="Self.FK_ShippingDetail_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Ward" Association="Self.FK_ShippingDetail_Ward">
-            <End Role="Ward" EntitySet="Wards" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_Stores_Store_Status" Association="Self.FK_Stores_Store_Status">
             <End Role="StoreStatus" EntitySet="StoreStatus" />
@@ -2025,7 +1896,175 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
+          <EntitySet Name="Partners" EntityType="EasyShoppingModel.Partner" />
+          <EntitySet Name="ShippingDetails" EntityType="EasyShoppingModel.ShippingDetail" />
+          <AssociationSet Name="FK_ShippingDetail_District" Association="EasyShoppingModel.FK_ShippingDetail_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Order" Association="EasyShoppingModel.FK_ShippingDetail_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partner_Stores" Association="EasyShoppingModel.FK_Partner_Stores">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Partner" EntitySet="Partners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Partner_Users" Association="EasyShoppingModel.FK_Partner_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Partner" EntitySet="Partners" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Province" Association="EasyShoppingModel.FK_ShippingDetail_Province">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Users" Association="EasyShoppingModel.FK_ShippingDetail_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Users1" Association="EasyShoppingModel.FK_ShippingDetail_Users1">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_Ward" Association="EasyShoppingModel.FK_ShippingDetail_Ward">
+            <End Role="Ward" EntitySet="Wards" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Partner">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StoreID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedID" Type="Int32" />
+          <Property Name="UseID" Type="Int32" />
+          <Property Name="isClosed" Type="Boolean" />
+          <Property Name="isWorking" Type="Boolean" />
+          <NavigationProperty Name="Store" Relationship="EasyShoppingModel.FK_Partner_Stores" FromRole="Partner" ToRole="Store" />
+          <NavigationProperty Name="User" Relationship="EasyShoppingModel.FK_Partner_Users" FromRole="Partner" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ShippingDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedID" Type="Int32" />
+          <Property Name="UseID" Type="Int32" />
+          <Property Name="Delay" Type="Boolean" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="ProvinceID" Type="Int32" />
+          <Property Name="DistrictID" Type="Int32" />
+          <Property Name="WardID" Type="Int32" />
+          <Property Name="ShipperID" Type="Int32" />
+          <NavigationProperty Name="District" Relationship="EasyShoppingModel.FK_ShippingDetail_District" FromRole="ShippingDetail" ToRole="District" />
+          <NavigationProperty Name="Order" Relationship="EasyShoppingModel.FK_ShippingDetail_Order" FromRole="ShippingDetail" ToRole="Order" />
+          <NavigationProperty Name="Province" Relationship="EasyShoppingModel.FK_ShippingDetail_Province" FromRole="ShippingDetail" ToRole="Province" />
+          <NavigationProperty Name="User" Relationship="EasyShoppingModel.FK_ShippingDetail_Users" FromRole="ShippingDetail" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="EasyShoppingModel.FK_ShippingDetail_Users1" FromRole="ShippingDetail" ToRole="User" />
+          <NavigationProperty Name="Ward" Relationship="EasyShoppingModel.FK_ShippingDetail_Ward" FromRole="ShippingDetail" ToRole="Ward" />
+        </EntityType>
+        <Association Name="FK_ShippingDetail_District">
+          <End Type="EasyShoppingModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_Order">
+          <End Type="EasyShoppingModel.Order" Role="Order" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partner_Stores">
+          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.Partner" Role="Partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partner">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Partner_Users">
+          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.Partner" Role="Partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partner">
+              <PropertyRef Name="UseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_Province">
+          <End Type="EasyShoppingModel.Province" Role="Province" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="ProvinceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_Users">
+          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="UseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_Users1">
+          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="ShipperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_Ward">
+          <End Type="EasyShoppingModel.Ward" Role="Ward" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="WardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2138,18 +2177,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Partners">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Partner">
-              <MappingFragment StoreEntitySet="Partner">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedID" ColumnName="ModifiedID" />
-                <ScalarProperty Name="UseID" ColumnName="UseID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Producers">
             <EntityTypeMapping TypeName="EasyShoppingModel.Producer">
               <MappingFragment StoreEntitySet="Producer">
@@ -2249,23 +2276,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ShippingDetails">
-            <EntityTypeMapping TypeName="EasyShoppingModel.ShippingDetail">
-              <MappingFragment StoreEntitySet="ShippingDetail">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedID" ColumnName="ModifiedID" />
-                <ScalarProperty Name="UseID" ColumnName="UseID" />
-                <ScalarProperty Name="Delay" ColumnName="Delay" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
-                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
-                <ScalarProperty Name="WardID" ColumnName="WardID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="EasyShoppingModel.Store">
               <MappingFragment StoreEntitySet="Stores">
@@ -2353,6 +2363,38 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partners">
+            <EntityTypeMapping TypeName="EasyShoppingModel.Partner">
+              <MappingFragment StoreEntitySet="Partner">
+                <ScalarProperty Name="isWorking" ColumnName="isWorking" />
+                <ScalarProperty Name="isClosed" ColumnName="isClosed" />
+                <ScalarProperty Name="UseID" ColumnName="UseID" />
+                <ScalarProperty Name="ModifiedID" ColumnName="ModifiedID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="StoreID" ColumnName="StoreID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShippingDetails">
+            <EntityTypeMapping TypeName="EasyShoppingModel.ShippingDetail">
+              <MappingFragment StoreEntitySet="ShippingDetail">
+                <ScalarProperty Name="ShipperID" ColumnName="ShipperID" />
+                <ScalarProperty Name="WardID" ColumnName="WardID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="Delay" ColumnName="Delay" />
+                <ScalarProperty Name="UseID" ColumnName="UseID" />
+                <ScalarProperty Name="ModifiedID" ColumnName="ModifiedID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

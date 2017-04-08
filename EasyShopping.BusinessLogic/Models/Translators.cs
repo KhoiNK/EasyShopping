@@ -37,7 +37,8 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<OrderDTO, Order>();
                 cfg.CreateMap<Order, OrderDTO>();
 
-
+                //cfg.CreateMap<Order, Order>();
+                //cfg.CreateMap<Order, OrderDTO>();
                 //cfg.CreateMap<..., ...>();
             });
 

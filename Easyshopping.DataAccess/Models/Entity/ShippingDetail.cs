@@ -25,11 +25,13 @@ namespace Easyshopping.DataAccess.Models.Entity
         public Nullable<int> ProvinceID { get; set; }
         public Nullable<int> DistrictID { get; set; }
         public Nullable<int> WardID { get; set; }
+        public Nullable<int> ShipperID { get; set; }
     
         public virtual District District { get; set; }
         public virtual Order Order { get; set; }
         public virtual Province Province { get; set; }
         public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
         public virtual Ward Ward { get; set; }
     }
 }
