@@ -1,4 +1,4 @@
-﻿namespace EasyShopping.Api.Models.Country
+﻿namespace EasyShopping.Api.Models
 {
     public class CountryApiModel
     {

@@ -1,6 +1,6 @@
 ﻿namespace EasyShopping.Api.Models
 {
-    public class WardDTO
+    public class WardApiModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

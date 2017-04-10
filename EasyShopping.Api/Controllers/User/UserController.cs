@@ -1,5 +1,6 @@
 ﻿using EasyShopping.Api.Models;
 using EasyShopping.BusinessLogic.Business;
+using EasyShopping.BusinessLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +21,14 @@ namespace EasyShopping.Api.Controllers
         {
             UserBusinessLogic _business = new UserBusinessLogic();
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
-            return _business.GetAll().ToUserApi();
+            return _business.GetAll().Translate<UserDTO, UserApiModel>();
         }
 
         // GET api/values/5
         public UserApiModel Get(int id)
         {
             UserBusinessLogic _business = new UserBusinessLogic();
-            UserApiModel user = _business.GetUserByID(id).ToUserApi();
+            UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetUserByID(id));
             return user;
         }
 
@@ -35,7 +36,7 @@ namespace EasyShopping.Api.Controllers
         public UserApiModel Post([FromBody]UserApiModel user)
         {
             UserBusinessLogic _business = new UserBusinessLogic();
-            if(_business.Register(user.ToUserBusiness()) == null)
+            if(_business.Register(user.Translate<UserApiModel,UserDTO>()) == null)
             {
                 return null;
             }

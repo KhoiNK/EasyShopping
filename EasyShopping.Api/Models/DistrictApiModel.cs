@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace EasyShopping.Api.Models.District
+namespace EasyShopping.Api.Models
 {
     public class DistrictApiModel
     {
@@ -12,8 +12,8 @@ namespace EasyShopping.Api.Models.District
         public string Type { get; set; }
         public string LatiLongTude { get; set; }
         public int ProvinceId { get; set; }
-        public Nullable<int> SortOrder { get; set; }
-        public Nullable<bool> IsPublished { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public int SortOrder { get; set; }
+        public bool IsPublished { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
