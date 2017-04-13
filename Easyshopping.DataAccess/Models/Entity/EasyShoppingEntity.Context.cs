@@ -33,6 +33,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
+        public virtual DbSet<Partner> Partners { get; set; }
         public virtual DbSet<Producer> Producers { get; set; }
         public virtual DbSet<ProducerStatu> ProducerStatus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -42,6 +43,7 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<ShipperRating> ShipperRatings { get; set; }
+        public virtual DbSet<ShippingDetail> ShippingDetails { get; set; }
         public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<StoreStatu> StoreStatus { get; set; }
         public virtual DbSet<StroreRating> StroreRatings { get; set; }
@@ -49,7 +51,5 @@ namespace Easyshopping.DataAccess.Models.Entity
         public virtual DbSet<UserStatu> UserStatus { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
-        public virtual DbSet<Partner> Partners { get; set; }
-        public virtual DbSet<ShippingDetail> ShippingDetails { get; set; }
     }
 }

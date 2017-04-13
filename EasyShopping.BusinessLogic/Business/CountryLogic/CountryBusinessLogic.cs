@@ -1,6 +1,6 @@
-﻿using Easyshopping.DataAccess.Models.Entity;
-using Easyshopping.DataAccess.Repository.CountryRepo;
+﻿using Easyshopping.DataAccess.Repository.CountryRepo;
 using EasyShopping.BusinessLogic.Models;
+using EasyShopping.Repository.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

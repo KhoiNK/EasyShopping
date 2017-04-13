@@ -13,5 +13,15 @@ namespace EasyShopping.Controllers.User
         {
             return PartialView();
         }
+
+        public ActionResult UserDetail()
+        {
+            return PartialView();
+        }
+
+        public ActionResult EditUser()
+        {
+            return PartialView();
+        }
     }
 }

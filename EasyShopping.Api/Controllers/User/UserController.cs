@@ -14,12 +14,16 @@ namespace EasyShopping.Api.Controllers
     //[Route("v1/nguoidung")]
     public class UserController : ApiController
     {
-        //private UserBusinessLogic _business = null;
+        private UserBusinessLogic _business = null;
+
+        public UserController()
+        {
+            _business = new UserBusinessLogic();
+        }
 
         // GET api/values
         public IEnumerable<UserApiModel> Get()
         {
-            UserBusinessLogic _business = new UserBusinessLogic();
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
             return _business.GetAll().Translate<UserDTO, UserApiModel>();
         }
@@ -27,7 +31,6 @@ namespace EasyShopping.Api.Controllers
         // GET api/values/5
         public UserApiModel Get(int id)
         {
-            UserBusinessLogic _business = new UserBusinessLogic();
             UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetUserByID(id));
             return user;
         }
@@ -35,12 +38,13 @@ namespace EasyShopping.Api.Controllers
         //POST api/values
         public UserApiModel Post([FromBody]UserApiModel user)
         {
-            UserBusinessLogic _business = new UserBusinessLogic();
-            if(_business.Register(user.Translate<UserApiModel,UserDTO>()) == null)
+            UserDTO userdto = ApiTranslators.Translate<UserApiModel, UserDTO>(user);
+            //UserApiModel newuser = ApiTranslators.Translate<UserDTO, UserApiModel>();
+            if(_business.Register(userdto) != null)
             {
-                return null;
+                return user;
             }
-            return user;
+            return null;
         }
 
         // PUT api/values/5
@@ -52,7 +56,6 @@ namespace EasyShopping.Api.Controllers
         // DELETE api/values/5
         public bool Delete(int id)
         {
-            UserBusinessLogic _business = new UserBusinessLogic();
             if (!_business.Delete(id))
             {
                 return false;

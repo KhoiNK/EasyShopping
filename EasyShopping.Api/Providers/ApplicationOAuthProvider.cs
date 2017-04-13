@@ -33,7 +33,7 @@ namespace EasyShopping.Api.Providers
             }
 
             _publicClientId = publicClientId;
-            System.Diagnostics.Debugger.Launch();
+            //System.Diagnostics.Debugger.Launch();
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)

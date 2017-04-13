@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using EasyShopping.BusinessLogic.Models;
+using EasyShopping.Api.Models;
 
 [assembly: OwinStartup(typeof(EasyShopping.Api.Startup))]
 
@@ -21,6 +22,7 @@ namespace EasyShopping.Api
             app.UseWebApi(config);
 
             BusinessTranslators.Init();
+            ApiTranslators.Init();
         }
     }
 }

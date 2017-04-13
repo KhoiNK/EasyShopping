@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 
 using AutoMapper;
-using Easyshopping.DataAccess.Models.Entity;
+using EasyShopping.Repository.Models.Entity;
 
 namespace EasyShopping.BusinessLogic.Models
 {
@@ -16,26 +16,26 @@ namespace EasyShopping.BusinessLogic.Models
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CategoryDTO, Category>();
-                cfg.CreateMap<Category, CategoryDTO>();
+                //cfg.CreateMap<CategoryDTO, Category>();
+                //cfg.CreateMap<Category, CategoryDTO>();
 
-                cfg.CreateMap<UserDTO, User>();
-                cfg.CreateMap<User, UserDTO>();
+                cfg.CreateMap<UserDTO, User>().ForAllMembers(opt => opt.Condition(src => src != null));
+                cfg.CreateMap<User, UserDTO>().ForAllMembers(opt => opt.Condition(src => src != null));
 
-                cfg.CreateMap<CommentDTO, Comment>();
-                cfg.CreateMap<Comment, CommentDTO>();
+                //cfg.CreateMap<CommentDTO, Comment>();
+                //cfg.CreateMap<Comment, CommentDTO>();
 
-                cfg.CreateMap<CountryDTO, Country>();
-                cfg.CreateMap<Country, CountryDTO>();
+                //cfg.CreateMap<CountryDTO, Country>();
+                //cfg.CreateMap<Country, CountryDTO>();
 
-                cfg.CreateMap<DistrictDTO, District>();
-                cfg.CreateMap<District, DistrictDTO>();
+                //cfg.CreateMap<DistrictDTO, District>();
+                //cfg.CreateMap<District, DistrictDTO>();
 
-                cfg.CreateMap<ImageDTO, Image>();
-                cfg.CreateMap<Image, ImageDTO>();
+                //cfg.CreateMap<ImageDTO, Image>();
+                //cfg.CreateMap<Image, ImageDTO>();
 
-                cfg.CreateMap<OrderDTO, Order>();
-                cfg.CreateMap<Order, OrderDTO>();
+                //cfg.CreateMap<OrderDTO, Order>();
+                //cfg.CreateMap<Order, OrderDTO>();
 
                 //cfg.CreateMap<Order, Order>();
                 //cfg.CreateMap<Order, OrderDTO>();
@@ -55,6 +55,22 @@ namespace EasyShopping.BusinessLogic.Models
         {
             return Mapper.Map<IList<TTo>>(dto);
         }
+
+
+        //public static void IgnoreIfSourceIsNull<T>(this IMemberConfigurationExpression<T> expression)
+        //{
+        //    expression.Condition(IgnoreIfSourceIsNull);
+        //}
+
+        //static bool IgnoreIfSourceIsNull(ResolutionContext context)
+        //{
+        //    if (!context.IsSourceValueNull)
+        //    {
+        //        return true;
+        //    }
+        //    var result = context.GetContextPropertyMap().ResolveValue(context.Parent);
+        //    return result.Value != null;
+        //}
 
         /*
         public static Category ToEntity(this CategoryDTO dto)

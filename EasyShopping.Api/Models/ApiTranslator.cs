@@ -13,43 +13,43 @@ namespace EasyShopping.Api.Models
             //Config Mapping
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<CategoryApiModel, CategoryDTO>();
-                cfg.CreateMap<CategoryDTO, CategoryApiModel>();
+                //cfg.CreateMap<CategoryApiModel, CategoryDTO>();
+                //cfg.CreateMap<CategoryDTO, CategoryApiModel>();
 
                 cfg.CreateMap<UserDTO, UserApiModel>();
                 cfg.CreateMap<UserApiModel, UserDTO>();
 
-                cfg.CreateMap<CommentDTO, CommentApiModel>();
-                cfg.CreateMap<CommentApiModel, CommentDTO>();
+                //cfg.CreateMap<CommentDTO, CommentApiModel>();
+                //cfg.CreateMap<CommentApiModel, CommentDTO>();
 
-                cfg.CreateMap<CountryDTO, CountryApiModel>();
-                cfg.CreateMap<CountryApiModel, CountryDTO>();
+                //cfg.CreateMap<CountryDTO, CountryApiModel>();
+                //cfg.CreateMap<CountryApiModel, CountryDTO>();
 
-                cfg.CreateMap<DistrictDTO, DistrictApiModel>();
-                cfg.CreateMap<DistrictApiModel, DistrictDTO>();
+                //cfg.CreateMap<DistrictDTO, DistrictApiModel>();
+                //cfg.CreateMap<DistrictApiModel, DistrictDTO>();
 
-                cfg.CreateMap<ImageApiModel, ImageDTO>();
-                cfg.CreateMap<ImageDTO, ImageApiModel>();
+                //cfg.CreateMap<ImageApiModel, ImageDTO>();
+                //cfg.CreateMap<ImageDTO, ImageApiModel>();
 
-                cfg.CreateMap<OrderApiModel, OrderDTO>();
-                cfg.CreateMap<OrderDTO, OrderApiModel>();
+                //cfg.CreateMap<OrderApiModel, OrderDTO>();
+                //cfg.CreateMap<OrderDTO, OrderApiModel>();
 
-                cfg.CreateMap<OrderDetailApiModel, OrderDetailDTO>();
-                cfg.CreateMap<OrderDetailDTO, OrderDetailApiModel>();
+                //cfg.CreateMap<OrderDetailApiModel, OrderDetailDTO>();
+                //cfg.CreateMap<OrderDetailDTO, OrderDetailApiModel>();
 
-                cfg.CreateMap<OrderStatusApiModel, OrderStatusDTO>();
-                cfg.CreateMap<OrderStatusDTO, OrderStatusApiModel>();
+                //cfg.CreateMap<OrderStatusApiModel, OrderStatusDTO>();
+                //cfg.CreateMap<OrderStatusDTO, OrderStatusApiModel>();
 
-                cfg.CreateMap<PartnerApiModel, PartnerDTO>();
-                cfg.CreateMap<PartnerDTO, PartnerApiModel>();
+                //cfg.CreateMap<PartnerApiModel, PartnerDTO>();
+                //cfg.CreateMap<PartnerDTO, PartnerApiModel>();
 
-                cfg.CreateMap<ProducerApiModel, ProducerDTO>();
-                cfg.CreateMap<ProducerDTO, ProducerApiModel>();
+                //cfg.CreateMap<ProducerApiModel, ProducerDTO>();
+                //cfg.CreateMap<ProducerDTO, ProducerApiModel>();
 
-                cfg.CreateMap<WardApiModel, WardDTO>();
-                cfg.CreateMap<WardDTO, WardApiModel>();
+                //cfg.CreateMap<WardApiModel, WardDTO>();
+                //cfg.CreateMap<WardDTO, WardApiModel>();
                 //cfg.CreateMap<..., ...>();
-            });
+            }) ;
 
             Mapper = config.CreateMapper();
         }

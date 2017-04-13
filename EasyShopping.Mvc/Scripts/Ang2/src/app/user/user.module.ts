@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserComponent } from './user.component';
 import { UserListComponent } from './user-list.component';
 import { routing } from './user.routing';
+import { UserDetailComponent } from './user-detail.component';
+import { UserEditComponent } from './user-edit.component';
 
 @NgModule({
     imports: [
@@ -17,7 +19,9 @@ import { routing } from './user.routing';
     ],
     declarations: [
         UserComponent,
-        UserListComponent
+        UserListComponent,
+        UserDetailComponent,
+        UserEditComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

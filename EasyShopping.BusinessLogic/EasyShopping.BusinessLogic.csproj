@@ -226,9 +226,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Easyshopping.DataAccess\EasyShopping.DataAccess.csproj">
-      <Project>{bcff4bbb-4a78-41e0-a5a0-660fe1d38cdd}</Project>
-      <Name>EasyShopping.DataAccess</Name>
+    <ProjectReference Include="..\EasyShopping.Repository\EasyShopping.Repository.csproj">
+      <Project>{dbc90b27-9c4e-4776-9ee0-7f32adc3c5e4}</Project>
+      <Name>EasyShopping.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

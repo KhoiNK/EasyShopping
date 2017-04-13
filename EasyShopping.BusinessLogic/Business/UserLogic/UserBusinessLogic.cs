@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using Easyshopping.DataAccess.Repository.UserRepo;
 using EasyShopping.BusinessLogic.Models;
-using Easyshopping.DataAccess.Models.Entity;
 using EasyShopping.BusinessLogic.CommonMethod;
 using System.Threading.Tasks;
+using Easyshopping.Repository.Repository.UserRepo;
+using EasyShopping.Repository.Models.Entity;
 
 namespace EasyShopping.BusinessLogic.Business
 {
@@ -16,7 +16,7 @@ namespace EasyShopping.BusinessLogic.Business
         private static IDictionary<string, UserDTO> Cache = new Dictionary<string, UserDTO>();
 
         private UserRepository _repo;
-         
+
         public UserBusinessLogic()
         {
             _repo = new UserRepository();
@@ -56,27 +56,31 @@ namespace EasyShopping.BusinessLogic.Business
         public bool Update(UserDTO user)
         {
             ClearCache(user.UserName);
-
+            
             // _repo.Update(....)
             return true;
         }
 
 
-        public UserDTO Register(UserDTO user)
+        public Task<UserDTO> Register(UserDTO user)
         {
-            user.PassWord = Encryptor.MD5Hash(user.PassWord);
-            user.RegDate = System.DateTime.Now;
-            user.Modified_Date = System.DateTime.Now;
+            return Task.Factory.StartNew(() =>
+            {
+                user.PassWord = Encryptor.MD5Hash(user.PassWord);
+                user.RegDate = System.DateTime.Now;
+                user.Modified_Date = System.DateTime.Now;
 
-            User userEntity = user.Translate<UserDTO, User>();
-            UserDTO newUser = _repo.AddUser(userEntity).Translate<User, UserDTO>();
+                User userEntity = user.Translate<UserDTO, User>();
+                UserDTO newUser = _repo.AddUser(userEntity).Translate<User, UserDTO>();
 
-            return newUser;
+                return newUser;
+
+            });
         }
 
         public bool Delete(int id)
         {
-            if(!_repo.RemoveUser(id))
+            if (!_repo.RemoveUser(id))
             {
                 return false;
             }

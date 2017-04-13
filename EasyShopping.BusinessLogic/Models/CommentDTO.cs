@@ -9,7 +9,7 @@ namespace EasyShopping.BusinessLogic.Models
         public string Description { get; set; }
         public int ProductID { get; set; }
         public int UserID { get; set; }
-        public int ParentCmt { get; set; }
+        public Nullable<int> ParentCmt { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
     }

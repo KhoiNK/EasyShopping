@@ -5,14 +5,16 @@
             <td>DOB</td>
             <td>StatusID</td>
             <td>Password</td>
+            <td>Action</td>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
-            <td>{{user.UserName}}</td>
+            <td><a [routerLink]="['/users/user-detail', user.ID]">{{user.UserName}}</a></td>
             <td>{{user.DOB}}</td>
             <td>{{user.StatusID}}</td>
             <td>{{user.PassWord}}</td>
+            <td><a [routerLink]="['/users/user-edit', user.ID]">Edit</a> | @*<a [routerLink]="/user/remove, user.id">Remove</a></td>*@
         </tr>
     </tbody>
 </table>
