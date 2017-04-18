@@ -11,7 +11,7 @@
     <tbody>
         <tr *ngFor="let user of users">
             <td><a [routerLink]="['/users/user-detail', user.ID]">{{user.UserName}}</a></td>
-            <td>{{user.DOB}}</td>
+            <td>{{user.DOB | date}}</td>
             <td>{{user.StatusID}}</td>
             <td>{{user.PassWord}}</td>
             <td><a [routerLink]="['/users/user-edit', user.ID]">Edit</a> | @*<a [routerLink]="/user/remove, user.id">Remove</a></td>*@

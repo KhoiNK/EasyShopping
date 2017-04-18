@@ -22,23 +22,23 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<UserDTO, User>().ForAllMembers(opt => opt.Condition(src => src != null));
                 cfg.CreateMap<User, UserDTO>().ForAllMembers(opt => opt.Condition(src => src != null));
 
-                //cfg.CreateMap<CommentDTO, Comment>();
-                //cfg.CreateMap<Comment, CommentDTO>();
+                cfg.CreateMap<CommentDTO, Comment>();
+                cfg.CreateMap<Comment, CommentDTO>();
 
-                //cfg.CreateMap<CountryDTO, Country>();
-                //cfg.CreateMap<Country, CountryDTO>();
+                cfg.CreateMap<CountryDTO, Country>();
+                cfg.CreateMap<Country, CountryDTO>();
 
-                //cfg.CreateMap<DistrictDTO, District>();
-                //cfg.CreateMap<District, DistrictDTO>();
+                cfg.CreateMap<DistrictDTO, District>();
+                cfg.CreateMap<District, DistrictDTO>();
 
-                //cfg.CreateMap<ImageDTO, Image>();
-                //cfg.CreateMap<Image, ImageDTO>();
+                cfg.CreateMap<ImageDTO, Image>();
+                cfg.CreateMap<Image, ImageDTO>();
 
-                //cfg.CreateMap<OrderDTO, Order>();
-                //cfg.CreateMap<Order, OrderDTO>();
+                cfg.CreateMap<OrderDTO, Order>();
+                cfg.CreateMap<Order, OrderDTO>();
 
-                //cfg.CreateMap<Order, Order>();
-                //cfg.CreateMap<Order, OrderDTO>();
+                cfg.CreateMap<Order, Order>();
+                cfg.CreateMap<Order, OrderDTO>();
                 //cfg.CreateMap<..., ...>();
             });
 
