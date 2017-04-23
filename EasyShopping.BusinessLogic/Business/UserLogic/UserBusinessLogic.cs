@@ -56,9 +56,12 @@ namespace EasyShopping.BusinessLogic.Business
         public bool Update(UserDTO user)
         {
             ClearCache(user.UserName);
-            
-            // _repo.Update(....)
-            return true;
+
+            if (_repo.UpdateUser(user.ID, user.Translate<UserDTO, User>()))
+            {
+                return true;
+            }
+            return false;
         }
 
 

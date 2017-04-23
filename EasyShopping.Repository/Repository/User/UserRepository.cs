@@ -49,9 +49,9 @@ namespace Easyshopping.Repository.Repository.UserRepo
 
         }
 
-        public User FindUserByName(string username)
+        public IEnumerable<User> FindUserByName(string username)
         {
-            return _db.Users.Where(x=>x.UserName.Contains(username)).SingleOrDefault();
+            return _db.Users.Where(x=>x.UserName.Contains(username)).ToList();
         }
 
         public IEnumerable<User> GetListUser()
