@@ -34,11 +34,11 @@ namespace EasyShopping.Api.Providers
 
             if (string.IsNullOrWhiteSpace(audienceId)) throw new InvalidOperationException("AuthenticationTicket.Properties does not include audience");
             
-            string symmetricKeyAsBase64 = Const.Secret;
+            //string symmetricKeyAsBase64 = Const.Secret;
 
-            var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
+            //var keyByteArray = TextEncodings.Base64Url.Decode(symmetricKeyAsBase64);
 
-            var signingKey = new HmacSigningCredentials(keyByteArray);
+            var signingKey = new HmacSigningCredentials(Const.SecretKey);
 
             var issued = ticket.Properties.IssuedUtc;
             var expires = ticket.Properties.ExpiresUtc;

@@ -19,8 +19,46 @@ namespace EasyShopping.BusinessLogic.Models
                 //cfg.CreateMap<CategoryDTO, Category>();
                 //cfg.CreateMap<Category, CategoryDTO>();
 
-                cfg.CreateMap<UserDTO, User>().ForAllMembers(opt => opt.Condition(src => src != null));
-                cfg.CreateMap<User, UserDTO>().ForAllMembers(opt => opt.Condition(src => src != null));
+                cfg.CreateMap<UserDTO, User>()
+                    .ForSourceMember(
+                        dto => dto.Role,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.City,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.Status,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.District,
+                        opt=> opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.Country,
+                        opt => opt.Ignore()
+                    );
+                cfg.CreateMap<User, UserDTO>()
+                    .ForMember(
+                        dto => dto.Role,
+                        opt => opt.MapFrom(entity => entity.Role.Name)
+                    )
+                    .ForMember(
+                        dto => dto.Country,
+                        opt => opt.MapFrom(entity => entity.Country.CommonName)
+                    ).ForMember(
+                        dto => dto.District,
+                        opt => opt.MapFrom(entity => entity.District.Name)
+                    ).ForMember(
+                    dto => dto.City,
+                    opt => opt.MapFrom(entity => entity.Province.Name)
+                    ).ForMember(
+                        dto => dto.Status,
+                        opt => opt.MapFrom(entity => entity.UserStatu.Name)
+                    )
+                    ;
 
                 cfg.CreateMap<CommentDTO, Comment>();
                 cfg.CreateMap<Comment, CommentDTO>();

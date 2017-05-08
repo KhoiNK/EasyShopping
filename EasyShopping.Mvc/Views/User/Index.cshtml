@@ -3,21 +3,19 @@
         <tr>
             <td>Name</td>
             <td>DOB</td>
-            <td>StatusID</td>
-            <td>Password</td>
+            <td>Status</td>
             <td>Action</td>
         </tr>
     </thead>
     <tbody>
 
         <tr *ngFor="let user of users">
-            <template [ngIf]="user.StatusID == 1 || user.StatusID == 2">
+            @*<template [ngIf]="user.StatusID == 1 || user.StatusID == 2">*@
                 <td><a [routerLink]="['/users/user-detail', user.ID]">{{user.UserName}}</a></td>
                 <td>{{user.DOB | date}}</td>
-                <td>{{user.StatusID}}</td>
-                <td>{{user.PassWord}}</td>
+                <td>{{user.Status}}</td>
                 <td><a [routerLink]="['/users/user-edit', user.ID]" class="btn btn-success" >Edit</a> | <button (click)="DeleteUser(user.ID)" class="btn btn-danger">Remove</button></td>
-            </template>
+            @*</template>*@
 
         </tr>
 

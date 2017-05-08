@@ -42,6 +42,7 @@ namespace EasyShopping.Api.Providers
 
             var user = await userLogic.Login(context.UserName, context.Password);
 
+            //System.Diagnostics.Debugger.Launch();
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
@@ -122,6 +123,7 @@ namespace EasyShopping.Api.Providers
         {
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            claims.Add(new Claim(ClaimTypes.Role, user.Role));
             return new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
         }
 

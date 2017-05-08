@@ -24,5 +24,9 @@ namespace Easyshopping.DataAccess.Repository.CountryRepo
                 return null;
             }
         }
+        public Country GetById(int id)
+        {
+            return _db.Countries.Where(x => x.Id == id).SingleOrDefault();
+        }
     }
 }

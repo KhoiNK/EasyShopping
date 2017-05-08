@@ -37,17 +37,21 @@ namespace EasyShopping.Api
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
                 TokenEndpointPath = new PathString("/Token"), // POST to /Token will call ApplicationOAuthProvider
-                Provider = new ApplicationOAuthProvider(PublicClientId),
-                AccessTokenFormat = new CustomJwtFormat(Const.Issuer),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                RefreshTokenProvider = new ApplicationRefreshTokenProvider(),
+                AccessTokenFormat = new CustomJwtFormat(Const.Issuer),
                 AccessTokenExpireTimeSpan = Const.TokenTimeSpan,
+
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true,
-                RefreshTokenProvider = new ApplicationRefreshTokenProvider()
             };
 
             // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+            //app.UseOAuthBearerTokens(OAuthOptions);
+
+            app.UseOAuthAuthorizationServer(OAuthOptions);
+            //System.Diagnostics.Debugger.Launch();
 
             app.UseJwtBearerAuthentication(
                new JwtBearerAuthenticationOptions

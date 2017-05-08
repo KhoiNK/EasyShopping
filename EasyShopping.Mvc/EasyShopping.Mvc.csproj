@@ -167,7 +167,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\User\UserTranslator.cs" />
     <Compile Include="Models\User\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -255,10 +254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Ang2\src\app\services\City\" />
-    <Folder Include="Scripts\Ang2\src\app\services\Province\" />
-    <Folder Include="Scripts\Ang2\src\app\services\user\" />
-    <Folder Include="Scripts\Ang2\src\app\services\Ward\" />
     <Folder Include="Scripts\lib\quickstart-master\" />
   </ItemGroup>
   <ItemGroup>
@@ -277,10 +272,11 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\country-list\country-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\services\Country\country.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.component.ts" />

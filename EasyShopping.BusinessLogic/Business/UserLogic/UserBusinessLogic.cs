@@ -92,7 +92,7 @@ namespace EasyShopping.BusinessLogic.Business
 
         public IList<UserDTO> GetAll()
         {
-            return _repo.GetListUser().Translate<User, UserDTO>();
+            return _repo.GetList().Translate<User, UserDTO>();
         }
 
 

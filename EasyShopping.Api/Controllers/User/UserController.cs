@@ -1,4 +1,5 @@
-﻿using EasyShopping.Api.Models;
+﻿using EasyShopping.Api.Constants;
+using EasyShopping.Api.Models;
 using EasyShopping.BusinessLogic.Business;
 using EasyShopping.BusinessLogic.Models;
 using System;
@@ -10,11 +11,12 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     //[Route("v1/nguoidung")]
     public class UserController : ApiController
     {
         private UserBusinessLogic _business = null;
+        
 
         public UserController()
         {
@@ -47,20 +49,27 @@ namespace EasyShopping.Api.Controllers
             return null;
         }
 
-        // PUT api/values/5
+        // PUT api/values/
+        [Authorize(Roles = Roles.Admin)]
         public void Put(int id, [FromBody]UserApiModel value)
         {
 
         }
 
         // DELETE api/values/5
-        public bool Delete(int id)
+        [Authorize(Roles = Roles.Admin)]
+        public IHttpActionResult Delete(int id)
         {
+            if (id % 2 != 0) // Neu ID la so le
+            {
+                return InternalServerError(new Exception("Minh thich thi minh loi thoi!"));
+            }
+
             if (!_business.Delete(id))
             {
-                return false;
+                return InternalServerError();
             }
-            return true;
+            return Ok();
         }
     }
 }

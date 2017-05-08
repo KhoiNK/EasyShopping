@@ -2,19 +2,22 @@
 import { UserServices } from './user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CountryServices } from '../country/country.service';
 
 @Component({
     selector: 'user-list',
     templateUrl: 'User/UserDetail',
-    providers: [UserServices]
+    providers: [UserServices, CountryServices]
 })
 
-export class UserDetailComponent implements OnInit, OnDestroy{
+export class UserDetailComponent implements OnInit, OnDestroy {
     public id: number
     public user: any;
     public subscription: Subscription;
-    constructor(private userservice: UserServices, private activateRoute: ActivatedRoute) {
+    public country: any;
+    constructor(private userservice: UserServices, private activateRoute: ActivatedRoute, private countryservice: CountryServices) {
         this.user = {};
+        this.country = {};
     }
 
     ngOnInit() {
@@ -22,9 +25,14 @@ export class UserDetailComponent implements OnInit, OnDestroy{
             this.id = params['id'];
         });
 
-        this.userservice.GetUserByID(this.id).subscribe(res => this.user = res);
+        this.userservice.GetUserByID(this.id)
+            .flatMap(user => {
+                this.user = user;
+                return this.countryservice.GetSingleCountry(this.user['CountryID']);
+            })
+            .subscribe(country => this.country = country);
     }
-
+    
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

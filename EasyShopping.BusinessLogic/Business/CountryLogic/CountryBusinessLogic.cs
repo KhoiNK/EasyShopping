@@ -19,5 +19,9 @@ namespace EasyShopping.BusinessLogic.Business.CountryLogic
         {
             return _repo.GetAll().Translate<Country, CountryDTO>();
         }
+        public CountryDTO GetById(int id)
+        {
+            return _repo.GetById(id).Translate<Country, CountryDTO>();
+        }
     }
 }

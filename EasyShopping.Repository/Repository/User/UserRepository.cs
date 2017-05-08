@@ -26,8 +26,9 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                User user = _db.Users.SingleOrDefault(x => ((x.UserName.Equals(user_name.Trim())) || (x.Email.Equals(user_name.Trim())))
+                User user = _db.Users.Include("Role").SingleOrDefault(x => ((x.UserName.Equals(user_name.Trim())) || (x.Email.Equals(user_name.Trim())))
                                                 && (x.PassWord.Equals(password.Trim())));
+
                 return user;
             }
             catch
@@ -54,9 +55,25 @@ namespace Easyshopping.Repository.Repository.UserRepo
             return _db.Users.Where(x=>x.UserName.Contains(username)).ToList();
         }
 
-        public IEnumerable<User> GetListUser()
+        public IEnumerable<User> GetList()
         {
-            return _db.Users.ToList();
+            return _db.Users
+                .Include("Country")
+                .Include("UserStatu")
+                .ToList();
+        }
+
+        public IEnumerable<User> GetList(int pageIdx, int pageSize)
+        {
+            int skipped = (pageIdx - 1) * pageSize;
+            return _db.Users.Include("Country")
+                .Include("UserStatu")
+                .Include("Province")
+                .Include("District")
+                .Include("Role")
+                .Skip(skipped)
+                .Take(pageSize)
+                .ToList();
         }
 
         public User AddUser(User user)

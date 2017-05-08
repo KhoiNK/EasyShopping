@@ -10,7 +10,7 @@ import { LoginComponent } from './auth/login.component';
 import { IAuthService, AuthService } from './auth/auth.service';
 import { Header } from './header.component';
 import { Footer } from './footer.component';
-import { GetListCountries } from './country-list/country-list.component';
+//import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
 
 @NgModule({
@@ -24,7 +24,7 @@ import { routing } from './app.routing';
     declarations: [
         Header,
         Footer,
-        GetListCountries,
+        //GetListCountries,
         AppComponent,
         LoginComponent,
     ], 

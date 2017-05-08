@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit } from '@angular/core'
-import { CountryServices } from '../services/Country/country.service'
+import { CountryServices } from './country.service'
 
 @Component({
     selector: 'country-list',
