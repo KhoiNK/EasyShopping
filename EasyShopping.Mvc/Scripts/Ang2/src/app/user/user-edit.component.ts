@@ -15,6 +15,18 @@ export class UserEditComponent {
     public subscription: Subscription;
 
     constructor(private userservice: UserServices, private activateRoute: ActivatedRoute) {
+        this.user = {}
+    };
 
+    ngOnInit() {
+        this.subscription = this.activateRoute.params.subscribe(params => {
+            this.id = params['id'];
+        });
+
+        this.userservice.GetUserByID(this.id)
+            .subscribe(user => {
+                return this.user = user;
+                //return this.countryservice.GetSingleCountry(this.user['CountryID']);
+            });
     };
 }

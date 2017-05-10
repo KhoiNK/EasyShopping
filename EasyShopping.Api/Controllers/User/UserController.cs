@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
@@ -27,14 +28,21 @@ namespace EasyShopping.Api.Controllers
         public IEnumerable<UserApiModel> Get()
         {
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
+            //System.Diagnostics.Debugger.Launch();
             return _business.GetAll().Translate<UserDTO, UserApiModel>();
         }
 
         // GET api/values/5
         public UserApiModel Get(int id)
         {
-            UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetUserByID(id));
+            UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetByID(id));
             return user;
+        }
+
+        public async Task<UserApiModel> Get(string username)
+        {
+            UserDTO user = await _business.GetByName(username);
+            return ApiTranslators.Translate<UserDTO, UserApiModel>(user);
         }
 
         //POST api/values

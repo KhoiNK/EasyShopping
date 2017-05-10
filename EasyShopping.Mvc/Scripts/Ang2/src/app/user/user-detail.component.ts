@@ -26,11 +26,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         });
 
         this.userservice.GetUserByID(this.id)
-            .flatMap(user => {
-                this.user = user;
-                return this.countryservice.GetSingleCountry(this.user['CountryID']);
+            .subscribe(user => {
+               return this.user = user;
+                //return this.countryservice.GetSingleCountry(this.user['CountryID']);
             })
-            .subscribe(country => this.country = country);
+            //.subscribe(country => this.country = country);
     }
     
     ngOnDestroy() {

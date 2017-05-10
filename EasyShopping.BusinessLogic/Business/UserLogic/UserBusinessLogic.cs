@@ -48,16 +48,25 @@ namespace EasyShopping.BusinessLogic.Business
 
         }
 
-        public UserDTO GetUserByID(int id)
+        public Task<UserDTO> GetByName(string username)
         {
-            return _repo.FindUserByID(id).Translate<User, UserDTO>();
+            return Task.Factory.StartNew(() =>
+                {
+                    return _repo.FindUser(username).Translate<User,UserDTO>();
+                }
+            );
+        }
+
+        public UserDTO GetByID(int id)
+        {
+            return _repo.FindByID(id).Translate<User, UserDTO>();
         }
 
         public bool Update(UserDTO user)
         {
             ClearCache(user.UserName);
 
-            if (_repo.UpdateUser(user.ID, user.Translate<UserDTO, User>()))
+            if (_repo.Update(user.ID, user.Translate<UserDTO, User>()))
             {
                 return true;
             }
@@ -74,7 +83,7 @@ namespace EasyShopping.BusinessLogic.Business
                 user.Modified_Date = System.DateTime.Now;
 
                 User userEntity = user.Translate<UserDTO, User>();
-                UserDTO newUser = _repo.AddUser(userEntity).Translate<User, UserDTO>();
+                UserDTO newUser = _repo.Add(userEntity).Translate<User, UserDTO>();
 
                 return newUser;
 
@@ -83,7 +92,7 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool Delete(int id)
         {
-            if (!_repo.RemoveUser(id))
+            if (!_repo.Remove(id))
             {
                 return false;
             }

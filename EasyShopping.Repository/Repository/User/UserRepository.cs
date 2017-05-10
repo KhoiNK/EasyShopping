@@ -26,7 +26,13 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                User user = _db.Users.Include("Role").SingleOrDefault(x => ((x.UserName.Equals(user_name.Trim())) || (x.Email.Equals(user_name.Trim())))
+                User user = _db.Users
+                    .Include("Role")
+                    .Include("Country")
+                    .Include("UserStatu")
+                    .Include("Province")
+                    .Include("District")
+                    .SingleOrDefault(x => ((x.UserName.Equals(user_name.Trim())) || (x.Email.Equals(user_name.Trim())))
                                                 && (x.PassWord.Equals(password.Trim())));
 
                 return user;
@@ -37,11 +43,36 @@ namespace Easyshopping.Repository.Repository.UserRepo
             }
         }
 
-        public User FindUserByID(int id)
+        public User FindUser(string username)
         {
             try
             {
-                return _db.Users.SingleOrDefault(x => x.ID == id);
+                User user = _db.Users
+                    .Include("Role")
+                    .Include("Country")
+                    .Include("UserStatu")
+                    .Include("Province")
+                    .Include("District")
+                    .SingleOrDefault(x => x.UserName.Equals(username.Trim()));
+                return user;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public User FindByID(int id)
+        {
+            try
+            {
+                return _db.Users
+                    .Include("Country")
+                    .Include("UserStatu")
+                    .Include("Province")
+                    .Include("District")
+                    .Include("Role")
+                    .SingleOrDefault(x => x.ID == id);
             }
             catch
             {
@@ -50,9 +81,15 @@ namespace Easyshopping.Repository.Repository.UserRepo
 
         }
 
-        public IEnumerable<User> FindUserByName(string username)
+        public IEnumerable<User> FindByName(string username)
         {
-            return _db.Users.Where(x=>x.UserName.Contains(username)).ToList();
+            return _db.Users
+                .Include("Country")
+                .Include("UserStatu")
+                .Include("Province")
+                .Include("District")
+                .Include("Role")
+                .Where(x => x.UserName.Contains(username)).ToList();
         }
 
         public IEnumerable<User> GetList()
@@ -60,6 +97,9 @@ namespace Easyshopping.Repository.Repository.UserRepo
             return _db.Users
                 .Include("Country")
                 .Include("UserStatu")
+                .Include("Province")
+                .Include("District")
+                .Include("Role")
                 .ToList();
         }
 
@@ -76,7 +116,7 @@ namespace Easyshopping.Repository.Repository.UserRepo
                 .ToList();
         }
 
-        public User AddUser(User user)
+        public User Add(User user)
         {
             try
             {
@@ -91,10 +131,10 @@ namespace Easyshopping.Repository.Repository.UserRepo
             }
         }
 
-        public bool UpdateUser(int id, User user)
+        public bool Update(int id, User user)
         {
-            User newuser = FindUserByID(id);
-            if(newuser != null)
+            User newuser = FindByID(id);
+            if (newuser != null)
             {
                 newuser.Address = user.Address;
                 newuser.CityID = user.CityID;
@@ -116,19 +156,19 @@ namespace Easyshopping.Repository.Repository.UserRepo
             return false;
         }
 
-        public bool EditUserRole(int id, int roleid)
+        public bool EditRole(int id, int roleid)
         {
-            FindUserByID(id).RoleID = roleid;
+            FindByID(id).RoleID = roleid;
             _db.SaveChanges();
             return true;
         }
 
-        public bool RemoveUser(int id)
+        public bool Remove(int id)
         {
-            if (FindUserByID(id) == null) { return false; }
+            if (FindByID(id) == null) { return false; }
             try
             {
-                FindUserByID(id).StatusID = DELETED;
+                FindByID(id).StatusID = DELETED;
                 _db.SaveChanges();
                 return true;
             }

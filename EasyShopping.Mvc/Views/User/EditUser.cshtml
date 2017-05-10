@@ -1,1 +1,6 @@
-﻿<h1>123</h1>
+﻿<div class="col-lg-6" *ngIf="user">
+    <label>User name:</label> <input type="text" value="{{user.UserName}}"/><br />
+    <label>Date of birth:</label> {{user.DOB | date}}<br />
+    <label>Created At:</label> {{user.RegDate | date}}<br />
+    <label>Country: </label> {{user.Country}}
+</div>

@@ -22,6 +22,10 @@ export class UserServices {
         return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
     }
 
+    GetUser(username: String): Observable<any> {
+        return this._http.get(this.apiUrl + "/?username=" + username).map(res => res.json());
+    }
+
     EditUser(id: number, data: any): Observable<any> {
         return this._http.put(this.apiUrl + id, data).map(res => res.json());
     }

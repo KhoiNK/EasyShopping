@@ -34,7 +34,7 @@ namespace EasyShopping.BusinessLogic.Models
                     )
                     .ForSourceMember(
                         dto => dto.District,
-                        opt=> opt.Ignore()
+                        opt => opt.Ignore()
                     )
                     .ForSourceMember(
                         dto => dto.Country,

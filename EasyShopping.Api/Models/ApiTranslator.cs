@@ -17,11 +17,26 @@ namespace EasyShopping.Api.Models
                 //cfg.CreateMap<CategoryDTO, CategoryApiModel>();
 
                 cfg.CreateMap<UserDTO, UserApiModel>()
-                    .ForMember(
-                        view => view.DOB,
-                        opt => opt.MapFrom(dto => dto.DOB.ToString("yyyy-MM-dd"))
+                    .ForSourceMember(
+                        dto => dto.RoleID,
+                        opt => opt.Ignore()
                     )
-                    ;
+                    .ForSourceMember(
+                        dto => dto.CityID,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.StatusID,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.DistrictID,
+                        opt => opt.Ignore()
+                    )
+                    .ForSourceMember(
+                        dto => dto.CountryID,
+                        opt => opt.Ignore()
+                    );
 
                 cfg.CreateMap<UserApiModel, UserDTO>();
 
@@ -55,7 +70,7 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<WardApiModel, WardDTO>();
                 cfg.CreateMap<WardDTO, WardApiModel>();
                 //cfg.CreateMap <..., ...> ();
-            }) ;
+            });
 
             Mapper = config.CreateMapper();
         }

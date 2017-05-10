@@ -31,7 +31,7 @@ export class Profile {
         if (!source) { return; }
         this.roles = source.roles;
         this.picture = source.picture;
-        this.name = source.name;
+        this.name = source.userName;
     }
 }
 
@@ -101,7 +101,6 @@ export class AuthService extends IAuthService {
         body.set('username', username);
         body.set('password', password);
         body.set('grant_type', 'password');
-
         this.ngHttp
             .post(window.GlobalSettings.LoginUrl, body, options)
             .subscribe((response: any) => {
@@ -110,7 +109,8 @@ export class AuthService extends IAuthService {
                     localStorage.setItem(ACCESS_TOKEN, json.access_token);
                     localStorage.setItem(REFRESH_TOKEN, json.refresh_token);
                     //localStorage.setItem(PROFILE, response.text()); // Save profile json to rebuild profile data after page refresh
-                    //this._profile = new Profile(json);
+                    this._profile = new Profile(json);
+                    localStorage.setItem(PROFILE, JSON.stringify(json));
                     this._authSubject.next({
                         isAuthenticated: true,
                         profile: this._profile
