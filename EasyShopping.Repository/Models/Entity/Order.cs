@@ -22,7 +22,7 @@ namespace EasyShopping.Repository.Models.Entity
         }
     
         public int ID { get; set; }
-        public string Order_Code { get; set; }
+        public string OrderCode { get; set; }
         public string Note { get; set; }
         public string Address { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -32,6 +32,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> StatusID { get; set; }
         public Nullable<double> Total { get; set; }
         public Nullable<bool> Taken { get; set; }
+        public Nullable<System.DateTime> Timeout { get; set; }
     
         public virtual OrderStatu OrderStatu { get; set; }
         public virtual User User { get; set; }

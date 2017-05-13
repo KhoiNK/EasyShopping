@@ -21,8 +21,8 @@
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="ParentCmt" Type="int" />
-          <Property Name="Created Date" Type="datetime" Nullable="false" />
-          <Property Name="Modified Date" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -73,7 +73,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Order Code" Type="varchar" MaxLength="50" />
+          <Property Name="OrderCode" Type="varchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="100" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedDate" Type="datetime" />
@@ -83,6 +83,7 @@
           <Property Name="StatusID" Type="int" />
           <Property Name="Total" Type="float" />
           <Property Name="Taken" Type="bit" />
+          <Property Name="Timeout" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -122,17 +123,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="StartDate" Type="datetime" />
-          <Property Name="EndDate" Type="datetime" />
           <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Status ID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ProducerStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -205,6 +196,7 @@
           <Property Name="RegDate" Type="datetime" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="StatusId" Type="int" />
+          <Property Name="isCOD" Type="bit" />
         </EntityType>
         <EntityType Name="ShipperRating">
           <Key>
@@ -225,7 +217,6 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="ModifiedID" Type="int" />
-          <Property Name="UserID" Type="int" />
           <Property Name="Delay" Type="bit" />
           <Property Name="EndDate" Type="datetime" />
           <Property Name="ProvinceID" Type="int" />
@@ -247,12 +238,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
-          <Property Name="Created Date" Type="datetime" Nullable="false" />
-          <Property Name="Modified Date" Type="datetime" Nullable="false" />
-          <Property Name="Modified UserID" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedByID" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
-          <Property Name="Img Link" Type="nvarchar" MaxLength="100" />
+          <Property Name="ImgLink" Type="nvarchar" MaxLength="100" />
           <Property Name="StatusID" Type="int" />
+          <Property Name="BankAccount" Type="varchar" MaxLength="50" />
+          <Property Name="TaxCode" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="StoreStatus">
           <Key>
@@ -278,8 +271,8 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="PassWord" Type="varchar" MaxLength="255" />
-          <Property Name="First Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="Last Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="DOB" Type="date" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="RegDate" Type="datetime" Nullable="false" />
@@ -289,9 +282,9 @@
           <Property Name="CityID" Type="int" Nullable="false" />
           <Property Name="DistrictID" Type="int" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Img Link" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImgLink" Type="nvarchar" MaxLength="255" />
           <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="Modified Date" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
           <Property Name="CountryID" Type="int" Nullable="false" />
           <Property Name="isSocialLogin" Type="bit" Nullable="false" />
         </EntityType>
@@ -452,18 +445,6 @@
             </Principal>
             <Dependent Role="Partner">
               <PropertyRef Name="UseID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Producer_ProducerStatus">
-          <End Role="ProducerStatus" Type="Self.ProducerStatus" Multiplicity="1" />
-          <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProducerStatus">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Producer">
-              <PropertyRef Name="Status ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -661,18 +642,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShippingDetail_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ShippingDetail_Ward">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
@@ -840,7 +809,6 @@
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProducerStatus" EntityType="Self.ProducerStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
@@ -901,10 +869,6 @@
           <AssociationSet Name="FK_Partner_Users" Association="Self.FK_Partner_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Partner" EntitySet="Partner" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Producer_ProducerStatus" Association="Self.FK_Producer_ProducerStatus">
-            <End Role="ProducerStatus" EntitySet="ProducerStatus" />
-            <End Role="Producer" EntitySet="Producer" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Country" Association="Self.FK_ProductDetail_Country">
             <End Role="Country" EntitySet="Country" />
@@ -968,10 +932,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ShippingDetail_ShipperDetail" Association="Self.FK_ShippingDetail_ShipperDetail">
             <End Role="ShipperDetail" EntitySet="ShipperDetail" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Users" Association="Self.FK_ShippingDetail_Users">
-            <End Role="Users" EntitySet="Users" />
             <End Role="ShippingDetail" EntitySet="ShippingDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_ShippingDetail_Ward" Association="Self.FK_ShippingDetail_Ward">
@@ -1049,8 +1009,8 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="ParentCmt" Type="Int32" />
-          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Comment_ProductDetail" FromRole="Comment" ToRole="Product" />
           <NavigationProperty Name="User" Relationship="Self.FK_Comment_Users" FromRole="Comment" ToRole="Users" />
         </EntityType>
@@ -1111,7 +1071,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Order_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
@@ -1121,6 +1081,7 @@
           <Property Name="StatusID" Type="Int32" />
           <Property Name="Total" Type="Double" />
           <Property Name="Taken" Type="Boolean" />
+          <Property Name="Timeout" Type="DateTime" Precision="3" />
           <NavigationProperty Name="OrderStatu" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_Users" FromRole="Order" ToRole="Users" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
@@ -1169,20 +1130,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Status_ID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProducerStatu" Relationship="Self.FK_Producer_ProducerStatus" FromRole="Producer" ToRole="ProducerStatus" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Producer" FromRole="Producer" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="ProducerStatu">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Producers" Relationship="Self.FK_Producer_ProducerStatus" FromRole="ProducerStatus" ToRole="Producer" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1275,6 +1224,7 @@
           <Property Name="RegDate" Type="DateTime" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="StatusId" Type="Int32" />
+          <Property Name="isCOD" Type="Boolean" />
           <NavigationProperty Name="ShippStatu" Relationship="Self.FK_ShipperDetail_ShippStatus" FromRole="ShipperDetail" ToRole="ShippStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_ShipperDetail_Users" FromRole="ShipperDetail" ToRole="Users" />
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_ShipperDetail" FromRole="ShipperDetail" ToRole="ShipperRating" />
@@ -1301,7 +1251,6 @@
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedID" Type="Int32" />
-          <Property Name="UserID" Type="Int32" />
           <Property Name="Delay" Type="Boolean" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="ProvinceID" Type="Int32" />
@@ -1312,7 +1261,6 @@
           <NavigationProperty Name="Order" Relationship="Self.FK_ShippingDetail_Order" FromRole="ShippingDetail" ToRole="Order" />
           <NavigationProperty Name="Province" Relationship="Self.FK_ShippingDetail_Province" FromRole="ShippingDetail" ToRole="Province" />
           <NavigationProperty Name="ShipperDetail" Relationship="Self.FK_ShippingDetail_ShipperDetail" FromRole="ShippingDetail" ToRole="ShipperDetail" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ShippingDetail_Users" FromRole="ShippingDetail" ToRole="Users" />
           <NavigationProperty Name="Ward" Relationship="Self.FK_ShippingDetail_Ward" FromRole="ShippingDetail" ToRole="Ward" />
         </EntityType>
         <EntityType Name="ShippStatu">
@@ -1330,12 +1278,14 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="Created_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Modified_UserID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedByID" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Img_Link" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImgLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StatusID" Type="Int32" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Stores" FromRole="Stores" ToRole="Partner" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Stores" FromRole="Stores" ToRole="Product" />
           <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
@@ -1369,8 +1319,8 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="PassWord" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="First_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Last_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1380,9 +1330,9 @@
           <Property Name="CityID" Type="Int32" Nullable="false" />
           <Property Name="DistrictID" Type="Int32" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Img_Link" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImgLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="Modified_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CountryID" Type="Int32" Nullable="false" />
           <Property Name="isSocialLogin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
@@ -1395,7 +1345,6 @@
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
           <NavigationProperty Name="ShipperDetails" Relationship="Self.FK_ShipperDetail_Users" FromRole="Users" ToRole="ShipperDetail" />
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_Users" FromRole="Users" ToRole="ShipperRating" />
-          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_Users" FromRole="Users" ToRole="ShippingDetail" />
           <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Users" FromRole="Users" ToRole="Stores" />
           <NavigationProperty Name="StroreRatings" Relationship="Self.FK_StroreRating_Users" FromRole="Users" ToRole="StroreRating" />
           <NavigationProperty Name="UserStatu" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="UserStatus" />
@@ -1652,18 +1601,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Producer_ProducerStatus">
-          <End Role="ProducerStatus" Type="Self.ProducerStatu" Multiplicity="1" />
-          <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProducerStatus">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Producer">
-              <PropertyRef Name="Status_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductDetail_Producer">
           <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1844,18 +1781,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ShippingDetail_Users">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ShippingDetail_Ward">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
@@ -1940,7 +1865,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EasyShoppingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
@@ -1951,7 +1876,6 @@
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
           <EntitySet Name="Partners" EntityType="Self.Partner" />
           <EntitySet Name="Producers" EntityType="Self.Producer" />
-          <EntitySet Name="ProducerStatus" EntityType="Self.ProducerStatu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatu" />
           <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
@@ -2041,10 +1965,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Partner" EntitySet="Partners" />
           </AssociationSet>
-          <AssociationSet Name="FK_Producer_ProducerStatus" Association="Self.FK_Producer_ProducerStatus">
-            <End Role="ProducerStatus" EntitySet="ProducerStatus" />
-            <End Role="Producer" EntitySet="Producers" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Producer" Association="Self.FK_ProductDetail_Producer">
             <End Role="Producer" EntitySet="Producers" />
             <End Role="Product" EntitySet="Products" />
@@ -2105,10 +2025,6 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ShipperRating" EntitySet="ShipperRatings" />
           </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_Users" Association="Self.FK_ShippingDetail_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
           <AssociationSet Name="FK_ShippingDetail_Ward" Association="Self.FK_ShippingDetail_Ward">
             <End Role="Ward" EntitySet="Wards" />
             <End Role="ShippingDetail" EntitySet="ShippingDetails" />
@@ -2143,7 +2059,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EasyShoppingModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="EasyShoppingModelStoreContainer" CdmEntityContainer="EasyShoppingEntities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="EasyShoppingModel.Category">
               <MappingFragment StoreEntitySet="Categories">
@@ -2160,8 +2076,8 @@
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ParentCmt" ColumnName="ParentCmt" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created Date" />
-                <ScalarProperty Name="Modified_Date" ColumnName="Modified Date" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2216,7 +2132,7 @@
             <EntityTypeMapping TypeName="EasyShoppingModel.Order">
               <MappingFragment StoreEntitySet="Order">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Order_Code" ColumnName="Order Code" />
+                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -2226,6 +2142,7 @@
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Taken" ColumnName="Taken" />
+                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2269,18 +2186,7 @@
               <MappingFragment StoreEntitySet="Producer">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Status_ID" ColumnName="Status ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProducerStatus">
-            <EntityTypeMapping TypeName="EasyShoppingModel.ProducerStatu">
-              <MappingFragment StoreEntitySet="ProducerStatus">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2360,6 +2266,7 @@
                 <ScalarProperty Name="RegDate" ColumnName="RegDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="isCOD" ColumnName="isCOD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2382,7 +2289,6 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedID" ColumnName="ModifiedID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Delay" ColumnName="Delay" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="ProvinceID" ColumnName="ProvinceID" />
@@ -2406,12 +2312,14 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Created_Date" ColumnName="Created Date" />
-                <ScalarProperty Name="Modified_Date" ColumnName="Modified Date" />
-                <ScalarProperty Name="Modified_UserID" ColumnName="Modified UserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Img_Link" ColumnName="Img Link" />
+                <ScalarProperty Name="ImgLink" ColumnName="ImgLink" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2440,8 +2348,8 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="PassWord" ColumnName="PassWord" />
-                <ScalarProperty Name="First_Name" ColumnName="First Name" />
-                <ScalarProperty Name="Last_Name" ColumnName="Last Name" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="RegDate" ColumnName="RegDate" />
@@ -2451,9 +2359,9 @@
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Img_Link" ColumnName="Img Link" />
+                <ScalarProperty Name="ImgLink" ColumnName="ImgLink" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="Modified_Date" ColumnName="Modified Date" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CountryID" ColumnName="CountryID" />
                 <ScalarProperty Name="isSocialLogin" ColumnName="isSocialLogin" />
               </MappingFragment>
