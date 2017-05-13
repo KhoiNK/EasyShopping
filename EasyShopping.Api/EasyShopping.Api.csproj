@@ -220,7 +220,6 @@
     <Compile Include="Models\ProvinceApiModel.cs" />
     <Compile Include="Models\ApiTranslator.cs" />
     <Compile Include="Models\RatingApiModel.cs" />
-    <Compile Include="Models\RoleApiModel.cs" />
     <Compile Include="Models\ShipperDetailApiModel.cs" />
     <Compile Include="Models\ShipperRatingApiModel.cs" />
     <Compile Include="Models\ShippingDetailApiModel.cs" />
