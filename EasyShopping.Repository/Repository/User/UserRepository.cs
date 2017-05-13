@@ -144,13 +144,13 @@ namespace Easyshopping.Repository.Repository.UserRepo
                 updateuser.DistrictID = user.DistrictID;
                 updateuser.DOB = user.DOB;
                 updateuser.Email = user.Email;
-                updateuser.First_Name = user.First_Name;
-                if (!String.IsNullOrEmpty(user.Img_Link))
+                updateuser.FirstName = user.FirstName;
+                if (!String.IsNullOrEmpty(user.ImgLink))
                 {
-                    updateuser.Img_Link = user.Img_Link;
+                    updateuser.ImgLink = user.ImgLink;
                 }
-                updateuser.Last_Name = user.Last_Name;
-                updateuser.Modified_Date = DateTime.Now;
+                updateuser.LastName = user.LastName;
+                updateuser.ModifiedDate = DateTime.Now;
                 updateuser.PassWord = user.PassWord;
                 updateuser.Phone = user.Phone;
                 updateuser.Sex = user.Sex;

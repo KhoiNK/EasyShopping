@@ -20,7 +20,7 @@ namespace EasyShopping.BusinessLogic.Models
                 //cfg.CreateMap<Category, CategoryDTO>();
 
                 cfg.CreateMap<UserDTO, User>()
-                    .ForSourceMember(
+                .ForSourceMember(
                         dto => dto.Role,
                         opt => opt.Ignore()
                     )
@@ -40,7 +40,6 @@ namespace EasyShopping.BusinessLogic.Models
                         dto => dto.Country,
                         opt => opt.Ignore()
                     );
-
                 cfg.CreateMap<User, UserDTO>()
                     .ForMember(
                         dto => dto.Role,
@@ -83,8 +82,10 @@ namespace EasyShopping.BusinessLogic.Models
             Mapper = config.CreateMapper();
         }
 
+        
         public static TTo Translate<TFrom, TTo>(this TFrom dto)
         {
+            System.Diagnostics.Debugger.Launch();
             return Mapper.Map<TTo>(dto);
         }
 

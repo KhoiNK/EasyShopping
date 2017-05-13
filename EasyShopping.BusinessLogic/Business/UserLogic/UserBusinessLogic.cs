@@ -80,7 +80,7 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 user.PassWord = Encryptor.MD5Hash(user.PassWord);
                 user.RegDate = System.DateTime.Now;
-                user.Modified_Date = System.DateTime.Now;
+                user.ModifiedDate = System.DateTime.Now;
 
                 User userEntity = user.Translate<UserDTO, User>();
                 UserDTO newUser = _repo.Add(userEntity).Translate<User, UserDTO>();
