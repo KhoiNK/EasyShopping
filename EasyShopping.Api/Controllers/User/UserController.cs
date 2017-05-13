@@ -46,32 +46,34 @@ namespace EasyShopping.Api.Controllers
         }
 
         //POST api/values
-        public UserApiModel Post([FromBody]UserApiModel user)
+        public UserApiModel Post([FromBody]AddUserModel user)
         {
-            UserDTO userdto = ApiTranslators.Translate<UserApiModel, UserDTO>(user);
+            UserDTO userdto = ApiTranslators.Translate<AddUserModel, UserDTO>(user);
+            UserApiModel newuser = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.Register(userdto).Result); 
             //UserApiModel newuser = ApiTranslators.Translate<UserDTO, UserApiModel>();
-            if(_business.Register(userdto) != null)
+            if(newuser != null)
             {
-                return user;
+                return newuser;
             }
             return null;
         }
 
         // PUT api/values/
         [Authorize(Roles = Roles.Admin)]
-        public void Put(int id, [FromBody]UserApiModel value)
+        public IHttpActionResult Put([FromBody]AddUserModel value)
         {
-
+            UserDTO user = ApiTranslators.Translate<AddUserModel, UserDTO>(value);
+            if (!_business.Update(user))
+            {
+                return InternalServerError();
+            }
+            return Ok();
         }
 
         // DELETE api/values/5
         [Authorize(Roles = Roles.Admin)]
         public IHttpActionResult Delete(int id)
         {
-            if (id % 2 != 0) // Neu ID la so le
-            {
-                return InternalServerError(new Exception("Minh thich thi minh loi thoi!"));
-            }
 
             if (!_business.Delete(id))
             {

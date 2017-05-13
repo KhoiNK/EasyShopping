@@ -30,7 +30,6 @@ namespace EasyShopping.Mvc
 
             bundles.Add(new StyleBundle(ViewConstants.CssBundle).Include(
                 StylePath + "lib/bootstrap.css",
-                StylePath + "css/site.css",
                 StylePath + "css/font-awesome.css",
                 StylePath + "css/animate.css",
                 StylePath + "css/main.css",

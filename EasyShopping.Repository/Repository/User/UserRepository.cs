@@ -120,7 +120,9 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                User newuser = _db.Users.Add(user);
+                User newuser = new User();
+                newuser = user;
+                _db.Users.Add(newuser);
                 _db.SaveChanges();
                 return newuser;
             }
@@ -133,23 +135,26 @@ namespace Easyshopping.Repository.Repository.UserRepo
 
         public bool Update(int id, User user)
         {
-            User newuser = FindByID(id);
-            if (newuser != null)
+            User updateuser = FindByID(id);
+            if (updateuser != null)
             {
-                newuser.Address = user.Address;
-                newuser.CityID = user.CityID;
-                newuser.CountryID = user.CountryID;
-                newuser.DistrictID = user.DistrictID;
-                newuser.DOB = user.DOB;
-                newuser.Email = user.Email;
-                newuser.First_Name = user.First_Name;
-                newuser.Img_Link = user.Img_Link;
-                newuser.Last_Name = user.Last_Name;
-                newuser.Modified_Date = DateTime.Now;
-                newuser.PassWord = user.PassWord;
-                newuser.Phone = user.Phone;
-                newuser.Sex = user.Sex;
-                newuser.UserName = user.UserName;
+                updateuser.Address = user.Address;
+                updateuser.CityID = user.CityID;
+                updateuser.CountryID = user.CountryID;
+                updateuser.DistrictID = user.DistrictID;
+                updateuser.DOB = user.DOB;
+                updateuser.Email = user.Email;
+                updateuser.First_Name = user.First_Name;
+                if (!String.IsNullOrEmpty(user.Img_Link))
+                {
+                    updateuser.Img_Link = user.Img_Link;
+                }
+                updateuser.Last_Name = user.Last_Name;
+                updateuser.Modified_Date = DateTime.Now;
+                updateuser.PassWord = user.PassWord;
+                updateuser.Phone = user.Phone;
+                updateuser.Sex = user.Sex;
+                updateuser.UserName = user.UserName;
                 _db.SaveChanges();
                 return true;
             }

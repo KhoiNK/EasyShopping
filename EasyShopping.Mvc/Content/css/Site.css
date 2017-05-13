@@ -1092,8 +1092,8 @@ h2.title {
 
 #form {
   display: block;
-  margin-bottom: 185px;
-  margin-top: 185px;
+  margin-bottom: 50px;
+  margin-top: 50px;
   overflow: hidden;
 }
 
@@ -2183,4 +2183,8 @@ h2.title {
 
 .contact-info .social-networks ul li a:hover{
   color: #FE980F;
+}
+
+.display-inline{
+    display: inline;
 }

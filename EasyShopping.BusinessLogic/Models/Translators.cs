@@ -40,6 +40,7 @@ namespace EasyShopping.BusinessLogic.Models
                         dto => dto.Country,
                         opt => opt.Ignore()
                     );
+
                 cfg.CreateMap<User, UserDTO>()
                     .ForMember(
                         dto => dto.Role,
@@ -57,8 +58,7 @@ namespace EasyShopping.BusinessLogic.Models
                     ).ForMember(
                         dto => dto.Status,
                         opt => opt.MapFrom(entity => entity.UserStatu.Name)
-                    )
-                    ;
+                    );
 
                 cfg.CreateMap<CommentDTO, Comment>();
                 cfg.CreateMap<Comment, CommentDTO>();

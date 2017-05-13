@@ -38,7 +38,7 @@ namespace EasyShopping.Api.Models
                         opt => opt.Ignore()
                     );
 
-                cfg.CreateMap<UserApiModel, UserDTO>();
+                cfg.CreateMap<AddUserModel, UserDTO>();
 
                 cfg.CreateMap<CommentDTO, CommentApiModel>();
                 cfg.CreateMap<CommentApiModel, CommentDTO>();
@@ -86,27 +86,5 @@ namespace EasyShopping.Api.Models
         {
             return Mapper.Map<IEnumerable<TTo>>(dto);
         }
-
-        /*
-        public static Category ToEntity(this CategoryDTO dto)
-        {
-            return Mapper.Map<Category>(dto);
-        }
-
-        public static IList<Category> ToEntities(this IEnumerable<CategoryDTO> dto)
-        {
-            return Mapper.Map<IList<Category>>(dto);
-        }
-
-        public static CategoryDTO ToDTO(this Category entity)
-        {
-            return Mapper.Map<CategoryDTO>(entity);
-        }
-
-        public static IList<CategoryDTO> ToDTOs(this IEnumerable<Category> entities)
-        {
-            return Mapper.Map<IList<CategoryDTO>>(entities);
-        }
-        //*/
     }
 }

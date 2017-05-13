@@ -13,12 +13,11 @@ const PROFILE: string = 'profile';
 
 export class Header implements OnInit {
     public isSignedIn: boolean;
-    public userprofile: any;
     public user: any;
-    public name: String;
+    public profile: any;
     constructor(private authService: IAuthService, private router: Router, private userservice: UserServices) {
         let cacheProfile = localStorage.getItem(PROFILE);
-        this.userprofile = JSON.parse(cacheProfile);
+        this.profile = JSON.parse(cacheProfile) || {};
         this.user = {};
     }
 
@@ -35,8 +34,7 @@ export class Header implements OnInit {
             .subscribe((res) => {
                 this.isSignedIn = res.isAuthenticated;
                 if (this.isSignedIn) {
-                    this.name = this.userprofile['name'];
-                    this.userservice.GetUser(this.name).subscribe((res: any) => {
+                    this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
                         this.user = res;
                     });
                 }

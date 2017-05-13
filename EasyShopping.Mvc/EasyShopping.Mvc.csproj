@@ -183,7 +183,6 @@
     <Content Include="Content\img\map.png" />
     <Content Include="Content\lib\bootstrap.css" />
     <Content Include="Content\lib\bootstrap.min.css" />
-    <Content Include="Content\css\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

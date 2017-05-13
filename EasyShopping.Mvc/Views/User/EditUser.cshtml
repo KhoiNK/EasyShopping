@@ -1,6 +1,28 @@
-﻿<div class="col-lg-6" *ngIf="user">
-    <label>User name:</label> <input type="text" value="{{user.UserName}}"/><br />
-    <label>Date of birth:</label> {{user.DOB | date}}<br />
-    <label>Created At:</label> {{user.RegDate | date}}<br />
-    <label>Country: </label> {{user.Country}}
+﻿
+<div class="col-lg-6" *ngIf="user">
+    <form class="form-group" #f="ngForm" (ngSubmit)="editUser()">
+        <div class="col-lg-12" style="color:black">
+            <label class="col-md-3">User name:</label> <input class="col-md-6 display-inline form-control" type="text" name="username" [(ngModel)]="user.UserName" />
+        </div>
+        <br />
+        
+        <div class='date' id='datetimepicker'>
+            <label class="col-md-3">Date of birth:</label>
+            <input class="form-control col-md-6" type="text" name="DOB" id="datetimepicker" [(ngModel)]="user.DOB" />
+            <span class="glyphicon glyphicon-calendar" id="datetimepicker"></span>
+        </div>
+        <br />
+        <label>Created At:</label> {{user.RegDate | date}}<br />
+        <label>Country: </label> {{user.Country}}
+        <button class="btn btn-success" type="submit">Save</button>
+    </form>
+
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            locale: 'us'
+        });
+    });
+</script>

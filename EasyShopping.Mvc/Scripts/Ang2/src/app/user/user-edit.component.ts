@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserServices } from './user.service';
 import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'user-edit',
@@ -14,7 +14,7 @@ export class UserEditComponent {
     public user: any;
     public subscription: Subscription;
 
-    constructor(private userservice: UserServices, private activateRoute: ActivatedRoute) {
+    constructor(private userservice: UserServices, private activateRoute: ActivatedRoute, private router : Router) {
         this.user = {}
     };
 
@@ -29,4 +29,16 @@ export class UserEditComponent {
                 //return this.countryservice.GetSingleCountry(this.user['CountryID']);
             });
     };
+
+    editUser() {
+        this.userservice.EditUser(this.user).subscribe(
+            (res: any) => {
+                if (res == "true") {
+                    alert("Edit successful!");
+                }
+                this.router.navigate['/'];
+            }, err => {
+                console.log(err);
+            });
+    }
 }
