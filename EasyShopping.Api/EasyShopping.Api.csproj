@@ -213,7 +213,6 @@
     <Compile Include="Models\OrderStatusApiModel.cs" />
     <Compile Include="Models\PartnerApiModel.cs" />
     <Compile Include="Models\ProducerApiModel.cs" />
-    <Compile Include="Models\ProducerStatusApiModel.cs" />
     <Compile Include="Models\ProductApiModel.cs" />
     <Compile Include="Models\ProductStatusApiModel.cs" />
     <Compile Include="Models\ProductTypeApiModel.cs" />

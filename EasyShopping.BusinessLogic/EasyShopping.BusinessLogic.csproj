@@ -206,6 +206,7 @@
     <Compile Include="Business\CountryLogic\CountryBusinessLogic.cs" />
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
+    <Compile Include="Models\StoreRatingDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\CommentDTO.cs" />
     <Compile Include="Models\CountryDTO.cs" />
@@ -216,10 +217,23 @@
     <Compile Include="Models\OrderStatusDTO.cs" />
     <Compile Include="Models\PartnerDTO.cs" />
     <Compile Include="Models\ProducerDTO.cs" />
+    <Compile Include="Models\ProductDTO.cs" />
+    <Compile Include="Models\ProductStatusDTO.cs" />
+    <Compile Include="Models\ProductTypeDTO.cs" />
     <Compile Include="Models\ProvinceDTO.cs" />
+    <Compile Include="Models\RatingDTO.cs" />
+    <Compile Include="Models\RoleDTO.cs" />
+    <Compile Include="Models\ShipperDetailDTO.cs" />
+    <Compile Include="Models\ShipperRating.cs" />
+    <Compile Include="Models\ShippingDetail.cs" />
+    <Compile Include="Models\ShipStatusDTO.cs" />
+    <Compile Include="Models\StoreDTO.cs" />
+    <Compile Include="Models\StoreStatusDTO.cs" />
     <Compile Include="Models\Translators.cs" />
     <Compile Include="Models\UserDTO.cs" />
+    <Compile Include="Models\UserStatusDTO.cs" />
     <Compile Include="Models\WardDTO.cs" />
+    <Compile Include="Models\WishlistDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

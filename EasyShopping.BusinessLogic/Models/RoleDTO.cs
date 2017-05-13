@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace EasyShopping.Api.Models
+namespace EasyShopping.BusinessLogic.Models
 {
-    public class ProducerStatusApiModel
+    public class RoleDTO
     {
         public int ID { get; set; }
-        public string Description { get; set; }
+        public string Name { get; set; }
     }
 }
