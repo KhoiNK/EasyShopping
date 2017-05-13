@@ -26,6 +26,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<System.DateTime> RegDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> StatusId { get; set; }
+        public Nullable<bool> isCOD { get; set; }
     
         public virtual ShippStatu ShippStatu { get; set; }
         public virtual User User { get; set; }

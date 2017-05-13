@@ -7,8 +7,8 @@ namespace EasyShopping.BusinessLogic.Models
         public int ID { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
-        public string First_Name { get; set; }
-        public string Last_Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public DateTime DOB { get; set; }
         public string Email { get; set; }
         public DateTime RegDate { get; set; }
@@ -21,10 +21,10 @@ namespace EasyShopping.BusinessLogic.Models
         public int DistrictID { get; set; }
         public string District { get; set; }
         public string Address { get; set; }
-        public string Img_Link { get; set; }
+        public string ImgLink { get; set; }
         public int RoleID { get; set; }
         public string Role { get; set; }
-        public DateTime Modified_Date { get; set; }
+        public DateTime ModifiedDate { get; set; }
         public int CountryID { get; set; }
         public string Country { get; set; }
         public bool isSocialLogin { get; set; }

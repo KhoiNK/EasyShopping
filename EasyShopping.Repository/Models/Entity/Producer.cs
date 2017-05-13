@@ -22,12 +22,8 @@ namespace EasyShopping.Repository.Models.Entity
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
         public string Description { get; set; }
-        public int Status_ID { get; set; }
     
-        public virtual ProducerStatu ProducerStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }

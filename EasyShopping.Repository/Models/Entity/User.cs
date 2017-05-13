@@ -23,7 +23,6 @@ namespace EasyShopping.Repository.Models.Entity
             this.Ratings = new HashSet<Rating>();
             this.ShipperDetails = new HashSet<ShipperDetail>();
             this.ShipperRatings = new HashSet<ShipperRating>();
-            this.ShippingDetails = new HashSet<ShippingDetail>();
             this.Stores = new HashSet<Store>();
             this.StroreRatings = new HashSet<StroreRating>();
             this.Wishlists = new HashSet<Wishlist>();
@@ -32,8 +31,8 @@ namespace EasyShopping.Repository.Models.Entity
         public int ID { get; set; }
         public string UserName { get; set; }
         public string PassWord { get; set; }
-        public string First_Name { get; set; }
-        public string Last_Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public System.DateTime DOB { get; set; }
         public string Email { get; set; }
         public System.DateTime RegDate { get; set; }
@@ -43,9 +42,9 @@ namespace EasyShopping.Repository.Models.Entity
         public int CityID { get; set; }
         public int DistrictID { get; set; }
         public string Address { get; set; }
-        public string Img_Link { get; set; }
+        public string ImgLink { get; set; }
         public int RoleID { get; set; }
-        public System.DateTime Modified_Date { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
         public int CountryID { get; set; }
         public bool isSocialLogin { get; set; }
     
@@ -65,8 +64,6 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual ICollection<ShipperDetail> ShipperDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShipperRating> ShipperRatings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShippingDetail> ShippingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -19,8 +19,8 @@ namespace EasyShopping.Repository.Models.Entity
         public int ProductID { get; set; }
         public int UserID { get; set; }
         public Nullable<int> ParentCmt { get; set; }
-        public System.DateTime Created_Date { get; set; }
-        public System.DateTime Modified_Date { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
     
         public virtual Product Product { get; set; }
         public virtual User User { get; set; }

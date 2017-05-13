@@ -25,12 +25,14 @@ namespace EasyShopping.Repository.Models.Entity
         public int ID { get; set; }
         public string Name { get; set; }
         public int UserID { get; set; }
-        public System.DateTime Created_Date { get; set; }
-        public System.DateTime Modified_Date { get; set; }
-        public int Modified_UserID { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public System.DateTime ModifiedDate { get; set; }
+        public int ModifiedByID { get; set; }
         public string Description { get; set; }
-        public string Img_Link { get; set; }
+        public string ImgLink { get; set; }
         public Nullable<int> StatusID { get; set; }
+        public string BankAccount { get; set; }
+        public string TaxCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Partner> Partners { get; set; }
