@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EasyShopping.BusinessLogic.Models
 {
-    public class ShippingDetail
+    public class ShippingDetailDTO
     {
         public int ID { get; set; }
         public Nullable<int> OrderID { get; set; }

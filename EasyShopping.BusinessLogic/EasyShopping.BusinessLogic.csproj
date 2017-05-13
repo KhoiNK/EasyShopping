@@ -224,8 +224,8 @@
     <Compile Include="Models\RatingDTO.cs" />
     <Compile Include="Models\RoleDTO.cs" />
     <Compile Include="Models\ShipperDetailDTO.cs" />
-    <Compile Include="Models\ShipperRating.cs" />
-    <Compile Include="Models\ShippingDetail.cs" />
+    <Compile Include="Models\ShipperRatingDTO.cs" />
+    <Compile Include="Models\ShippingDetailDTO.cs" />
     <Compile Include="Models\ShipStatusDTO.cs" />
     <Compile Include="Models\StoreDTO.cs" />
     <Compile Include="Models\StoreStatusDTO.cs" />
