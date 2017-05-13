@@ -8,10 +8,18 @@ using EasyShopping.Repository.Models.Entity;
 
 namespace EasyShopping.BusinessLogic.Models
 {
+    public static class MappingExpressionExtensions
+    {
+        public static IMappingExpression<TSource, TDest> IgnoreAllUnmapped<TSource, TDest>(this IMappingExpression<TSource, TDest> expression)
+        {
+            expression.ForAllMembers(opt => opt.Ignore());
+            return expression;
+        }
+    }
     public static class BusinessTranslators
     {
         private static IMapper Mapper;
-
+        
         public static void Init()
         {
             var config = new MapperConfiguration(cfg =>
@@ -19,27 +27,21 @@ namespace EasyShopping.BusinessLogic.Models
                 //cfg.CreateMap<CategoryDTO, Category>();
                 //cfg.CreateMap<Category, CategoryDTO>();
 
-                cfg.CreateMap<UserDTO, User>()
-                .ForSourceMember(
-                        dto => dto.Role,
-                        opt => opt.Ignore()
-                    )
-                    .ForSourceMember(
-                        dto => dto.City,
-                        opt => opt.Ignore()
-                    )
-                    .ForSourceMember(
-                        dto => dto.Status,
-                        opt => opt.Ignore()
-                    )
-                    .ForSourceMember(
-                        dto => dto.District,
-                        opt => opt.Ignore()
-                    )
-                    .ForSourceMember(
-                        dto => dto.Country,
-                        opt => opt.Ignore()
-                    );
+                cfg.CreateMap<UserDTO, User>().IgnoreAllUnmapped()
+                .ForMember(
+                    entity => entity.ID,
+                    opt => opt.MapFrom(dto => dto.ID)
+                )
+                .ForMember(
+                    entity => entity.UserName,
+                    opt => opt.MapFrom(dto => dto.UserName)    
+                )
+                .ForMember(
+                    entity => entity.PassWord,
+                    opt => opt.MapFrom(dto => dto.PassWord)
+                )
+                ;
+
                 cfg.CreateMap<User, UserDTO>()
                     .ForMember(
                         dto => dto.Role,
@@ -122,26 +124,6 @@ namespace EasyShopping.BusinessLogic.Models
         //    return result.Value != null;
         //}
 
-        /*
-        public static Category ToEntity(this CategoryDTO dto)
-        {
-            return Mapper.Map<Category>(dto);
-        }
-
-        public static IList<Category> ToEntities(this IEnumerable<CategoryDTO> dto)
-        {
-            return Mapper.Map<IList<Category>>(dto);
-        }
-
-        public static CategoryDTO ToDTO(this Category entity)
-        {
-            return Mapper.Map<CategoryDTO>(entity);
-        }
-
-        public static IList<CategoryDTO> ToDTOs(this IEnumerable<Category> entities)
-        {
-            return Mapper.Map<IList<CategoryDTO>>(entities);
-        }
-        //*/
+        
     }
 }
