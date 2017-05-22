@@ -18,13 +18,15 @@ namespace EasyShopping.Repository.Models.Entity
         public User()
         {
             this.Comments = new HashSet<Comment>();
+            this.Messages = new HashSet<Message>();
+            this.Messages1 = new HashSet<Message>();
             this.Orders = new HashSet<Order>();
             this.Partners = new HashSet<Partner>();
             this.Ratings = new HashSet<Rating>();
             this.ShipperDetails = new HashSet<ShipperDetail>();
             this.ShipperRatings = new HashSet<ShipperRating>();
+            this.StoreRatings = new HashSet<StoreRating>();
             this.Stores = new HashSet<Store>();
-            this.StroreRatings = new HashSet<StroreRating>();
             this.Wishlists = new HashSet<Wishlist>();
         }
     
@@ -47,11 +49,16 @@ namespace EasyShopping.Repository.Models.Entity
         public System.DateTime ModifiedDate { get; set; }
         public int CountryID { get; set; }
         public bool isSocialLogin { get; set; }
+        public Nullable<int> WardID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Message> Messages1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -65,9 +72,10 @@ namespace EasyShopping.Repository.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShipperRating> ShipperRatings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Store> Stores { get; set; }
+        public virtual ICollection<StoreRating> StoreRatings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StroreRating> StroreRatings { get; set; }
+        public virtual ICollection<Store> Stores { get; set; }
+        public virtual Ward Ward { get; set; }
         public virtual UserStatu UserStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }

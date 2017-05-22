@@ -28,6 +28,7 @@ namespace EasyShopping.Api.Models
         //public int CountryID { get; set; }
         public string Country { get; set; }
         public bool isSocialLogin { get; set; }
+        public string Ward { get; set; }
     }
 
     public class AddUserModel
@@ -47,6 +48,7 @@ namespace EasyShopping.Api.Models
         public int CityID { get; set; }
         public string City { get; set; }
         public int DistrictID { get; set; }
+        public int WardID { get; set; }
         public string District { get; set; }
         public string Address { get; set; }
         public string ImgLink { get; set; }

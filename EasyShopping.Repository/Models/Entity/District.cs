@@ -17,6 +17,7 @@ namespace EasyShopping.Repository.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public District()
         {
+            this.Orders = new HashSet<Order>();
             this.ShippingDetails = new HashSet<ShippingDetail>();
             this.Users = new HashSet<User>();
             this.Wards = new HashSet<Ward>();
@@ -31,6 +32,8 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<bool> IsPublished { get; set; }
         public Nullable<bool> IsDeleted { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
         public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingDetail> ShippingDetails { get; set; }

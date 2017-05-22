@@ -28,5 +28,7 @@ namespace EasyShopping.BusinessLogic.Models
         public int CountryID { get; set; }
         public string Country { get; set; }
         public bool isSocialLogin { get; set; }
+        public string Ward { get; set; }
+        public int WardID { get; set; }
     }
 }

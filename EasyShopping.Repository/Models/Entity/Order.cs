@@ -33,7 +33,15 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<double> Total { get; set; }
         public Nullable<bool> Taken { get; set; }
         public Nullable<System.DateTime> Timeout { get; set; }
+        public Nullable<int> CountryID { get; set; }
+        public Nullable<int> CityID { get; set; }
+        public Nullable<int> DistrictID { get; set; }
+        public Nullable<int> WardID { get; set; }
     
+        public virtual Country Country { get; set; }
+        public virtual District District { get; set; }
+        public virtual Province Province { get; set; }
+        public virtual Ward Ward { get; set; }
         public virtual OrderStatu OrderStatu { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -59,9 +60,11 @@ namespace EasyShopping.Api.Controllers
         }
 
         // PUT api/values/
-        [Authorize(Roles = Roles.Admin)]
+        //[Authorize(Roles = Roles.Admin)]
         public IHttpActionResult Put([FromBody]AddUserModel value)
         {
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
             UserDTO user = ApiTranslators.Translate<AddUserModel, UserDTO>(value);
             if (!_business.Update(user))
             {
@@ -71,7 +74,7 @@ namespace EasyShopping.Api.Controllers
         }
 
         // DELETE api/values/5
-        [Authorize(Roles = Roles.Admin)]
+        //[Authorize(Roles = Roles.Admin)]
         public IHttpActionResult Delete(int id)
         {
 

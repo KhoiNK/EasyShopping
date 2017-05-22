@@ -21,6 +21,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedID { get; set; }
         public Nullable<int> Quantity { get; set; }
+        public Nullable<double> Price { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

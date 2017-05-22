@@ -36,6 +36,9 @@ namespace EasyShopping.Api.Models
                     .ForSourceMember(
                         dto => dto.CountryID,
                         opt => opt.Ignore()
+                    ).ForSourceMember(
+                        dto => dto.WardID,
+                        opt => opt.Ignore()
                     );
 
                 cfg.CreateMap<AddUserModel, UserDTO>();

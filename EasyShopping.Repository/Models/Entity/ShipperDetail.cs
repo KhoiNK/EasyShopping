@@ -27,8 +27,11 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> StatusId { get; set; }
         public Nullable<bool> isCOD { get; set; }
+        public Nullable<double> Deposit { get; set; }
+        public Nullable<double> Total { get; set; }
+        public Nullable<double> RecentBalance { get; set; }
     
-        public virtual ShippStatu ShippStatu { get; set; }
+        public virtual ShipperStatu ShipperStatu { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShipperRating> ShipperRatings { get; set; }

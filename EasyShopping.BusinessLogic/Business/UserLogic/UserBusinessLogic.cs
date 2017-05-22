@@ -17,6 +17,9 @@ namespace EasyShopping.BusinessLogic.Business
 
         private UserRepository _repo;
 
+        const int STATUS_ACTIVE = 1;
+        const int ROLE_MEMBER = 2;
+
         public UserBusinessLogic()
         {
             _repo = new UserRepository();
@@ -59,7 +62,9 @@ namespace EasyShopping.BusinessLogic.Business
 
         public UserDTO GetByID(int id)
         {
-            return _repo.FindByID(id).Translate<User, UserDTO>();
+            //System.Diagnostics.Debugger.Launch();
+            UserDTO user = _repo.FindByID(id).Translate<User, UserDTO>();
+            return user;
         }
 
         public bool Update(UserDTO user)
@@ -81,8 +86,10 @@ namespace EasyShopping.BusinessLogic.Business
                 user.PassWord = Encryptor.MD5Hash(user.PassWord);
                 user.RegDate = System.DateTime.Now;
                 user.ModifiedDate = System.DateTime.Now;
+                user.StatusID = STATUS_ACTIVE;
+                user.RoleID = ROLE_MEMBER;
 
-                User userEntity = user.Translate<UserDTO, User>();
+                User userEntity = user.ToUserEntity();
                 UserDTO newUser = _repo.Add(userEntity).Translate<User, UserDTO>();
 
                 return newUser;

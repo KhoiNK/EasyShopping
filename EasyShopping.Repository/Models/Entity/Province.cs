@@ -18,6 +18,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Province()
         {
             this.Districts = new HashSet<District>();
+            this.Orders = new HashSet<Order>();
             this.ShippingDetails = new HashSet<ShippingDetail>();
             this.Users = new HashSet<User>();
         }
@@ -36,6 +37,8 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<District> Districts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShippingDetail> ShippingDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

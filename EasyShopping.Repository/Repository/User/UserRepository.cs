@@ -53,6 +53,7 @@ namespace Easyshopping.Repository.Repository.UserRepo
                     .Include("UserStatu")
                     .Include("Province")
                     .Include("District")
+                    .Include("Ward")
                     .SingleOrDefault(x => x.UserName.Equals(username.Trim()));
                 return user;
             }
@@ -66,16 +67,23 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                return _db.Users
+                //System.Diagnostics.Debugger.Launch();
+                User user = _db.Users
                     .Include("Country")
                     .Include("UserStatu")
                     .Include("Province")
                     .Include("District")
                     .Include("Role")
                     .SingleOrDefault(x => x.ID == id);
+
+                String countryname = user.Country.CommonName;
+                String status = user.UserStatu.Name;
+                String city = user.Province.Name;
+                return user;
             }
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine(e.StackTrace);
                 return null;
             }
 
@@ -120,15 +128,34 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                User newuser = new User();
-                newuser = user;
-                _db.Users.Add(newuser);
+                var newuser = new User{
+                    Address = user.Address,
+                    CityID = user.CityID,
+                    CountryID = user.CountryID,
+                    DistrictID = user.DistrictID,
+                    DOB = user.DOB,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    ImgLink = user.ImgLink,
+                    isSocialLogin = user.isSocialLogin,
+                    LastName = user.LastName,
+                    ModifiedDate = user.ModifiedDate,
+                    PassWord = user.PassWord,
+                    Phone = user.Phone,
+                    RegDate = user.RegDate,
+                    RoleID = user.RoleID,
+                    Sex = user.Sex,
+                    StatusID = user.StatusID,
+                    UserName = user.UserName
+                };
+                //newuser = user;
+                newuser = _db.Users.Add(newuser);
                 _db.SaveChanges();
-                return newuser;
+                return FindByID(newuser.ID);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                 return null;
             }
         }
