@@ -204,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\CountryLogic\CountryBusinessLogic.cs" />
+    <Compile Include="Business\Store\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
     <Compile Include="Models\StoreRatingDTO.cs" />

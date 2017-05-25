@@ -27,72 +27,6 @@ namespace EasyShopping.BusinessLogic.Models
                 //cfg.CreateMap<CategoryDTO, Category>();
                 //cfg.CreateMap<Category, CategoryDTO>();
 
-                cfg.CreateMap<UserDTO, User>();
-                //.ForMember(
-                //    entity => entity.ID,
-                //    opt => opt.MapFrom(dto => dto.ID)
-                //)
-                //.ForMember(
-                //    entity => entity.UserName,
-                //    opt => opt.MapFrom(dto => dto.UserName)    
-                //)
-                //.ForMember(
-                //    entity => entity.PassWord,
-                //    opt => opt.MapFrom(dto => dto.PassWord)
-                //)
-                // .ForMember(
-                //    entity => entity.FirstName,
-                //    opt => opt.MapFrom(dto => dto.FirstName)
-                //)
-                // .ForMember(
-                //    entity => entity.LastName,
-                //    opt => opt.MapFrom(dto => dto.LastName)
-                //)
-                // .ForMember(
-                //    entity => entity.DOB,
-                //    opt => opt.MapFrom(dto => dto.DOB)
-                //)
-                // .ForMember(
-                //    entity => entity.Email,
-                //    opt => opt.MapFrom(dto => dto.Email)
-                //).ForMember(
-                //    entity => entity.RegDate,
-                //    opt => opt.MapFrom(dto => dto.RegDate)
-                //).ForMember(
-                //    entity => entity.StatusID,
-                //    opt => opt.MapFrom(dto => dto.StatusID)
-                //).ForMember(
-                //    entity => entity.Phone,
-                //    opt => opt.MapFrom(dto => dto.Phone)
-                //).ForMember(
-                //    entity => entity.Sex,
-                //    opt => opt.MapFrom(dto => dto.Sex)
-                //).ForMember(
-                //    entity => entity.CityID,
-                //    opt => opt.MapFrom(dto => dto.CityID)
-                //).ForMember(
-                //    entity => entity.DistrictID,
-                //    opt => opt.MapFrom(dto => dto.DistrictID)
-                //).ForMember(
-                //    entity => entity.Address,
-                //    opt => opt.MapFrom(dto => dto.Address)
-                //).ForMember(
-                //    entity => entity.ImgLink,
-                //    opt => opt.MapFrom(dto => dto.ImgLink)
-                //).ForMember(
-                //    entity => entity.RoleID,
-                //    opt => opt.MapFrom(dto => dto.RoleID)
-                //).ForMember(
-                //    entity => entity.ModifiedDate,
-                //    opt => opt.MapFrom(dto => dto.ModifiedDate)
-                //).ForMember(
-                //    entity => entity.CountryID,
-                //    opt => opt.MapFrom(dto => dto.CountryID)
-                //).ForMember(
-                //    entity => entity.isSocialLogin,
-                //    opt => opt.MapFrom(dto => dto.isSocialLogin)
-                //);
-
                 cfg.CreateMap<User, UserDTO>()
                 .ForMember(
                     dto => dto.Role,
@@ -175,15 +109,54 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<ShipStatusDTO, ShipperStatu>();
                 cfg.CreateMap<ShipperStatu, ShipStatusDTO>();
 
-                cfg.CreateMap<StoreDTO, Store>();
-                cfg.CreateMap<Store, StoreDTO>();
+                cfg.CreateMap<StoreDTO, Store>()
+                .ForSourceMember(
+                    dto => dto.UserName,
+                    opt => opt.Ignore()
+                ).ForSourceMember(
+                    dto => dto.Status,
+                    opt => opt.Ignore()    
+                ).ForSourceMember(
+                    dto => dto.City,
+                    opt => opt.Ignore()
+                ).ForSourceMember(
+                    dto => dto.Country,
+                    opt => opt.Ignore()
+                ).ForSourceMember(
+                    dto => dto.Ward,
+                    opt => opt.Ignore()
+                ).ForSourceMember(
+                    dto => dto.District,
+                    opt => opt.Ignore()
+                );
+
+                cfg.CreateMap<Store, StoreDTO>()
+                .ForMember(
+                    dto => dto.UserName,
+                    opt => opt.MapFrom(entity => entity.User.UserName)
+                ).ForMember(
+                    dto => dto.Status,
+                    opt => opt.MapFrom(entity => entity.StoreStatu.Name)
+                ).ForMember(
+                    dto => dto.City,
+                    opt => opt.MapFrom(entity => entity.Province.Name)    
+                ).ForMember(
+                    dto => dto.Country,
+                    opt => opt.MapFrom(entity => entity.Country.CommonName)    
+                ).ForMember(
+                    dto => dto.District,
+                    opt => opt.MapFrom(entity => entity.District.Name)
+                ).ForMember(
+                    dto => dto.Ward,
+                    opt => opt.MapFrom(entity => entity.Ward.Name)
+                );
 
                 cfg.CreateMap<StoreStatusDTO, StoreStatu>();
                 cfg.CreateMap<StoreStatu, StoreStatusDTO>();
 
                 cfg.CreateMap<StoreRatingDTO, StoreRating>();
                 cfg.CreateMap<StoreRating, StoreRatingDTO>();
-                
+
                 cfg.CreateMap<UserStatusDTO, UserStatu>();
                 cfg.CreateMap<UserStatu, UserStatusDTO>();
 
@@ -238,34 +211,5 @@ namespace EasyShopping.BusinessLogic.Models
                 WardID = user.WardID
             };
         }
-
-        //public static IMappingExpression<TSource, TDestination> IgnoreAllNonExisting<TSource, TDestination>(this IMappingExpression<TSource, TDestination> expression)
-        //{
-        //    var sourceType = typeof(TSource);
-        //    Mapper.
-        //    var destinationType = typeof(TDestination);
-        //    var existingMaps = Mapper.GetAllTypeMaps().First(x => x.SourceType.Equals(sourceType) && x.DestinationType.Equals(destinationType));
-        //    foreach (var property in existingMaps.GetUnmappedPropertyNames())
-        //    {
-        //        expression.ForMember(property, opt => opt.Ignore());
-        //    }
-        //    return expression;
-        //}
-        //public static void IgnoreIfSourceIsNull<T>(this IMemberConfigurationExpression<T> expression)
-        //{
-        //    expression.Condition(IgnoreIfSourceIsNull);
-        //}
-
-        //static bool IgnoreIfSourceIsNull(ResolutionContext context)
-        //{
-        //    if (!context.IsSourceValueNull)
-        //    {
-        //        return true;
-        //    }
-        //    var result = context.GetContextPropertyMap().ResolveValue(context.Parent);
-        //    return result.Value != null;
-        //}
-
-
     }
 }

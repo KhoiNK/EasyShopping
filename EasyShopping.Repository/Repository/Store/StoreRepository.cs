@@ -1,13 +1,10 @@
 ﻿using EasyShopping.Repository.Models.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyShopping.Repository.Repository
 {
-    class StoreRepository
+    public class StoreRepository
     {
         EasyShoppingEntities _db = null;
         const int WAITINGFORAPPROVE = 3;
@@ -24,6 +21,10 @@ namespace EasyShopping.Repository.Repository
             return _db.Stores
                 .Include("User")
                 .Include("StoreStatu")
+                .Include("Ward")
+                .Include("District")
+                .Include("Country")
+                .Include("Province")
                 .ToList()
                 .Skip(skipped);
         }
@@ -33,6 +34,10 @@ namespace EasyShopping.Repository.Repository
             return _db.Stores
                 .Include("User")
                 .Include("StoreStatu")
+                .Include("Ward")
+                .Include("District")
+                .Include("Country")
+                .Include("Province")
                 .Where(x => x.ID == id)
                 .SingleOrDefault();
         }

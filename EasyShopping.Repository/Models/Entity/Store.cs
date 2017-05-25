@@ -33,13 +33,22 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> StatusID { get; set; }
         public string BankAccount { get; set; }
         public string TaxCode { get; set; }
+        public string Address { get; set; }
+        public Nullable<int> WardId { get; set; }
+        public Nullable<int> DistrictId { get; set; }
+        public Nullable<int> CountryId { get; set; }
+        public Nullable<int> CityId { get; set; }
     
+        public virtual Country Country { get; set; }
+        public virtual District District { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Partner> Partners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StoreRating> StoreRatings { get; set; }
+        public virtual Ward Ward { get; set; }
         public virtual StoreStatu StoreStatu { get; set; }
         public virtual User User { get; set; }
     }
