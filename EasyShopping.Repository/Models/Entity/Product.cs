@@ -46,10 +46,10 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual Producer Producer { get; set; }
         public virtual ProductType ProductType { get; set; }
         public virtual ProductStatu ProductStatu { get; set; }
-        public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rating> Ratings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wishlist> Wishlists { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

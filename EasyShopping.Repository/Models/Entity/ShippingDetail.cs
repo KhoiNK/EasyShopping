@@ -19,17 +19,9 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedID { get; set; }
-        public Nullable<bool> Delay { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<int> ProvinceID { get; set; }
-        public Nullable<int> DistrictID { get; set; }
-        public Nullable<int> WardID { get; set; }
         public Nullable<int> ShipperID { get; set; }
     
-        public virtual District District { get; set; }
         public virtual Order Order { get; set; }
-        public virtual Province Province { get; set; }
         public virtual ShipperDetail ShipperDetail { get; set; }
-        public virtual Ward Ward { get; set; }
     }
 }

@@ -101,7 +101,15 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<ShipStatusDTO, ShipStatusApiModel>();
 
                 cfg.CreateMap<StoreApiModel, StoreDTO>();
-                cfg.CreateMap<StoreDTO, StoreApiModel>();
+                cfg.CreateMap<StoreDTO, StoreApiModel>().
+                ForSourceMember(
+                    dto => dto.UserID,
+                    opt => opt.Ignore()
+                ).
+                ForSourceMember(
+                    dto => dto.ModifiedByID,
+                    opt => opt.Ignore()    
+                );
 
                 cfg.CreateMap<StoreRatingApiModel, StoreRatingDTO>();
                 cfg.CreateMap<StoreRatingDTO, StoreRatingApiModel>();

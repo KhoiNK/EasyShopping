@@ -49,9 +49,6 @@ namespace EasyShopping.BusinessLogic.Models
                     opt => opt.MapFrom(entity => entity.Ward.Name)
                 );
 
-                cfg.CreateMap<CategoryDTO, Category>();
-                cfg.CreateMap<Category, CategoryDTO>();
-
                 cfg.CreateMap<CommentDTO, Comment>();
                 cfg.CreateMap<Comment, CommentDTO>();
 

@@ -38,6 +38,8 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> DistrictId { get; set; }
         public Nullable<int> CountryId { get; set; }
         public Nullable<int> CityId { get; set; }
+        public Nullable<double> LatX { get; set; }
+        public Nullable<double> LatY { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }

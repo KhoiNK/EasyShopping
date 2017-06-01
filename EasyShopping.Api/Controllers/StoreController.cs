@@ -1,0 +1,30 @@
+﻿using EasyShopping.Api.Models;
+using EasyShopping.BusinessLogic.Business;
+using EasyShopping.BusinessLogic.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Web;
+using System.Web.Http;
+
+namespace EasyShopping.Api.Controllers
+{
+    public class StoreController : ApiController
+    {
+        StoreBusinessLogic _business = null;
+        public StoreController()
+        {
+            _business = new StoreBusinessLogic();
+        }
+        public StoreApiModel Post([FromBody]StoreApiModel store)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+            store.ModifiedUser = name;
+            store.UserName = name;
+            var newstore = _business.CreateStore(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
+            return store;
+        }
+    }
+}

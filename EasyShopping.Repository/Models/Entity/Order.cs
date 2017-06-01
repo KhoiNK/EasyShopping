@@ -31,8 +31,6 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> ModifiedID { get; set; }
         public Nullable<int> StatusID { get; set; }
         public Nullable<double> Total { get; set; }
-        public Nullable<bool> Taken { get; set; }
-        public Nullable<System.DateTime> Timeout { get; set; }
         public Nullable<int> CountryID { get; set; }
         public Nullable<int> CityID { get; set; }
         public Nullable<int> DistrictID { get; set; }

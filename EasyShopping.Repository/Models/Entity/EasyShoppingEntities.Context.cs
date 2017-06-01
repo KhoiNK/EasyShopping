@@ -13,10 +13,10 @@ namespace EasyShopping.Repository.Models.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EasyShoppingEntities : DbContext
+    public partial class Entities : DbContext
     {
-        public EasyShoppingEntities()
-            : base("name=EasyShoppingEntities")
+        public Entities()
+            : base("name=Entities")
         {
         }
     
@@ -25,7 +25,6 @@ namespace EasyShopping.Repository.Models.Entity
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<District> Districts { get; set; }
@@ -42,16 +41,17 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<ShipperDetail> ShipperDetails { get; set; }
         public virtual DbSet<ShipperRating> ShipperRatings { get; set; }
         public virtual DbSet<ShipperStatu> ShipperStatus { get; set; }
         public virtual DbSet<ShippingDetail> ShippingDetails { get; set; }
         public virtual DbSet<StoreRating> StoreRatings { get; set; }
-        public virtual DbSet<Store> Stores { get; set; }
         public virtual DbSet<StoreStatu> StoreStatus { get; set; }
+        public virtual DbSet<Target> Targets { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserStatu> UserStatus { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<ShipperDetail> ShipperDetails { get; set; }
+        public virtual DbSet<Store> Stores { get; set; }
+        public virtual DbSet<UserStatu> UserStatus { get; set; }
     }
 }

@@ -12,18 +12,11 @@ namespace EasyShopping.Repository.Models.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Target
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
-        {
-            this.ProductTypes = new HashSet<ProductType>();
-        }
-    
         public int ID { get; set; }
-        public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductType> ProductTypes { get; set; }
+        public Nullable<int> ProductTypeId { get; set; }
+        public Nullable<int> Count { get; set; }
+        public Nullable<int> UserId { get; set; }
     }
 }

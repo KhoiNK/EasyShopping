@@ -203,9 +203,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Business\CountryLogic\CountryBusinessLogic.cs" />
-    <Compile Include="Business\Store\StoreBusinessLogic.cs" />
-    <Compile Include="Business\UserLogic\UserBusinessLogic.cs" />
+    <Compile Include="Business\CountryBusinessLogic.cs" />
+    <Compile Include="Business\StoreBusinessLogic.cs" />
+    <Compile Include="Business\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
     <Compile Include="Models\StoreRatingDTO.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
@@ -254,6 +254,11 @@
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Business\CountryLogic\" />
+    <Folder Include="Business\Store\" />
+    <Folder Include="Business\UserLogic\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -23,7 +23,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<bool> isClosed { get; set; }
         public Nullable<bool> isWorking { get; set; }
     
-        public virtual Store Store { get; set; }
         public virtual User User { get; set; }
+        public virtual Store Store { get; set; }
     }
 }

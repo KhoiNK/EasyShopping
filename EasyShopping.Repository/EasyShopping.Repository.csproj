@@ -59,9 +59,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Entity\Category.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entity\Comment.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
@@ -146,10 +143,10 @@
     <Compile Include="Models\Entity\StoreStatu.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\User.cs">
+    <Compile Include="Models\Entity\Target.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\UserStatu.cs">
+    <Compile Include="Models\Entity\User.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Ward.cs">
