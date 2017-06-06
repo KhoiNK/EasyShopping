@@ -22,5 +22,5 @@ export class StoreListComponent implements OnInit {
         }, error => {
             console.log(error);
         });
-    }
+    } 
 }
