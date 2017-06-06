@@ -149,6 +149,9 @@
     <Compile Include="Models\Entity\User.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\UserStatu.cs">
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\Ward.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>

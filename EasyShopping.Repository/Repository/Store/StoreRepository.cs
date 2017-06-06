@@ -1,4 +1,5 @@
 ﻿using EasyShopping.Repository.Models.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,7 +10,7 @@ namespace EasyShopping.Repository.Repository
         EasyShoppingEntities _db = null;
         const int WAITINGFORAPPROVE = 3;
         const int OPEN = 1;
-
+        const int CLOSED = 2;
         public StoreRepository()
         {
             _db = new EasyShoppingEntities();
@@ -50,6 +51,35 @@ namespace EasyShopping.Repository.Repository
             return FindByID(newstore.ID);
         }
 
+        public bool Delete(int id)
+        {
+            try
+            {
+                var store = _db.Stores.Where(x => x.ID == id).Single();
+                store.StatusID = CLOSED;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
 
+        public bool Approve(int id)
+        {
+            try
+            {
+                FindByID(id).StatusID = 1;
+                _db.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            } 
+        }
     }
 }

@@ -165,9 +165,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Constants\ViewConstants.cs" />
-    <Compile Include="Controllers\Country\CountryController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\User\UserController.cs" />
+    <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -254,6 +255,7 @@
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\User\UserDetail.cshtml" />
     <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Store\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +282,11 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.component.ts" />

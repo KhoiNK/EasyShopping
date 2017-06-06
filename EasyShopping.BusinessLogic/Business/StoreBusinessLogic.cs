@@ -34,5 +34,36 @@ namespace EasyShopping.BusinessLogic.Business
             });
 
         }
+
+        public Task<StoreDTO> Get(int id)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                return _repo.FindByID(id).Translate<Store, StoreDTO>();
+            });
+        }
+
+        public Task<bool> Delete(int id, string username)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                var userid = _userbusiness.GetByName(username).Result.ID;
+                var ownerid = _repo.FindByID(id).UserID;
+                if(userid != ownerid)
+                {
+                    return false;
+                }
+                if (_repo.Delete(id))
+                {
+                    return true;
+                }
+                return false;
+            });
+        }
+
+        public bool ApproveStore(int id)
+        {
+            return _repo.Approve(id);
+        }
     }
 }

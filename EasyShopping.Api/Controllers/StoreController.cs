@@ -26,5 +26,12 @@ namespace EasyShopping.Api.Controllers
             var newstore = _business.CreateStore(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
             return store;
         }
+
+        public bool Put([FromBody]StoreApiModel store)
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+
+        }
     }
 }

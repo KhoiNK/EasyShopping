@@ -13,10 +13,10 @@ namespace EasyShopping.Repository.Models.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class EasyShoppingEntities : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public EasyShoppingEntities()
+            : base("name=EasyShoppingEntities")
         {
         }
     
