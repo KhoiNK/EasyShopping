@@ -11,6 +11,7 @@ namespace EasyShopping.BusinessLogic.Models
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int ModifiedByID { get; set; }
+        public string ModifiedUser { get; set; }
         public string Description { get; set; }
         public string ImgLink { get; set; }
         public int StatusID { get; set; }

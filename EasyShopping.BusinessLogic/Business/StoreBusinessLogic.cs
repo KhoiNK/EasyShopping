@@ -1,6 +1,8 @@
 ﻿using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
+using System.Collections;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -64,6 +66,18 @@ namespace EasyShopping.BusinessLogic.Business
         public bool ApproveStore(int id)
         {
             return _repo.Approve(id);
+        }
+
+        public IList<StoreDTO> GetAll(int pagesize, int page)
+        {
+            IList<StoreDTO> store = _repo.GetList(pagesize, page).Translate<Store, StoreDTO>();
+
+            foreach(var s in store)
+            {
+                s.ModifiedUser = _userbusiness.GetByID(s.ModifiedByID).UserName;
+            }
+
+            return store;
         }
     }
 }

@@ -8,8 +8,10 @@ using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
 
+
 namespace EasyShopping.Api.Controllers
 {
+    [Authorize]
     public class StoreController : ApiController
     {
         StoreBusinessLogic _business = null;
@@ -27,11 +29,21 @@ namespace EasyShopping.Api.Controllers
             return store;
         }
 
-        public bool Put([FromBody]StoreApiModel store)
+        public IEnumerable<StoreApiModel> Get(int page, int index = 10)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+            return _business.GetAll(index, page).Translate<StoreDTO, StoreApiModel>();
+        }
 
+        //public bool Put([FromBody]StoreApiModel store)
+        //{
+        //    var identity = (ClaimsIdentity)User.Identity;
+        //    var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+
+        //}
+        
+        public bool Put(int id)
+        {
+            return _business.ApproveStore(id);
         }
     }
 }
