@@ -275,9 +275,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EasyShopping.BusinessLogic\EasyShopping.BusinessLogic.csproj">
-      <Project>{53cb982f-6f5a-4422-a437-5ba88c5ed23e}</Project>
-      <Name>EasyShopping.BusinessLogic</Name>
+    <ProjectReference Include="..\EasyShopping.Business\EasyShopping.Business.csproj">
+      <Project>{9a51e5a5-dd89-4905-874f-2b01dea9199f}</Project>
+      <Name>EasyShopping.Business</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

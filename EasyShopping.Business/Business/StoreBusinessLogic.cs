@@ -1,11 +1,8 @@
 ﻿using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web.Http;
 
 namespace EasyShopping.BusinessLogic.Business
 {

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShopping.Common", "Easy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShopping.Repository", "EasyShopping.Repository\EasyShopping.Repository.csproj", "{DBC90B27-9C4E-4776-9EE0-7F32ADC3C5E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShopping.Business", "EasyShopping.Business\EasyShopping.Business.csproj", "{9A51E5A5-DD89-4905-874F-2B01DEA9199F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{DBC90B27-9C4E-4776-9EE0-7F32ADC3C5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBC90B27-9C4E-4776-9EE0-7F32ADC3C5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBC90B27-9C4E-4776-9EE0-7F32ADC3C5E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{B1C570E9-44BA-4F5F-97DE-DAD609531851} = {22FD6C53-61C8-4C24-9632-5A270AACE629}
 		{5EC7D001-5BBA-4A05-B948-0BC914809871} = {88DB5148-C398-4366-A3C7-6CA6865401CB}
 		{DBC90B27-9C4E-4776-9EE0-7F32ADC3C5E4} = {B51B1AEC-E612-4E7F-897D-390EF21A3449}
+		{9A51E5A5-DD89-4905-874F-2B01DEA9199F} = {B51B1AEC-E612-4E7F-897D-390EF21A3449}
 	EndGlobalSection
 EndGlobal

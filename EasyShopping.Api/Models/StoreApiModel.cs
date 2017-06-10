@@ -15,8 +15,9 @@ namespace EasyShopping.Api.Models
         public string ModifiedUser { get; set; }
         public string Description { get; set; }
         public string Img_Link { get; set; }
+        public int StatusId { get; set; }
         public string Status { get; set; }
-        public string CityId { get; set; }
+        public int CityId { get; set; }
         public string City { get; set; }
         public string Ward { get; set; }
         public int WardId { get; set; }

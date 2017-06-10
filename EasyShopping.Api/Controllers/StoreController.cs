@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
-    [Authorize]
+    
     public class StoreController : ApiController
     {
         StoreBusinessLogic _business = null;
