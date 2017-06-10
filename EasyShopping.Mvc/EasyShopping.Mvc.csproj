@@ -302,12 +302,6 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EasyShopping.BusinessLogic\EasyShopping.BusinessLogic.csproj">
-      <Project>{53cb982f-6f5a-4422-a437-5ba88c5ed23e}</Project>
-      <Name>EasyShopping.BusinessLogic</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
