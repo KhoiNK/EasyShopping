@@ -12,6 +12,10 @@ const routes: Routes = [
         path: 'users', //tu dat path url
         loadChildren: 'app/user/user.module#UserModule'
     },
+    {
+        path: 'stores',
+        loadChildren : 'app/store/store.module#StoreModule'
+    },
     //{
     //    path: 'contracts',
     //    loadChildren: 'app/contract/contract.module#ContractModule'

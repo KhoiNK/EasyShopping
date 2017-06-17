@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\CountryBusinessLogic.cs" />
+    <Compile Include="Business\ProductBusinessLogic.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="ID" />
@@ -139,7 +139,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="ProductID" Type="nvarchar" MaxLength="250" />
-          <Property Name="Manufactured CountryID" Type="int" Nullable="false" />
+          <Property Name="ManufacturedCountryID" Type="int" Nullable="false" />
           <Property Name="ProducerID" Type="int" Nullable="false" />
           <Property Name="Weight" Type="float" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
@@ -599,7 +599,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Product">
-              <PropertyRef Name="Manufactured CountryID" />
+              <PropertyRef Name="ManufacturedCountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1123,7 +1123,8 @@
             <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1164,10 +1165,10 @@
           <Property Name="Flags" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CountryID__14270015" FromRole="Country" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CountryI__4F47C5E3" FromRole="Country" ToRole="Stores" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Country" FromRole="Country" ToRole="Product" />
           <NavigationProperty Name="Provinces" Relationship="Self.FK_Province_Country" FromRole="Country" ToRole="Province" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Country" FromRole="Country" ToRole="Users" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK__Stores__CountryI__4F47C5E3" FromRole="Country" ToRole="Store" />
         </EntityType>
         <EntityType Name="District">
           <Key>
@@ -1182,10 +1183,10 @@
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__DistrictI__160F4887" FromRole="District" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__District__4E53A1AA" FromRole="District" ToRole="Stores" />
           <NavigationProperty Name="Province" Relationship="Self.FK_District_Province" FromRole="District" ToRole="Province" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_District" FromRole="District" ToRole="Users" />
           <NavigationProperty Name="Wards" Relationship="Self.FK_Ward_District" FromRole="District" ToRole="Ward" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK__Stores__District__4E53A1AA" FromRole="District" ToRole="Store" />
         </EntityType>
         <EntityType Name="Image">
           <Key>
@@ -1270,8 +1271,8 @@
           <Property Name="UseID" Type="Int32" />
           <Property Name="isClosed" Type="Boolean" />
           <Property Name="isWorking" Type="Boolean" />
+          <NavigationProperty Name="Store" Relationship="Self.FK_Partner_Stores" FromRole="Partner" ToRole="Stores" />
           <NavigationProperty Name="User" Relationship="Self.FK_Partner_Users" FromRole="Partner" ToRole="Users" />
-          <NavigationProperty Name="Store" Relationship="EasyShoppingModel.FK_Partner_Stores" FromRole="Partner" ToRole="Store" />
         </EntityType>
         <EntityType Name="Producer">
           <Key>
@@ -1290,7 +1291,7 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Manufactured_CountryID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturedCountryID" Type="Int32" Nullable="false" />
           <Property Name="ProducerID" Type="Int32" Nullable="false" />
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
@@ -1304,9 +1305,9 @@
           <NavigationProperty Name="Producer" Relationship="Self.FK_ProductDetail_Producer" FromRole="Product" ToRole="Producer" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="Product" ToRole="ProductType" />
           <NavigationProperty Name="ProductStatu" Relationship="Self.FK_ProductDetail_ProductStatus" FromRole="Product" ToRole="ProductStatus" />
+          <NavigationProperty Name="Store" Relationship="Self.FK_ProductDetail_Stores" FromRole="Product" ToRole="Stores" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_ProductDetail" FromRole="Product" ToRole="Rating" />
           <NavigationProperty Name="Wishlists" Relationship="Self.FK_Wish_list_Product" FromRole="Product" ToRole="Wishlist" />
-          <NavigationProperty Name="Store" Relationship="EasyShoppingModel.FK_ProductDetail_Stores" FromRole="Product" ToRole="Store" />
         </EntityType>
         <EntityType Name="ProductStatu">
           <Key>
@@ -1342,8 +1343,8 @@
           <NavigationProperty Name="Country" Relationship="Self.FK_Province_Country" FromRole="Province" ToRole="Country" />
           <NavigationProperty Name="Districts" Relationship="Self.FK_District_Province" FromRole="Province" ToRole="District" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CityID__151B244E" FromRole="Province" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CityId__503BEA1C" FromRole="Province" ToRole="Stores" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Province" FromRole="Province" ToRole="Users" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK__Stores__CityId__503BEA1C" FromRole="Province" ToRole="Store" />
         </EntityType>
         <EntityType Name="Rating">
           <Key>
@@ -1364,6 +1365,26 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Roles" FromRole="Roles" ToRole="Users" />
         </EntityType>
+        <EntityType Name="ShipperDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShipperId" Type="Int32" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="Deposit" Type="Double" />
+          <Property Name="Total" Type="Double" />
+          <Property Name="RecentBalance" Type="Double" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LatX" Type="Double" />
+          <Property Name="LatY" Type="Double" />
+          <NavigationProperty Name="ShipperStatu" Relationship="Self.FK_ShipperDetail_ShippStatus" FromRole="ShipperDetail" ToRole="ShipperStatus" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ShipperDetail_Users" FromRole="ShipperDetail" ToRole="Users" />
+          <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_ShipperDetail" FromRole="ShipperDetail" ToRole="ShipperRating" />
+          <NavigationProperty Name="ShippingDetails" Relationship="Self.FK_ShippingDetail_ShipperDetail" FromRole="ShipperDetail" ToRole="ShippingDetail" />
+        </EntityType>
         <EntityType Name="ShipperRating">
           <Key>
             <PropertyRef Name="ID" />
@@ -1373,8 +1394,8 @@
           <Property Name="ShipperID" Type="Int32" />
           <Property Name="Rate" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ShipperDetail" Relationship="Self.FK_ShipperRating_ShipperDetail" FromRole="ShipperRating" ToRole="ShipperDetail" />
           <NavigationProperty Name="User" Relationship="Self.FK_ShipperRating_Users" FromRole="ShipperRating" ToRole="Users" />
-          <NavigationProperty Name="ShipperDetail" Relationship="EasyShoppingModel.FK_ShipperRating_ShipperDetail" FromRole="ShipperRating" ToRole="ShipperDetail" />
         </EntityType>
         <EntityType Name="ShipperStatu">
           <Key>
@@ -1382,7 +1403,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ShipperDetails" Relationship="EasyShoppingModel.FK_ShipperDetail_ShippStatus" FromRole="ShipperStatu" ToRole="ShipperDetail" />
+          <NavigationProperty Name="ShipperDetails" Relationship="Self.FK_ShipperDetail_ShippStatus" FromRole="ShipperStatus" ToRole="ShipperDetail" />
         </EntityType>
         <EntityType Name="ShippingDetail">
           <Key>
@@ -1395,7 +1416,7 @@
           <Property Name="ModifiedID" Type="Int32" />
           <Property Name="ShipperID" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="Self.FK_ShippingDetail_Order" FromRole="ShippingDetail" ToRole="Order" />
-          <NavigationProperty Name="ShipperDetail" Relationship="EasyShoppingModel.FK_ShippingDetail_ShipperDetail" FromRole="ShippingDetail" ToRole="ShipperDetail" />
+          <NavigationProperty Name="ShipperDetail" Relationship="Self.FK_ShippingDetail_ShipperDetail" FromRole="ShippingDetail" ToRole="ShipperDetail" />
         </EntityType>
         <EntityType Name="StoreRating">
           <Key>
@@ -1406,8 +1427,40 @@
           <Property Name="StoreID" Type="Int32" />
           <Property Name="Rate" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Store" Relationship="Self.FK_StroreRating_Stores" FromRole="StoreRating" ToRole="Stores" />
           <NavigationProperty Name="User" Relationship="Self.FK_StroreRating_Users" FromRole="StoreRating" ToRole="Users" />
-          <NavigationProperty Name="Store" Relationship="EasyShoppingModel.FK_StroreRating_Stores" FromRole="StoreRating" ToRole="Store" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedByID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ImgLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StatusID" Type="Int32" />
+          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WardId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="LatX" Type="Double" />
+          <Property Name="LatY" Type="Double" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Stores__CountryI__4F47C5E3" FromRole="Stores" ToRole="Country" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Stores__District__4E53A1AA" FromRole="Stores" ToRole="District" />
+          <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Stores" FromRole="Stores" ToRole="Partner" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Stores" FromRole="Stores" ToRole="Product" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Stores__CityId__503BEA1C" FromRole="Stores" ToRole="Province" />
+          <NavigationProperty Name="StoreRatings" Relationship="Self.FK_StroreRating_Stores" FromRole="Stores" ToRole="StoreRating" />
+          <NavigationProperty Name="Ward" Relationship="Self.FK__Stores__WardId__4D5F7D71" FromRole="Stores" ToRole="Ward" />
+          <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Stores_Users" FromRole="Stores" ToRole="Users" />
         </EntityType>
         <EntityType Name="StoreStatu">
           <Key>
@@ -1415,7 +1468,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK_Stores_Store_Status" FromRole="StoreStatu" ToRole="Store" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Store_Status" FromRole="StoreStatus" ToRole="Stores" />
         </EntityType>
         <EntityType Name="Target">
           <Key>
@@ -1460,13 +1513,21 @@
           <NavigationProperty Name="Province" Relationship="Self.FK_Users_Province" FromRole="Users" ToRole="Province" />
           <NavigationProperty Name="Ratings" Relationship="Self.FK_Rating_Users" FromRole="Users" ToRole="Rating" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="ShipperDetails" Relationship="Self.FK_ShipperDetail_Users" FromRole="Users" ToRole="ShipperDetail" />
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_Users" FromRole="Users" ToRole="ShipperRating" />
           <NavigationProperty Name="StoreRatings" Relationship="Self.FK_StroreRating_Users" FromRole="Users" ToRole="StoreRating" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Users" FromRole="Users" ToRole="Stores" />
           <NavigationProperty Name="Ward" Relationship="Self.FK__Users__WardID__2739D489" FromRole="Users" ToRole="Ward" />
+          <NavigationProperty Name="UserStatu" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="UserStatus" />
           <NavigationProperty Name="Wishlists" Relationship="Self.FK_UserWishlist" FromRole="Users" ToRole="Wishlist" />
-          <NavigationProperty Name="ShipperDetails" Relationship="EasyShoppingModel.FK_ShipperDetail_Users" FromRole="User" ToRole="ShipperDetail" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK_Stores_Users" FromRole="User" ToRole="Store" />
-          <NavigationProperty Name="UserStatu" Relationship="EasyShoppingModel.FK_Users_User_Status" FromRole="User" ToRole="UserStatu" />
+        </EntityType>
+        <EntityType Name="UserStatu">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_User_Status" FromRole="UserStatus" ToRole="Users" />
         </EntityType>
         <EntityType Name="Ward">
           <Key>
@@ -1482,8 +1543,8 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="District" Relationship="Self.FK_Ward_District" FromRole="Ward" ToRole="District" />
           <NavigationProperty Name="Orders" Relationship="Self.FK__Order__WardID__17036CC0" FromRole="Ward" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__WardId__4D5F7D71" FromRole="Ward" ToRole="Stores" />
           <NavigationProperty Name="Users" Relationship="Self.FK__Users__WardID__2739D489" FromRole="Ward" ToRole="Users" />
-          <NavigationProperty Name="Stores" Relationship="EasyShoppingModel.FK__Stores__WardId__4D5F7D71" FromRole="Ward" ToRole="Store" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -1531,6 +1592,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Stores__CountryI__4F47C5E3">
+          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductDetail_Country">
           <End Role="Country" Type="Self.Country" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -1539,7 +1612,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Product">
-              <PropertyRef Name="Manufactured_CountryID" />
+              <PropertyRef Name="ManufacturedCountryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1578,6 +1651,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stores__District__4E53A1AA">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="DistrictId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1737,6 +1822,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Partner_Stores">
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Partner">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Partner_Users">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Partner" Type="Self.Partner" Multiplicity="*" />
@@ -1785,6 +1882,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProductDetail_Stores">
+          <End Role="Stores" Type="Self.Store" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="StoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Rating_ProductDetail">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
@@ -1806,6 +1915,18 @@
             </Principal>
             <Dependent Role="Wishlist">
               <PropertyRef Name="ProductDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stores__CityId__503BEA1C">
+          <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Province">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="CityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1845,6 +1966,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ShipperDetail_ShippStatus">
+          <End Role="ShipperStatus" Type="Self.ShipperStatu" Multiplicity="0..1" />
+          <End Role="ShipperDetail" Type="Self.ShipperDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShipperStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShipperDetail">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShipperDetail_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ShipperDetail" Type="Self.ShipperDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShipperDetail">
+              <PropertyRef Name="ShipperId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShipperRating_ShipperDetail">
+          <End Role="ShipperDetail" Type="Self.ShipperDetail" Multiplicity="0..1" />
+          <End Role="ShipperRating" Type="Self.ShipperRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShipperDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShipperRating">
+              <PropertyRef Name="ShipperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShippingDetail_ShipperDetail">
+          <End Role="ShipperDetail" Type="Self.ShipperDetail" Multiplicity="0..1" />
+          <End Role="ShippingDetail" Type="Self.ShippingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShipperDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ShippingDetail">
+              <PropertyRef Name="ShipperID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ShipperRating_Users">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="ShipperRating" Type="Self.ShipperRating" Multiplicity="*" />
@@ -1854,6 +2023,18 @@
             </Principal>
             <Dependent Role="ShipperRating">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StroreRating_Stores">
+          <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
+          <End Role="StoreRating" Type="Self.StoreRating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StoreRating">
+              <PropertyRef Name="StoreID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1869,6 +2050,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Stores__WardId__4D5F7D71">
+          <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ward">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="WardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stores_Store_Status">
+          <End Role="StoreStatus" Type="Self.StoreStatu" Multiplicity="0..1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StoreStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stores_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Stores" Type="Self.Store" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Stores">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Users__WardID__2739D489">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
@@ -1878,6 +2095,18 @@
             </Principal>
             <Dependent Role="Users">
               <PropertyRef Name="WardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_User_Status">
+          <End Role="UserStatus" Type="Self.UserStatu" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="StatusID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1910,13 +2139,16 @@
           <EntitySet Name="Provinces" EntityType="Self.Province" />
           <EntitySet Name="Ratings" EntityType="Self.Rating" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="ShipperDetails" EntityType="Self.ShipperDetail" />
           <EntitySet Name="ShipperRatings" EntityType="Self.ShipperRating" />
           <EntitySet Name="ShipperStatus" EntityType="Self.ShipperStatu" />
           <EntitySet Name="ShippingDetails" EntityType="Self.ShippingDetail" />
           <EntitySet Name="StoreRatings" EntityType="Self.StoreRating" />
+          <EntitySet Name="Stores" EntityType="Self.Store" />
           <EntitySet Name="StoreStatus" EntityType="Self.StoreStatu" />
           <EntitySet Name="Targets" EntityType="Self.Target" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserStatus" EntityType="Self.UserStatu" />
           <EntitySet Name="Wards" EntityType="Self.Ward" />
           <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
           <AssociationSet Name="FK_Comment_ProductDetail" Association="Self.FK_Comment_ProductDetail">
@@ -1930,6 +2162,10 @@
           <AssociationSet Name="FK__Order__CountryID__14270015" Association="Self.FK__Order__CountryID__14270015">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stores__CountryI__4F47C5E3" Association="Self.FK__Stores__CountryI__4F47C5E3">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Country" Association="Self.FK_ProductDetail_Country">
             <End Role="Country" EntitySet="Countries" />
@@ -1946,6 +2182,10 @@
           <AssociationSet Name="FK__Order__DistrictI__160F4887" Association="Self.FK__Order__DistrictI__160F4887">
             <End Role="District" EntitySet="Districts" />
             <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stores__District__4E53A1AA" Association="Self.FK__Stores__District__4E53A1AA">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_District_Province" Association="Self.FK_District_Province">
             <End Role="Province" EntitySet="Provinces" />
@@ -1999,6 +2239,10 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_Partner_Stores" Association="Self.FK_Partner_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Partner" EntitySet="Partners" />
+          </AssociationSet>
           <AssociationSet Name="FK_Partner_Users" Association="Self.FK_Partner_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Partner" EntitySet="Partners" />
@@ -2015,6 +2259,10 @@
             <End Role="ProductStatus" EntitySet="ProductStatus" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_ProductDetail_Stores" Association="Self.FK_ProductDetail_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK_Rating_ProductDetail" Association="Self.FK_Rating_ProductDetail">
             <End Role="Product" EntitySet="Products" />
             <End Role="Rating" EntitySet="Ratings" />
@@ -2022,6 +2270,10 @@
           <AssociationSet Name="FK_Wish_list_Product" Association="Self.FK_Wish_list_Product">
             <End Role="Product" EntitySet="Products" />
             <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stores__CityId__503BEA1C" Association="Self.FK__Stores__CityId__503BEA1C">
+            <End Role="Province" EntitySet="Provinces" />
+            <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Province" Association="Self.FK_Users_Province">
             <End Role="Province" EntitySet="Provinces" />
@@ -2035,310 +2287,59 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <AssociationSet Name="FK_ShipperDetail_ShippStatus" Association="Self.FK_ShipperDetail_ShippStatus">
+            <End Role="ShipperStatus" EntitySet="ShipperStatus" />
+            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShipperDetail_Users" Association="Self.FK_ShipperDetail_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShipperRating_ShipperDetail" Association="Self.FK_ShipperRating_ShipperDetail">
+            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
+            <End Role="ShipperRating" EntitySet="ShipperRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShippingDetail_ShipperDetail" Association="Self.FK_ShippingDetail_ShipperDetail">
+            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
+            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_ShipperRating_Users" Association="Self.FK_ShipperRating_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ShipperRating" EntitySet="ShipperRatings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StroreRating_Stores" Association="Self.FK_StroreRating_Stores">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="StoreRating" EntitySet="StoreRatings" />
           </AssociationSet>
           <AssociationSet Name="FK_StroreRating_Users" Association="Self.FK_StroreRating_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="StoreRating" EntitySet="StoreRatings" />
           </AssociationSet>
+          <AssociationSet Name="FK__Stores__WardId__4D5F7D71" Association="Self.FK__Stores__WardId__4D5F7D71">
+            <End Role="Ward" EntitySet="Wards" />
+            <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stores_Store_Status" Association="Self.FK_Stores_Store_Status">
+            <End Role="StoreStatus" EntitySet="StoreStatus" />
+            <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stores_Users" Association="Self.FK_Stores_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Stores" EntitySet="Stores" />
+          </AssociationSet>
           <AssociationSet Name="FK__Users__WardID__2739D489" Association="Self.FK__Users__WardID__2739D489">
             <End Role="Ward" EntitySet="Wards" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_User_Status" Association="Self.FK_Users_User_Status">
+            <End Role="UserStatus" EntitySet="UserStatus" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="FK_UserWishlist" Association="Self.FK_UserWishlist">
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
-          <EntitySet Name="ShipperDetails" EntityType="EasyShoppingModel.ShipperDetail" />
-          <EntitySet Name="Stores" EntityType="EasyShoppingModel.Store" />
-          <AssociationSet Name="FK__Stores__CountryI__4F47C5E3" Association="EasyShoppingModel.FK__Stores__CountryI__4F47C5E3">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Stores__District__4E53A1AA" Association="EasyShoppingModel.FK__Stores__District__4E53A1AA">
-            <End Role="District" EntitySet="Districts" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Partner_Stores" Association="EasyShoppingModel.FK_Partner_Stores">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="Partner" EntitySet="Partners" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetail_Stores" Association="EasyShoppingModel.FK_ProductDetail_Stores">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Stores__CityId__503BEA1C" Association="EasyShoppingModel.FK__Stores__CityId__503BEA1C">
-            <End Role="Province" EntitySet="Provinces" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShipperDetail_ShippStatus" Association="EasyShoppingModel.FK_ShipperDetail_ShippStatus">
-            <End Role="ShipperStatu" EntitySet="ShipperStatus" />
-            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShipperDetail_Users" Association="EasyShoppingModel.FK_ShipperDetail_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShipperRating_ShipperDetail" Association="EasyShoppingModel.FK_ShipperRating_ShipperDetail">
-            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
-            <End Role="ShipperRating" EntitySet="ShipperRatings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShippingDetail_ShipperDetail" Association="EasyShoppingModel.FK_ShippingDetail_ShipperDetail">
-            <End Role="ShipperDetail" EntitySet="ShipperDetails" />
-            <End Role="ShippingDetail" EntitySet="ShippingDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StroreRating_Stores" Association="EasyShoppingModel.FK_StroreRating_Stores">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="StoreRating" EntitySet="StoreRatings" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Stores__WardId__4D5F7D71" Association="EasyShoppingModel.FK__Stores__WardId__4D5F7D71">
-            <End Role="Ward" EntitySet="Wards" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stores_Store_Status" Association="EasyShoppingModel.FK_Stores_Store_Status">
-            <End Role="StoreStatu" EntitySet="StoreStatus" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Stores_Users" Association="EasyShoppingModel.FK_Stores_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Store" EntitySet="Stores" />
-          </AssociationSet>
-          <EntitySet Name="UserStatus" EntityType="EasyShoppingModel.UserStatu" />
-          <AssociationSet Name="FK_Users_User_Status" Association="EasyShoppingModel.FK_Users_User_Status">
-            <End Role="UserStatu" EntitySet="UserStatus" />
-            <End Role="User" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ShipperDetail">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ShipperId" Type="Int32" />
-          <Property Name="RegDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="StatusId" Type="Int32" />
-          <Property Name="Deposit" Type="Double" />
-          <Property Name="Total" Type="Double" />
-          <Property Name="RecentBalance" Type="Double" />
-          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LatX" Type="Double" />
-          <Property Name="LatY" Type="Double" />
-          <NavigationProperty Name="ShipperStatu" Relationship="EasyShoppingModel.FK_ShipperDetail_ShippStatus" FromRole="ShipperDetail" ToRole="ShipperStatu" />
-          <NavigationProperty Name="User" Relationship="EasyShoppingModel.FK_ShipperDetail_Users" FromRole="ShipperDetail" ToRole="User" />
-          <NavigationProperty Name="ShipperRatings" Relationship="EasyShoppingModel.FK_ShipperRating_ShipperDetail" FromRole="ShipperDetail" ToRole="ShipperRating" />
-          <NavigationProperty Name="ShippingDetails" Relationship="EasyShoppingModel.FK_ShippingDetail_ShipperDetail" FromRole="ShipperDetail" ToRole="ShippingDetail" />
-        </EntityType>
-        <EntityType Name="Store">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedByID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="ImgLink" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="StatusID" Type="Int32" />
-          <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="WardId" Type="Int32" />
-          <Property Name="DistrictId" Type="Int32" />
-          <Property Name="CountryId" Type="Int32" />
-          <Property Name="CityId" Type="Int32" />
-          <Property Name="LatX" Type="Double" />
-          <Property Name="LatY" Type="Double" />
-          <NavigationProperty Name="Country" Relationship="EasyShoppingModel.FK__Stores__CountryI__4F47C5E3" FromRole="Store" ToRole="Country" />
-          <NavigationProperty Name="District" Relationship="EasyShoppingModel.FK__Stores__District__4E53A1AA" FromRole="Store" ToRole="District" />
-          <NavigationProperty Name="Partners" Relationship="EasyShoppingModel.FK_Partner_Stores" FromRole="Store" ToRole="Partner" />
-          <NavigationProperty Name="Products" Relationship="EasyShoppingModel.FK_ProductDetail_Stores" FromRole="Store" ToRole="Product" />
-          <NavigationProperty Name="Province" Relationship="EasyShoppingModel.FK__Stores__CityId__503BEA1C" FromRole="Store" ToRole="Province" />
-          <NavigationProperty Name="StoreRatings" Relationship="EasyShoppingModel.FK_StroreRating_Stores" FromRole="Store" ToRole="StoreRating" />
-          <NavigationProperty Name="Ward" Relationship="EasyShoppingModel.FK__Stores__WardId__4D5F7D71" FromRole="Store" ToRole="Ward" />
-          <NavigationProperty Name="StoreStatu" Relationship="EasyShoppingModel.FK_Stores_Store_Status" FromRole="Store" ToRole="StoreStatu" />
-          <NavigationProperty Name="User" Relationship="EasyShoppingModel.FK_Stores_Users" FromRole="Store" ToRole="User" />
-        </EntityType>
-        <Association Name="FK__Stores__CountryI__4F47C5E3">
-          <End Type="EasyShoppingModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="CountryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Stores__District__4E53A1AA">
-          <End Type="EasyShoppingModel.District" Role="District" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="District">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="DistrictId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Partner_Stores">
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Partner" Role="Partner" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Partner">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductDetail_Stores">
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="1" />
-          <End Type="EasyShoppingModel.Product" Role="Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Stores__CityId__503BEA1C">
-          <End Type="EasyShoppingModel.Province" Role="Province" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Province">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShipperDetail_ShippStatus">
-          <End Type="EasyShoppingModel.ShipperStatu" Role="ShipperStatu" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.ShipperDetail" Role="ShipperDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShipperStatu">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShipperDetail">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShipperDetail_Users">
-          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.ShipperDetail" Role="ShipperDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShipperDetail">
-              <PropertyRef Name="ShipperId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShipperRating_ShipperDetail">
-          <End Type="EasyShoppingModel.ShipperDetail" Role="ShipperDetail" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.ShipperRating" Role="ShipperRating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShipperDetail">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShipperRating">
-              <PropertyRef Name="ShipperID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShippingDetail_ShipperDetail">
-          <End Type="EasyShoppingModel.ShipperDetail" Role="ShipperDetail" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.ShippingDetail" Role="ShippingDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ShipperDetail">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="ShippingDetail">
-              <PropertyRef Name="ShipperID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StroreRating_Stores">
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.StoreRating" Role="StoreRating" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="StoreRating">
-              <PropertyRef Name="StoreID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Stores__WardId__4D5F7D71">
-          <End Type="EasyShoppingModel.Ward" Role="Ward" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Ward">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="WardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stores_Store_Status">
-          <End Type="EasyShoppingModel.StoreStatu" Role="StoreStatu" Multiplicity="0..1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StoreStatu">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Stores_Users">
-          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="1" />
-          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Store">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="UserStatu">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Users" Relationship="EasyShoppingModel.FK_Users_User_Status" FromRole="UserStatu" ToRole="User" />
-        </EntityType>
-        <Association Name="FK_Users_User_Status">
-          <End Type="EasyShoppingModel.UserStatu" Role="UserStatu" Multiplicity="1" />
-          <End Type="EasyShoppingModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserStatu">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="StatusID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2488,7 +2489,7 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Manufactured_CountryID" ColumnName="Manufactured CountryID" />
+                <ScalarProperty Name="ManufacturedCountryID" ColumnName="ManufacturedCountryID" />
                 <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
@@ -2549,6 +2550,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ShipperDetails">
+            <EntityTypeMapping TypeName="EasyShoppingModel.ShipperDetail">
+              <MappingFragment StoreEntitySet="ShipperDetail">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="RecentBalance" ColumnName="RecentBalance" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="LatX" ColumnName="LatX" />
+                <ScalarProperty Name="LatY" ColumnName="LatY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ShipperRatings">
             <EntityTypeMapping TypeName="EasyShoppingModel.ShipperRating">
               <MappingFragment StoreEntitySet="ShipperRating">
@@ -2588,6 +2606,30 @@
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="EasyShoppingModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ImgLink" ColumnName="ImgLink" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="WardId" ColumnName="WardId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="LatX" ColumnName="LatX" />
+                <ScalarProperty Name="LatY" ColumnName="LatY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2635,6 +2677,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserStatus">
+            <EntityTypeMapping TypeName="EasyShoppingModel.UserStatu">
+              <MappingFragment StoreEntitySet="UserStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Wards">
             <EntityTypeMapping TypeName="EasyShoppingModel.Ward">
               <MappingFragment StoreEntitySet="Ward">
@@ -2655,55 +2705,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ShipperDetails">
-            <EntityTypeMapping TypeName="EasyShoppingModel.ShipperDetail">
-              <MappingFragment StoreEntitySet="ShipperDetail">
-                <ScalarProperty Name="LatY" ColumnName="LatY" />
-                <ScalarProperty Name="LatX" ColumnName="LatX" />
-                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-                <ScalarProperty Name="RecentBalance" ColumnName="RecentBalance" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
-                <ScalarProperty Name="ShipperId" ColumnName="ShipperId" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Stores">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Store">
-              <MappingFragment StoreEntitySet="Stores">
-                <ScalarProperty Name="LatY" ColumnName="LatY" />
-                <ScalarProperty Name="LatX" ColumnName="LatX" />
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
-                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
-                <ScalarProperty Name="WardId" ColumnName="WardId" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
-                <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="ImgLink" ColumnName="ImgLink" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ModifiedByID" ColumnName="ModifiedByID" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserStatus">
-            <EntityTypeMapping TypeName="EasyShoppingModel.UserStatu">
-              <MappingFragment StoreEntitySet="UserStatus">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

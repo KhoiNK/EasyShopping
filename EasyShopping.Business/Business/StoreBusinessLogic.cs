@@ -76,5 +76,23 @@ namespace EasyShopping.BusinessLogic.Business
 
             return store;
         }
+
+        public IList<StoreDTO> GetByName(string searchkey)
+        {
+            IList<StoreDTO> store = _repo.GetByName(searchkey).Translate<Store, StoreDTO>();
+            return store;
+        }
+
+        public IList<StoreDTO> GetByUserId(int id)
+        {
+            IList<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
+            return stores;
+        }
+
+        public StoreDTO GetById(int id)
+        {
+            StoreDTO store = _repo.FindByID(id).Translate<Store, StoreDTO>();
+            return store;
+        }
     }
 }

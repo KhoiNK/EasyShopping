@@ -19,15 +19,17 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Store> GetList(int pageSize, int pageIndex)
         {
             int skipped = (pageIndex - 1) * pageSize;
-            return _db.Stores
+            IEnumerable<Store> stores = _db.Stores
                 .Include("User")
                 .Include("StoreStatu")
                 .Include("Ward")
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
+                .Include("Products")
                 .ToList()
                 .Skip(skipped);
+            return stores;
         }
 
         public Store FindByID(int id)
@@ -39,6 +41,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
+                .Include("Products")
                 .Where(x => x.ID == id)
                 .SingleOrDefault();
         }
@@ -80,6 +83,23 @@ namespace EasyShopping.Repository.Repository
                 Console.WriteLine(e.StackTrace);
                 return false;
             } 
+        }
+
+        public IEnumerable<Store> GetByName(string name)
+        {
+            return _db.Stores.Include("User")
+                .Include("StoreStatu")
+                .Include("Ward")
+                .Include("District")
+                .Include("Country")
+                .Include("Province")
+                .Where(x => x.Name.Equals(name))
+                .ToList();
+        }
+
+        public IEnumerable<Store> GetByUserId(int id)
+        {
+            return _db.Stores.Where(x => x.UserID == id).ToList();
         }
     }
 }

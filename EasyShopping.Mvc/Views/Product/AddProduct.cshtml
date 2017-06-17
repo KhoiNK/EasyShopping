@@ -1,0 +1,8 @@
+﻿
+@using EasyShopping.Mvc.Models
+@model ProductViewModel
+<form method="post" action="/Product/AddProduct" enctype="multipart/form-data">
+    Name: @Html.TextBoxFor(Model => Model.Name)
+    <input type="file" />
+    <button type="submit" class="btn btn-default">Save</button>
+</form>

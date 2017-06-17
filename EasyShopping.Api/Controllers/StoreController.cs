@@ -34,6 +34,21 @@ namespace EasyShopping.Api.Controllers
             return _business.GetAll(index, page).Translate<StoreDTO, StoreApiModel>();
         }
 
+        public IEnumerable<StoreApiModel> Get(string searchkey)
+        {
+            return _business.GetByName(searchkey).Translate<StoreDTO, StoreApiModel>();
+        }
+
+        public StoreApiModel Get(int id)
+        {
+            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetById(id));
+        }
+
+        public IEnumerable<StoreApiModel> GetByUserId(int id)
+        {
+            return _business.GetByUserId(id).Translate<StoreDTO, StoreApiModel>();
+        }
+
         //public bool Put([FromBody]StoreApiModel store)
         //{
         //    var identity = (ClaimsIdentity)User.Identity;
