@@ -1,23 +1,104 @@
-﻿<table class="table">
+﻿
+@*<table class="table">
     <thead>
         <tr>
-            <td>Name</td>
-            <td>DOB</td>
-            <td>Status</td>
-            <td>Action</td>
+            <td>name</td>
+            <td>dob</td>
+            <td>status</td>
+            <td>action</td>
         </tr>
     </thead>
     <tbody>
 
-        <tr *ngFor="let user of users">
-            @*<template [ngIf]="user.StatusID == 1 || user.StatusID == 2">*@
-                <td><a [routerLink]="['/users/user-detail', user.ID]">{{user.UserName}}</a></td>
-                <td>{{user.DOB | date}}</td>
-                <td>{{user.Status}}</td>
-                <td><a [routerLink]="['/users/user-edit', user.ID]" class="btn btn-success" >Edit</a> | <button (click)="DeleteUser(user.ID)" class="btn btn-danger">Remove</button></td>
-            @*</template>*@
+        <tr *ngfor="let user of users">
+            <template [ngif]="user.statusid == 1 || user.statusid == 2">
+                <td><a [routerlink]="['/users/user-detail', user.id]">{{user.username}}</a></td>
+                <td>{{user.dob | date}}</td>
+                <td>{{user.status}}</td>
+                <td><a [routerlink]="['/users/user-edit', user.id]" class="btn btn-success" >edit</a> | <button (click)="deleteuser(user.id)" class="btn btn-danger">remove</button></td>
+            </template>
 
         </tr>
 
     </tbody>
-</table>
+</table>*@
+
+        <div class="container">
+            <h1>User List</h1>
+            <a href="#" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-plus"></span> Add User</a>
+                <div>
+                    <table class="table table-striped table">
+                        <thead>                   
+                            <tr>
+                                <th>Name</th>
+                                <th>Date of Birth</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="#">adminaaaaaaaaaa</a></td>
+                            <td>18/02/1991</td>
+                            <td>Active</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a> 
+                                <a href="#" class="btn btn-info btn-xs button" ><span class="glyphicon glyphicon-edit"></span> Edit</a> 
+                                <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">admin</a></td>
+                            <td>18/02/1991</td>
+                            <td>Active</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a>
+                                <a href="#" class="btn btn-info btn-xs button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="#">admin</a></td>
+                            <td>18/02/1991</td>
+                            <td>Active</td>
+                            <td class="text-center">
+                                <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a>
+                                <a href="#" class="btn btn-info btn-xs button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                            </td>
+                        </tr>
+                            <tr>
+                                <td><a href="#">admin</a></td>
+                                <td>18/02/1991</td>
+                                <td>Active</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a>
+                                    <a href="#" class="btn btn-info btn-xs button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                    <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">admin</a></td>
+                                <td>18/02/1991</td>
+                                <td>Active</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a>
+                                    <a href="#" class="btn btn-info btn-xs button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                    <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">admin</a></td>
+                                <td>18/02/1991</td>
+                                <td>Active</td>
+                                <td class="text-center">
+                                    <a href="#" class="btn btn-success btn-xs button"><span class="glyphicon glyphicon-check"></span> Approve</a>
+                                    <a href="#" class="btn btn-info btn-xs button"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                    <a href="#" class="btn btn-danger btn-xs button"><span class="glyphicon glyphicon-remove"></span> Del</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>    
+
