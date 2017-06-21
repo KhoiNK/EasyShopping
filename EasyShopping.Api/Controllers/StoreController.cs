@@ -46,7 +46,7 @@ namespace EasyShopping.Api.Controllers
 
         public IEnumerable<StoreApiModel> GetByUserId(int id)
         {
-            return _business.GetByUserId(id).Translate<StoreDTO, StoreApiModel>();
+            return _business.GetByUserId(id).Result.Translate<StoreDTO, StoreApiModel>();
         }
 
         //public bool Put([FromBody]StoreApiModel store)

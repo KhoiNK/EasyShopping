@@ -77,7 +77,7 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<Producer, ProducerDTO>();
 
                 cfg.CreateMap<ProductDTO, Product>();
-                
+
 
                 cfg.CreateMap<Product, ProductDTO>()
                 .ForMember(
@@ -92,6 +92,8 @@ namespace EasyShopping.BusinessLogic.Models
                     dto => dto.ProductType,
                     opt => opt.MapFrom(entity => entity.ProductType.Name)
                 );
+                cfg.CreateMap<Product, ProductViewDTO>();
+                cfg.CreateMap<ProductViewDTO, Product>();
 
                 cfg.CreateMap<ProductStatusDTO, ProductStatu>();
                 cfg.CreateMap<ProductStatu, ProductStatusDTO>();
@@ -126,7 +128,7 @@ namespace EasyShopping.BusinessLogic.Models
                     opt => opt.Ignore()
                 ).ForSourceMember(
                     dto => dto.Status,
-                    opt => opt.Ignore()    
+                    opt => opt.Ignore()
                 ).ForSourceMember(
                     dto => dto.City,
                     opt => opt.Ignore()
@@ -150,19 +152,16 @@ namespace EasyShopping.BusinessLogic.Models
                     opt => opt.MapFrom(entity => entity.StoreStatu.Name)
                 ).ForMember(
                     dto => dto.City,
-                    opt => opt.MapFrom(entity => entity.Province.Name)    
+                    opt => opt.MapFrom(entity => entity.Province.Name)
                 ).ForMember(
                     dto => dto.Country,
-                    opt => opt.MapFrom(entity => entity.Country.CommonName)    
+                    opt => opt.MapFrom(entity => entity.Country.CommonName)
                 ).ForMember(
                     dto => dto.District,
                     opt => opt.MapFrom(entity => entity.District.Name)
                 ).ForMember(
                     dto => dto.Ward,
                     opt => opt.MapFrom(entity => entity.Ward.Name)
-                ).ForMember(
-                    dto => dto.Products,
-                    opt => opt.MapFrom(entity => BusinessTranslators.Translate<Product, ProductViewDTO>(entity.Products))   
                 );
 
                 cfg.CreateMap<StoreStatusDTO, StoreStatu>();

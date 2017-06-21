@@ -31,10 +31,11 @@ namespace EasyShopping.BusinessLogic.Business
             return product;
         }
 
-        public IList<ProductDTO> GetAll(int storeid)
+        public IList<ProductViewDTO> GetAll(int storeid)
         {
-            IList<ProductDTO> products = _repo.GetList(storeid).Translate<Product, ProductDTO>();
+            IList<ProductViewDTO> products = _repo.GetList(storeid).Translate<Product, ProductViewDTO>();
             return products;
         }
+
     }
 }

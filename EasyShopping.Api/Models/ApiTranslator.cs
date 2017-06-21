@@ -76,6 +76,9 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<ProductApiModel, ProductDTO>();
                 cfg.CreateMap<ProductDTO, ProductApiModel>();
 
+                cfg.CreateMap<ProductApiViewModel, ProductViewDTO>();
+                cfg.CreateMap<ProductViewDTO, ProductApiViewModel>();
+
                 cfg.CreateMap<ProductStatusApiModel, ProductStatusDTO>();
                 cfg.CreateMap<ProductStatusDTO, ProductStatusApiModel>();
 
@@ -109,10 +112,6 @@ namespace EasyShopping.Api.Models
                 ForSourceMember(
                     dto => dto.ModifiedByID,
                     opt => opt.Ignore()    
-                )
-                .ForMember(
-                    dto => dto.Products,
-                    opt => opt.MapFrom(entity => ApiTranslators.Translate<ProductViewDTO, ProductApiViewModel>(entity.Products))   
                 );
 
                 cfg.CreateMap<StoreRatingApiModel, StoreRatingDTO>();

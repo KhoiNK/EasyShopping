@@ -26,7 +26,6 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Include("Products")
                 .ToList()
                 .Skip(skipped);
             return stores;
@@ -41,7 +40,6 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Include("Products")
                 .Where(x => x.ID == id)
                 .SingleOrDefault();
         }

@@ -12,18 +12,20 @@ namespace EasyShopping.BusinessLogic.Business
         const int WAITINGFORAPPROVE = 3;
         const int OPEN = 1;
         private UserBusinessLogic _userbusiness = null;
+        private ProductBusinessLogic _productbusiness = null;
 
         public StoreBusinessLogic()
         {
             _repo = new StoreRepository();
             _userbusiness = new UserBusinessLogic();
+            _productbusiness = new ProductBusinessLogic();
         }
 
         public Task<StoreDTO> CreateStore(StoreDTO store)
         {
             return Task.Factory.StartNew(() =>
             {
-                
+
                 store.CreatedDate = System.DateTime.Now;
                 store.ModifiedDate = System.DateTime.Now;
                 store.StatusID = WAITINGFORAPPROVE;
@@ -38,6 +40,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             return Task.Factory.StartNew(() =>
             {
+
                 return _repo.FindByID(id).Translate<Store, StoreDTO>();
             });
         }
@@ -48,7 +51,7 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 var userid = _userbusiness.GetByName(username).Result.ID;
                 var ownerid = _repo.FindByID(id).UserID;
-                if(userid != ownerid)
+                if (userid != ownerid)
                 {
                     return false;
                 }
@@ -69,7 +72,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             IList<StoreDTO> store = _repo.GetList(pagesize, page).Translate<Store, StoreDTO>();
 
-            foreach(var s in store)
+            foreach (var s in store)
             {
                 s.ModifiedUser = _userbusiness.GetByID(s.ModifiedByID).UserName;
             }
@@ -83,15 +86,25 @@ namespace EasyShopping.BusinessLogic.Business
             return store;
         }
 
-        public IList<StoreDTO> GetByUserId(int id)
+        public Task<IList<StoreDTO>> GetByUserId(int id)
         {
-            IList<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
-            return stores;
+            return Task.Factory.StartNew(() =>
+            {
+                IList<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
+                foreach (var s in stores)
+                {
+                    s.Products = _productbusiness.GetAll(s.ID);
+                }
+
+                return stores;
+            });
+
         }
 
         public StoreDTO GetById(int id)
         {
             StoreDTO store = _repo.FindByID(id).Translate<Store, StoreDTO>();
+            store.Products = _productbusiness.GetAll(store.ID);
             return store;
         }
     }
