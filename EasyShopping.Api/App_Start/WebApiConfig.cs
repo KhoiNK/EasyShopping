@@ -30,6 +30,11 @@ namespace EasyShopping.Api
                 routeTemplate: "v1/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "DefaultApiWithAction",
+                routeTemplate: "v1/{controller}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
         }
     }
 }

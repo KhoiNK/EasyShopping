@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EasyShopping.BusinessLogic.Models
 {
@@ -28,5 +29,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int CityId { get; set; }
         public string City { get; set; }
         public string Latlng { get; set; }
+        public IList<ProductViewDTO> Products {get; set;}
     }
 }

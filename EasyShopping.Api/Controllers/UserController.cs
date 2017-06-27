@@ -49,6 +49,11 @@ namespace EasyShopping.Api.Controllers
         //POST api/values
         public UserApiModel Post([FromBody]AddUserModel user)
         {
+            HttpRequestMessage request = this.Request;
+            if (!request.Content.IsMimeMultipartContent())
+            {
+
+            }
             UserDTO userdto = ApiTranslators.Translate<AddUserModel, UserDTO>(user);
             UserApiModel newuser = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.Register(userdto).Result); 
             //UserApiModel newuser = ApiTranslators.Translate<UserDTO, UserApiModel>();

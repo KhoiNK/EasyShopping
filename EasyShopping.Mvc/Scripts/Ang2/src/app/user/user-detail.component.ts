@@ -11,7 +11,7 @@ import { CountryServices } from '../country/country.service';
 })
 
 export class UserDetailComponent implements OnInit, OnDestroy {
-    public id: number
+    public id: number;
     public user: any;
     public subscription: Subscription;
     public country: any;

@@ -20,7 +20,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> Rate { get; set; }
         public string Comment { get; set; }
     
-        public virtual User User { get; set; }
         public virtual ShipperDetail ShipperDetail { get; set; }
+        public virtual User User { get; set; }
     }
 }

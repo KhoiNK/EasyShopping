@@ -65,6 +65,10 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -167,12 +171,16 @@
     <Compile Include="Constants\ViewConstants.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\User\UserViewModel.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\ViewModelTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -258,9 +266,12 @@
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Store\AddStore.cshtml" />
     <Content Include="Views\Store\EditStore.cshtml" />
+    <Content Include="Views\Product\AddProduct.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\User\" />
     <Folder Include="Scripts\lib\quickstart-master\" />
   </ItemGroup>
   <ItemGroup>
@@ -284,6 +295,12 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
@@ -301,6 +318,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EasyShopping.Business\EasyShopping.BusinessLogic.csproj">
+      <Project>{9a51e5a5-dd89-4905-874f-2b01dea9199f}</Project>
+      <Name>EasyShopping.BusinessLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

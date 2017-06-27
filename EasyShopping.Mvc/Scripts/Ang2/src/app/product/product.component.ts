@@ -3,4 +3,4 @@
 @Component({
     template: '<router-outlet></router-outlet>'
 })
-export class StoreComponent { }
+export class ProductComponent { }

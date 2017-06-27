@@ -18,9 +18,9 @@ namespace EasyShopping.Repository.Models.Entity
         public District()
         {
             this.Orders = new HashSet<Order>();
+            this.Stores = new HashSet<Store>();
             this.Users = new HashSet<User>();
             this.Wards = new HashSet<Ward>();
-            this.Stores = new HashSet<Store>();
         }
     
         public int Id { get; set; }
@@ -34,12 +34,12 @@ namespace EasyShopping.Repository.Models.Entity
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Store> Stores { get; set; }
         public virtual Province Province { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ward> Wards { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Store> Stores { get; set; }
     }
 }

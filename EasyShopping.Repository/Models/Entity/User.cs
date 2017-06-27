@@ -23,11 +23,11 @@ namespace EasyShopping.Repository.Models.Entity
             this.Orders = new HashSet<Order>();
             this.Partners = new HashSet<Partner>();
             this.Ratings = new HashSet<Rating>();
+            this.ShipperDetails = new HashSet<ShipperDetail>();
             this.ShipperRatings = new HashSet<ShipperRating>();
             this.StoreRatings = new HashSet<StoreRating>();
-            this.Wishlists = new HashSet<Wishlist>();
-            this.ShipperDetails = new HashSet<ShipperDetail>();
             this.Stores = new HashSet<Store>();
+            this.Wishlists = new HashSet<Wishlist>();
         }
     
         public int ID { get; set; }
@@ -68,16 +68,16 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ShipperDetail> ShipperDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ShipperRating> ShipperRatings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StoreRating> StoreRatings { get; set; }
-        public virtual Ward Ward { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Wishlist> Wishlists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ShipperDetail> ShipperDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Store> Stores { get; set; }
+        public virtual Ward Ward { get; set; }
         public virtual UserStatu UserStatu { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

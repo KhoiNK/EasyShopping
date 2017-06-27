@@ -159,11 +159,12 @@
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\City\CityRepository.cs" />
-    <Compile Include="Repository\Country\CountryRepository.cs" />
-    <Compile Include="Repository\District\DistrictRepository.cs" />
-    <Compile Include="Repository\Store\StoreRepository.cs" />
-    <Compile Include="Repository\User\UserRepository.cs" />
+    <Compile Include="Repository\CityRepository.cs" />
+    <Compile Include="Repository\CountryRepository.cs" />
+    <Compile Include="Repository\DistrictRepository.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
+    <Compile Include="Repository\StoreRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -178,6 +179,13 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repository\City\" />
+    <Folder Include="Repository\Country\" />
+    <Folder Include="Repository\District\" />
+    <Folder Include="Repository\Store\" />
+    <Folder Include="Repository\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Models\Entity\EasyShoppingEntities.Context.tt">

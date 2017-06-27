@@ -76,6 +76,9 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<ProductApiModel, ProductDTO>();
                 cfg.CreateMap<ProductDTO, ProductApiModel>();
 
+                cfg.CreateMap<ProductApiViewModel, ProductViewDTO>();
+                cfg.CreateMap<ProductViewDTO, ProductApiViewModel>();
+
                 cfg.CreateMap<ProductStatusApiModel, ProductStatusDTO>();
                 cfg.CreateMap<ProductStatusDTO, ProductStatusApiModel>();
 
