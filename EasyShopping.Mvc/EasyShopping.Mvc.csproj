@@ -191,6 +191,9 @@
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\prettyPhoto.css" />
     <Content Include="Content\css\responsive.css" />
+    <Content Include="Content\css\Site.css" />
+    <Content Include="Content\css\StoreList.css" />
+    <Content Include="Content\css\UserList.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\15877742_1158779367505232_1506744517_o.jpg" />
     <Content Include="Content\img\map.png" />
