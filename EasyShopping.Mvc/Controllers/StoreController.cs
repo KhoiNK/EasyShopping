@@ -22,5 +22,15 @@ namespace EasyShopping.Mvc.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult StoreDetail()
+        {
+            return PartialView();
+        }
+
+        public ActionResult StoreListByUser()
+        {
+            return PartialView();
+        }
     }
 }

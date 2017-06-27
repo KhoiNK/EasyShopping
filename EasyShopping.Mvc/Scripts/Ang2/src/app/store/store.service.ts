@@ -19,7 +19,11 @@ export class StoreServices {
     }
 
     GetStoreById(id: number): Observable<any> {
-        return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
+        return this._http.get(this.apiUrl + "/Get/" + id).map(res => res.json());
+    }
+
+    GetStoreByUserId(id: number): Observable<any[]> {
+        return this._http.get(this.apiUrl + "/GetByUserId/" + id).map(res => res.json());
     }
 
     GetStoreByName(name: string): Observable<any[]> {

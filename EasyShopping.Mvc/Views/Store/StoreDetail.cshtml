@@ -1,0 +1,9 @@
+﻿<div *ngIf="store">
+    <label>Name: </label> {{store.Name}} <br />
+</div>
+<div *ngFor="let product of store.Products" class="col col-lg-3" style="text-align: center; padding:10px 0 10px 0">
+    
+        <img src="https://alicarnold.files.wordpress.com/2009/11/new-product.jpg" style="height: 50px; width:50px; margin: 0 0 10px 0"/> <br />
+        <label>Product Name:</label> {{product.Name}}
+</div>
+

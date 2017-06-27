@@ -1,0 +1,3 @@
+﻿<div *ngFor="let store of stores">
+    <a [routerLink]="['/stores/store-detail', store.ID]">{{store.Name}}</a>
+</div>

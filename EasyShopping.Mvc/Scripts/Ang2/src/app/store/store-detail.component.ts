@@ -1,7 +1,8 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { StoreServices } from './store.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ProductAddComponent } from '../product/product-add.component';
 
 @Component({
     selector: 'store-detail',
@@ -17,14 +18,21 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
         this.store = {};
     }
 
+    @ViewChild(ProductAddComponent)
+    private addProduct: ProductAddComponent;
+
     ngOnInit() {
         this.subscription = this.activatedRoute.params.subscribe(params => {
             this.id = params['id'];
         });
         this.storeservice.GetStoreById(this.id)
             .subscribe(res => {
-                this.store = res;
-            })
+                return this.store = res;
+            });
+    }
+
+    sendStoreID() {
+        this.addProduct.setStoreId(this.store.ID);
     }
 
     ngOnDestroy() {

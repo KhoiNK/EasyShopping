@@ -268,6 +268,8 @@
     <Content Include="Views\Store\EditStore.cshtml" />
     <Content Include="Views\Product\AddProduct.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Store\StoreDetail.cshtml" />
+    <Content Include="Views\Store\StoreListByUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -292,6 +294,9 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\firebase.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\firebase.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\Upload.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
@@ -302,6 +307,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />
@@ -313,6 +319,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\environments\environment.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\main.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\test\app.component.spec.ts" />
   </ItemGroup>

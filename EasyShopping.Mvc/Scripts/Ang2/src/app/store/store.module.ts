@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routing } from './store.routing';
 import { StoreListComponent } from './store-list.component';
+import { StoreDetailComponent } from './store-detail.component';
+import { StoreListByUserComponent } from './store-listbyuserid.component';
+import { StoreComponent } from './store.component';
 
 @NgModule({
     imports: [
@@ -13,7 +16,10 @@ import { StoreListComponent } from './store-list.component';
         routing,
     ],
     declarations: [
+        StoreComponent,
         StoreListComponent,
+        StoreDetailComponent,
+        StoreListByUserComponent,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

@@ -8,5 +8,6 @@
     <label>Date of birth:</label> {{user.DOB | date}}<br />
     <label>Created At:</label> {{user.RegDate | date}}<br />
     <label>Country: </label> {{user.Country}}
+    <a [routerLink]="['/stores/store-by-user-id', user.ID]">List Store</a>
 </div>
 
