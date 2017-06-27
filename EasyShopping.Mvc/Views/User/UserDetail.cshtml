@@ -1,5 +1,5 @@
 ﻿
-@{
+@*@{
     ViewBag.Title = "UserDetail";
 }
 
@@ -8,6 +8,30 @@
     <label>Date of birth:</label> {{user.DOB | date}}<br />
     <label>Created At:</label> {{user.RegDate | date}}<br />
     <label>Country: </label> {{user.Country}}
-    <a [routerLink]="['/stores/store-by-user-id', user.ID]">List Store</a>
+</div>*@
+
+<div class="container">
+    <h1>User Detail</h1>
+    <div class="form">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab">Profile</a></li>
+        </ul>
+        <div class="form_row">
+            <label>Name:</label>
+            <input type="text" value="Micheal" class="form_name" name="" disabled="disabled">
+        </div>
+        <div class="form_row">
+            <label>Date of Birth:</label>
+            <input type="text" value="20/12/1992" class="form_date" name="" disabled="disabled">
+        </div>
+        <div class="form_row">
+            <label>Status</label>
+            <select class="form_select" name="" disabled="disabled">
+                <option>Select one</option>
+                <option>Active</option>
+                <option>Deleted</option>
+            </select>
+        </div>
+    </div>
 </div>
 
