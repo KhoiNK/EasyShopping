@@ -139,7 +139,7 @@ namespace EasyShopping.Api.Models
         }
 
         //Map list
-        public static IEnumerable<TTo> Translate<TFrom, TTo>(this IList<TFrom> dto)
+        public static IEnumerable<TTo> Translate<TFrom, TTo>(this IEnumerable<TFrom> dto)
         {
             return Mapper.Map<IEnumerable<TTo>>(dto);
         }

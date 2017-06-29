@@ -17,6 +17,7 @@ namespace EasyShopping.Repository.Models.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Store()
         {
+            this.Orders = new HashSet<Order>();
             this.Partners = new HashSet<Partner>();
             this.Products = new HashSet<Product>();
             this.StoreRatings = new HashSet<StoreRating>();
@@ -43,6 +44,8 @@ namespace EasyShopping.Repository.Models.Entity
     
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Partner> Partners { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

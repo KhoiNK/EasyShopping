@@ -72,7 +72,7 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                FindByID(id).StatusID = 1;
+                FindByID(id).StatusID = OPEN;
                 _db.SaveChanges();
                 return true;
             }
@@ -97,7 +97,30 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Store> GetByUserId(int id)
         {
-            return _db.Stores.Where(x => x.UserID == id).ToList();
+            IEnumerable<Store> stores = _db.Stores.Include("User")
+                .Include("StoreStatu")
+                .Include("Ward")
+                .Include("District")
+                .Include("Country")
+                .Include("Province")
+                .Where(x => x.UserID == id).ToList();
+            return stores;
+        }
+
+        public bool Put(Store store)
+        {
+            try
+            {
+                Store editStore = _db.Stores.Where(x => x.ID == store.ID).Single();
+                editStore = store;
+                _db.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                return false;
+            }
         }
     }
 }

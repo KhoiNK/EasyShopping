@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt/angular2-jwt';
-import { AngularFireModule } from 'angularfire2';
-import { environment } from '../environments/environment';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
@@ -21,8 +20,7 @@ import { routing } from './app.routing';
         FormsModule,
         HttpModule,
         CommonModule,
-        routing,
-        AngularFireModule.initializeApp(environment.firebase)
+        routing
     ],
     declarations: [
         Header,

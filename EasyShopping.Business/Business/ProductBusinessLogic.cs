@@ -17,23 +17,17 @@ namespace EasyShopping.BusinessLogic.Business
         {
             _repo = new ProductRepository();
         }
-        public ProductDTO Add(ProductDTO data, IList<string> filepaths)
+        public ProductDTO Add(ProductDTO data)
         {
             ProductDTO product = _repo.Add(data.Translate<ProductDTO, Product>()).Translate<Product, ProductDTO>();
-            if(filepaths.Count > 0)
-            {
-                foreach (var img in filepaths)
-                {
-                    _repo.AddImage(img, product.ID);
-                }
-            }
+
             product.Images = _repo.GetImage(product.ID).Translate<Image, ImageDTO>();
             return product;
         }
 
-        public IList<ProductViewDTO> GetAll(int storeid)
+        public IEnumerable<ProductViewDTO> GetAll(int storeid)
         {
-            IList<ProductViewDTO> products = _repo.GetList(storeid).Translate<Product, ProductViewDTO>();
+            IEnumerable<ProductViewDTO> products = _repo.GetList(storeid).Translate<Product, ProductViewDTO>();
             return products;
         }
 

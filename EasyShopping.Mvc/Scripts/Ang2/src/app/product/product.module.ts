@@ -3,24 +3,28 @@ import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/c
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 
-//import { ContactModule } from '../contact/contact.module';
-import { LoginComponent } from './login.component';
-import { routing } from './login.routing';
+import { routing } from './product.routing';
+import { ProductListComponent } from './product-list.component';
+import { ProductComponent } from './product.component';
+import { ProductAddComponent } from './product-add.component';
+
 
 @NgModule({
     imports: [
         FormsModule,
-        ReactiveFormsModule,
         CommonModule,
-        //ContactModule,
-        routing
-
+        ReactiveFormsModule,
+        routing,
+        RouterModule
     ],
     declarations: [
-        LoginComponent
+        ProductAddComponent,
+        ProductComponent,
+        ProductListComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
     ]
 })
-export class LoginModule { }
+
+export class ProductModule { }

@@ -162,6 +162,9 @@ namespace EasyShopping.BusinessLogic.Models
                 ).ForMember(
                     dto => dto.Ward,
                     opt => opt.MapFrom(entity => entity.Ward.Name)
+                ).ForMember(
+                    dto => dto.Products,
+                    opt => opt.Ignore()
                 );
 
                 cfg.CreateMap<StoreStatusDTO, StoreStatu>();
@@ -193,9 +196,9 @@ namespace EasyShopping.BusinessLogic.Models
         }
 
 
-        public static IList<TTo> Translate<TFrom, TTo>(this IEnumerable<TFrom> dto)
+        public static IEnumerable<TTo> Translate<TFrom, TTo>(this IEnumerable<TFrom> dto)
         {
-            return Mapper.Map<IList<TTo>>(dto);
+            return Mapper.Map<IEnumerable<TTo>>(dto);
         }
 
         public static User ToUserEntity(this UserDTO user)

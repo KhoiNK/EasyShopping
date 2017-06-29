@@ -20,7 +20,9 @@ namespace EasyShopping.BusinessLogic.Models
         public int ProductTypeID { get; set; }
         public string ProductType { get; set; }
         public int StoreID { get; set; }
-        public IList<ImageDTO> Images { get; set; }
+        public IEnumerable<ImageDTO> Images { get; set; }
+        public string ThumbailLink { get; set; }
+        public string ThumbailCode { get; set; }
     }
 
     public class ProductViewDTO
@@ -36,6 +38,7 @@ namespace EasyShopping.BusinessLogic.Models
         public int Quantity { get; set; }
         public int ProductTypeID { get; set; }
         public int StoreID { get; set; }
-        public IEnumerable<ProductViewDTO> Products { get; set; }
+        public string ThumbailLink { get; set; }
+        public string ThumbailCode { get; set; }
     }
 }

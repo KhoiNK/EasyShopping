@@ -25,6 +25,7 @@ namespace EasyShopping.Repository.Models.Entity
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<District> Districts { get; set; }

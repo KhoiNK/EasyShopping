@@ -12,6 +12,7 @@ namespace EasyShopping.Api.Models
         public string UserName { get; set; }
         public System.DateTime Created_Date { get; set; }
         public System.DateTime Modified_Date { get; set; }
+        public string Address { get; set; }
         public string ModifiedUser { get; set; }
         public string Description { get; set; }
         public string Img_Link { get; set; }
@@ -26,5 +27,7 @@ namespace EasyShopping.Api.Models
         public string Country { get; set; }
         public int CountryId { get; set; }
         public IEnumerable<ProductApiViewModel> Products{ get; set; }
+        public double LatX { get; set; }
+        public double LatY { get; set; }
     }
 }

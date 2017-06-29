@@ -68,9 +68,9 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.Approve(id);
         }
 
-        public IList<StoreDTO> GetAll(int pagesize, int page)
+        public IEnumerable<StoreDTO> GetAll(int pagesize, int page)
         {
-            IList<StoreDTO> store = _repo.GetList(pagesize, page).Translate<Store, StoreDTO>();
+            IEnumerable<StoreDTO> store = _repo.GetList(pagesize, page).Translate<Store, StoreDTO>();
 
             foreach (var s in store)
             {
@@ -80,17 +80,17 @@ namespace EasyShopping.BusinessLogic.Business
             return store;
         }
 
-        public IList<StoreDTO> GetByName(string searchkey)
+        public IEnumerable<StoreDTO> GetByName(string searchkey)
         {
-            IList<StoreDTO> store = _repo.GetByName(searchkey).Translate<Store, StoreDTO>();
+            IEnumerable<StoreDTO> store = _repo.GetByName(searchkey).Translate<Store, StoreDTO>();
             return store;
         }
 
-        public Task<IList<StoreDTO>> GetByUserId(int id)
+        public Task<IEnumerable<StoreDTO>> GetByUserId(int id)
         {
             return Task.Factory.StartNew(() =>
             {
-                IList<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
+                IEnumerable<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
                 foreach (var s in stores)
                 {
                     s.Products = _productbusiness.GetAll(s.ID);
@@ -106,6 +106,12 @@ namespace EasyShopping.BusinessLogic.Business
             StoreDTO store = _repo.FindByID(id).Translate<Store, StoreDTO>();
             store.Products = _productbusiness.GetAll(store.ID);
             return store;
+        }
+
+        public bool Put(StoreDTO store)
+        {
+            var result = _repo.Put(store.Translate<StoreDTO, Store>());
+            return result;
         }
     }
 }

@@ -297,15 +297,13 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\firebase.component.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\firebase.service.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\firebase\Upload.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
@@ -315,6 +313,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\upload-image.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.component.ts" />
@@ -322,7 +321,6 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-list.component.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\environments\environment.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\main.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\test\app.component.spec.ts" />
   </ItemGroup>

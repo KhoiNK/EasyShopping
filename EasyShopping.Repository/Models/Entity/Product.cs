@@ -29,12 +29,14 @@ namespace EasyShopping.Repository.Models.Entity
         public string Description { get; set; }
         public string ProductID { get; set; }
         public int ManufacturedCountryID { get; set; }
-        public int ProducerID { get; set; }
+        public Nullable<int> ProducerID { get; set; }
         public double Weight { get; set; }
         public int StatusID { get; set; }
         public int Quantity { get; set; }
-        public int ProductTypeID { get; set; }
+        public Nullable<int> ProductTypeID { get; set; }
         public int StoreID { get; set; }
+        public string ThumbailLink { get; set; }
+        public string ThumbailCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }

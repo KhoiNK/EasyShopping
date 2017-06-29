@@ -2,6 +2,7 @@
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { routing } from './store.routing';
 import { StoreListComponent } from './store-list.component';
 import { StoreDetailComponent } from './store-detail.component';
@@ -13,7 +14,7 @@ import { StoreComponent } from './store.component';
         FormsModule,
         CommonModule,
         ReactiveFormsModule,
-        routing,
+        routing
     ],
     declarations: [
         StoreComponent,

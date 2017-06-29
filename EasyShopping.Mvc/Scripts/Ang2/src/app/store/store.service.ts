@@ -14,8 +14,8 @@ export class StoreServices {
 
     }
 
-    GetListStore(): Observable<any[]> {
-        return this._http.get(this.apiUrl).map(res => res.json());
+    GetListStore(page: Number): Observable<any[]> {
+        return this._http.get(this.apiUrl + "?page=", page).map(res => res.json());
     }
 
     GetStoreById(id: number): Observable<any> {

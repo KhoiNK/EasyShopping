@@ -1,8 +1,13 @@
 ﻿
-@using EasyShopping.Mvc.Models
-@model ProductViewModel
-<form method="post" action="/Product/AddProduct" enctype="multipart/form-data">
-    Name: @Html.TextBoxFor(Model => Model.Name)
+<form class="form" #f="ngForm" (ngSubmit)="saveProduct($event)" enctype="multipart/form-data">
+    Name: <input type="text" [(ngModel)]="product.Name" placeholder="Name"/>
+    Description: <input type="text" [(ngModel)]="product.Description" placeholder="Description"/>
+    Manufactured Country:
+    <select [(ngModel)]="product.ManufacturedCountryID" (change)="setCountryId($event.target.value)">
+        <option *ngFor="let country in countries" value={{country.Id}}>{{country.CommonName}}</option>
+    </select>
+    Weight: <input type="text" [(ngModel)]="product.Weight" name="weight"/>
+    Quantity: <input type="text" [(ngModel)]="product.Quantity" name="quantity"/>
     <input type="file" />
     <button type="submit" class="btn btn-default">Save</button>
 </form>

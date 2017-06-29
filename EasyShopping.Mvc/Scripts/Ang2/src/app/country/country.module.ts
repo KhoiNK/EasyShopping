@@ -1,6 +1,7 @@
 ﻿import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
 
 //import { ContactModule } from '../contact/contact.module';
 
@@ -9,7 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     imports: [
         FormsModule,
         ReactiveFormsModule,
-        CommonModule
+        CommonModule,
+        RouterModule
     ],
     declarations: [
         

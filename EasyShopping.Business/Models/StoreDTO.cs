@@ -28,7 +28,8 @@ namespace EasyShopping.BusinessLogic.Models
         public string Country { get; set; }
         public int CityId { get; set; }
         public string City { get; set; }
-        public string Latlng { get; set; }
-        public IList<ProductViewDTO> Products {get; set;}
+        public double LatX { get; set; }
+        public double LatY { get; set; }
+        public IEnumerable<ProductViewDTO> Products {get; set;}
     }
 }

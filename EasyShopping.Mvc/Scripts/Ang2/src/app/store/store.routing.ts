@@ -12,7 +12,7 @@ const appRoutes: Routes = [{
     },
     children: [
         {
-            path: '',
+            path: '/:page',
             component: StoreListComponent,
         }, {
             path: 'store-detail/:id',

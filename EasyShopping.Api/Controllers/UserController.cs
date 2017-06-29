@@ -30,7 +30,7 @@ namespace EasyShopping.Api.Controllers
         {
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
             //System.Diagnostics.Debugger.Launch();
-            return _business.GetAll().Translate<UserDTO, UserApiModel>();
+            return ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetAll());
         }
 
         // GET api/values/5

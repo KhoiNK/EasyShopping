@@ -21,6 +21,8 @@ namespace EasyShopping.Api.Models
         public string ProductType { get; set; }
         public int StoreID { get; set; }
         public IEnumerable<ImageApiModel> Images { get; set; }
+        public string ThumbailLink { get; set; }
+        public string ThumbailCode { get; set; }
     }
 
     public class ProductApiViewModel
@@ -36,5 +38,7 @@ namespace EasyShopping.Api.Models
         public int Quantity { get; set; }
         public int ProductTypeID { get; set; }
         public int StoreID { get; set; }
+        public string ThumbailLink { get; set; }
+        public string ThumbailCode { get; set; }
     }
 }

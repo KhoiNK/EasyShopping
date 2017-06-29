@@ -15,11 +15,9 @@ namespace Easyshopping.Repository.Repository.UserRepo
         private const int DEACTIVE = 2;
         private const int DELETED = 3;
         private EasyShoppingEntities _db = null;
-        private UserManager<IdentityUser> _usermanger;
         public UserRepository()
         {
             _db = new EasyShoppingEntities();
-            //_usermanger = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_db));
         }
 
         public User FindUser(string user_name, string password)
@@ -67,7 +65,6 @@ namespace Easyshopping.Repository.Repository.UserRepo
         {
             try
             {
-                //System.Diagnostics.Debugger.Launch();
                 User user = _db.Users
                     .Include("Country")
                     .Include("UserStatu")

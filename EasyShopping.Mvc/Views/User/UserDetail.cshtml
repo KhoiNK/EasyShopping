@@ -12,25 +12,24 @@
 
 <div class="container">
     <h1>User Detail</h1>
-    <div class="form">
+    <div class="form" *ngIf="user">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab">Profile</a></li>
         </ul>
         <div class="form_row">
             <label>Name:</label>
-            <input type="text" value="Micheal" class="form_name" name="" disabled="disabled">
+           {{user.UserName}}
         </div>
         <div class="form_row">
             <label>Date of Birth:</label>
-            <input type="text" value="20/12/1992" class="form_date" name="" disabled="disabled">
+            {{user.DOB | date}}
         </div>
         <div class="form_row">
             <label>Status</label>
-            <select class="form_select" name="" disabled="disabled">
-                <option>Select one</option>
-                <option>Active</option>
-                <option>Deleted</option>
-            </select>
+            {{user.Status}}
+        </div>
+        <div class="form_row">
+            <a [routerLink]="['/stores/store-by-user-id', user.ID]">Store List</a>
         </div>
     </div>
 </div>

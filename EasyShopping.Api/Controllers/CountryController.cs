@@ -15,7 +15,7 @@ namespace EasyShopping.Api.Controllers
         public IEnumerable<CountryApiModel> Get()
         {
             CountryBusinessLogic _business = new CountryBusinessLogic();
-            return _business.GetAll().Translate<CountryDTO, CountryApiModel>();
+            return ApiTranslators.Translate<CountryDTO, CountryApiModel>(_business.GetAll());
         }
 
         public CountryApiModel Get(int id)

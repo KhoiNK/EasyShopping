@@ -15,7 +15,7 @@ namespace EasyShopping.BusinessLogic.Business.CountryLogic
         {
             _repo = new CountryRepository();
         }
-        public IList<CountryDTO> GetAll()
+        public IEnumerable<CountryDTO> GetAll()
         {
             return _repo.GetAll().Translate<Country, CountryDTO>();
         }

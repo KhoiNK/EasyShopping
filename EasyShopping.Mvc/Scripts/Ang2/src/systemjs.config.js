@@ -30,6 +30,9 @@
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'angular2-jwt': 'npm:angular2-jwt',
+            //'angularfire2': 'npm:angularfire2',
+            //'firebase': 'npm:firebase',
+            //'promise-polyfill': 'npm:promise-polyfill',
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -42,7 +45,10 @@
                 //}
             },
             'angular2-jwt': { main: 'angular2-jwt.js', defaultExtension: 'js' },
-            'rxjs': { defaultExtension: 'js' }
+            'rxjs': { defaultExtension: 'js' },
+            //'angularfire2': { main: './bundles/angularFire2.umd.js', defaultextension: 'js' },
+            //'firebase': { main: 'firebase.js', defaultextension: 'js' },
+            //'promise-polyfill': { main: 'promise.min.js', defaultextension:'js' }
         }
     });
 })(this);

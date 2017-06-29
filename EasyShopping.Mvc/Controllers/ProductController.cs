@@ -61,7 +61,7 @@ namespace EasyShopping.Mvc.Controllers
                     imgList.Add(path);
                 }
             }
-            ProductDTO newproduct = _business.Add(ViewModelTranslator.Translate<ProductViewModel, ProductDTO>(data), imgList);
+            ProductDTO newproduct = _business.Add(ViewModelTranslator.Translate<ProductViewModel, ProductDTO>(data));
             return Redirect("/Product/AddProduct");
         }
     }

@@ -4,6 +4,7 @@ using EasyShopping.BusinessLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Http;
@@ -31,12 +32,12 @@ namespace EasyShopping.Api.Controllers
 
         public IEnumerable<StoreApiModel> Get(int page, int index = 10)
         {
-            return _business.GetAll(index, page).Translate<StoreDTO, StoreApiModel>();
+            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetAll(index, page));
         }
 
         public IEnumerable<StoreApiModel> Get(string searchkey)
         {
-            return _business.GetByName(searchkey).Translate<StoreDTO, StoreApiModel>();
+            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByName(searchkey));
         }
 
         public StoreApiModel Get(int id)
@@ -46,7 +47,7 @@ namespace EasyShopping.Api.Controllers
 
         public IEnumerable<StoreApiModel> GetByUserId(int id)
         {
-            return _business.GetByUserId(id).Result.Translate<StoreDTO, StoreApiModel>();
+            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByUserId(id).Result);
         }
 
         //public bool Put([FromBody]StoreApiModel store)
@@ -56,7 +57,14 @@ namespace EasyShopping.Api.Controllers
 
         //}
         
-        public bool Put(int id)
+        public IHttpActionResult Put(StoreApiModel store)
+        {
+            var result = _business.Put(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
+            if (result) { return Ok(result); }
+            else { return BadRequest(); }
+        }
+
+        public bool Approve(int id)
         {
             return _business.ApproveStore(id);
         }
