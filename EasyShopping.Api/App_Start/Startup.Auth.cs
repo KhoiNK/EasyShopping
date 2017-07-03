@@ -52,12 +52,11 @@ namespace EasyShopping.Api
 
             app.UseOAuthAuthorizationServer(OAuthOptions);
             //System.Diagnostics.Debugger.Launch();
-
             app.UseJwtBearerAuthentication(
                new JwtBearerAuthenticationOptions
-               {
+               {               
                    AuthenticationMode = AuthenticationMode.Active,
-                   AllowedAudiences = new[] { "admin" },
+                   AllowedAudiences = new[] { "admin", "chushop1"},
                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                    {
                         new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)

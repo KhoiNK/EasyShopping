@@ -93,7 +93,7 @@ namespace EasyShopping.BusinessLogic.Business
                 IEnumerable<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
                 foreach (var s in stores)
                 {
-                    s.Products = _productbusiness.GetAll(s.ID);
+                    s.Products = _productbusiness.GetAllByStore(s.ID);
                 }
 
                 return stores;
@@ -104,7 +104,7 @@ namespace EasyShopping.BusinessLogic.Business
         public StoreDTO GetById(int id)
         {
             StoreDTO store = _repo.FindByID(id).Translate<Store, StoreDTO>();
-            store.Products = _productbusiness.GetAll(store.ID);
+            store.Products = _productbusiness.GetAllByStore(store.ID);
             return store;
         }
 
@@ -112,6 +112,11 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var result = _repo.Put(store.Translate<StoreDTO, Store>());
             return result;
+        }
+
+        public bool IsOwner(int id)
+        {
+            return _repo.IsOwner(id);
         }
     }
 }

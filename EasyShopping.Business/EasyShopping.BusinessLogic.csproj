@@ -46,8 +46,10 @@
   <ItemGroup>
     <Compile Include="Business\CountryBusinessLogic.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
+    <Compile Include="Business\ProductTypeBusiness.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserBusinessLogic.cs" />
+    <Compile Include="CommonMethod\CodeGenerator.cs" />
     <Compile Include="CommonMethod\Encryptor.cs" />
     <Compile Include="Models\CategoryDTO.cs" />
     <Compile Include="Models\CommentDTO.cs" />
@@ -58,7 +60,6 @@
     <Compile Include="Models\OrderDTO.cs" />
     <Compile Include="Models\OrderStatusDTO.cs" />
     <Compile Include="Models\PartnerDTO.cs" />
-    <Compile Include="Models\ProducerDTO.cs" />
     <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Models\ProductStatusDTO.cs" />
     <Compile Include="Models\ProductTypeDTO.cs" />

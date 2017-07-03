@@ -10,10 +10,21 @@ namespace EasyShopping.Repository.Repository
     public class ProductRepository
     {
         private EasyShoppingEntities _db = null;
+        private const int REMOVED = 4;
 
         public ProductRepository()
         {
             _db = new EasyShoppingEntities();
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return _db.Products.Include("Images")
+                .Include("ProductType")
+                .Include("ProductStatu")
+                .Include("Store")
+                .OrderByDescending(x => x.CreatedDate)
+                .ToList();
         }
 
         public IEnumerable<Product> GetList(int storeid)
@@ -22,6 +33,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("Images")
                 .Include("ProductType")
                 .Include("ProductStatu")
+                .Include("Store")
                 .Where(x=> x.StoreID == storeid)
                 .ToList();
         }
@@ -30,7 +42,9 @@ namespace EasyShopping.Repository.Repository
         {
             Product product = new Product();
             product = data;
-            return _db.Products.Add(data);
+            _db.Products.Add(product);
+            _db.SaveChanges();
+            return product;
         }
 
         public bool AddImage(string path, int productId)
@@ -52,6 +66,50 @@ namespace EasyShopping.Repository.Repository
                 Console.WriteLine(e.StackTrace);
                 return null;
             }
+        }
+
+        public Product GetById(int id)
+        {
+            Product product = _db.Products
+                .Include("Images")
+                .Include("ProductType")
+                .Include("ProductStatu")
+                .Include("Country")
+                .Include("Store")
+                .Where(x => x.ID == id).Single();
+            return product;
+        }
+
+        public bool Remove(int id)
+        {
+            var product = GetById(id);
+            product.StatusID = REMOVED;
+            _db.SaveChanges();
+            return true;
+        }
+
+        public bool Edit(Product data)
+        {
+            var product = GetById(data.ID);
+            if(String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+            {
+                var thumbailLink = product.ThumbailLink;
+                var thumbailCode = product.ThumbailCode;
+                product = data;
+                product.ThumbailLink = thumbailLink;
+                product.ThumbailCode = thumbailCode;
+                _db.SaveChanges();
+                return true;
+            }
+            product = data;
+            _db.SaveChanges();
+            return true;
+        }
+
+        public IEnumerable<Product> GetByName(string name)
+        {
+            var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
+            return products;
         }
     }
 }

@@ -1,13 +1,10 @@
 ﻿using EasyShopping.Repository.Models.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyShopping.Repository.Repository
 {
-    class ProductTypeRepository
+    public class ProductTypeRepository
     {
         private EasyShoppingEntities _db = null;
         
@@ -16,7 +13,7 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public IEnumerable<ProductType> GetProductTypes()
+        public IEnumerable<ProductType> GetAll()
         {
             return _db.ProductTypes.ToList();
         }

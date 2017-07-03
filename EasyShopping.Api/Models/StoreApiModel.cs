@@ -26,7 +26,7 @@ namespace EasyShopping.Api.Models
         public int DistrictId { get; set; }
         public string Country { get; set; }
         public int CountryId { get; set; }
-        public IEnumerable<ProductApiViewModel> Products{ get; set; }
+        public IEnumerable<ProductApiModel> Products{ get; set; }
         public double LatX { get; set; }
         public double LatY { get; set; }
     }

@@ -73,13 +73,10 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<PartnerDTO, Partner>();
                 cfg.CreateMap<Partner, PartnerDTO>();
 
-                cfg.CreateMap<ProducerDTO, Producer>();
-                cfg.CreateMap<Producer, ProducerDTO>();
-
-                cfg.CreateMap<ProductDTO, Product>();
+                cfg.CreateMap<ProductViewDTO, Product>();
 
 
-                cfg.CreateMap<Product, ProductDTO>()
+                cfg.CreateMap<Product, ProductViewDTO>()
                 .ForMember(
                     dto => dto.Images,
                     opt => opt.MapFrom(entity => entity.Images)
@@ -92,8 +89,8 @@ namespace EasyShopping.BusinessLogic.Models
                     dto => dto.ProductType,
                     opt => opt.MapFrom(entity => entity.ProductType.Name)
                 );
-                cfg.CreateMap<Product, ProductViewDTO>();
-                cfg.CreateMap<ProductViewDTO, Product>();
+                cfg.CreateMap<Product, ProductDTO>();
+                cfg.CreateMap<ProductDTO, Product>();
 
                 cfg.CreateMap<ProductStatusDTO, ProductStatu>();
                 cfg.CreateMap<ProductStatu, ProductStatusDTO>();

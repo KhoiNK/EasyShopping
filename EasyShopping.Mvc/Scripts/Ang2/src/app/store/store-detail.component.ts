@@ -18,9 +18,6 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
         this.store = {};
     }
 
-    @ViewChild(ProductAddComponent)
-    private addProduct: ProductAddComponent;
-
     ngOnInit() {
         this.subscription = this.activatedRoute.params.subscribe(params => {
             this.id = params['id'];
@@ -29,10 +26,6 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
             .subscribe(res => {
                 return this.store = res;
             });
-    }
-
-    sendStoreID() {
-        this.addProduct.setStoreId(this.store.ID);
     }
 
     ngOnDestroy() {

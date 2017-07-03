@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EasyShopping.Repository.Repository.DistrictRepo
+namespace EasyShopping.Repository.Repository
 {
     class DistrictRepository
     {

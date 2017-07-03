@@ -34,6 +34,10 @@ export class StoreServices {
         return this._http.post(this.apiUrl, data).map(res => res.json());
     }
 
+    CheckOwner(id: Number): Observable<any> {
+        return this._http.post(this.apiUrl, id).map(res => res.json());
+    }
+
     EditStore(data: any): Observable<any> {
         return this._http.put(this.apiUrl + data.ID, data).map(res => res.json());
     }

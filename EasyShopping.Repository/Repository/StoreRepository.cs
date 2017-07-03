@@ -122,5 +122,11 @@ namespace EasyShopping.Repository.Repository
                 return false;
             }
         }
+
+        public bool IsOwner(int id)
+        {
+            if(_db.Stores.Where(x=> x.UserID == id).Count() > 0) { return true; }
+            return false;
+        }
     }
 }

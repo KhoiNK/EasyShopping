@@ -1,12 +1,9 @@
-﻿using Easyshopping.Repository.Repository.CountryRepo;
+﻿using Easyshopping.Repository.Repository;
 using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace EasyShopping.BusinessLogic.Business.CountryLogic
+namespace EasyShopping.BusinessLogic.Business
 {
     public class CountryBusinessLogic
     {

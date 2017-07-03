@@ -133,7 +133,7 @@
         <div class="col-sm-9 padding-right">
             <div class="features_items">
                 <!--features_items-->
-                <h2 class="title text-center">Store Name</h2>
+                <h2 class="title text-center">{{store.Name}}</h2>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="well well-sm">
@@ -147,11 +147,16 @@
                                         {{store.Name}}
                                     </h4>
                                     <p>
+                                        <label>
+                                            Store ID: {{store.ID}}
+                                        </label>
                                         <i class="fa fa-user-o"></i> Status: {{store.Status}}
                                         <br />
                                         <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
                                         <br />
                                         <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
+                                        <br />
+                                        <a class="btn btn-default" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
                                     </p>
                                 </div>
                             </div>
@@ -159,245 +164,27 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
-                <div class="col-sm-4">
+                <div class="col-sm-4" *ngFor="let product of store.Products">
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
                                 <img src="~/Content/img/shop/product12.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                <h2>{{product.Price}}</h2>
+                                <p>{{product.Name}}</p>
+                                <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                             </div>
 
                         </div>
-                        <div class="choose">
+                        @*<div class="choose">
                             <ul class="nav nav-pills nav-justified">
                                 <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
                                 <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
                             </ul>
-                        </div>
+                        </div>*@
                     </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product11.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product10.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product9.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                            <img src="~/Content/img/home/new.png" class="new" alt="" />
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product8.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                            <img src="~/Content/img/home/sale.png" class="new" alt="" />
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product7.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product6.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product5.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product4.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product3.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product2.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="~/Content/img/home/product1.jpg" alt="" />
-                                <h2>$56</h2>
-                                <p>Easy Polo Black Edition</p>
-                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                            </div>
-
-                        </div>
-                        <div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <ul class="pagination">
+                <div class="clearfix"></div>
+                <ul class="pagination" style="text-align:center">
                     <li class="active"><a href="">1</a></li>
                     <li><a href="">2</a></li>
                     <li><a href="">3</a></li>

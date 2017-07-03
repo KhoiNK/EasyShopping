@@ -1,5 +1,5 @@
 ﻿using EasyShopping.Api.Models;
-using EasyShopping.BusinessLogic.Business.CountryLogic;
+using EasyShopping.BusinessLogic.Business;
 using EasyShopping.BusinessLogic.Models;
 using System;
 using System.Collections.Generic;

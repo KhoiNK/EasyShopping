@@ -104,9 +104,6 @@
     <Compile Include="Models\Entity\Partner.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entity\Producer.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entity\Product.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
@@ -165,6 +162,7 @@
     <Compile Include="Repository\CityRepository.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="Repository\DistrictRepository.cs" />
+    <Compile Include="Repository\PartnerRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\ProductTypeRepository.cs" />
     <Compile Include="Repository\StoreRepository.cs" />

@@ -29,7 +29,6 @@ namespace EasyShopping.Repository.Models.Entity
         public string Description { get; set; }
         public string ProductID { get; set; }
         public int ManufacturedCountryID { get; set; }
-        public Nullable<int> ProducerID { get; set; }
         public double Weight { get; set; }
         public int StatusID { get; set; }
         public int Quantity { get; set; }
@@ -37,6 +36,10 @@ namespace EasyShopping.Repository.Models.Entity
         public int StoreID { get; set; }
         public string ThumbailLink { get; set; }
         public string ThumbailCode { get; set; }
+        public Nullable<double> Price { get; set; }
+        public Nullable<double> Height { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
@@ -45,7 +48,6 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual ICollection<Image> Images { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual Producer Producer { get; set; }
         public virtual ProductType ProductType { get; set; }
         public virtual ProductStatu ProductStatu { get; set; }
         public virtual Store Store { get; set; }

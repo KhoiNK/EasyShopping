@@ -30,6 +30,11 @@ namespace EasyShopping.Api.Controllers
             return store;
         }
 
+        public IHttpActionResult Post(int id)
+        {
+            return Ok(_business.IsOwner(id));
+        }
+
         public IEnumerable<StoreApiModel> Get(int page, int index = 10)
         {
             return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetAll(index, page));

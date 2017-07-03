@@ -3,7 +3,7 @@
 using EasyShopping.BusinessLogic.Models;
 using EasyShopping.BusinessLogic.CommonMethod;
 using System.Threading.Tasks;
-using Easyshopping.Repository.Repository.UserRepo;
+using Easyshopping.Repository.Repository;
 using EasyShopping.Repository.Models.Entity;
 
 namespace EasyShopping.BusinessLogic.Business

@@ -30,6 +30,6 @@ namespace EasyShopping.BusinessLogic.Models
         public string City { get; set; }
         public double LatX { get; set; }
         public double LatY { get; set; }
-        public IEnumerable<ProductViewDTO> Products {get; set;}
+        public IEnumerable<ProductDTO> Products {get; set;}
     }
 }

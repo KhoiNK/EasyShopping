@@ -131,14 +131,6 @@
           <Property Name="isClosed" Type="bit" />
           <Property Name="isWorking" Type="bit" />
         </EntityType>
-        <EntityType Name="Producer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -148,7 +140,6 @@
           <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
           <Property Name="ProductID" Type="nvarchar" MaxLength="250" />
           <Property Name="ManufacturedCountryID" Type="int" Nullable="false" />
-          <Property Name="ProducerID" Type="int" />
           <Property Name="Weight" Type="float" Nullable="false" />
           <Property Name="StatusID" Type="int" Nullable="false" />
           <Property Name="Quantity" Type="int" Nullable="false" />
@@ -156,6 +147,10 @@
           <Property Name="StoreID" Type="int" Nullable="false" />
           <Property Name="ThumbailLink" Type="varchar" MaxLength="100" />
           <Property Name="ThumbailCode" Type="varchar" MaxLength="100" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Height" Type="float" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ProductStatus">
           <Key>
@@ -624,18 +619,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductDetail_Producer">
-          <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProducerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductDetail_Product Type">
           <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -937,7 +920,6 @@
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partner" EntityType="Self.Partner" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
@@ -1046,10 +1028,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Country" Association="Self.FK_ProductDetail_Country">
             <End Role="Country" EntitySet="Country" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetail_Producer" Association="Self.FK_ProductDetail_Producer">
-            <End Role="Producer" EntitySet="Producer" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Product Type" Association="Self.FK_ProductDetail_Product Type">
@@ -1309,15 +1287,6 @@
           <NavigationProperty Name="Store" Relationship="Self.FK_Partner_Stores" FromRole="Partner" ToRole="Stores" />
           <NavigationProperty Name="User" Relationship="Self.FK_Partner_Users" FromRole="Partner" ToRole="Users" />
         </EntityType>
-        <EntityType Name="Producer">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Producer" FromRole="Producer" ToRole="Product" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID" />
@@ -1327,7 +1296,6 @@
           <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ProductID" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ManufacturedCountryID" Type="Int32" Nullable="false" />
-          <Property Name="ProducerID" Type="Int32" />
           <Property Name="Weight" Type="Double" Nullable="false" />
           <Property Name="StatusID" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
@@ -1335,11 +1303,14 @@
           <Property Name="StoreID" Type="Int32" Nullable="false" />
           <Property Name="ThumbailLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ThumbailCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Height" Type="Double" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ProductDetail" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="Country" Relationship="Self.FK_ProductDetail_Country" FromRole="Product" ToRole="Country" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Image_ProductDetail" FromRole="Product" ToRole="Image" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_ProductDetail" FromRole="Product" ToRole="OrderDetail" />
-          <NavigationProperty Name="Producer" Relationship="Self.FK_ProductDetail_Producer" FromRole="Product" ToRole="Producer" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_ProductDetail_Product_Type" FromRole="Product" ToRole="ProductType" />
           <NavigationProperty Name="ProductStatu" Relationship="Self.FK_ProductDetail_ProductStatus" FromRole="Product" ToRole="ProductStatus" />
           <NavigationProperty Name="Store" Relationship="Self.FK_ProductDetail_Stores" FromRole="Product" ToRole="Stores" />
@@ -1895,18 +1866,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductDetail_Producer">
-          <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Producer">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProducerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductDetail_Product_Type">
           <End Role="ProductType" Type="Self.ProductType" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2182,7 +2141,6 @@
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
           <EntitySet Name="Partners" EntityType="Self.Partner" />
-          <EntitySet Name="Producers" EntityType="Self.Producer" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductStatus" EntityType="Self.ProductStatu" />
           <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
@@ -2300,10 +2258,6 @@
           <AssociationSet Name="FK_Partner_Users" Association="Self.FK_Partner_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Partner" EntitySet="Partners" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductDetail_Producer" Association="Self.FK_ProductDetail_Producer">
-            <End Role="Producer" EntitySet="Producers" />
-            <End Role="Product" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductDetail_Product_Type" Association="Self.FK_ProductDetail_Product_Type">
             <End Role="ProductType" EntitySet="ProductTypes" />
@@ -2536,15 +2490,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Producers">
-            <EntityTypeMapping TypeName="EasyShoppingModel.Producer">
-              <MappingFragment StoreEntitySet="Producer">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="EasyShoppingModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -2553,7 +2498,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ManufacturedCountryID" ColumnName="ManufacturedCountryID" />
-                <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -2561,6 +2505,10 @@
                 <ScalarProperty Name="StoreID" ColumnName="StoreID" />
                 <ScalarProperty Name="ThumbailLink" ColumnName="ThumbailLink" />
                 <ScalarProperty Name="ThumbailCode" ColumnName="ThumbailCode" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

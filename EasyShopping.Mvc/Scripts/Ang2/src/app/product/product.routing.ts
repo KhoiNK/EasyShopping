@@ -11,7 +11,7 @@ const appRoutes: Routes = [{
     },
     children: [
         {
-            path: 'product-add',
+            path: 'product-add/:storeId',
             component: ProductAddComponent,
             //canActivate: [AuthGuard]
         }

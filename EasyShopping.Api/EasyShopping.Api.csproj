@@ -212,7 +212,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductTypeController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -227,7 +229,6 @@
     <Compile Include="Models\OrderApiModel.cs" />
     <Compile Include="Models\OrderStatusApiModel.cs" />
     <Compile Include="Models\PartnerApiModel.cs" />
-    <Compile Include="Models\ProducerApiModel.cs" />
     <Compile Include="Models\ProductApiModel.cs" />
     <Compile Include="Models\ProductStatusApiModel.cs" />
     <Compile Include="Models\ProductTypeApiModel.cs" />

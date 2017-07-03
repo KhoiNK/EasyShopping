@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Easyshopping.Repository.Repository.UserRepo
+namespace Easyshopping.Repository.Repository
 {
 
 

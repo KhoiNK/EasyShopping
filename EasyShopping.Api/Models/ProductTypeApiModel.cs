@@ -9,6 +9,5 @@ namespace EasyShopping.Api.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> CateID { get; set; }
     }
 }

@@ -67,17 +67,14 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<PartnerApiModel, PartnerDTO>();
                 cfg.CreateMap<PartnerDTO, PartnerApiModel>();
 
-                cfg.CreateMap<ProducerApiModel, ProducerDTO>();
-                cfg.CreateMap<ProducerDTO, ProducerApiModel>();
-
                 cfg.CreateMap<WardApiModel, WardDTO>();
                 cfg.CreateMap<WardDTO, WardApiModel>();
 
-                cfg.CreateMap<ProductApiModel, ProductDTO>();
-                cfg.CreateMap<ProductDTO, ProductApiModel>();
-
                 cfg.CreateMap<ProductApiViewModel, ProductViewDTO>();
                 cfg.CreateMap<ProductViewDTO, ProductApiViewModel>();
+
+                cfg.CreateMap<ProductApiModel, ProductDTO>();
+                cfg.CreateMap<ProductDTO, ProductApiModel>();
 
                 cfg.CreateMap<ProductStatusApiModel, ProductStatusDTO>();
                 cfg.CreateMap<ProductStatusDTO, ProductStatusApiModel>();

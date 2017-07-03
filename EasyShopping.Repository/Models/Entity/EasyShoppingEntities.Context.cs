@@ -35,7 +35,6 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Partner> Partners { get; set; }
-        public virtual DbSet<Producer> Producers { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductStatu> ProductStatus { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }

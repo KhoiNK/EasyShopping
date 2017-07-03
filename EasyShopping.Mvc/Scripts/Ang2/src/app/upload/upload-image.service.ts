@@ -6,17 +6,17 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 declare var window: any;
-const ClientID: any = "Client - ID 69327a355faae60";
+const ClientID: any = "Client-ID 69327a355faae60";
 
 @Injectable()
 export class UploadService {
     private apiUrl = "https://api.imgur.com/3/image";
-    
-    constructor(private _http: AuthHttp) {
+
+    constructor(private _http: Http) {
 
     }
 
-    UploadImage(file: File): Observable<any> {
+    UploadImage(file: string): Observable<any> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         headers.delete("Authorization");
         headers.append("Authorization", ClientID);

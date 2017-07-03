@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -21,15 +22,20 @@ namespace EasyShopping.Api.Controllers
         {
             _business = new ProductBusinessLogic();
         }
+
         //public Task<IEnumerable<ProductApiModel>> Get()
         //{
 
         //}
 
-        public ProductApiModel Post([FromBody] ProductApiModel data, int storeid)
+        public IHttpActionResult Post([FromBody] ProductApiModel data)
         {
-            ProductDTO newproduct = _business.Add(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data));
-            return ApiTranslators.Translate<ProductDTO, ProductApiModel>(newproduct);
+            var identity = (ClaimsIdentity)User.Identity;
+            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+            ProductDTO newproduct = _business.Add(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
+            ProductApiModel newProduct = ApiTranslators.Translate<ProductDTO, ProductApiModel>(newproduct);
+            if (newProduct != null) return Ok(newProduct);
+            return BadRequest();
         }
     }
 }

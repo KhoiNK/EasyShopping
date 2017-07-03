@@ -302,10 +302,12 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-type.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
@@ -313,6 +315,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\base64Encode.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\upload-image.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
