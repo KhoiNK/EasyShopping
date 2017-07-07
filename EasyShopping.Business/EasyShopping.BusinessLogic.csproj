@@ -44,7 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\CityBusinessLogic.cs" />
     <Compile Include="Business\CountryBusinessLogic.cs" />
+    <Compile Include="Business\DistrictBusinessLogic.cs" />
+    <Compile Include="Business\OrderBusinessLogic.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
     <Compile Include="Business\ProductTypeBusiness.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />

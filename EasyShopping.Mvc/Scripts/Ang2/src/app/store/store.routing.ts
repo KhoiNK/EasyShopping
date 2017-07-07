@@ -3,6 +3,7 @@ import { StoreListComponent } from './store-list.component';
 import { StoreComponent } from './store.component';
 import { StoreDetailComponent } from './store-detail.component';
 import { StoreListByUserComponent } from './store-listbyuserid.component';
+import { StoreAddComponent } from './store-add.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -21,6 +22,10 @@ const appRoutes: Routes = [{
         {
             path: 'store-by-user-id/:id',
             component: StoreListByUserComponent,
+        },
+        {
+            path: 'store-add',
+            component: StoreAddComponent,
         }
     ]
 }];

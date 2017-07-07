@@ -17,7 +17,7 @@ export class CountryServices {
         return this._http.get(this.apiUrl).map((response: Response) => response.json());
     }
 
-    GetSingleCountry(id: number | string): Observable<any> {
-        return this._http.get(`${this.apiUrl}/${id}`).map((res: Response) => res.json()); 
+    GetSingleCountry(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/" + id).map((res: Response) => res.json()); 
     }
 }

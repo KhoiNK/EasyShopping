@@ -26,10 +26,13 @@
             '@angular/router': '@ang:router/bundles/router.umd.js',
             '@angular/forms': '@ang:forms/bundles/forms.umd.js',
 
+
             // other libraries
             'rxjs': 'npm:rxjs',
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'angular2-jwt': 'npm:angular2-jwt',
+            'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
+            '@agm/core': 'npm:@agm/core/core.umd.js'
             //'angularfire2': 'npm:angularfire2',
             //'firebase': 'npm:firebase',
             //'promise-polyfill': 'npm:promise-polyfill',
@@ -46,6 +49,7 @@
             },
             'angular2-jwt': { main: 'angular2-jwt.js', defaultExtension: 'js' },
             'rxjs': { defaultExtension: 'js' },
+
             //'angularfire2': { main: './bundles/angularFire2.umd.js', defaultextension: 'js' },
             //'firebase': { main: 'firebase.js', defaultextension: 'js' },
             //'promise-polyfill': { main: 'promise.min.js', defaultextension:'js' }

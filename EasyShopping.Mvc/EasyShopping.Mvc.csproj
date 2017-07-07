@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Constants\ViewConstants.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\GoogleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -273,6 +274,9 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Store\StoreDetail.cshtml" />
     <Content Include="Views\Store\StoreListByUser.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
+    <Content Include="Views\Product\ApproveList.cshtml" />
+    <Content Include="Views\Google\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -295,12 +299,24 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\city\city.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\commonService\google-map.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\commonService\load-location.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\district\district.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-approve-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-type.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.component.ts" />
@@ -308,6 +324,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />

@@ -9,11 +9,23 @@ namespace EasyShopping.Mvc.Controllers
 {
     public class ProductController : Controller
     {
+
         public ActionResult Index()
         {
             return PartialView();
         }
+
         public ActionResult AddProduct()
+        {
+            return PartialView();
+        }
+
+        public ActionResult ProductDetail()
+        {
+            return PartialView();
+        }
+
+        public ActionResult ApproveList()
         {
             return PartialView();
         }

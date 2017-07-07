@@ -58,6 +58,11 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.GetAll().Translate<Product, ProductViewDTO>();
         }
 
+        public ProductViewDTO GetById(int id)
+        {
+            return _repo.GetById(id).Translate<Product, ProductViewDTO>();
+        }
+
         public IEnumerable<ProductDTO> GetByName(string name)
         {
             return _repo.GetByName(name).Translate<Product, ProductDTO>();
@@ -80,6 +85,22 @@ namespace EasyShopping.BusinessLogic.Business
             }
             data.StatusID = WAITINGFORAPPROVE;
             return _repo.Edit(data.Translate<ProductDTO, Product>());
+        }
+
+        public bool Approve(int id, string name)
+        {
+            if (_store.IsOwner(_user.FindUser(name).ID))
+            {
+                var product = _repo.GetById(id);
+                product.StatusID = AVAILABLE;
+                return _repo.Edit(product);
+            }
+            return false;
+        }
+
+        public IEnumerable<ProductDTO> GetApproveList()
+        {
+            return _repo.GetApproveList().Translate<Product, ProductDTO>();
         }
     }
 }

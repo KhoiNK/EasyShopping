@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -8,6 +8,9 @@ import { StoreListComponent } from './store-list.component';
 import { StoreDetailComponent } from './store-detail.component';
 import { StoreListByUserComponent } from './store-listbyuserid.component';
 import { StoreComponent } from './store.component';
+import { StoreAddComponent } from './store-add.component';
+//import { GoogleMapComponent } from '../commonService/google-map.component';
+
 
 @NgModule({
     imports: [
@@ -21,10 +24,13 @@ import { StoreComponent } from './store.component';
         StoreListComponent,
         StoreDetailComponent,
         StoreListByUserComponent,
+        StoreAddComponent,
+        //GoogleMapComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }
-    ]
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 
 export class StoreModule { }

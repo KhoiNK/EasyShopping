@@ -1,0 +1,40 @@
+﻿<div>
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    Img
+                </td>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Description
+                </td>
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Action
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{product.ID}}</td>
+                <td><img src="{{product.ImgLink}}"/></td>
+                <td>{{product.Name}}</td>
+                <td>{{product.Description}}</td>
+                <td>{{product.Quantity}}</td>
+                <td>{{product.Price}}</td>
+                <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button> | <button class="btn btn-danger" (click)="Remove(product.ID)">Cancel</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

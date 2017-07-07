@@ -10,7 +10,8 @@ declare var window: any;
 
 const ACCESS_TOKEN: string = 'id_token',
     REFRESH_TOKEN: string = 'refresh_token',
-    PROFILE: string = 'profile';
+    PROFILE: string = 'profile',
+    CART: string = "cart";
 
 export abstract class IAuthService {
     abstract getProfile(): Profile;
@@ -83,6 +84,7 @@ export class AuthService extends IAuthService {
         localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(PROFILE);
+        localStorage.removeItem(CART);
         
         this._authSubject.next({
             isAuthenticated: false,

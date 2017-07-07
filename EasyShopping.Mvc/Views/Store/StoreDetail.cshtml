@@ -168,9 +168,9 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <img src="~/Content/img/shop/product12.jpg" alt="" />
+                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" /></a>
                                 <h2>{{product.Price}}</h2>
-                                <p>{{product.Name}}</p>
+                                <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
                                 <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                             </div>
 

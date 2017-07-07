@@ -42,6 +42,5 @@ export class Base64EncodeService {
         var binaryString = readerEvt.target.result;
         this.base64textString = btoa(binaryString);
         this.SetB64String(btoa(binaryString));
-        console.log("base 64: " + this.base64textString);
     }
 }

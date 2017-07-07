@@ -124,6 +124,7 @@ namespace EasyShopping.Api.Providers
             var claims = new List<Claim>();
             claims.Add(new Claim(ClaimTypes.Name, user.UserName));
             claims.Add(new Claim(ClaimTypes.Role, user.Role));
+           
             return new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
         }
 

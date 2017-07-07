@@ -15,7 +15,6 @@ namespace EasyShopping.BusinessLogic.Models
         public string Status { get; set; }
         public int Quantity { get; set; }
         public string ProductType { get; set; }
-        public IEnumerable<ImageDTO> Images { get; set; }
         public string ThumbailLink { get; set; }
         public string ThumbailCode { get; set; }
         public double Price { get; set; }
@@ -23,6 +22,8 @@ namespace EasyShopping.BusinessLogic.Models
         public int StoreID { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public int ManufacturedCountryID { get; set; }
+        public string ManufacturedCountry { get; set; }
     }
 
     public class ProductDTO

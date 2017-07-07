@@ -1,9 +1,11 @@
-import { NgModule }      from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt/angular2-jwt';
+//import { AgmCoreModule } from 'angular2-google-maps/core';
+import { AgmCoreModule } from '@agm/core';
 
 
 import { AppComponent } from './app.component';
@@ -13,6 +15,7 @@ import { Header } from './header.component';
 import { Footer } from './footer.component';
 //import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
+import { GoogleMapComponent } from './commonService/google-map.component';
 
 @NgModule({
     imports: [
@@ -20,7 +23,11 @@ import { routing } from './app.routing';
         FormsModule,
         HttpModule,
         CommonModule,
-        routing
+        routing,
+        AgmCoreModule.forRoot({
+            apiKey : 'AIzaSyCIzpyPuW4FjgRxhMnVBOSoq0j7uRNkl7Q'
+        }),
+        ReactiveFormsModule
     ],
     declarations: [
         Header,
@@ -28,6 +35,7 @@ import { routing } from './app.routing';
         //GetListCountries,
         AppComponent,
         LoginComponent,
+        GoogleMapComponent
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },
@@ -43,6 +51,7 @@ import { routing } from './app.routing';
             noJwtError: true
         })
     ],
-    bootstrap:    [ AppComponent ]
+    bootstrap: [AppComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

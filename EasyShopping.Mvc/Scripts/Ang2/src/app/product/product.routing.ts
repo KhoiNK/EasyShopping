@@ -2,6 +2,8 @@
 import { ProductComponent } from './product.component';
 import { ProductListComponent } from './product-list.component';
 import { ProductAddComponent } from './product-add.component';
+import { ProductApproveListComponent } from './product-approve-list.component';
+import { ProductDetailComponent } from './product-detail.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -14,6 +16,12 @@ const appRoutes: Routes = [{
             path: 'product-add/:storeId',
             component: ProductAddComponent,
             //canActivate: [AuthGuard]
+        }, {
+            path: 'product-approve-list',
+            component: ProductApproveListComponent,
+        }, {
+            path: 'product-detail/:id',
+            component: ProductDetailComponent,
         }
     ]
 }];

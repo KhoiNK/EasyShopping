@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EasyShopping.Repository.Repository
 {
-    class DistrictRepository
+    public class DistrictRepository
     {
         private EasyShoppingEntities _db = null;
         public DistrictRepository()

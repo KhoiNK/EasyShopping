@@ -14,9 +14,9 @@ export class ProductListComponent {
         this.products = {};
     }
 
-    loadData(storeid: number) {
-        this.productservice.GetList(storeid).subscribe((res: any) => {
-            this.products = res;
-        });
-    }
+    //loadData(storeid: number) {
+    //    this.productservice.GetList(storeid).subscribe((res: any) => {
+    //        this.products = res;
+    //    });
+    //}
 }

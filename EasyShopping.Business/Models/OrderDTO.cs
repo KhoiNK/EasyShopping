@@ -18,5 +18,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int StatusID { get; set; }
         public double Total { get; set; }
         public bool Taken { get; set; }
+        public IList<ProductDTO> Products { get; set; }
     }
 }

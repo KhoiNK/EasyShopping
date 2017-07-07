@@ -11,6 +11,7 @@ namespace EasyShopping.Repository.Repository
     {
         private EasyShoppingEntities _db = null;
         private const int REMOVED = 4;
+        private const int WAITINGFORAPPROVE = 2;
 
         public ProductRepository()
         {
@@ -71,7 +72,6 @@ namespace EasyShopping.Repository.Repository
         public Product GetById(int id)
         {
             Product product = _db.Products
-                .Include("Images")
                 .Include("ProductType")
                 .Include("ProductStatu")
                 .Include("Country")
@@ -90,25 +90,40 @@ namespace EasyShopping.Repository.Repository
 
         public bool Edit(Product data)
         {
-            var product = GetById(data.ID);
-            if(String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+            try
             {
-                var thumbailLink = product.ThumbailLink;
-                var thumbailCode = product.ThumbailCode;
+                var product = GetById(data.ID);
+                if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+                {
+                    var thumbailLink = product.ThumbailLink;
+                    var thumbailCode = product.ThumbailCode;
+                    product = data;
+                    product.ThumbailLink = thumbailLink;
+                    product.ThumbailCode = thumbailCode;
+                    _db.SaveChanges();
+                    return true;
+                }
                 product = data;
-                product.ThumbailLink = thumbailLink;
-                product.ThumbailCode = thumbailCode;
                 _db.SaveChanges();
                 return true;
             }
-            product = data;
-            _db.SaveChanges();
-            return true;
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+            
         }
 
         public IEnumerable<Product> GetByName(string name)
         {
             var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
+            return products;
+        }
+
+        public IEnumerable<Product> GetApproveList()
+        {
+            var products = _db.Products.Where(x => x.StatusID == WAITINGFORAPPROVE).ToList();
             return products;
         }
     }

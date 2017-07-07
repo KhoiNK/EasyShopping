@@ -3,7 +3,8 @@ import { IAuthService, AuthService } from './auth/auth.service';
 import { UserServices } from './user/user.service';
 import { Router } from '@angular/router';
 
-const PROFILE: string = 'profile';
+const PROFILE: string = 'profile',
+    CART : string ='cart';
 
 @Component({
     selector: 'my-header',
@@ -15,9 +16,17 @@ export class Header implements OnInit {
     public isSignedIn: boolean;
     public user: any;
     public profile: any;
+    public cart: any;
     constructor(private authService: IAuthService, private router: Router, private userservice: UserServices) {
         let cacheProfile = localStorage.getItem(PROFILE);
+        let cartId = localStorage.getItem(CART);
         this.profile = JSON.parse(cacheProfile) || {};
+        if (cartId == null) {
+            this.cart = {};
+        }
+        else {
+            this.cart = JSON.parse(cartId);
+        }
         this.user = {};
     }
 
