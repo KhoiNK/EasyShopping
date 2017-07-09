@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
-    [Authorize]
+    
     //[Route("v1/nguoidung")]
     public class UserController : ApiController
     {
@@ -26,6 +26,7 @@ namespace EasyShopping.Api.Controllers
         }
 
         // GET api/values
+        [Authorize]
         public IEnumerable<UserApiModel> Get()
         {
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());

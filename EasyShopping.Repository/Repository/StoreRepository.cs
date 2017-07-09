@@ -46,10 +46,9 @@ namespace EasyShopping.Repository.Repository
 
         public Store Create(Store store)
         {
-            Store newstore = new Store();
-            newstore = _db.Stores.Add(newstore);
+            store = _db.Stores.Add(store);
             _db.SaveChanges();
-            return FindByID(newstore.ID);
+            return FindByID(store.ID);
         }
 
         public bool Delete(int id)
@@ -76,11 +75,11 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
-            } 
+            }
         }
 
         public IEnumerable<Store> GetByName(string name)
@@ -116,17 +115,38 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
                 return false;
             }
         }
 
-        public bool IsOwner(int id)
+        public bool IsOwner(int id, int userId)
         {
-            if(_db.Stores.Where(x=> x.UserID == id).Count() > 0) { return true; }
+            if (_db.Stores.Where(x => (x.UserID == userId) && (x.ID == id)).Count() > 0) { return true; }
             return false;
+        }
+
+        public bool IsAllowed(int id, int storeId)
+        {
+            try
+            {
+                if (_db.Stores.Where(x => x.UserID == id).Single() != null)
+                {
+                    return true;
+                }
+                if (_db.Partners.Where(x => (x.StoreID == storeId) && (x.UseID == id)).Single() != null)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
         }
     }
 }

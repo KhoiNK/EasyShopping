@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace EasyShopping.Repository.Repository
 {
     public class OrderRepository
@@ -17,7 +18,7 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public Order Create(int userId)
+        public Order Create(int userId, string orderCode, int storeId)
         {
             var order = new Order();
             order.UserID = userId;
@@ -25,6 +26,8 @@ namespace EasyShopping.Repository.Repository
             order.ModifiedDate = DateTime.Now;
             order.ModifiedID = userId;
             order.StatusID = WAITTINGFORSHIPPING;
+            order.OrderCode = orderCode;
+            order.StoreId = storeId;
             order = _db.Orders.Add(order);
             _db.SaveChanges();
             return order;

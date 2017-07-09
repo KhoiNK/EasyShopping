@@ -35,10 +35,105 @@ namespace EasyShopping.Repository.Repository
                 .Include("ProductType")
                 .Include("ProductStatu")
                 .Include("Store")
-                .Where(x=> x.StoreID == storeid)
+                .Where(x => x.StoreID == storeid)
                 .ToList();
         }
 
+        public IEnumerable<Product> GetProductWithUserId(int userId)
+        {
+            var target = _db.Targets.Where(x => x.UserId == userId).OrderByDescending(x => x.Count).ToArray();
+            if (target.Length == 0)
+            {
+                var result = _db.Products.Take(30).ToList();
+                return result;
+            }
+            if (target.Length < 5)
+            {
+                var products = _db.Products
+                    .Include("ProductType")
+                    .Include("ProductStatu")
+                    .Include("Country")
+                    .Include("Store")
+                    .ToList();
+                var result = new List<Product>();
+                for (int i = 0; i <= target.Length; i++)
+                {
+                    var productTypeId = target[i].ProductTypeId;
+                    foreach (var item in products.Where(x => x.ProductTypeID == productTypeId).ToList())
+                    {
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
+            else
+            {
+                var products = new List<Product>();
+                var result = _db.Products
+                    .Include("ProductType")
+                    .Include("ProductStatu")
+                    .Include("Country")
+                    .Include("Store")
+                    .ToList();
+                for (int i = 0; i <= 5; i++)
+                {
+                    var productTypeId = target[i].ProductTypeId;
+                    foreach (var item in result.Where(x => x.ProductTypeID == productTypeId))
+                    {
+                        products.Add(item);
+                    }
+                }
+                return products;
+            }
+        }
+
+        public IEnumerable<Product> GetWithoutUserId()
+        {
+            var target = _db.Targets.OrderByDescending(x => x.Count).ToArray();
+            if (target.Length == 0)
+            {
+                var result = _db.Products.Take(30).ToList();
+                return result;
+            }
+            if (target.Length < 5)
+            {
+                var products = _db.Products
+                    .Include("ProductType")
+                    .Include("ProductStatu")
+                    .Include("Country")
+                    .Include("Store")
+                    .ToList();
+                var result = new List<Product>();
+                for (int i = 0; i <= target.Length; i++)
+                {
+                    var productTypeId = target[i].ProductTypeId;
+                    foreach (var item in products.Where(x => x.ProductTypeID == productTypeId).ToList())
+                    {
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
+            else
+            {
+                var products = new List<Product>();
+                var result = _db.Products
+                    .Include("ProductType")
+                    .Include("ProductStatu")
+                    .Include("Country")
+                    .Include("Store")
+                    .ToList();
+                for (int i = 0; i <= 5; i++)
+                {
+                    var productTypeId = target[i].ProductTypeId;
+                    foreach (var item in result.Where(x => x.ProductTypeID == productTypeId))
+                    {
+                        products.Add(item);
+                    }
+                }
+                return products;
+            }
+        }
         public Product Add(Product data)
         {
             Product product = new Product();
@@ -54,6 +149,7 @@ namespace EasyShopping.Repository.Repository
             image.Link = path;
             image.ProductID = productId;
             _db.Images.Add(image);
+            _db.SaveChanges();
             return true;
         }
 
@@ -62,7 +158,8 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 return _db.Images.Where(x => x.ProductID == id).ToList();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return null;
@@ -107,12 +204,12 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
-            
+
         }
 
         public IEnumerable<Product> GetByName(string name)
@@ -121,9 +218,10 @@ namespace EasyShopping.Repository.Repository
             return products;
         }
 
-        public IEnumerable<Product> GetApproveList()
+        public IEnumerable<Product> GetApproveList(int id)
         {
-            var products = _db.Products.Where(x => x.StatusID == WAITINGFORAPPROVE).ToList();
+            var store = _db.Stores.Where(x => x.ID == id).Single();
+            var products = store.Products.Where(x => x.StatusID == WAITINGFORAPPROVE).ToList();
             return products;
         }
     }

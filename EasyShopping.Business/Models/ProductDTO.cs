@@ -45,4 +45,5 @@ namespace EasyShopping.BusinessLogic.Models
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
     }
+
 }

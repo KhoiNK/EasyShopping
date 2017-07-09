@@ -29,5 +29,11 @@ namespace EasyShopping.Repository.Repository
         {
             return _db.Provinces.Where(x => x.Id == id).SingleOrDefault();
         }
+
+        public Province GetByName(string name)
+        {
+            var result = _db.Provinces.Where(x => x.Name.Contains(name)).Single();
+            return result;
+        }
     }
 }

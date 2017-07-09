@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt/angular2-jwt';
-//import { AgmCoreModule } from 'angular2-google-maps/core';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from 'angular2-google-maps/core';
+//import { AgmCoreModule } from '@agm/core';
 
 
 import { AppComponent } from './app.component';
@@ -25,7 +25,8 @@ import { GoogleMapComponent } from './commonService/google-map.component';
         CommonModule,
         routing,
         AgmCoreModule.forRoot({
-            apiKey : 'AIzaSyCIzpyPuW4FjgRxhMnVBOSoq0j7uRNkl7Q'
+            apiKey: 'AIzaSyAnEYt5edclSFmFHCSgp665PgUvIesC_jo',
+            libraries: ["places"]
         }),
         ReactiveFormsModule
     ],

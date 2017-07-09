@@ -2,8 +2,10 @@
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { routing } from './order.routing';
 import { OrderComponent } from './order.component';
-import {routing } from './order.routing';
+import { OrderList } from './order-list.component';
+import { OrderDetailComponent } from './order-detail.component';
 
 @NgModule({
     imports: [
@@ -15,6 +17,8 @@ import {routing } from './order.routing';
     ],
     declarations: [
         OrderComponent,
+        OrderList,
+        OrderDetailComponent
     ]
 })
-export class UserModule { }
+export class OrderModule { }

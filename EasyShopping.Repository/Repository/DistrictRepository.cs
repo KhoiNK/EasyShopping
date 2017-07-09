@@ -29,5 +29,11 @@ namespace EasyShopping.Repository.Repository
         {
             return _db.Districts.Where(x => x.Id == id).SingleOrDefault();
         }
+
+        public District GetByName(string name)
+        {
+            var result = _db.Districts.Where(x => x.Name.Contains(name)).Single();
+            return result;
+        }
     }
 }

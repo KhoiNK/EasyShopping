@@ -1,4 +1,5 @@
 ﻿using Easyshopping.Repository.Repository;
+using EasyShopping.BusinessLogic.CommonMethod;
 using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
@@ -28,7 +29,8 @@ namespace EasyShopping.BusinessLogic.Business
         public OrderDTO CreateOrder(string username, int productId)
         {
             int userId = _user.FindUser(username).ID;
-            var cart = _repo.Create(userId).Translate<Order, OrderDTO>();
+            var storeId = _product.GetById(productId).StoreID;
+            var cart = _repo.Create(userId, CodeGenerator.RandomString(6), storeId).Translate<Order, OrderDTO>();
             _detail.AddItem(productId, cart.ID);
             return cart;
         }
@@ -41,11 +43,14 @@ namespace EasyShopping.BusinessLogic.Business
         public OrderDTO GetById(int id)
         {
             var order = _repo.GetById(id).Translate<Order, OrderDTO>();
+            var products = new List<ProductDTO>();
             foreach(var result in _detail.GetByOrderId(order.ID))
             {
                 var product = _product.GetById(result.ProductID.Value);
-                order.Products.Add(product.Translate<Product, ProductDTO>());
+                product.Quantity = result.Quantity.Value;
+                products.Add(product.Translate<Product, ProductDTO>());
             }
+            order.Products = products;
             return order;
         }
 

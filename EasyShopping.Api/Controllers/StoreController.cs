@@ -30,9 +30,18 @@ namespace EasyShopping.Api.Controllers
             return store;
         }
 
-        public IHttpActionResult Post(int id)
+        public bool Post(int id)
         {
-            return Ok(_business.IsOwner(id));
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.IsOwner(id, name);
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
         public IEnumerable<StoreApiModel> Get(int page, int index = 10)
@@ -50,9 +59,20 @@ namespace EasyShopping.Api.Controllers
             return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetById(id));
         }
 
-        public IEnumerable<StoreApiModel> GetByUserId(int id)
+        public IEnumerable<StoreApiModel> GetByUserId()
         {
-            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByUserId(id).Result);
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByUserId(name).Result);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
+            
         }
 
         //public bool Put([FromBody]StoreApiModel store)
@@ -61,7 +81,7 @@ namespace EasyShopping.Api.Controllers
         //    var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
 
         //}
-        
+
         public IHttpActionResult Put(StoreApiModel store)
         {
             var result = _business.Put(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
@@ -72,6 +92,41 @@ namespace EasyShopping.Api.Controllers
         public bool Approve(int id)
         {
             return _business.ApproveStore(id);
+        }
+
+        [HttpPost]
+        [ActionName("GetAllowance")]
+        public bool GetAllowance(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.IsAllowed(name, id);
+                return result;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
+        }
+
+        [ActionName("IsOwner")]
+        public bool IsOwner(int storeId)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.IsOwner(storeId,name);
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return false;
+            }
         }
     }
 }

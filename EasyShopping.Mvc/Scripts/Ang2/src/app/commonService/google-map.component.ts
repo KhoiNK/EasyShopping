@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ElementRef, OnDestroy, NgZone, ViewChild } from '@angular/core';
-import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+import { AgmCoreModule, MapsAPILoader } from 'angular2-google-maps/core';
 import { NgForm, FormControl } from '@angular/forms';
 
 @Component({

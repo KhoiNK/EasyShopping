@@ -5,16 +5,18 @@ import { Subscription } from 'rxjs';
 
 
 @Component({
-    selector: 'user-list',
+    selector: 'order-detail',
     templateUrl: 'Order/OrderDetail',
     providers: [OrderServices]
 })
 
-export class UserDetailComponent implements OnInit, OnDestroy {
+export class OrderDetailComponent implements OnInit, OnDestroy {
     public id: number;
     public order: any;
     public subscription: Subscription;
+    public Math: any;
     constructor(private orderService: OrderServices, private activateRoute: ActivatedRoute) {
+        this.Math = Math;
         this.order = {};
     }
 
@@ -26,6 +28,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
         this.orderService.GetOrderDetail(this.id).subscribe((res: any) => {
             this.order = res;
+            
         }, err => {
             console.log(err);
         });

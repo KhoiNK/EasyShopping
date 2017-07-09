@@ -25,11 +25,21 @@ namespace EasyShopping.Api.Controllers
             _store = new StoreBusinessLogic();
         }
 
-        //public Task<IEnumerable<ProductApiModel>> Get()
-        //{
-
-        //}
-
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.GetAllWithUser(name));
+            }
+            catch
+            {
+                return Ok(_business.GetAllWithoutUser());
+            }
+        }
+        [HttpPost]
+        [ActionName("AddProduct")]
         public IHttpActionResult Post([FromBody] ProductApiModel data)
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -40,19 +50,15 @@ namespace EasyShopping.Api.Controllers
             return BadRequest();
         }
 
-        public IHttpActionResult Approve(int id)
+        [ActionName("ApproveList")]
+        public IEnumerable<ProductApiModel> GetApproveList(int id)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-            if (_business.Approve(id, name)) { return Ok(); }
-            return BadRequest();
+            var list = ApiTranslators.Translate<ProductDTO, ProductApiModel>(_business.GetApproveList(id));
+            return list;
         }
 
-        public IHttpActionResult GetApproveList()
-        {
-            return Ok(ApiTranslators.Translate<ProductDTO, ProductApiModel>(_business.GetApproveList()));
-        }
-
+        [HttpPut]
+        [ActionName("EditProduct")]
         public IHttpActionResult Put([FromBody] ProductApiModel data)
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -62,11 +68,13 @@ namespace EasyShopping.Api.Controllers
             return BadRequest();
         }
 
-        public IHttpActionResult Get(int id)
+        [HttpPost]
+        [ActionName("GetDetail")]
+        public ProductApiViewModel GetDetail(int id)
         {
             ProductApiViewModel product = ApiTranslators.Translate<ProductViewDTO, ProductApiViewModel>(_business.GetById(id));
-            if(product != null) { return Ok(product); }
-            return BadRequest();
+            if (product != null) { return product; }
+            return null;
         }
         //public 
     }

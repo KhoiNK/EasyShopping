@@ -157,6 +157,7 @@
                                         <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
                                         <br />
                                         <a class="btn btn-default" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                        <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-add', store.ID]">Approve List</a>
                                     </p>
                                 </div>
                             </div>
@@ -168,7 +169,7 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
-                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" /></a>
+                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" style="width:50px; height:50px"/></a>
                                 <h2>{{product.Price}}</h2>
                                 <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
                                 <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>

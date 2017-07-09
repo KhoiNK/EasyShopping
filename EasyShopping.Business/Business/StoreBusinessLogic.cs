@@ -1,4 +1,5 @@
-﻿using EasyShopping.BusinessLogic.Models;
+﻿using Easyshopping.Repository.Repository;
+using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
 using System.Collections.Generic;
@@ -13,27 +14,33 @@ namespace EasyShopping.BusinessLogic.Business
         const int OPEN = 1;
         private UserBusinessLogic _userbusiness = null;
         private ProductBusinessLogic _productbusiness = null;
+        private CityRepository _city;
+        private CountryRepository _country;
+        private DistrictRepository _district;
 
         public StoreBusinessLogic()
         {
             _repo = new StoreRepository();
             _userbusiness = new UserBusinessLogic();
+            _country = new CountryRepository();
+            _city = new CityRepository();
+            _district = new DistrictRepository();
             _productbusiness = new ProductBusinessLogic();
         }
 
-        public Task<StoreDTO> CreateStore(StoreDTO store)
+        public StoreDTO CreateStore(StoreDTO store)
         {
-            return Task.Factory.StartNew(() =>
-            {
+            store.CreatedDate = System.DateTime.Now;
+            store.ModifiedDate = System.DateTime.Now;
+            store.StatusID = WAITINGFORAPPROVE;
+            store.UserID = _userbusiness.GetByName(store.UserName).Result.ID;
+            store.CityId = _city.GetByName(store.City).Id;
+            store.CountryId = _country.GetByName(store.Country).Id;
+            store.DistrictId = _district.GetByName(store.District).Id;
+            store.ModifiedByID = _userbusiness.GetByName(store.UserName).Result.ID;
 
-                store.CreatedDate = System.DateTime.Now;
-                store.ModifiedDate = System.DateTime.Now;
-                store.StatusID = WAITINGFORAPPROVE;
-                store.UserID = _userbusiness.GetByName(store.UserName).Result.ID;
-                _repo.Create(store.Translate<StoreDTO, Store>());
-                return store;
-            });
-
+            _repo.Create(BusinessTranslators.ToStoreEntity(store));
+            return store;
         }
 
         public Task<StoreDTO> Get(int id)
@@ -86,11 +93,12 @@ namespace EasyShopping.BusinessLogic.Business
             return store;
         }
 
-        public Task<IEnumerable<StoreDTO>> GetByUserId(int id)
+        public Task<IEnumerable<StoreDTO>> GetByUserId(string username)
         {
             return Task.Factory.StartNew(() =>
             {
-                IEnumerable<StoreDTO> stores = _repo.GetByUserId(id).Translate<Store, StoreDTO>();
+                var user = _userbusiness.GetByName(username).Result;
+                IEnumerable<StoreDTO> stores = _repo.GetByUserId(user.ID).Translate<Store, StoreDTO>();
                 foreach (var s in stores)
                 {
                     s.Products = _productbusiness.GetAllByStore(s.ID);
@@ -114,9 +122,17 @@ namespace EasyShopping.BusinessLogic.Business
             return result;
         }
 
-        public bool IsOwner(int id)
+        public bool IsOwner(int storeId, string username)
         {
-            return _repo.IsOwner(id);
+            var user = _userbusiness.GetByName(username);
+            return _repo.IsOwner(storeId, user.Result.ID);
+        }
+
+        public bool IsAllowed(string name, int storeId)
+        {
+            var user = _userbusiness.GetByName(name);
+            var result = _repo.IsAllowed(user.Result.ID, storeId);
+            return result;
         }
     }
 }

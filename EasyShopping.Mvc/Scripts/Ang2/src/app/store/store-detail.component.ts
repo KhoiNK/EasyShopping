@@ -47,10 +47,10 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
             });
         } else {
             order.productId = productId;
-            order.cartId = +cartId;
+            order.cartId = cartId;
             this.orderService.AddToCart(order).subscribe((res: any) => {
-                if (res.status == 200) {
-                    alert("Added Successfully!");
+                if (JSON.stringify(res) == 'true') {
+                    alert("Added Successfully into order ID: " + cartId);
                 }
             }, err => {
                 console.log(err);

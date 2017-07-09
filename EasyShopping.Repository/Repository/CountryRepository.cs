@@ -28,5 +28,11 @@ namespace Easyshopping.Repository.Repository
         {
             return _db.Countries.Where(x => x.Id == id).SingleOrDefault();
         }
+
+        public Country GetByName(string name)
+        {
+            var result = _db.Countries.Where(x => x.CommonName.Contains(name)).Single();
+            return result;
+        }
     }
 }

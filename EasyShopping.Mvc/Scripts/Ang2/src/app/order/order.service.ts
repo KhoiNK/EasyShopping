@@ -23,6 +23,6 @@ export class OrderServices {
     }
 
     GetOrderDetail(id: number): Observable<any> {
-        return this._http.get(this.apiUrl, id).map(res => res.json());
+        return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
     }
 }

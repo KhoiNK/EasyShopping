@@ -32,22 +32,27 @@ namespace EasyShopping.Api.Controllers
                 }
                 else
                 {
+                    bool result = false;
                     if (_business.IsExisted(data.productId, data.cartId))
                     {
-                        if (_business.AddMoreItem(data.cartId, data.productId)) { return Ok(); }
-
+                        result = _business.AddMoreItem(data.cartId, data.productId);
+                        if (result) { return Ok(result); }
                     }
-                    if (_business.AddToCart(data.productId, data.cartId)) { return Ok(); }
+                    else
+                    {
+                        result = _business.AddToCart(data.productId, data.cartId);
+                        return Ok(result);
+                    }
                 }
                 return BadRequest();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                
+
                 Console.WriteLine(e.StackTrace);
                 return BadRequest();
             }
-            
+
         }
 
         public IHttpActionResult Get()
@@ -60,7 +65,7 @@ namespace EasyShopping.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             var order = _business.GetById(id);
-            if(order != null)
+            if (order != null)
             {
                 return Ok(order);
             }

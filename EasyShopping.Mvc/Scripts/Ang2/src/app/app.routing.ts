@@ -5,7 +5,7 @@ import { loginRoutes } from './auth/login.routing';
 const routes: Routes = [
     {
         path: '',
-        redirectTo: '/users',
+        redirectTo: '/products',
         pathMatch: 'full'
     },
     {
@@ -19,6 +19,10 @@ const routes: Routes = [
     {
         path: 'products',
         loadChildren: 'app/product/product.module#ProductModule'
+    },
+    {
+        path: 'orders',
+        loadChildren: 'app/order/order.module#OrderModule'
     },
     //{
     //    path: 'contracts',

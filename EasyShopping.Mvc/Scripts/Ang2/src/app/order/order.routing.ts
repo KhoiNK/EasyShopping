@@ -2,6 +2,7 @@
 
 import { OrderComponent } from './order.component';
 import { OrderList } from './order-list.component';
+import { OrderDetailComponent } from './order-detail.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -16,7 +17,7 @@ const appRoutes: Routes = [{
         },
         {
             path: 'order-detail/:id',
-            component: 
+            component: OrderDetailComponent
         }
     ]
 }];

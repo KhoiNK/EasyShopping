@@ -4,18 +4,14 @@ import { StoreServices } from './store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { UploadService } from '../upload/upload-image.service';
-import { CountryServices } from '../country/country.service';
-import { CityService } from '../city/city.service';
-import { DistrictService } from '../district/district.service';
 import { NgForm, FormControl } from '@angular/forms';
 import { Base64EncodeService } from '../upload/base64Encode.service';
-import { LoadLocationService } from '../commonService/load-location.service';
 import { AgmCoreModule, MapsAPILoader, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 
 @Component({
     selector: 'store-add',
     templateUrl: 'Store/AddStore',
-    providers: [StoreServices, UploadService, CountryServices, DistrictService, Base64EncodeService, CityService, LoadLocationService]
+    providers: [StoreServices, UploadService, Base64EncodeService]
 })
 
 export class StoreAddComponent implements OnInit {
@@ -23,76 +19,124 @@ export class StoreAddComponent implements OnInit {
     public countries: any[];
     public districts: any[];
     public cities: any[];
-    public location: any;    
-
-
+    public location: any;
+    public address: any[];
+    public searchControl: FormControl;
+    public zoom: number;
+    public latitude: number;
+    public longitude: number;
 
     constructor(private storeService: StoreServices
         , private uploadService: UploadService
-        , private countryService: CountryServices
-        , private districtService: DistrictService
-        , private cityService: CityService
         , private el: ElementRef
         , private b64: Base64EncodeService
         , private router: Router
-        , private locationService: LoadLocationService
+        , private mapsAPILoader: MapsAPILoader
+        , private ngZone: NgZone
 
     ) {
         this.store = {};
         this.location = {};
-
     }
-
+    @ViewChild("search")
+    public searchElementRef: ElementRef;
     ngOnInit() {
-        this.countryService.GetCountryList().subscribe(res => this.countries = res);
-        this.cityService.GetAll().subscribe(res => this.cities = res);
-        this.districtService.GetAll().subscribe(res => this.districts = res);
+        //set google maps defaults
+        this.zoom = 4;
+        this.latitude = 39.8282;
+        this.longitude = -98.5795;
+
+        //create search FormControl
+        this.searchControl = new FormControl();
+
+        //set current position
+        this.setCurrentPosition();
+
+        //load Places Autocomplete
+        this.mapsAPILoader.load().then(() => {
+            let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                types: ["address"]
+            });
+            autocomplete.addListener("place_changed", () => {
+                this.ngZone.run(() => {
+                    //get the place result
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+
+                    //set latitude, longitude and zoom
+                    this.latitude = place.geometry.location.lat();
+                    this.longitude = place.geometry.location.lng();
+                    let places = place.address_components;
+                    console.log(places);
+                    this.setLatLng(place.geometry.location.lat(), place.geometry.location.lng(), place.address_components);
+                    this.zoom = 12;
+                });
+            });
+        });
+    }
+    private setCurrentPosition() {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.latitude = position.coords.latitude;
+                this.longitude = position.coords.longitude;
+                this.zoom = 12;
+            });
+        }
     }
 
-    OnSelectCountry(id: number) {
-        this.countryService.GetSingleCountry(id).subscribe((res: any) => {
-            this.location.Country = res.CommonName;
-        });
-        this.cities.filter((item: any) => {item.CountryId == id;});
+    private setLatLng(lat: any, lng: any, place: any[]) {
+        this.latitude = lat;
+        this.longitude = lng;
+        this.address = place;
     }
 
-    OnSelectCity(id: number) {
-        this.cityService.GetById(id).subscribe((res: any) => {
-            this.location.City = res.Name
-        });
-        this.districts.filter((item: any) => item.ProvinceId == id);
-    }
-
-    OnSelectDistrict(id: number) {
-        this.districtService.GetById(id).subscribe((res: any) => {
-            this.location.District = res.Name;
-        });
-    }
 
     SaveChange() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
         let thumbailImg: string = this.b64.GetB64(file);
         let locationResult: any;
-        this.locationService.TrackLocation(this.store.Address
-            , this.location.District
-            , this.location.City
-            , this.location.Country).subscribe((res: any) => {
-                locationResult = res;
-                this.store.LatX = locationResult.results.geometry.location.lat;
-                this.store.LatY = locationResult.results.geometry.location.lng;
-            });
-        
-        this.uploadService.UploadImage(thumbailImg).subscribe((res: any) => {
-            this.store.ImgLink = res.data.link;
+        this.store.Address = this.address;
+        this.store.LatX = this.latitude;
+        this.store.LatY = this.longitude;
+        let tempAdress: any;
+        this.address.forEach((component) => {
+            if (component.types[0] == 'street_number') { tempAdress = component.long_name; }
+            if (component.types[0] == 'route') { this.store.Address = tempAdress + " " + component.long_name }
+            if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
+            if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
+            if (component.types[0] == 'country') { this.store.Country = component.long_name; }
+        });
+
+        if (file == null) {
             this.storeService.CreateStore(this.store).subscribe(
                 (res: any) => {
-                    if (res.Ok) {
+                    if (res.ID != null) {
+                        alert("Added Successfully!");
                         this.router.navigate[''];
                     }
                 }, err => {
                     console.log(err);
                 });
+        }
+
+        this.uploadService.UploadImage(thumbailImg).subscribe((res: any) => {
+            this.store.ImgLink = res.data.link;
+            this.storeService.CreateStore(this.store).subscribe(
+                (res: any) => {
+                    if (res.ID) {
+                        alert("Added Successfully!");
+                        this.router.navigate[''];
+                    }
+                }, err => {
+                    console.log(err);
+                });
+        }, err => {
+            console.log(err);
         });
     }
 }

@@ -34,8 +34,8 @@ export class StoreServices {
         return this._http.post(this.apiUrl, data).map(res => res.json());
     }
 
-    CheckOwner(id: Number): Observable<any> {
-        return this._http.post(this.apiUrl, id).map(res => res.json());
+    CheckOwner(storeId: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/IsOwner/" + storeId).map(res => res.json());
     }
 
     EditStore(data: any): Observable<any> {
@@ -45,4 +45,6 @@ export class StoreServices {
     RemoveStore(id: number): Observable<any> {
         return this._http.delete(this.apiUrl + "/" + id).map(res => res.json());
     }
+
+
 }

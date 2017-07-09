@@ -123,6 +123,9 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<ShipStatusDTO, ShipperStatu>();
                 cfg.CreateMap<ShipperStatu, ShipStatusDTO>();
 
+                cfg.CreateMap<StoreDTO, Store>();
+                cfg.CreateMap<Store, StoreDTO>();
+
                 cfg.CreateMap<StoreDTO, Store>()
                 .ForSourceMember(
                     dto => dto.UserName,
@@ -227,6 +230,31 @@ namespace EasyShopping.BusinessLogic.Models
                 isSocialLogin = user.isSocialLogin,
                 WardID = user.WardID
             };
+        }
+
+        public static Store ToStoreEntity(StoreDTO dto)
+        {
+            var store = new Store()
+            {
+                Address = dto.Address,
+                BankAccount = dto.BankAccount,
+                CityId = dto.CityId,
+                CountryId = dto.CountryId,
+                CreatedDate = dto.CreatedDate,
+                ModifiedDate = dto.ModifiedDate,
+                Description = dto.Description,
+                DistrictId = dto.DistrictId,
+                ImgLink = dto.ImgLink,
+                LatX = dto.LatX,
+                LatY = dto.LatY,
+                ModifiedByID = dto.ModifiedByID,
+                Name = dto.Name,
+                StatusID = dto.StatusID,
+                TaxCode = dto.TaxCode,
+                UserID = dto.UserID,
+                WardId = dto.WardId
+            };
+            return store;
         }
     }
 }

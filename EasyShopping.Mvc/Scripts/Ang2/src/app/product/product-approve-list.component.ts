@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'product-approve-list',
@@ -10,16 +11,21 @@ import { Router } from '@angular/router';
 
 export class ProductApproveListComponent implements OnInit {
     public products: any[];
-    constructor(private productService: ProductService, private router: Router) {
+    public subscription: Subscription;
+    private id: number;
+    constructor(private productService: ProductService, private router: Router, private activateRoute: ActivatedRoute) {
 
     }
 
     ngOnInit() {
-        this.LoadData();
+        this.subscription = this.activateRoute.params.subscribe(params => {
+            this.id = params['id'];
+        });
+        this.LoadData(this.id);
     }
 
-    LoadData() {
-        this.productService.GetApproveList().subscribe((res: any) => {
+    LoadData(id: number) {
+        this.productService.GetApproveList(id).subscribe((res: any) => {
             this.products = res;
         }, err => {
             console.log(err);
@@ -28,10 +34,13 @@ export class ProductApproveListComponent implements OnInit {
 
     Approve(id: number) {
         this.productService.Approve(id).subscribe((res: any) => {
-            if (res.status == 200) {
+            if (res == true) {
                 this.router.navigate(['/products/product-approve-list']);
             }
+            alert("Approvement failed!");
+        }, err => {
+            console.log(err);
         });
     }
-    
+
 }

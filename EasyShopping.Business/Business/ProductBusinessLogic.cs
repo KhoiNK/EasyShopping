@@ -4,6 +4,7 @@ using EasyShopping.Repository.Repository;
 using EasyShopping.Repository.Models.Entity;
 using Easyshopping.Repository.Repository;
 using EasyShopping.BusinessLogic.CommonMethod;
+using System;
 
 namespace EasyShopping.BusinessLogic.Business
 {
@@ -34,7 +35,7 @@ namespace EasyShopping.BusinessLogic.Business
             }
             else
             {
-                if (_store.IsOwner(userID))
+                if (_store.IsOwner(data.StoreID, userID))
                 {
                     data.StatusID = AVAILABLE;
                 }
@@ -53,9 +54,18 @@ namespace EasyShopping.BusinessLogic.Business
             return products;
         }
 
-        public IEnumerable<ProductViewDTO> GetAll()
+        public IEnumerable<ProductViewDTO> GetAllWithUser(string userName)
         {
-            return _repo.GetAll().Translate<Product, ProductViewDTO>();
+            var user = _user.FindUser(userName);
+
+            var products = _repo.GetProductWithUserId(user.ID);
+            return products.Translate<Product, ProductViewDTO>();
+        }
+
+        public IEnumerable<ProductViewDTO> GetAllWithoutUser()
+        {
+            var result = _repo.GetWithoutUserId();
+            return result.Translate<Product, ProductViewDTO>();
         }
 
         public ProductViewDTO GetById(int id)
@@ -77,7 +87,7 @@ namespace EasyShopping.BusinessLogic.Business
             }
             else
             {
-                if (_store.IsOwner(userID))
+                if (_store.IsOwner(data.StoreID, userID))
                 {
                     return _repo.Edit(data.Translate<ProductDTO, Product>());
                 }
@@ -89,18 +99,14 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool Approve(int id, string name)
         {
-            if (_store.IsOwner(_user.FindUser(name).ID))
-            {
-                var product = _repo.GetById(id);
-                product.StatusID = AVAILABLE;
-                return _repo.Edit(product);
-            }
-            return false;
+            var product = _repo.GetById(id);
+            product.StatusID = AVAILABLE;
+            return _repo.Edit(product);
         }
 
-        public IEnumerable<ProductDTO> GetApproveList()
+        public IEnumerable<ProductDTO> GetApproveList(int id)
         {
-            return _repo.GetApproveList().Translate<Product, ProductDTO>();
+            return _repo.GetApproveList(id).Translate<Product, ProductDTO>();
         }
     }
 }

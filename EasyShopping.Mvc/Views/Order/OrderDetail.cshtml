@@ -1,0 +1,30 @@
+﻿<div *ngIf="order">
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>Img</td>
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    Price
+                </td>
+                <td>
+                    Total
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of order.Products">
+                <td>{{product.Name}}</td>
+                <td><img src="{{product.ThumbailLink}}" style="width:20px; height:20px"/></td>
+                <td>{{product.Quantity}}</td>
+                <td>{{product.Price | currency:'USD':true:'1.2-2'}}</td>
+                <td>{{this.Math.round(+product.Quantity * +product.Price) | currency:'USD':true:'1.2-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

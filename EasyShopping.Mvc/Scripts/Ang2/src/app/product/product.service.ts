@@ -9,25 +9,26 @@ declare var window: any;
 @Injectable()
 export class ProductService {
     private apiUrl = window.GlobalSettings.ApiBase + 'Product';
+    //private approveUrl = window.GlobalSetting.ApiBase + 'Approvement';
 
     constructor(private _http: AuthHttp) {
 
     }
 
-    //GetList(id: number): Observable<any> {
-    //    return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
-    //}
+    GetList(): Observable<any> {
+        return this._http.get(this.apiUrl).map(res => res.json());
+    }
 
     AddProduct(data: any): Observable<any> {
         return this._http.post(this.apiUrl, data).map(res => res.json());
     }
 
-    GetApproveList(): Observable<any[]> {
-        return this._http.get(this.apiUrl + "/GetApproveList").map(res => res.json());
+    GetApproveList(id: number): Observable<any[]> {
+        return this._http.get(this.apiUrl + "/ApproveList/" + id).map(res => res.json());
     }
 
     Approve(id: number): Observable<any> {
-        return this._http.put(this.apiUrl + "/Approve", id).map(res => res.json());
+        return this._http.put(this.apiUrl + "/Approvement", id).map(res => res.json());
     }
 
     GetDetail(id: number): Observable<any> {

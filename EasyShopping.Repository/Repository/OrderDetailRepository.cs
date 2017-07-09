@@ -20,11 +20,11 @@ namespace EasyShopping.Repository.Repository
             var detail = new OrderDetail();
             detail.OrderID = cartId;
             detail.ProductID = productId;
-            detail.Price = _db.Products.Where(x => x.ID == productId).Single().Price;
             detail.Quantity = 1;
+            detail.CreatedDate = DateTime.Now;
             detail.ModifiedDate = DateTime.Now;
             _db.OrderDetails.Add(detail);
-            _db.Products.Where(x => x.ID == productId).Single().Quantity--;
+            _db.Products.Where(x => x.ID == productId).Single().Quantity = _db.Products.Where(x => x.ID == productId).Single().Quantity - 1;
             _db.SaveChanges();
             return true;               
         }
@@ -39,8 +39,8 @@ namespace EasyShopping.Repository.Repository
         {
             var order = _db.Orders.Where(x => x.ID == cartId).Single();
             var detail = order.OrderDetails.Where(x => x.ProductID == productId).Single();
-            detail.Quantity++;
-            _db.Products.Where(x => x.ID == productId).Single().Quantity--;
+            detail.Quantity = detail.Quantity + 1;
+            _db.Products.Where(x => x.ID == productId).Single().Quantity = _db.Products.Where(x => x.ID == productId).Single().Quantity - 1;
             _db.SaveChanges();
             return true;
         }
