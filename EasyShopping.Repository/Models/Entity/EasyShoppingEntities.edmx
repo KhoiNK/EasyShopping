@@ -150,6 +150,7 @@
           <Property Name="Height" Type="float" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ActionLog" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="ProductStatus">
           <Key>
@@ -1305,6 +1306,7 @@
           <Property Name="Height" Type="Double" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ActionLog" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_ProductDetail" FromRole="Product" ToRole="Comment" />
           <NavigationProperty Name="Country" Relationship="Self.FK_ProductDetail_Country" FromRole="Product" ToRole="Country" />
           <NavigationProperty Name="Images" Relationship="Self.FK_Image_ProductDetail" FromRole="Product" ToRole="Image" />
@@ -2128,7 +2130,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="EasyShoppingEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Comments" EntityType="Self.Comment" />
           <EntitySet Name="Countries" EntityType="Self.Country" />
@@ -2351,7 +2353,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="EasyShoppingModelStoreContainer" CdmEntityContainer="EasyShoppingEntities">
+        <EntityContainerMapping StorageEntityContainer="EasyShoppingModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="EasyShoppingModel.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -2506,6 +2508,7 @@
                 <ScalarProperty Name="Height" ColumnName="Height" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ActionLog" ColumnName="ActionLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

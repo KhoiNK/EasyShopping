@@ -52,7 +52,7 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li *ngIf="user != null"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
+                            <li *ngIf="loggedIn()"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
                             <li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a [routerLink]="['/orders/order-detail', cart]"><i class="fa fa-shopping-cart"></i> Cart</a></li>
@@ -99,8 +99,8 @@
                                 </ul>
                             </li>
                             <li><a href="404.html">404</a></li>
-                            <li *ngIf="user"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
-                            <li *ngIf="user"><a [routerLink]="['/orders']">My Orders</a></li>
+                            <li *ngIf="loggedIn()"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
+                            <li *ngIf="loggedIn()"><a [routerLink]="['/orders']">My Orders</a></li>
                         </ul>
                     </div>
                 </div>

@@ -49,47 +49,17 @@ namespace EasyShopping.Repository.Repository
             }
             if (target.Length < 5)
             {
-                var products = _db.Products
-                    .Include("ProductType")
-                    .Include("ProductStatu")
-                    .Include("Country")
-                    .Include("Store")
-                    .ToList();
-                var result = new List<Product>();
-                for (int i = 0; i <= target.Length; i++)
-                {
-                    var productTypeId = target[i].ProductTypeId;
-                    foreach (var item in products.Where(x => x.ProductTypeID == productTypeId).ToList())
-                    {
-                        result.Add(item);
-                    }
-                }
-                return result;
+                return GetWithTarget(target);
             }
             else
             {
-                var products = new List<Product>();
-                var result = _db.Products
-                    .Include("ProductType")
-                    .Include("ProductStatu")
-                    .Include("Country")
-                    .Include("Store")
-                    .ToList();
-                for (int i = 0; i <= 5; i++)
-                {
-                    var productTypeId = target[i].ProductTypeId;
-                    foreach (var item in result.Where(x => x.ProductTypeID == productTypeId))
-                    {
-                        products.Add(item);
-                    }
-                }
-                return products;
+                return GetWithTarget(target);
             }
         }
 
         public IEnumerable<Product> GetWithoutUserId()
         {
-            var target = _db.Targets.OrderByDescending(x => x.Count).ToArray();
+            var target = _db.Targets.OrderByDescending(x=>x.Count).ToArray();
             if (target.Length == 0)
             {
                 var result = _db.Products.Take(30).ToList();
@@ -97,43 +67,27 @@ namespace EasyShopping.Repository.Repository
             }
             if (target.Length < 5)
             {
-                var products = _db.Products
-                    .Include("ProductType")
-                    .Include("ProductStatu")
-                    .Include("Country")
-                    .Include("Store")
-                    .ToList();
-                var result = new List<Product>();
-                for (int i = 0; i <= target.Length; i++)
-                {
-                    var productTypeId = target[i].ProductTypeId;
-                    foreach (var item in products.Where(x => x.ProductTypeID == productTypeId).ToList())
-                    {
-                        result.Add(item);
-                    }
-                }
-                return result;
+                return GetWithTarget(target);
             }
             else
             {
-                var products = new List<Product>();
-                var result = _db.Products
-                    .Include("ProductType")
-                    .Include("ProductStatu")
-                    .Include("Country")
-                    .Include("Store")
-                    .ToList();
-                for (int i = 0; i <= 5; i++)
-                {
-                    var productTypeId = target[i].ProductTypeId;
-                    foreach (var item in result.Where(x => x.ProductTypeID == productTypeId))
-                    {
-                        products.Add(item);
-                    }
-                }
-                return products;
+                return GetWithTarget(target);
             }
         }
+
+        public IEnumerable<Product> GetWithTarget(Target[] target)
+        {
+            int[] prodTypeIDs = target.Select(t => t.ProductTypeId.Value).ToArray();
+            var products = _db.Products
+                                .Include("ProductType")
+                                .Include("ProductStatu")
+                                .Include("Country")
+                                .Include("Store")
+                                .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value))
+                                .ToList();
+            return products;
+        }
+
         public Product Add(Product data)
         {
             Product product = new Product();

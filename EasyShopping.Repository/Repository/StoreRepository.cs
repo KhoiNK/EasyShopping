@@ -128,14 +128,10 @@ namespace EasyShopping.Repository.Repository
             return false;
         }
 
-        public bool IsAllowed(int id, int storeId)
+        public bool IsPartner(int id, int storeId)
         {
             try
             {
-                if (_db.Stores.Where(x => x.UserID == id).Single() != null)
-                {
-                    return true;
-                }
                 if (_db.Partners.Where(x => (x.StoreID == storeId) && (x.UseID == id)).Single() != null)
                 {
                     return true;

@@ -44,6 +44,7 @@ namespace EasyShopping.BusinessLogic.Models
         public double Price { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        public string ActionLog { get; set; }
     }
 
 }

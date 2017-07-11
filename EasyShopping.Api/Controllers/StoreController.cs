@@ -30,20 +30,6 @@ namespace EasyShopping.Api.Controllers
             return store;
         }
 
-        public bool Post(int id)
-        {
-            try
-            {
-                var identity = (ClaimsIdentity)User.Identity;
-                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                return _business.IsOwner(id, name);
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-        }
-
         public IEnumerable<StoreApiModel> Get(int page, int index = 10)
         {
             return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetAll(index, page));
@@ -89,12 +75,14 @@ namespace EasyShopping.Api.Controllers
             else { return BadRequest(); }
         }
 
+
+
         public bool Approve(int id)
         {
             return _business.ApproveStore(id);
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("GetAllowance")]
         public bool GetAllowance(int id)
         {
@@ -112,14 +100,15 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
+        [HttpGet]
         [ActionName("IsOwner")]
-        public bool IsOwner(int storeId)
+        public bool IsOwner(int id)
         {
             try
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                var result = _business.IsOwner(storeId,name);
+                var result = _business.IsOwner(id, name);
                 return result;
             }
             catch (Exception e)
@@ -128,5 +117,6 @@ namespace EasyShopping.Api.Controllers
                 return false;
             }
         }
+
     }
 }

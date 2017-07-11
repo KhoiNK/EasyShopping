@@ -31,7 +31,7 @@ namespace EasyShopping.Api
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-
+            
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -56,7 +56,7 @@ namespace EasyShopping.Api
                new JwtBearerAuthenticationOptions
                {               
                    AuthenticationMode = AuthenticationMode.Active,
-                   AllowedAudiences = new[] { "admin"},
+                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1" },
                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                    {
                         new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)

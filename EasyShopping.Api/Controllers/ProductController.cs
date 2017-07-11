@@ -50,11 +50,25 @@ namespace EasyShopping.Api.Controllers
             return BadRequest();
         }
 
+        [HttpGet]
         [ActionName("ApproveList")]
         public IEnumerable<ProductApiModel> GetApproveList(int id)
         {
-            var list = ApiTranslators.Translate<ProductDTO, ProductApiModel>(_business.GetApproveList(id));
-            return list;
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                if(!_store.IsOwner(id, name))
+                {
+                    return null;
+                }
+                var list = ApiTranslators.Translate<ProductDTO, ProductApiModel>(_business.GetApproveList(id));
+                return list;
+            }
+            catch
+            {
+                return null;    
+            }
         }
 
         [HttpPut]

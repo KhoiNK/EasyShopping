@@ -16,6 +16,8 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
     public id: number;
     public store: any;
     public subscription: Subscription;
+    public isOwner: boolean = false;
+    public isAllowed: boolean = false;
     constructor(private storeservice: StoreServices, private activatedRoute: ActivatedRoute, private orderService: OrderServices) {
         this.store = {};
     }
@@ -27,7 +29,23 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
         this.storeservice.GetStoreById(this.id)
             .subscribe(res => {
                 return this.store = res;
+            }, err => {
+                console.log(err);
             });
+        this.storeservice.CheckAllowance(this.id).subscribe(res => {
+            if (res == true) {
+                this.isAllowed = true;
+            }
+        }, err => {
+            console.log(err);
+        });
+        this.storeservice.CheckOwner(this.id).subscribe(res => {
+            if (res == true == true) {
+                this.isOwner = true;
+            }
+        }, err => {
+            console.log(err);
+        });
     }
 
     ngOnDestroy() {

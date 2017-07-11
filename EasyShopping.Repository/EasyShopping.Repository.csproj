@@ -72,18 +72,18 @@
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\EasyShoppingEntities.Context.cs">
-      <DependentUpon>EasyShoppingEntities.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EasyShoppingEntities.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\EasyShoppingEntities.cs">
-      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\EasyShoppingEntities.Designer.cs">
-      <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Image.cs">
@@ -194,13 +194,13 @@
   <ItemGroup>
     <Content Include="Models\Entity\EasyShoppingEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EasyShoppingEntities.Context.cs</LastGenOutput>
       <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
+      <LastGenOutput>EasyShoppingEntities.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Entity\EasyShoppingEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>EasyShoppingEntities.cs</LastGenOutput>
       <DependentUpon>EasyShoppingEntities.edmx</DependentUpon>
+      <LastGenOutput>EasyShoppingEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

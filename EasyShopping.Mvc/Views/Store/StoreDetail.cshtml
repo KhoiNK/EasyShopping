@@ -156,7 +156,7 @@
                                         <br />
                                         <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
                                         <br />
-                                        <a class="btn btn-default" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                        <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
                                         <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-add', store.ID]">Approve List</a>
                                     </p>
                                 </div>

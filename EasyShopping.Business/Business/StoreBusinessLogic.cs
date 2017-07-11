@@ -130,8 +130,12 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool IsAllowed(string name, int storeId)
         {
-            var user = _userbusiness.GetByName(name);
-            var result = _repo.IsAllowed(user.Result.ID, storeId);
+            var user = _userbusiness.GetByName(name).Result;
+            if(_repo.IsOwner(storeId, user.ID))
+            {
+                return true;
+            }
+            var result = _repo.IsPartner(user.ID, storeId);
             return result;
         }
     }

@@ -2,6 +2,7 @@
 import { IAuthService, AuthService } from './auth/auth.service';
 import { UserServices } from './user/user.service';
 import { Router } from '@angular/router';
+import { tokenNotExpired } from 'angular2-jwt';
 
 const PROFILE: string = 'profile',
     CART : string ='cart';
@@ -13,7 +14,7 @@ const PROFILE: string = 'profile',
 })
 
 export class Header implements OnInit {
-    public isSignedIn: boolean;
+    public isSignedIn: boolean = false;
     public user: any;
     public profile: any;
 
@@ -42,6 +43,10 @@ export class Header implements OnInit {
                     });
                 }
             });
+    }
+
+    loggedIn() {
+        return tokenNotExpired();
     }
 
     public logout() {

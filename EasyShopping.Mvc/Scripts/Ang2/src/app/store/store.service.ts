@@ -38,6 +38,10 @@ export class StoreServices {
         return this._http.get(this.apiUrl + "/IsOwner/" + storeId).map(res => res.json());
     }
 
+    CheckAllowance(storeId: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetAllowance/" + storeId).map(res => res.json());
+    }
+
     EditStore(data: any): Observable<any> {
         return this._http.put(this.apiUrl + data.ID, data).map(res => res.json());
     }

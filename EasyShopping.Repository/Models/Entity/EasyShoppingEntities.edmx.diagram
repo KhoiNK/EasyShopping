@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="44cfb0736b434ffaac6cda3c2704d924" Name="Diagram1">
+      <Diagram DiagramId="d685fc9c422f4a3986559e71a94c3e52" Name="Diagram1">
         <EntityTypeShape EntityType="EasyShoppingModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Comment" Width="1.5" PointX="22.5" PointY="23.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Comment" Width="1.5" PointX="22.5" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.Country" Width="1.5" PointX="0.75" PointY="18.75" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.District" Width="1.5" PointX="5.25" PointY="26.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.Image" Width="1.5" PointX="19.5" PointY="19.875" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="EasyShoppingModel.OrderDetail" Width="1.5" PointX="15" PointY="21.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.OrderStatu" Width="1.5" PointX="7.5" PointY="26.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.Partner" Width="1.5" PointX="20.25" PointY="23.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Product" Width="1.5" PointX="17.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Product" Width="1.5" PointX="17.25" PointY="19.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.ProductStatu" Width="1.5" PointX="15" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.ProductType" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.Province" Width="1.5" PointX="3" PointY="25.875" IsExpanded="true" />
