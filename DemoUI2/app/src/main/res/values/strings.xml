@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="map_api">AIzaSyCGcKr9dsEO9XNle5Ms-BWWHqOQkR2t4Xg</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">easyshop</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="from">From:</string>
+</resources>
