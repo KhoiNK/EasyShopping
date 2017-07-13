@@ -458,6 +458,7 @@ public class MainActivity extends AppCompatActivity
             myLatlng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         }
     }
+    
 
     public void addMarker() {
 //        // test ShopAdapter
