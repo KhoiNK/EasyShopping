@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+    <RadioButton
+        android:id="@+id/rdAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/small_space"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/normal_text_size"
+        android:layout_margin="@dimen/small_space"/>
+</LinearLayout>
