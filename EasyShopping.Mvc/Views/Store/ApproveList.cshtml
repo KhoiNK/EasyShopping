@@ -1,0 +1,24 @@
+﻿<div>
+    Search Store: <input type="text" [(ngModel)]="searchkey" #term/>
+    <button class="btn btn-default" (click)="SearchStore()">Search</button>
+</div>
+<div *ngIf="store">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Status</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{store.ID}}</td>
+                <td>{{store.Name}}</td>
+                <td>{{store.Status}}</td>
+                <td><button *ngIf="store.StatusId == 3" class="btn btn-default" (click)="Approve(store.ID)">Approve</button> | <button *ngIf="store.StatusId == 3" class="btn-danger" (click)="Cancel(store.ID)">Cancel</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

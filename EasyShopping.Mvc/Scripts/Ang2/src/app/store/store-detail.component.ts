@@ -1,9 +1,10 @@
-﻿import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy} from '@angular/core';
 import { StoreServices } from './store.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProductAddComponent } from '../product/product-add.component';
 import { OrderServices } from '../order/order.service';
+import { PartnerService } from '../partner/partner.service';
 
 
 @Component({
@@ -18,7 +19,10 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
     public subscription: Subscription;
     public isOwner: boolean = false;
     public isAllowed: boolean = false;
-    constructor(private storeservice: StoreServices, private activatedRoute: ActivatedRoute, private orderService: OrderServices) {
+    constructor(private storeservice: StoreServices
+        , private activatedRoute: ActivatedRoute
+        , private orderService: OrderServices
+        , private partnerService: PartnerService) {
         this.store = {};
     }
 
@@ -26,12 +30,7 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
         this.subscription = this.activatedRoute.params.subscribe(params => {
             this.id = params['id'];
         });
-        this.storeservice.GetStoreById(this.id)
-            .subscribe(res => {
-                return this.store = res;
-            }, err => {
-                console.log(err);
-            });
+        this.LoadData(this.id);
         this.storeservice.CheckAllowance(this.id).subscribe(res => {
             if (res == true) {
                 this.isAllowed = true;
@@ -50,6 +49,26 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    Apply() {
+        this.partnerService.Apply(this.store.ID).subscribe((res: any) => {
+            if (res == true) {
+                alert("Apply Succesfully!");
+                this.LoadData(this.id);
+            }
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    LoadData(id: number) {
+        this.storeservice.GetStoreById(id)
+            .subscribe(res => {
+                return this.store = res;
+            }, err => {
+                console.log(err);
+            });
     }
 
     AddToCart(productId: number) {

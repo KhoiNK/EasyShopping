@@ -32,5 +32,10 @@ namespace EasyShopping.Mvc.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult ApproveList()
+        {
+            return PartialView();
+        }
     }
 }

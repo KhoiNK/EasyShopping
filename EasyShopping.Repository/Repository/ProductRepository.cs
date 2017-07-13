@@ -59,7 +59,8 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Product> GetWithoutUserId()
         {
-            var target = _db.Targets.OrderByDescending(x=>x.Count).ToArray();
+            var target = _db.Targets.OrderByDescending(x => x.Count).ToArray();
+
             if (target.Length == 0)
             {
                 var result = _db.Products.Take(30).ToList();

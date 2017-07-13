@@ -31,17 +31,26 @@ namespace EasyShopping.Repository.Repository
             return stores;
         }
 
+
         public Store FindByID(int id)
         {
-            return _db.Stores
-                .Include("User")
-                .Include("StoreStatu")
-                .Include("Ward")
-                .Include("District")
-                .Include("Country")
-                .Include("Province")
-                .Where(x => x.ID == id)
-                .SingleOrDefault();
+            try
+            {
+                return _db.Stores
+               .Include("User")
+               .Include("StoreStatu")
+               .Include("Ward")
+               .Include("District")
+               .Include("Country")
+               .Include("Province")
+               .Where(x => x.ID == id)
+               .SingleOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+           
         }
 
         public Store Create(Store store)
@@ -90,7 +99,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => x.Name.Equals(name))
+                .Where(x => x.Name.Contains(name))
                 .ToList();
         }
 

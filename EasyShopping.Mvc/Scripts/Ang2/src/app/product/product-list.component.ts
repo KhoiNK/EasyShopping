@@ -11,6 +11,7 @@ import { OrderServices } from '../order/order.service';
 export class ProductListComponent implements OnInit {
     public products: any[];
     public CART: string = "cart";
+    public PROFILE: string = 'profile';
     constructor(private productservice: ProductService, private orderService: OrderServices) {
     }
 
@@ -26,26 +27,33 @@ export class ProductListComponent implements OnInit {
         });
     }
     AddToCart(productId: number) {
-        let order: any = {};
-        let cartId = localStorage.getItem(this.CART);
-        if (cartId == null) {
-            order.productId = productId;
-            this.orderService.AddToCart(order).subscribe((res: any) => {
-                localStorage.setItem(this.CART, JSON.stringify(res.ID));
-                alert("Added Successfully");
-            }, err => {
-                console.log(err);
-            });
-        } else {
-            order.productId = productId;
-            order.cartId = cartId;
-            this.orderService.AddToCart(order).subscribe((res: any) => {
-                if (JSON.stringify(res) == 'true') {
-                    alert("Added Successfully into order ID: " + cartId);
-                }
-            }, err => {
-                console.log(err);
-            });
+        if (localStorage.getItem(this.PROFILE) == {}) {
+            alert("please login first!");
+            event.preventDefault();
         }
+        else {
+            let order: any = {};
+            let cartId = localStorage.getItem(this.CART);
+            if (cartId == null) {
+                order.productId = productId;
+                this.orderService.AddToCart(order).subscribe((res: any) => {
+                    localStorage.setItem(this.CART, JSON.stringify(res.ID));
+                    alert("Added Successfully");
+                }, err => {
+                    console.log(err);
+                });
+            } else {
+                order.productId = productId;
+                order.cartId = cartId;
+                this.orderService.AddToCart(order).subscribe((res: any) => {
+                    if (JSON.stringify(res) == 'true') {
+                        alert("Added Successfully into order ID: " + cartId);
+                    }
+                }, err => {
+                    console.log(err);
+                });
+            }
+        }
+        
     }
 }

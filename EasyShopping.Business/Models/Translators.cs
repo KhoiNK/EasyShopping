@@ -71,7 +71,9 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<OrderStatu, OrderStatusDTO>();
 
                 cfg.CreateMap<PartnerDTO, Partner>();
-                cfg.CreateMap<Partner, PartnerDTO>();
+                cfg.CreateMap<Partner, PartnerDTO>()
+                .ForMember(dto => dto.UserName,
+                opt => opt.MapFrom(entity => entity.User.UserName));
 
                 cfg.CreateMap<ProductViewDTO, Product>();
 

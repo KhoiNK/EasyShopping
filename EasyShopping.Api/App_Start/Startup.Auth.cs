@@ -56,7 +56,7 @@ namespace EasyShopping.Api
                new JwtBearerAuthenticationOptions
                {               
                    AuthenticationMode = AuthenticationMode.Active,
-                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1" },
+                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3" },
                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                    {
                         new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)

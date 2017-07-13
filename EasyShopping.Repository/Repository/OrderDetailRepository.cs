@@ -10,6 +10,7 @@ namespace EasyShopping.Repository.Repository
     public class OrderDetailRepository
     {
         EasyShoppingEntities _db;
+        private const int OUTOFSTOCK = 3;
         public OrderDetailRepository()
         {
             _db = new EasyShoppingEntities();
@@ -24,14 +25,19 @@ namespace EasyShopping.Repository.Repository
             detail.CreatedDate = DateTime.Now;
             detail.ModifiedDate = DateTime.Now;
             _db.OrderDetails.Add(detail);
-            _db.Products.Where(x => x.ID == productId).Single().Quantity = _db.Products.Where(x => x.ID == productId).Single().Quantity - 1;
+            var product = _db.Products.Where(x => x.ID == productId).Single();
+            product.Quantity = product.Quantity - 1;
+            if (product.Quantity == 0)
+            {
+                product.StatusID = OUTOFSTOCK;
+            }
             _db.SaveChanges();
-            return true;               
+            return true;
         }
 
         public bool IsExisted(int productId, int cartId)
         {
-            if(_db.OrderDetails.Where(x=>(x.OrderID == cartId) && (x.ProductID == productId)).Count() > 0) { return true; }
+            if (_db.OrderDetails.Where(x => (x.OrderID == cartId) && (x.ProductID == productId)).Count() > 0) { return true; }
             return false;
         }
 
@@ -40,7 +46,12 @@ namespace EasyShopping.Repository.Repository
             var order = _db.Orders.Where(x => x.ID == cartId).Single();
             var detail = order.OrderDetails.Where(x => x.ProductID == productId).Single();
             detail.Quantity = detail.Quantity + 1;
-            _db.Products.Where(x => x.ID == productId).Single().Quantity = _db.Products.Where(x => x.ID == productId).Single().Quantity - 1;
+            var product = _db.Products.Where(x => x.ID == productId).Single();
+            product.Quantity = product.Quantity - 1;
+            if(product.Quantity == 0)
+            {
+                product.StatusID = 3;
+            }
             _db.SaveChanges();
             return true;
         }

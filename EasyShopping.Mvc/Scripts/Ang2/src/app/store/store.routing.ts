@@ -4,6 +4,7 @@ import { StoreComponent } from './store.component';
 import { StoreDetailComponent } from './store-detail.component';
 import { StoreListByUserComponent } from './store-listbyuserid.component';
 import { StoreAddComponent } from './store-add.component';
+import { StoreApproveList } from './store-approve-list.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -13,7 +14,7 @@ const appRoutes: Routes = [{
     },
     children: [
         {
-            path: '/:page',
+            path: '',
             component: StoreListComponent,
         }, {
             path: 'store-detail/:id',
@@ -26,6 +27,10 @@ const appRoutes: Routes = [{
         {
             path: 'store-add',
             component: StoreAddComponent,
+        },
+        {
+            path: 'store-approve-list',
+            component: StoreApproveList,
         }
     ]
 }];

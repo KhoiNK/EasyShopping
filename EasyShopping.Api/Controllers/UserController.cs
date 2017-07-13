@@ -26,7 +26,8 @@ namespace EasyShopping.Api.Controllers
         }
 
         // GET api/values
-        [Authorize]
+        [HttpGet]
+        [ActionName("GetUserList")]
         public IEnumerable<UserApiModel> Get()
         {
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
@@ -35,12 +36,16 @@ namespace EasyShopping.Api.Controllers
         }
 
         // GET api/values/5
+        [HttpGet]
+        [ActionName("GetUserInfo")]
         public UserApiModel Get(int id)
         {
             UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetByID(id));
             return user;
         }
 
+        [HttpGet]
+        [ActionName("GetUserName")]
         public async Task<UserApiModel> Get(string username)
         {
             UserDTO user = await _business.GetByName(username);
@@ -90,5 +95,6 @@ namespace EasyShopping.Api.Controllers
             }
             return Ok();
         }
+
     }
 }

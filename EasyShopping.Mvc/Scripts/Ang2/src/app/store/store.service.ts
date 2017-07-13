@@ -14,8 +14,8 @@ export class StoreServices {
 
     }
 
-    GetListStore(page: Number): Observable<any[]> {
-        return this._http.get(this.apiUrl + "?page=", page).map(res => res.json());
+    GetListStore(search: any): Observable<any[]> {
+        return this._http.get(this.apiUrl + "/Search/" + search).map(res => res.json());
     }
 
     GetStoreById(id: number): Observable<any> {
@@ -50,5 +50,7 @@ export class StoreServices {
         return this._http.delete(this.apiUrl + "/" + id).map(res => res.json());
     }
 
-
+    Approve(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/Approve/" + id).map(res => res.json());
+    }
 }

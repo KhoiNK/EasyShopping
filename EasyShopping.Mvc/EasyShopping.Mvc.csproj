@@ -172,6 +172,7 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\GoogleController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
@@ -280,11 +281,13 @@
     <Content Include="Views\Google\Index.cshtml" />
     <Content Include="Views\Order\OrderList.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
+    <Content Include="Views\Store\ApproveList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\User\" />
     <Folder Include="Scripts\lib\quickstart-master\" />
+    <Folder Include="Views\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -317,6 +320,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-detail.component.ts" />
@@ -328,6 +332,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
