@@ -136,7 +136,7 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 var partner = _db.Partners.Where(x => x.ID == id).Single();
-                return partner
+                return partner;
             }
             catch
             {

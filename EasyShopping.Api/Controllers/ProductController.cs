@@ -82,7 +82,7 @@ namespace EasyShopping.Api.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("GetDetail")]
         public ProductApiViewModel GetDetail(int id)
         {

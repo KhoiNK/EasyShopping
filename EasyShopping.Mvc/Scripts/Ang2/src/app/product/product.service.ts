@@ -32,6 +32,6 @@ export class ProductService {
     }
 
     GetDetail(id: number): Observable<any> {
-        return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
+        return this._http.get(this.apiUrl + "/GetDetail/" + id).map(res => res.json());
     }
 }

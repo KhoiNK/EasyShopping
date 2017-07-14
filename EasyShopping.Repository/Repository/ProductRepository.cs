@@ -44,7 +44,7 @@ namespace EasyShopping.Repository.Repository
             var target = _db.Targets.Where(x => x.UserId == userId).OrderByDescending(x => x.Count).ToArray();
             if (target.Length == 0)
             {
-                var result = _db.Products.Take(30).ToList();
+                var result = _db.Products.Where(x=>x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -63,7 +63,7 @@ namespace EasyShopping.Repository.Repository
 
             if (target.Length == 0)
             {
-                var result = _db.Products.Take(30).ToList();
+                var result = _db.Products.Where(x=>x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -84,7 +84,7 @@ namespace EasyShopping.Repository.Repository
                                 .Include("ProductStatu")
                                 .Include("Country")
                                 .Include("Store")
-                                .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value))
+                                .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value) && x.StatusID != REMOVED)
                                 .ToList();
             return products;
         }
@@ -145,16 +145,6 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 var product = GetById(data.ID);
-                if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
-                {
-                    var thumbailLink = product.ThumbailLink;
-                    var thumbailCode = product.ThumbailCode;
-                    product = data;
-                    product.ThumbailLink = thumbailLink;
-                    product.ThumbailCode = thumbailCode;
-                    _db.SaveChanges();
-                    return true;
-                }
                 product = data;
                 _db.SaveChanges();
                 return true;

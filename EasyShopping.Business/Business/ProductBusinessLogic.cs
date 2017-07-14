@@ -81,6 +81,11 @@ namespace EasyShopping.BusinessLogic.Business
         public bool Edit(ProductDTO data, string username)
         {
             var userID = _user.FindUser(username).ID;
+            if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+            {
+                data.ThumbailLink = _repo.GetById(data.ID).ThumbailLink;
+                data.ThumbailCode = _repo.GetById(data.ID).ThumbailCode;
+            }
             if (_partner.IsPartner(data.StoreID, userID))
             {
                 data.StatusID = WAITINGFORAPPROVE;
@@ -93,6 +98,7 @@ namespace EasyShopping.BusinessLogic.Business
                 }
                 else { return false; }
             }
+            
             data.StatusID = WAITINGFORAPPROVE;
             return _repo.Edit(data.Translate<ProductDTO, Product>());
         }
