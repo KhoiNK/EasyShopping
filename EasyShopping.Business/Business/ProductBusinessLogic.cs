@@ -18,6 +18,8 @@ namespace EasyShopping.BusinessLogic.Business
         private const int AVAILABLE = 1;
         private const int OUTOFSTOCK = 3;
         private const int WAITINGFORAPPROVE = 2;
+        private const string CREATE = "Create";
+        private const string DELETE = "Delete";
 
         public ProductBusinessLogic()
         {
@@ -29,6 +31,7 @@ namespace EasyShopping.BusinessLogic.Business
         public ProductDTO Add(ProductDTO data, string userName)
         {
             var userID = _user.FindUser(userName).ID;
+            data.ActionLog = "Create";
             if (_partner.IsPartner(data.StoreID, userID))
             {
                 data.StatusID = WAITINGFORAPPROVE;
@@ -94,12 +97,11 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 if (_store.IsOwner(data.StoreID, userID))
                 {
+                    data.StatusID = AVAILABLE;
                     return _repo.Edit(data.Translate<ProductDTO, Product>());
                 }
                 else { return false; }
             }
-            
-            data.StatusID = WAITINGFORAPPROVE;
             return _repo.Edit(data.Translate<ProductDTO, Product>());
         }
 

@@ -2551,7 +2551,7 @@ h2.title {
     padding:20px;
 }
 .form_row{
-    width:610px;
+    width:inherit;
     float:left;
     clear:both;
     margin:0 0 10px 0;

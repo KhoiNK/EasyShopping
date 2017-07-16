@@ -29,7 +29,7 @@
         </div>
         <div class="form_row">
             <label>Avatar:</label>
-            <input type="file" class="form_name" name="photo" id="photo"/>
+            <input type="file" class="form_name" name="photo" id="photo" (change)="setThumbailImg()"/>
         </div>
         <div class="form_row">
             <button type="submit" class="form_submit" (click)="SaveChange($event)"> Add</button>

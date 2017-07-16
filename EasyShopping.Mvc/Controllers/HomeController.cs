@@ -23,5 +23,10 @@ namespace EasyShopping.Controllers
         {
             return View("~/Views/Shared/Footer.cshtml");
         }
+
+        public ActionResult SideBar()
+        {
+            return PartialView();
+        }
     }
 }

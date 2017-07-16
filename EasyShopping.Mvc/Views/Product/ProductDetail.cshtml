@@ -133,7 +133,7 @@
             <img src="{{product.ThumbailLink}}" class="col-lg-3"/>
             <div class="col-lg-9">
                 <label>Name : {{product.Name}}</label><br />
-                <label>Price: {{product.Price}}</label><br />
+                <label>Price: {{product.Price | currency:'USD':true:'1.2-2'}}</label><br />
                 <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)">Add To Cart</button>
             </div>
         </div>

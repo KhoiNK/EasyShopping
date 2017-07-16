@@ -150,6 +150,7 @@
                                         <label>
                                             Store ID: {{store.ID}}
                                         </label>
+                                       
                                         <i class="fa fa-user-o"></i> Status: {{store.Status}}
                                         <br />
                                         <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
@@ -167,35 +168,36 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-4" *ngFor="let product of store.Products">
-                    <div class="product-image-wrapper" >
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" style="width:50px; height:50px"/></a>
-                                <h2>{{product.Price}}</h2>
-                                <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
-                                <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
+                    <template [ngIf]="product.StatusID == 1">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    <a class="btn-primary" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]">Edit</a>
+                                    <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" style="width:50px; height:50px" /></a>
+                                    <h2>{{product.Price | currency:'USD':true:'1.0-0'}}</h2>
+                                    <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
+                                    <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                </div>
 
+                            </div>
+                            @*<div class="choose">
+                <ul class="nav nav-pills nav-justified">
+                    <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                    <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
+                </ul>
+            </div>*@
                         </div>
-                        @*<div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>*@
-                    </div>
+                    </template>
+                    
                 </div>
                 <div class="clearfix"></div>
-                <ul class="pagination" style="text-align:center">
-                    <li class="active"><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">&raquo;</a></li>
-                </ul>
             </div><!--features_items-->
         </div>
     </div>
 </div>
+
+
+
 
 
 

@@ -44,7 +44,7 @@ namespace EasyShopping.Repository.Repository
             var target = _db.Targets.Where(x => x.UserId == userId).OrderByDescending(x => x.Count).ToArray();
             if (target.Length == 0)
             {
-                var result = _db.Products.Where(x=>x.StatusID != REMOVED).Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -63,7 +63,7 @@ namespace EasyShopping.Repository.Repository
 
             if (target.Length == 0)
             {
-                var result = _db.Products.Where(x=>x.StatusID != REMOVED).Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -144,8 +144,24 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var product = GetById(data.ID);
-                product = data;
+                var product = _db.Products.Where(x => x.ID == data.ID).Single();
+                product.ActionLog = data.ActionLog;
+                product.CreatedDate = data.CreatedDate;
+                product.Description = data.Description;
+                product.Height = data.Height;
+                product.ManufacturedCountryID = data.ManufacturedCountryID;
+                product.ModifiedDate = DateTime.Now;
+                product.Name = data.Name;
+                product.Price = data.Price;
+                product.ProductID = data.ProductID;
+                product.ProductTypeID = data.ProductTypeID;
+                product.Quantity = data.Quantity;
+                product.StatusID = data.StatusID;
+                product.StoreID = data.StoreID;
+                product.ThumbailCode = data.ThumbailCode;
+                product.ThumbailLink = data.ThumbailLink;
+                product.Weight = data.Weight;
+
                 _db.SaveChanges();
                 return true;
             }

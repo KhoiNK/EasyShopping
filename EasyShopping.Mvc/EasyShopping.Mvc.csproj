@@ -282,6 +282,8 @@
     <Content Include="Views\Order\OrderList.cshtml" />
     <Content Include="Views\Order\OrderDetail.cshtml" />
     <Content Include="Views\Store\ApproveList.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Home\SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -301,6 +303,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\admin.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\auth.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.module.ts" />
@@ -324,6 +327,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-detail.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-type.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.component.ts" />
@@ -331,6 +335,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\sidebar.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />

@@ -28,6 +28,7 @@ namespace EasyShopping.Api.Controllers
         // GET api/values
         [HttpGet]
         [ActionName("GetUserList")]
+        [Authorize(Roles = Roles.Admin)]
         public IEnumerable<UserApiModel> Get()
         {
             //IEnumerable<UserApiModel> userlist = UserTranslator.ToUserApi(_business.GetAll());
@@ -38,7 +39,7 @@ namespace EasyShopping.Api.Controllers
         // GET api/values/5
         [HttpGet]
         [ActionName("GetUserInfo")]
-        public UserApiModel Get(int id)
+        public UserApiModel GetDetail(int id)
         {
             UserApiModel user = ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetByID(id));
             return user;
@@ -50,6 +51,26 @@ namespace EasyShopping.Api.Controllers
         {
             UserDTO user = await _business.GetByName(username);
             return ApiTranslators.Translate<UserDTO, UserApiModel>(user);
+        }
+
+        [HttpGet]
+        [Route("v1/User/IsAdmin")]
+        public bool IsAdmin()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var role = identity.Claims.Where(x => x.Type == ClaimTypes.Role).Single().Value;
+                if (role.Equals("Admin"))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         //POST api/values

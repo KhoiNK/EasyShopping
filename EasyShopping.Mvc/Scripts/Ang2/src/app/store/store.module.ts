@@ -10,6 +10,7 @@ import { StoreListByUserComponent } from './store-listbyuserid.component';
 import { StoreComponent } from './store.component';
 import { StoreAddComponent } from './store-add.component';
 import { StoreApproveList } from './store-approve-list.component';
+
 //import { GoogleMapComponent } from '../commonService/google-map.component';
 
 

@@ -13,6 +13,7 @@ import { LoginComponent } from './auth/login.component';
 import { IAuthService, AuthService } from './auth/auth.service';
 import { Header } from './header.component';
 import { Footer } from './footer.component';
+import { SideBar } from './sidebar.component';
 //import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
 import { GoogleMapComponent } from './commonService/google-map.component';
@@ -33,10 +34,10 @@ import { GoogleMapComponent } from './commonService/google-map.component';
     declarations: [
         Header,
         Footer,
+        SideBar,
         //GetListCountries,
         AppComponent,
-        LoginComponent,
-        GoogleMapComponent
+        LoginComponent
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },

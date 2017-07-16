@@ -51,7 +51,7 @@ namespace EasyShopping.Api.Providers
             
             ClaimsIdentity oAuthIdentity = CreateUserIdentity(user);
 
-            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationProperties properties = CreateProperties(user.UserName, user.Role);
             var ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
         }
@@ -92,11 +92,12 @@ namespace EasyShopping.Api.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName)
+        public static AuthenticationProperties CreateProperties(string userName, string role)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
+                { "role", role},
                 //{ "avatar", userName },
                 //{ "roles", roleArr },
             };

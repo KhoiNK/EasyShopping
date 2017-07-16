@@ -120,7 +120,23 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 Store editStore = _db.Stores.Where(x => x.ID == store.ID).Single();
-                editStore = store;
+                editStore.Address = store.Address;
+                editStore.BankAccount = store.BankAccount;
+                editStore.CityId = store.CityId;
+                editStore.CountryId = store.CountryId;
+                editStore.CreatedDate = store.CreatedDate;
+                editStore.Description = store.Description;
+                editStore.DistrictId = store.DistrictId;
+                editStore.ImgLink = store.ImgLink;
+                editStore.LatX = store.LatX;
+                editStore.LatY = store.LatY;
+                editStore.ModifiedByID = store.ModifiedByID;
+                editStore.ModifiedDate = DateTime.Now;
+                editStore.Name = store.Name;
+                editStore.StatusID = store.StatusID;
+                editStore.TaxCode = store.TaxCode;
+                editStore.UserID = store.UserID;
+                editStore.WardId = store.WardId;
                 _db.SaveChanges();
                 return true;
             }

@@ -1,31 +1,27 @@
-﻿import { Component, OnInit, ElementRef, OnDestroy, Input } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { ProductService } from './product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { UploadService } from '../upload/upload-image.service';
 import { CountryServices } from '../country/country.service';
 import { ProductTypeService } from './product-type.service';
 import { NgForm } from '@angular/forms';
 import { Base64EncodeService } from '../upload/base64Encode.service';
-import { Observable } from 'rxjs/Observable';
-
-//import { FirebaseService } from '../firebase/firebase.service';
-//import { Upload } from '../firebase/Upload';
+import { UploadService } from '../upload/upload-image.service';
 
 @Component({
     selector: 'product-add',
-    templateUrl: 'Product/AddProduct',
+    templateUrl: 'Product/Edit',
     providers: [ProductService, UploadService, CountryServices, ProductTypeService, Base64EncodeService]
 })
 
-export class ProductAddComponent implements OnInit, OnDestroy {
+export class ProductEditComponent implements OnInit, OnDestroy {
     public product: any;
     public countries: any[];
     public types: any[];
     private subscription: Subscription;
-    public storeId: number;
-    public message: string;
-    public thumbailImg: string;
+    public id: number;
+    public message: string = "";
+    private b64String: string;
     constructor(private productservice: ProductService
         , private activateRoute: ActivatedRoute
         , private router: Router
@@ -42,59 +38,66 @@ export class ProductAddComponent implements OnInit, OnDestroy {
         this.countryService.GetCountryList().subscribe((res: any) => this.countries = res);
         this.productTypeService.GetList().subscribe((res: any) => this.types = res);
         this.subscription = this.activateRoute.params.subscribe(params => {
-            this.storeId = params['storeId'];
+            this.id = params['id'];
+        });
+        this.productservice.GetDetail(this.id).subscribe((res: any) => {
+            if (res.ID) {
+                this.product = res;
+            }
+            else {
+                alert("Cannot find this product");
+            }
+        }, err => {
+            alert("Cannot find this product");
         });
     }
 
-    setCountryId(countryid: Number) {
-        this.product.ManufacturedCountryID = countryid;
-    }
-
-    setThumbailImg() {
+    setB64() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
         var reader = new FileReader();
         reader.onload = this._handleReaderLoaded.bind(this);
+        console.log(this);
         reader.readAsBinaryString(file);
     }
 
     _handleReaderLoaded(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        this.thumbailImg = btoa(binaryString);
+        this.b64String = btoa(binaryString);
         //console.log(btoa(binaryString));
     }
 
-    saveProduct() {
-        this.product.StoreID = this.storeId;
+    SaveChange() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
-        if (inputEl.files[0] == null) {
-            alert("Add image please!");
-            return false;
-        }
         if (inputEl.files.length > 0) {
             let file: File = inputEl.files[0];
-            
-            this.uploadservice.UploadImage(this.thumbailImg).subscribe((res: any) => {
-                this.product.ThumbailLink = res.data.link;
-                this.product.ThumbailCode = res.data.id;
-                alert("toi day roi");
-                this.AddProduct(this.product);
+            return new Promise<void>((resolve) => {
+                resolve(this.setB64());
+            }).then(result => {
+                this.uploadservice.UploadImage(this.b64String).subscribe((res: any) => {
+                    this.product.ThumbailLink = res.data.link;
+                    this.product.ThumbailCode = res.data.id;
+                    this.EditProduct(this.product);
+                }, err => {
+                    alert("Your uploaded file is wrong format");
+                    return false;
+                });
             }, err => {
-                return false;
-            });
-
+                console.log(err);
+            }).catch(err => console.log(err));
+            //let thumbailImg: string = this.b64.GetB64(file);
         }
         else {
-            this.AddProduct(this.product);
+            this.EditProduct(this.product);
         }
     }
 
-    AddProduct(product: any) {
-        this.productservice.AddProduct(product).subscribe(
+    EditProduct(product: any) {
+        this.productservice.Edit(product).subscribe(
             (res: any) => {
-                if (res.ID) {
-                    this.message = "Added successfully";
-                    setTimeout(() => {
+                if (res == true) {
+                    this.message = "Edit Successfully!";
+                    setTimeout(result => {
                         this.router.navigate(['/stores/store-detail/' + product.StoreID]);
                     }, 3000);
                 }

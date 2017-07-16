@@ -183,7 +183,7 @@ ul.tabsmenu li a:hover{background-color:#a8c9da;}
 }
 /*-------------------------------------form-------------------------------------*/
 .form{padding:20px;}
-.form_row{width:610px;float:left;clear:both;margin:0 0 10px 0;}
+.form_row{width:inherit;float:left;clear:both;margin:0 0 10px 0;}
 .form_row label{width:100px;float:left;padding:5px 0 0px 0;font-size:16px; color:black; font-weight:bold; text-align:left;}
 .form_input{width:500px;height:34px;float:left;padding:0px 0px 0 4px; background-color:#F4F6F7; border:1px #90A9B7 solid; color:#000;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
 select.form_select{width:506px;height:37px;float:left;padding:8px 5px 8px 4px; background-color:#F4F6F7; border:1px #90A9B7 solid; color:#000;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}
