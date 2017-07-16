@@ -1,38 +1,29 @@
 ﻿<div class="container">
     <div class="row">
-        
-
         <div class="col-sm-9 padding-right">
             <div class="features_items" *ngIf="products">
                 <!--features_items-->
                 <div class="clearfix"></div>
-                <div class="col-sm-4" *ngFor="let product of products">
-                    <template [ngIf]="product.StatusID == 1"></template>
-                    <div class="product-image-wrapper">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" style="width:50px; height:50px" /></a>
-                                <h2>{{product.Price}}</h2>
-                                <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
-                                <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                            </div>
+                <div *ngFor="let product of products">
+                    <template [ngIf]="product.Status == 'Available'">
+                        <div class="col-sm-4">
 
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" style="width:50px; height:50px; text-align:center" /></a>
+                                        <h2>{{product.Price}}</h2>
+                                        <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
+                                        <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
-                        @*<div class="choose">
-                                <ul class="nav nav-pills nav-justified">
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                                </ul>
-                            </div>*@
-                    </div>
+                    </template>
                 </div>
+
                 <div class="clearfix"></div>
-                <ul class="pagination" style="text-align:center">
-                    <li class="active"><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">&raquo;</a></li>
-                </ul>
             </div><!--features_items-->
         </div>
     </div>

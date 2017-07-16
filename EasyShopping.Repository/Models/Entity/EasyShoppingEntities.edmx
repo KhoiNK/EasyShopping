@@ -97,6 +97,7 @@
           <Property Name="DistrictID" Type="int" />
           <Property Name="WardID" Type="int" />
           <Property Name="StoreId" Type="int" />
+          <Property Name="Price" Type="float" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -1239,6 +1240,7 @@
           <Property Name="DistrictID" Type="Int32" />
           <Property Name="WardID" Type="Int32" />
           <Property Name="StoreId" Type="Int32" />
+          <Property Name="Price" Type="Double" />
           <NavigationProperty Name="Country" Relationship="Self.FK__Order__CountryID__4E88ABD4" FromRole="Order" ToRole="Country" />
           <NavigationProperty Name="District" Relationship="Self.FK__Order__DistrictI__4F7CD00D" FromRole="Order" ToRole="District" />
           <NavigationProperty Name="Province" Relationship="Self.FK__Order__CityID__4D94879B" FromRole="Order" ToRole="Province" />
@@ -2451,6 +2453,7 @@
                 <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
                 <ScalarProperty Name="WardID" ColumnName="WardID" />
                 <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

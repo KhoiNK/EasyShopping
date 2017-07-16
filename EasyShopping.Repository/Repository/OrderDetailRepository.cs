@@ -48,7 +48,7 @@ namespace EasyShopping.Repository.Repository
             detail.Quantity = detail.Quantity + 1;
             var product = _db.Products.Where(x => x.ID == productId).Single();
             product.Quantity = product.Quantity - 1;
-            if(product.Quantity == 0)
+            if (product.Quantity == 0)
             {
                 product.StatusID = 3;
             }
@@ -56,9 +56,42 @@ namespace EasyShopping.Repository.Repository
             return true;
         }
 
+        public bool ChangeQuantity(OrderDetail data)
+        {
+            try
+            {
+                var detail = _db.OrderDetails.Where(x => x.ID == data.ID).Single();
+                detail.ModifiedID = data.ModifiedID;
+                detail.ModifiedDate = data.ModifiedDate;
+                detail.Quantity = data.Quantity;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return false;
+            }
+        }
+
+        public bool Remove(int id)
+        {
+            try {
+                var detail = _db.OrderDetails.Where(x => x.ID == id).Single();
+                _db.OrderDetails.Remove(detail);
+                _db.SaveChanges();
+                return true;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return false;
+            }
+        }
+
         public IEnumerable<OrderDetail> GetByOrderId(int id)
         {
-            var details = _db.OrderDetails.Where(x => x.OrderID == id).ToList();
+            var details = _db.OrderDetails.Include("Product").Where(x => x.OrderID == id).ToList();
             return details;
         }
     }

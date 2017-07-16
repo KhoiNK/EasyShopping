@@ -36,6 +36,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> DistrictID { get; set; }
         public Nullable<int> WardID { get; set; }
         public Nullable<int> StoreId { get; set; }
+        public Nullable<double> Price { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }

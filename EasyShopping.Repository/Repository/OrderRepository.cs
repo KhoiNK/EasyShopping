@@ -10,8 +10,9 @@ namespace EasyShopping.Repository.Repository
 {
     public class OrderRepository
     {
-        private const int WAITTINGFORSHIPPING = 1;
-        
+        private const int WAITINGFORSHIPPING = 1;
+        private const int ORDERING = 4;
+
         EasyShoppingEntities _db;
         public OrderRepository()
         {
@@ -25,12 +26,68 @@ namespace EasyShopping.Repository.Repository
             order.CreatedDate = DateTime.Now;
             order.ModifiedDate = DateTime.Now;
             order.ModifiedID = userId;
-            order.StatusID = WAITTINGFORSHIPPING;
+            order.StatusID = ORDERING;
             order.OrderCode = orderCode;
             order.StoreId = storeId;
             order = _db.Orders.Add(order);
             _db.SaveChanges();
             return order;
+        }
+
+        public bool CheckOut(Order data)
+        {
+            try
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    var details = _db.OrderDetails.Where(x => x.OrderID == data.ID);
+                    foreach (var detail in details)
+                    {
+                        try
+                        {
+                            var target = _db.Targets.Where(x => (x.UserId == data.UserID) && (x.ProductTypeId == detail.Product.ProductTypeID)).Single();
+                            if (target != null)
+                            {
+                                target.Count = target.Count++;
+                                _db.SaveChanges();
+                            }
+                            else
+                            {
+                                var newTarget = new Target();
+                                newTarget.UserId = data.UserID;
+                                newTarget.ProductTypeId = detail.Product.ProductTypeID;
+                                newTarget.Count = 1;
+                                _db.Targets.Add(newTarget);
+                                _db.SaveChanges();
+                            }
+                        }
+                        catch
+                        {
+                            var newTarget = new Target();
+                            newTarget.UserId = data.UserID;
+                            newTarget.ProductTypeId = detail.Product.ProductTypeID;
+                            newTarget.Count = 1;
+                            _db.Targets.Add(newTarget);
+                            _db.SaveChanges();
+                        }
+                        
+                    }
+                });
+                var order = _db.Orders.Where(x => x.ID == data.ID).Single();
+                order.StatusID = WAITINGFORSHIPPING;
+                order.Address = data.Address;
+                order.CityID = data.CityID;
+                order.CountryID = data.CountryID;
+                order.DistrictID = data.DistrictID;
+                order.Note = order.Note;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return false;
+            }
         }
 
         public IEnumerable<Order> GetByUserId(int userId)
@@ -41,8 +98,27 @@ namespace EasyShopping.Repository.Repository
 
         public Order GetById(int id)
         {
-            var order = _db.Orders.Where(x => x.ID == id).Single();
+            var order = _db.Orders
+                .Include("Country")
+                .Include("District")
+                .Include("Province")
+                .Where(x => x.ID == id).Single();
             return order;
+        }
+
+        public bool Remove(int id)
+        {
+            try {
+                var order = _db.Orders.Where(x => x.ID == id).Single();
+                _db.Orders.Remove(order);
+                _db.SaveChanges();
+                return false;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return false;
+            }
         }
     }
 }

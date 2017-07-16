@@ -1,137 +1,144 @@
-﻿<ul class="nav nav-tabs">
-    <li><a data-toggle="tab" href="#home">Create</a></li>
-    <li><a data-toggle="tab" href="#menu1">Edit</a></li>
-    <li><a data-toggle="tab" href="#menu3">Delete</a></li>
-</ul>
+﻿<div class="col-sm-9">
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#home">Create</a></li>
+        <li><a data-toggle="tab" href="#menu1">Edit</a></li>
+        <li><a data-toggle="tab" href="#menu3">Delete</a></li>
+    </ul>
 
-<div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-        <h3>Create</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>
-                        ID
-                    </td>
-                    <td>
-                        Img
-                    </td>
-                    <td>
-                        Name
-                    </td>
-                    <td>
-                        Description
-                    </td>
-                    <td>
-                        Quantity
-                    </td>
-                    <td>
-                        Price
-                    </td>
-                    <td>
-                        Action
-                    </td>
-                </tr>
-            </thead>
-            <tbody class="tab-content">
-                <tr *ngFor="let product of products">
-                    <template [ngIf]="product.ActionLog == 'Create'">
-                        <td>{{product.ID}}</td>
-                        <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
-                        <td>{{product.Name}}</td>
-                        <td>{{product.Description}}</td>
-                        <td>{{product.Quantity}}</td>
-                        <td>{{product.Price}}</td>
-                        <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
-                    </template>
-                </tr>
-            </tbody>
-        </table>
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>Create</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            Img
+                        </td>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Description
+                        </td>
+                        <td>
+                            Quantity
+                        </td>
+                        <td>
+                            Price
+                        </td>
+                        <td>
+                            Action
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="tab-content">
+                    <tr *ngFor="let product of products">
+                        <template [ngIf]="product.ActionLog == 'Create'">
+                            <td>{{product.ID}}</td>
+                            <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
+                            <td>{{product.Name}}</td>
+                            <td>{{product.Description}}</td>
+                            <td>{{product.Quantity}}</td>
+                            <td>{{product.Price}}</td>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Edit</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            Img
+                        </td>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Description
+                        </td>
+                        <td>
+                            Quantity
+                        </td>
+                        <td>
+                            Price
+                        </td>
+                        <td>
+                            Action log
+                        </td>
+                        <td>
+                            Action
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="tab-content">
+                    <tr *ngFor="let product of products">
+                        <template [ngIf]="product.ActionLog != 'Create' && product.ActionLog != 'Delete'">
+                            <td>{{product.ID}}</td>
+                            <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
+                            <td>{{product.Name}}</td>
+                            <td>{{product.Description}}</td>
+                            <td>{{product.Quantity}}</td>
+                            <td>{{product.Price}}</td>
+                            <td data-toggle="tooltip" data-placement="top" title="{{product.ActionLog}}">{{product.ActionLog}}</td>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="menu3" class="tab-pane fade">
+            <h3>Delete</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>
+                            ID
+                        </td>
+                        <td>
+                            Img
+                        </td>
+                        <td>
+                            Name
+                        </td>
+                        <td>
+                            Description
+                        </td>
+                        <td>
+                            Quantity
+                        </td>
+                        <td>
+                            Price
+                        </td>
+                        <td>
+                            Action
+                        </td>
+                    </tr>
+                </thead>
+                <tbody class="tab-content">
+                    <tr *ngFor="let product of products">
+                        <template [ngIf]="product.ActionLog == 'Delete'">
+                            <td>{{product.ID}}</td>
+                            <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
+                            <td>{{product.Name}}</td>
+                            <td>{{product.Description}}</td>
+                            <td>{{product.Quantity}}</td>
+                            <td>{{product.Price}}</td>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-        <h3>Edit</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>
-                        ID
-                    </td>
-                    <td>
-                        Img
-                    </td>
-                    <td>
-                        Name
-                    </td>
-                    <td>
-                        Description
-                    </td>
-                    <td>
-                        Quantity
-                    </td>
-                    <td>
-                        Price
-                    </td>
-                    <td>
-                        Action
-                    </td>
-                </tr>
-            </thead>
-            <tbody class="tab-content">
-                <tr *ngFor="let product of products">
-                    <template [ngIf]="product.ActionLog != 'Create' && product.ActionLog != 'Delete'">
-                        <td>{{product.ID}}</td>
-                        <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px"/></td>
-                        <td>{{product.Name}}</td>
-                        <td>{{product.Description}}</td>
-                        <td>{{product.Quantity}}</td>
-                        <td>{{product.Price}}</td>
-                        <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
-                    </template>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-        <h3>Delete</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <td>
-                        ID
-                    </td>
-                    <td>
-                        Img
-                    </td>
-                    <td>
-                        Name
-                    </td>
-                    <td>
-                        Description
-                    </td>
-                    <td>
-                        Quantity
-                    </td>
-                    <td>
-                        Price
-                    </td>
-                    <td>
-                        Action
-                    </td>
-                </tr>
-            </thead>
-            <tbody class="tab-content">
-                <tr *ngFor="let product of products">
-                    <template [ngIf]="product.ActionLog == 'Delete'">
-                        <td>{{product.ID}}</td>
-                        <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px"/></td>
-                        <td>{{product.Name}}</td>
-                        <td>{{product.Description}}</td>
-                        <td>{{product.Quantity}}</td>
-                        <td>{{product.Price}}</td>
-                        <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
-                    </template>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <a [routerLink]="['/stores/store-detail', id]">Back to shop</a>
 </div>

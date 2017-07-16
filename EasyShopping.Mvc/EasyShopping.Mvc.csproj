@@ -283,7 +283,7 @@
     <Content Include="Views\Order\OrderDetail.cshtml" />
     <Content Include="Views\Store\ApproveList.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
-    <Content Include="Views\Home\SideBar.cshtml" />
+    <Content Include="Views\Shared\SideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -303,6 +303,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\approvement\approve-product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\admin.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\auth.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />

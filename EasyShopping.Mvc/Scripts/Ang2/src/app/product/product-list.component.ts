@@ -17,7 +17,6 @@ export class ProductListComponent implements OnInit {
 
     ngOnInit() {
         this.loadData();
-        window.location.reload();
     }
 
     loadData() {

@@ -1,51 +1,26 @@
-﻿
-@*<table class="table">
-    <thead>
-        <tr>
-            <td>name</td>
-            <td>dob</td>
-            <td>status</td>
-            <td>action</td>
-        </tr>
-    </thead>
-    <tbody>
-
-        <tr *ngfor="let user of users">
-            <template [ngif]="user.statusid == 1 || user.statusid == 2">
-            <td><a [routerlink]="['/users/user-detail', user.id]">{{user.username}}</a></td>
-            <td>{{user.dob | date}}</td>
-            <td>{{user.status}}</td>
-            <td><a [routerlink]="['/users/user-edit', user.id]" class="btn btn-success">edit</a> | <button (click)="deleteuser(user.id)" class="btn btn-danger">remove</button></td>
-            </template>
-        </tr>
-
-    </tbody>
-</table>*@
-
-
-<div>
+﻿<div class="col-sm-9">
     <h1>Store List</h1>
     Search: <input [(ngModel)]="searchkey" type="text" />
     <button (click)="LoadData()" class="btn-default">Search</button>
-    <div *ngIf="stores">
-        <table class="table table-striped table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let store of stores">
-                    <td>{{store.ID}}</td>
-                    <td><a [routerLink]="['/stores/store-detail', store.ID]">{{store.Name}}</a></td>
-                    <td>{{store.Status}}</td>
-                </tr>               
-            </tbody>
-        </table>
-    </div>
+
+    <table class="table table-striped table" *ngIf="stores">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let store of stores">
+                <td>{{store.ID}}</td>
+                <td><a [routerLink]="['/stores/store-detail', store.ID]">{{store.Name}}</a></td>
+                <td>{{store.Status}}</td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
 
 

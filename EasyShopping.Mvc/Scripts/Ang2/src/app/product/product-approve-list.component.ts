@@ -2,18 +2,22 @@
 import { ProductService } from './product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ApprovementServices } from '../approvement/approve-product.service';
 
 @Component({
     selector: 'product-approve-list',
     templateUrl: "/Product/ApproveList",
-    providers: [ProductService]
+    providers: [ProductService, ApprovementServices]
 })
 
 export class ProductApproveListComponent implements OnInit {
     public products: any[];
     public subscription: Subscription;
     private id: number;
-    constructor(private productService: ProductService, private router: Router, private activateRoute: ActivatedRoute) {
+    constructor(private productService: ProductService
+        , private router: Router
+        , private activateRoute: ActivatedRoute
+        , private approveSrv: ApprovementServices) {
 
     }
 
@@ -33,11 +37,14 @@ export class ProductApproveListComponent implements OnInit {
     }
 
     Approve(id: number) {
-        this.productService.Approve(id).subscribe((res: any) => {
+        this.approveSrv.ApproveProduct(id).subscribe((res: any) => {
             if (res == true) {
-                this.router.navigate(['/products/product-approve-list']);
+                alert("Approve successfully!");
+                this.LoadData(this.id);
             }
-            alert("Approvement failed!");
+            else {
+                alert("Approvement failed!");
+            }
         }, err => {
             console.log(err);
         });

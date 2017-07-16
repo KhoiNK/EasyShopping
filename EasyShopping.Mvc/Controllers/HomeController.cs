@@ -16,17 +16,17 @@ namespace EasyShopping.Controllers
 
         public ActionResult Header()
         {
-            return View("~/Views/Shared/Header.cshtml");
+            return PartialView("~/Views/Shared/Header.cshtml");
         }
 
         public ActionResult Footer()
         {
-            return View("~/Views/Shared/Footer.cshtml");
+            return PartialView("~/Views/Shared/Footer.cshtml");
         }
 
         public ActionResult SideBar()
         {
-            return PartialView();
+            return PartialView("~/Views/Shared/SideBar.cshtml");
         }
     }
 }
