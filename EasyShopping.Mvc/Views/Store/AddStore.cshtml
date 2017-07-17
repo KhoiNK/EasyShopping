@@ -22,7 +22,7 @@
                 <label>Address:</label>
                 @*<input type="text" [(ngModel)]="store.Address" class="form_name"/>*@
                 <div class="form-group">
-                    <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+                    <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl" />
                 </div>
                 <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
                     <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>

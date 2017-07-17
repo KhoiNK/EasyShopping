@@ -18,5 +18,10 @@ namespace EasyShopping.Mvc.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult CheckOut()
+        {
+            return PartialView();
+        }
     }
 }

@@ -69,7 +69,23 @@ namespace EasyShopping.BusinessLogic.Models
                 opt => opt.MapFrom(entity => entity.Product.Price));
 
                 cfg.CreateMap<OrderViewDTO, Order>();
-                cfg.CreateMap<Order, OrderViewDTO>();
+                cfg.CreateMap<Order, OrderViewDTO>()
+                .ForMember(
+                    dto => dto.Country,
+                    opt => opt.MapFrom(entity => entity.Country.CommonName)
+                ).ForMember(
+                    dto => dto.City,
+                    opt => opt.MapFrom(entity => entity.Province.Name)
+                ).ForMember(
+                    dto => dto.District,
+                    opt => opt.MapFrom(entity => entity.District.Name)
+                ).ForMember(
+                    dto => dto.Status,
+                    opt => opt.MapFrom(entity => entity.OrderStatu.Description)
+                );
+
+                cfg.CreateMap<OrderDTO, Order>();
+                cfg.CreateMap<Order, OrderDTO>();
 
                 cfg.CreateMap<OrderStatusDTO, OrderStatu>();
                 cfg.CreateMap<OrderStatu, OrderStatusDTO>();

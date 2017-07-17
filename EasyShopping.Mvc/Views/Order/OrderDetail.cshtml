@@ -20,12 +20,12 @@
         <tbody>
             <tr *ngFor="let order of details">
                 <td>{{order.Product}}</td>
-                <td><input type="text" [(ngModel)]="order.Quantity" id="item{{order.ID}}"/><button (click)="ChangeQuantity(order.ID)">Edit</button></td>
+                <td><input type="text" [(ngModel)]="order.Quantity" id="item{{order.ID}}"/><button (click)="ChangeQuantity(order.ID)" class="btn btn-default">Edit</button></td>
                 <td>{{order.Price | currency:'USD':true:'1.2-2'}}</td>
                 <td>{{this.Math.round(+order.Quantity * +order.Price) | currency:'USD':true:'1.2-2'}}</td>
             </tr>
         </tbody>
     </table>
-
+    <a class="btn btn-success" [routerLink]="['/orders/order-checkout', id]">Check Out</a>
 </div>
 

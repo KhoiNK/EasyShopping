@@ -36,43 +36,9 @@ namespace EasyShopping.Repository.Repository
 
         public bool CheckOut(Order data)
         {
+            //Target(data);
             try
             {
-                Task.Factory.StartNew(() =>
-                {
-                    var details = _db.OrderDetails.Where(x => x.OrderID == data.ID);
-                    foreach (var detail in details)
-                    {
-                        try
-                        {
-                            var target = _db.Targets.Where(x => (x.UserId == data.UserID) && (x.ProductTypeId == detail.Product.ProductTypeID)).Single();
-                            if (target != null)
-                            {
-                                target.Count = target.Count++;
-                                _db.SaveChanges();
-                            }
-                            else
-                            {
-                                var newTarget = new Target();
-                                newTarget.UserId = data.UserID;
-                                newTarget.ProductTypeId = detail.Product.ProductTypeID;
-                                newTarget.Count = 1;
-                                _db.Targets.Add(newTarget);
-                                _db.SaveChanges();
-                            }
-                        }
-                        catch
-                        {
-                            var newTarget = new Target();
-                            newTarget.UserId = data.UserID;
-                            newTarget.ProductTypeId = detail.Product.ProductTypeID;
-                            newTarget.Count = 1;
-                            _db.Targets.Add(newTarget);
-                            _db.SaveChanges();
-                        }
-                        
-                    }
-                });
                 var order = _db.Orders.Where(x => x.ID == data.ID).Single();
                 order.StatusID = WAITINGFORSHIPPING;
                 order.Address = data.Address;
@@ -90,9 +56,39 @@ namespace EasyShopping.Repository.Repository
             }
         }
 
+        public void Target(Order data)
+        {
+            var details = _db.OrderDetails.Where(x => x.OrderID == data.ID);
+            foreach (var detail in details)
+            {
+                try
+                {
+                    var target = _db.Targets.Where(x => (x.UserId == data.UserID) && (x.ProductTypeId == detail.Product.ProductTypeID)).SingleOrDefault();
+
+                    target.Count = target.Count++;
+                    _db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.InnerException);
+                    var newTarget = new Target();
+                    newTarget.UserId = data.UserID;
+                    newTarget.ProductTypeId = detail.Product.ProductTypeID;
+                    newTarget.Count = 1;
+                    _db.Targets.Add(newTarget);
+                    _db.SaveChanges();
+                }
+            }
+        }
+
         public IEnumerable<Order> GetByUserId(int userId)
         {
-            var orders = _db.Orders.Where(x => x.UserID == userId).ToList();
+            var orders = _db.Orders
+                .Include("Country")
+                .Include("District")
+                .Include("Province")
+                .Include("OrderStatu")
+                .Where(x => x.UserID == userId).ToList();
             return orders;
         }
 
@@ -102,19 +98,21 @@ namespace EasyShopping.Repository.Repository
                 .Include("Country")
                 .Include("District")
                 .Include("Province")
+                .Include("OrderStatu")
                 .Where(x => x.ID == id).Single();
             return order;
         }
 
         public bool Remove(int id)
         {
-            try {
+            try
+            {
                 var order = _db.Orders.Where(x => x.ID == id).Single();
                 _db.Orders.Remove(order);
                 _db.SaveChanges();
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.InnerException);
                 return false;

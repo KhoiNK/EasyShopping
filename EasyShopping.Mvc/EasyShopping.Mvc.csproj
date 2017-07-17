@@ -284,6 +284,7 @@
     <Content Include="Views\Store\ApproveList.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Shared\SideBar.cshtml" />
+    <Content Include="Views\Order\CheckOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,6 +320,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-checkout.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />

@@ -55,14 +55,7 @@ namespace EasyShopping.BusinessLogic.Business
         public OrderViewDTO GetById(int id)
         {
             var order = _repo.GetById(id).Translate<Order, OrderViewDTO>();
-            var products = new List<ProductDTO>();
-            foreach(var result in _detail.GetByOrderId(order.ID))
-            {
-                var product = _product.GetById(result.ProductID.Value);
-                product.Quantity = result.Quantity.Value;
-                products.Add(product.Translate<Product, ProductDTO>());
-            }
-            order.Products = products;
+            
             return order;
         }
 
@@ -120,7 +113,9 @@ namespace EasyShopping.BusinessLogic.Business
             dto.Price = order.Price;
             dto.CityID = _city.GetByName(order.City).Id;
             dto.CountryID = _country.GetByName(order.Country).Id;
-            dto.DistrictID = _district.GetByName(order.District).Id;
+            var DisString = order.District.Split('.');
+            if (DisString.Length > 1) { dto.DistrictID = _district.GetByName(DisString[1]).Id; }
+            else if (DisString.Length == 1){ dto.DistrictID = _district.GetByName(DisString[0]).Id; }
             var result = _repo.CheckOut(dto.Translate<OrderDTO, Order>());
             return result;
         }

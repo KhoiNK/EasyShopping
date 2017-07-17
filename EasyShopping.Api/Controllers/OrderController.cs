@@ -61,7 +61,9 @@ namespace EasyShopping.Api.Controllers
             var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
             return Ok(ApiTranslators.Translate<OrderViewDTO, OrderApiModel>(_business.GetByUser(name)));
         }
-
+        
+        [HttpGet]
+        [ActionName("GetDetail")]
         public IHttpActionResult Get(int id)
         {
             var order = _business.GetById(id);

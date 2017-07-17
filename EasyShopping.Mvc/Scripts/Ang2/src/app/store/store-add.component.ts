@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit, ElementRef, OnDestroy, NgZone, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
 import { StoreServices } from './store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -19,7 +18,7 @@ export class StoreAddComponent implements OnInit {
     public countries: any[];
     public districts: any[];
     public cities: any[];
-    public location: any;
+    //public location: any;
     public address: any[];
     public searchControl: FormControl;
     public zoom: number;
@@ -37,7 +36,7 @@ export class StoreAddComponent implements OnInit {
 
     ) {
         this.store = {};
-        this.location = {};
+        //this.location = {};
     }
     @ViewChild("search")
     public searchElementRef: ElementRef;
