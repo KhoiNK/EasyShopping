@@ -228,6 +228,7 @@
     <Compile Include="Models\DistrictApiModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ImageApiModel.cs" />
+    <Compile Include="Models\MessageApiModel.cs" />
     <Compile Include="Models\OrderDetailApiModel.cs" />
     <Compile Include="Models\OrderApiModel.cs" />
     <Compile Include="Models\OrderStatusApiModel.cs" />

@@ -54,6 +54,13 @@ export class ProductListComponent implements OnInit {
                 });
             }
         }
-        
+    }
+
+    LoadWithName(name: string) {
+        this.productservice.GetByName(name).subscribe((res: any) => {
+            this.products = res;
+        }, err => {
+            console.log(err);
+        });
     }
 }

@@ -17,6 +17,7 @@ import { SideBar } from './sidebar.component';
 //import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
 import { GoogleMapComponent } from './commonService/google-map.component';
+import { ProductListComponent } from '../app/product/product-list.component';
 
 @NgModule({
     imports: [
@@ -37,7 +38,7 @@ import { GoogleMapComponent } from './commonService/google-map.component';
         SideBar,
         //GetListCountries,
         AppComponent,
-        LoginComponent
+        LoginComponent,
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },

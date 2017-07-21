@@ -135,8 +135,9 @@ namespace EasyShopping.Repository.Repository
                 editStore.Name = store.Name;
                 editStore.StatusID = store.StatusID;
                 editStore.TaxCode = store.TaxCode;
-                editStore.UserID = store.UserID;
-                editStore.WardId = store.WardId;
+                editStore.RecruitmentMessage = store.RecruitmentMessage;
+                editStore.RequiredDeposit = store.RequiredDeposit;
+                editStore.IsRecruiting = store.IsRecruiting;
                 _db.SaveChanges();
                 return true;
             }
@@ -168,6 +169,12 @@ namespace EasyShopping.Repository.Repository
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
+        }
+        
+        public IEnumerable<Order> GetStoreOrders(int id)
+        {
+            var orders = _db.Orders.Where(x => x.StoreId == id).ToList();
+            return orders;
         }
     }
 }

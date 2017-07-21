@@ -2,6 +2,7 @@
 using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -118,7 +119,8 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool Put(StoreDTO store)
         {
-            var result = _repo.Put(store.Translate<StoreDTO, Store>());
+            store.ModifiedDate = DateTime.Now;
+            var result = _repo.Put(BusinessTranslators.ToStoreEntity(store));
             return result;
         }
 

@@ -1,7 +1,11 @@
 ﻿<div class="col-sm-9">
     <h1>Store List</h1>
-    Search: <input [(ngModel)]="searchkey" type="text" />
-    <button (click)="LoadData()" class="btn-default">Search</button>
+    Search: <br />
+    <div style="display: -webkit-inline-box">
+         <input [(ngModel)]="searchkey" type="text" (keyup)="LoadData()" class="search_box form-control" /><button class="btn" style="background-color:transparent; position:relative; left:-40px"><span class="glyphicon glyphicon-search"></span></button> 
+    </div>
+    
+    @*<button (click)="LoadData()" class="btn-default">Search</button>*@
 
     <table class="table table-striped table" *ngIf="stores">
         <thead>

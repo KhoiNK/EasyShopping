@@ -18,16 +18,6 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public IEnumerable<Product> GetAll()
-        {
-            return _db.Products.Include("Images")
-                .Include("ProductType")
-                .Include("ProductStatu")
-                .Include("Store")
-                .OrderByDescending(x => x.CreatedDate)
-                .ToList();
-        }
-
         public IEnumerable<Product> GetList(int storeid)
         {
             return _db.Products
@@ -79,12 +69,15 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Product> GetWithTarget(Target[] target)
         {
             int[] prodTypeIDs = target.Select(t => t.ProductTypeId.Value).ToArray();
+            var rnd = new Random();
             var products = _db.Products
                                 .Include("ProductType")
                                 .Include("ProductStatu")
                                 .Include("Country")
                                 .Include("Store")
                                 .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value) && x.StatusID != REMOVED)
+                                .OrderByDescending(x=>x.CreatedDate)
+                                .Take(20)
                                 .ToList();
             return products;
         }
@@ -175,8 +168,15 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Product> GetByName(string name)
         {
-            var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
-            return products;
+            try {
+                var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
+                return products;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return null;
+            }
         }
 
         public IEnumerable<Product> GetApproveList(int id)

@@ -17,14 +17,21 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     public Math: any;
     public message: string;
     public data: any;
+    public order: any;
     constructor(private orderService: OrderServices, private activateRoute: ActivatedRoute, private el: ElementRef) {
         this.Math = Math;
         this.data = {};
+        this.order = {};
     }
 
     ngOnInit() {
         this.subscription = this.activateRoute.params.subscribe(params => {
             this.id = params['id'];
+        });
+        this.orderService.GetDetail(this.id).subscribe((res: any) => {
+            this.order = res;
+        }, err => {
+            console.log(err);
         });
         this.LoadData(this.id);
         //.subscribe(country => this.country = country);
@@ -39,7 +46,7 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     }
 
     ChangeQuantity(id: number) {
-        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector("#item"+id);
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector("#item" + id);
         let quantity = inputEl.value;
         this.data.ID = id;
         this.data.Quantity = quantity;

@@ -38,6 +38,7 @@ export class StoreDetailComponent implements OnInit {
         , private activatedRoute: ActivatedRoute
         , private orderService: OrderServices
         , private partnerService: PartnerService
+        , private router: Router;
         //, private countryService: CountryServices
         //, private productTypeService: ProductTypeService
         //, private productservice: ProductService
@@ -117,9 +118,33 @@ export class StoreDetailComponent implements OnInit {
             });
         }
     }
-    //ngOnDestroy() {
-    //    this.subscription.unsubscribe();
-    //}
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
+
+    SetRecruitment() {
+        this.store.IsRecruiting = true;
+        this.storeservice.EditStore(this.store).subscribe((res: any) => {
+            if (res == true) {
+                alert("Update successfully!");
+                this.router.navigate['/stores/store-detail/' + this.store.ID];
+            }
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    DisableRecruitment() {
+        this.store.IsRecruiting = false;
+        this.storeservice.EditStore(this.store).subscribe((res: any) => {
+            if (res == true) {
+                alert("Update successfully!");
+                this.router.navigate['/stores/store-detail/' + this.store.ID];
+            }
+        }, err => {
+            console.log(err);
+        });
+    }
     //saveProduct() {
     //    this.product.StoreID = this.id;
     //    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');

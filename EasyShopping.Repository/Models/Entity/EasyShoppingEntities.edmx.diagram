@@ -4,35 +4,35 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f33aa69d0fe245e98d5e1cfb780de746" Name="Diagram1">
+      <Diagram DiagramId="625def6237134cf980268f060687ec4c" Name="Diagram1">
         <EntityTypeShape EntityType="EasyShoppingModel.Category" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Comment" Width="1.5" PointX="22.5" PointY="23.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Country" Width="1.5" PointX="0.75" PointY="18.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.District" Width="1.5" PointX="5.25" PointY="26.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Image" Width="1.5" PointX="19.5" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Message" Width="1.5" PointX="15" PointY="33.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Order" Width="1.5" PointX="9.75" PointY="25.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.OrderDetail" Width="1.5" PointX="15" PointY="21.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.OrderStatu" Width="1.5" PointX="7.5" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Partner" Width="1.5" PointX="20.25" PointY="23.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Product" Width="1.5" PointX="17.25" PointY="19.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ProductStatu" Width="1.5" PointX="15" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ProductType" Width="1.5" PointX="15" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Province" Width="1.5" PointX="3" PointY="26.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Rating" Width="1.5" PointX="22.5" PointY="19.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Role" Width="1.5" PointX="10.5" PointY="22.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ShipperDetail" Width="1.5" PointX="18" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ShipperRating" Width="1.5" PointX="23.25" PointY="27.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ShipperStatu" Width="1.5" PointX="15.75" PointY="36.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.ShippingDetail" Width="1.5" PointX="20.25" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.StoreRating" Width="1.5" PointX="17.25" PointY="31.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Store" Width="1.5" PointX="15" PointY="25.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.StoreStatu" Width="1.5" PointX="12.75" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Comment" Width="1.5" PointX="22.5" PointY="23.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Country" Width="1.5" PointX="0.75" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.District" Width="1.5" PointX="5.25" PointY="26.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Image" Width="1.5" PointX="19.5" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Message" Width="1.5" PointX="15" PointY="33.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Order" Width="1.5" PointX="9.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.OrderDetail" Width="1.5" PointX="15" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.OrderStatu" Width="1.5" PointX="7.5" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Partner" Width="1.5" PointX="20.25" PointY="23.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Product" Width="1.5" PointX="17.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ProductStatu" Width="1.5" PointX="15" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ProductType" Width="1.5" PointX="15" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Province" Width="1.5" PointX="3" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Rating" Width="1.5" PointX="22.5" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Role" Width="1.5" PointX="10.5" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShipperDetail" Width="1.5" PointX="18" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShipperRating" Width="1.5" PointX="23.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShipperStatu" Width="1.5" PointX="15.75" PointY="37.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.ShippingDetail" Width="1.5" PointX="20.25" PointY="27.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.StoreRating" Width="1.5" PointX="17.25" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Store" Width="1.5" PointX="15" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.StoreStatu" Width="1.5" PointX="12.75" PointY="22.125" IsExpanded="true" />
         <EntityTypeShape EntityType="EasyShoppingModel.Target" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.User" Width="1.5" PointX="12.75" PointY="24.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.UserStatu" Width="1.5" PointX="10.5" PointY="33" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Ward" Width="1.5" PointX="7.5" PointY="35.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="EasyShoppingModel.Wishlist" Width="1.5" PointX="20.5" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.User" Width="1.5" PointX="12.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.UserStatu" Width="1.5" PointX="10.5" PointY="33.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Ward" Width="1.5" PointX="7.5" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Wishlist" Width="1.5" PointX="20.5" PointY="31.25" IsExpanded="true" />
         <AssociationConnector Association="EasyShoppingModel.FK_Comment_ProductDetail" ManuallyRouted="false" />
         <AssociationConnector Association="EasyShoppingModel.FK_Comment_Users" ManuallyRouted="false" />
         <AssociationConnector Association="EasyShoppingModel.FK__Order__CountryID__4E88ABD4" ManuallyRouted="false" />

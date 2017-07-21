@@ -25,7 +25,7 @@ namespace EasyShopping.BusinessLogic.Models
         //public int DistrictID { get; set; }
         public string District { get; set; }
         //public int WardID { get; set; }
-        public int StoreId { get; set; }
+        public int? StoreId { get; set; }
         public double Price { get; set; }
 
     }
@@ -37,7 +37,7 @@ namespace EasyShopping.BusinessLogic.Models
         public string Note { get; set; }
         public string Address { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int ModifiedID { get; set; }
         public int StatusID { get; set; }
@@ -46,7 +46,8 @@ namespace EasyShopping.BusinessLogic.Models
         public int CityID { get; set; }
         public int DistrictID { get; set; }
         public int WardID { get; set; }
-        public int StoreId { get; set; }
+        public int? StoreId { get; set; }
         public double Price { get; set; }
+        public int ParentId { get; set; }
     }
 }

@@ -24,7 +24,8 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                if (_business.Approve(id, name)) { return true; }
+                
+                if (_business.Edit(_business.GetProduct(id), name)) { return true; }
                 return false;
             }
             catch

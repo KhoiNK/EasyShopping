@@ -162,11 +162,13 @@
     <Compile Include="Repository\CityRepository.cs" />
     <Compile Include="Repository\CountryRepository.cs" />
     <Compile Include="Repository\DistrictRepository.cs" />
+    <Compile Include="Repository\MessageRepository.cs" />
     <Compile Include="Repository\OrderDetailRepository.cs" />
     <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="Repository\PartnerRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\ProductTypeRepository.cs" />
+    <Compile Include="Repository\ShipperRepository.cs" />
     <Compile Include="Repository\StoreRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>

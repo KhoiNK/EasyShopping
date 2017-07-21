@@ -19,6 +19,7 @@ namespace EasyShopping.Api.Controllers
             _business = new OrderBusinessLogic();
         }
         [HttpPost]
+        [ActionName("Post")]
         public IHttpActionResult Post([FromBody] AddToCartModel data)
         {
             try
@@ -113,11 +114,27 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
-        [HttpPut]
-        [ActionName("Put")]
-        public bool Put([FromBody] OrderViewDTO data)
+        [HttpDelete]
+        [ActionName("RemoveOrder")]
+        public bool RemoveOrder(int id)
         {
-            return true;
+            var result = _business.RemoveOrder(id);
+            return result;
+        }
+
+        [HttpDelete]
+        [ActionName("RemoveItem")]
+        public bool RemoveItem(int id)
+        {
+            var result = _business.RemoveItem(id);
+            return result;
+        }
+
+        [HttpPost]
+        [Route("v1/Order/GetByStoreId")]
+        public IHttpActionResult GetByStoreId([FromBody]AddToCartModel cart)
+        {
+            return Ok(_business.GetByStoreId(cart.productId, cart.cartId));
         }
     }
 }

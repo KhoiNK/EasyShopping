@@ -60,6 +60,7 @@
     <Compile Include="Models\CountryDTO.cs" />
     <Compile Include="Models\DistrictDTO.cs" />
     <Compile Include="Models\ImageDTO.cs" />
+    <Compile Include="Models\MessageDTO.cs" />
     <Compile Include="Models\OrderDetailDTO.cs" />
     <Compile Include="Models\OrderDTO.cs" />
     <Compile Include="Models\OrderStatusDTO.cs" />

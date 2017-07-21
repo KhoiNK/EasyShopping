@@ -256,26 +256,29 @@ namespace EasyShopping.BusinessLogic.Models
 
         public static Store ToStoreEntity(StoreDTO dto)
         {
-            var store = new Store()
-            {
-                Address = dto.Address,
-                BankAccount = dto.BankAccount,
-                CityId = dto.CityId,
-                CountryId = dto.CountryId,
-                CreatedDate = dto.CreatedDate,
-                ModifiedDate = dto.ModifiedDate,
-                Description = dto.Description,
-                DistrictId = dto.DistrictId,
-                ImgLink = dto.ImgLink,
-                LatX = dto.LatX,
-                LatY = dto.LatY,
-                ModifiedByID = dto.ModifiedByID,
-                Name = dto.Name,
-                StatusID = dto.StatusID,
-                TaxCode = dto.TaxCode,
-                UserID = dto.UserID,
-                WardId = dto.WardId
-            };
+            var store = new Store();
+            store.ID = dto.ID;
+            store.Address = dto.Address;
+            store.BankAccount = dto.BankAccount;
+            store.CityId = dto.CityId;
+            store.CountryId = dto.CountryId;
+            store.CreatedDate = dto.CreatedDate;
+            store.ModifiedDate = dto.ModifiedDate;
+            store.Description = dto.Description;
+            store.DistrictId = dto.DistrictId;
+            store.ImgLink = dto.ImgLink;
+            store.LatX = dto.LatX;
+            store.LatY = dto.LatY;
+            store.ModifiedByID = dto.ModifiedByID;
+            store.Name = dto.Name;
+            store.StatusID = dto.StatusID;
+            store.TaxCode = dto.TaxCode;
+            store.UserID = dto.UserID;
+            store.WardId = dto.WardId;
+            store.IsRecruiting = dto.IsRecruiting;
+            store.RecruitmentMessage = dto.RecruitmentMessage;
+            store.RequiredDeposit = dto.RequiredDeposit;
+
             return store;
         }
     }

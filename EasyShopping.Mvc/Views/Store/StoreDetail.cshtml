@@ -16,10 +16,6 @@
                                 {{store.Name}}
                             </h4>
                             <p>
-                                <label>
-                                    Store ID: {{store.ID}}
-                                </label>
-
                                 <i class="fa fa-user-o"></i> Status: {{store.Status}}
                                 <br />
                                 <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
@@ -28,7 +24,9 @@
                                 <br />
                                 <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
-                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed" (click)="Apply()">Apply</button>
+                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply" >Apply</button>
+                                <button *ngIf="isOwner && store.IsRecruiting == false" data-toggle="modal" data-target="#recruit" class="btn btn-default">Recruit</button>
+                                <button *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()" class="btn btn-default">Disable Recruitment</button>
                             </p>
                         </div>
                     </div>
@@ -55,6 +53,40 @@
             </template>
         </div>
         <div class="clearfix"></div>
+        <div class="modal fade" id="recruit" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Recruitment Announcement</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea [(ngModel)]="store.RecruitmentMessage"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" (click)="SetRecruitment()">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="apply" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Recruitment Requirement</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{store.RecruitmentMessage}}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" (click)="Apply()">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div><!--features_items-->
 </div>
 

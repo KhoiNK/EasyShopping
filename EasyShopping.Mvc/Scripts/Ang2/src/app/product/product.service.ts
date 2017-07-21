@@ -38,4 +38,8 @@ export class ProductService {
     Edit(data: any): Observable<any> {
         return this._http.put(this.apiUrl + "/EditProduct", data).map(res => res.json());
     }
+
+    GetByName(data: string): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetWithName/" + data).map(res => res.json());
+    }
 }

@@ -43,7 +43,7 @@ export class StoreServices {
     }
 
     EditStore(data: any): Observable<any> {
-        return this._http.put(this.apiUrl + data.ID, data).map(res => res.json());
+        return this._http.put(this.apiUrl, data).map(res => res.json());
     }
 
     RemoveStore(id: number): Observable<any> {

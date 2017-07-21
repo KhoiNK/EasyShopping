@@ -76,33 +76,40 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.GetById(id).Translate<Product, ProductViewDTO>();
         }
 
-        public IEnumerable<ProductDTO> GetByName(string name)
-        {
-            return _repo.GetByName(name).Translate<Product, ProductDTO>();
-        }
-
         public bool Edit(ProductDTO data, string username)
         {
             var userID = _user.FindUser(username).ID;
-            if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+            switch (data.ActionLog)
             {
-                data.ThumbailLink = _repo.GetById(data.ID).ThumbailLink;
-                data.ThumbailCode = _repo.GetById(data.ID).ThumbailCode;
-            }
-            if (_partner.IsPartner(data.StoreID, userID))
-            {
-                data.StatusID = WAITINGFORAPPROVE;
-            }
-            else
-            {
-                if (_store.IsOwner(data.StoreID, userID))
-                {
-                    data.StatusID = AVAILABLE;
+                case CREATE:
+                    var product = _repo.GetById(data.ID);
+                    product.StatusID = AVAILABLE;
+                    return _repo.Edit(product);
+
+                case DELETE:
+                    return _repo.Remove(data.ID);
+
+                default:
+                    if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
+                    {
+                        data.ThumbailLink = _repo.GetById(data.ID).ThumbailLink;
+                        data.ThumbailCode = _repo.GetById(data.ID).ThumbailCode;
+                    }
+                    if (_partner.IsPartner(data.StoreID, userID))
+                    {
+                        data.StatusID = WAITINGFORAPPROVE;
+                    }
+                    else
+                    {
+                        if (_store.IsOwner(data.StoreID, userID))
+                        {
+                            data.StatusID = AVAILABLE;
+                            return _repo.Edit(data.Translate<ProductDTO, Product>());
+                        }
+                        else { return false; }
+                    }
                     return _repo.Edit(data.Translate<ProductDTO, Product>());
-                }
-                else { return false; }
             }
-            return _repo.Edit(data.Translate<ProductDTO, Product>());
         }
 
         public bool Approve(int id, string name)
@@ -115,6 +122,17 @@ namespace EasyShopping.BusinessLogic.Business
         public IEnumerable<ProductDTO> GetApproveList(int id)
         {
             return _repo.GetApproveList(id).Translate<Product, ProductDTO>();
+        }
+
+        public IEnumerable<ProductViewDTO> GetByName(string name)
+        {
+            var result = _repo.GetByName(name).Translate<Product, ProductViewDTO>();
+            return result;
+        }
+
+        public ProductDTO GetProduct(int id)
+        {
+            return _repo.GetById(id).Translate<Product, ProductDTO>();
         }
     }
 }

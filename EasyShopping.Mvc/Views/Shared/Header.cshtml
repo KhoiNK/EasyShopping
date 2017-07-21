@@ -67,24 +67,6 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a [routerLink]="['']" class="active">Home</a></li>
-                            <li class="dropdown">
-                                <a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a [routerLink]="['/products']">Products</a></li>
-                                    <li><a [routerLink]="['/products/detail', 99]">Product Details</a></li>
-                                    <li><a [routerLink]="['/products']">Checkout</a></li>
-                                    <li><a [routerLink]="['/products']">Cart</a></li>
-                                    <li><a [routerLink]="['/products']">Login</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#">Blog<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="blog.html">Blog List</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="404.html">404</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/orders']">My Orders</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>

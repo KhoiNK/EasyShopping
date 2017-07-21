@@ -20,6 +20,14 @@ namespace EasyShopping.BusinessLogic.Business
         private CityRepository _city;
         private CountryRepository _country;
         private DistrictRepository _district;
+        private const int ORDERING = 4;
+        #region Temp Data
+        private const int WAITINGFORSHIPPING = 1;
+        private const string STORAGE_ADDRESS = "386 Nui Thanh, Hai Chau, Da Nang";
+        private const int CITY_ID = 48;
+        private const int DISTRICT_ID = 492;
+        private const int COUNTRY_ID = 237;
+        #endregion
 
         public OrderBusinessLogic()
         {
@@ -34,28 +42,49 @@ namespace EasyShopping.BusinessLogic.Business
 
         public OrderViewDTO CreateOrder(string username, int productId)
         {
+            var order = new OrderDTO();
             int userId = _user.FindUser(username).ID;
-            var storeId = _product.GetById(productId).StoreID;
-            var cart = _repo.Create(userId, CodeGenerator.RandomString(6), storeId).Translate<Order, OrderViewDTO>();
+            order.UserID = userId;
+            order.StoreId = _product.GetById(productId).StoreID;
+            order.OrderCode = CodeGenerator.RandomString(6);
+            order.CreatedDate = DateTime.Now;
+            order.ModifiedDate = DateTime.Now;
+            order.StatusID = ORDERING;
+            order.ModifiedID = userId;
+            var cart = _repo.Create(order.Translate<OrderDTO, Order>()).Translate<Order, OrderViewDTO>();
             _detail.AddItem(productId, cart.ID);
             return cart;
         }
 
         public IEnumerable<OrderDetailDTO> GetOrderDetail(int id)
         {
-            var result = _detail.GetByOrderId(id).Translate<OrderDetail, OrderDetailDTO>();
+            var result = new List<OrderDetailDTO>();
+            if (_repo.GetById(id).StoreId != null)
+            {
+                result = _detail.GetByOrderId(id).Translate<OrderDetail, OrderDetailDTO>().ToList();
+            }
+            else
+            {
+                result = _repo.GetChildOrderDetail(id).Translate<OrderDetail, OrderDetailDTO>().ToList();
+            }
             return result;
         }
 
         public bool AddToCart(int producId, int cartId)
         {
+            var cart = _repo.GetById(cartId);
+            if (!_detail.IsSameStore(cart.ID, _product.GetById(producId).StoreID))
+            {
+                cart.StoreId = null;
+                _repo.UpdateOrder(cart);
+            }
             return _detail.AddItem(producId, cartId);
         }
 
         public OrderViewDTO GetById(int id)
         {
             var order = _repo.GetById(id).Translate<Order, OrderViewDTO>();
-            
+
             return order;
         }
 
@@ -72,6 +101,11 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool ChangeQuantity(OrderDetailDTO data, string username)
         {
+            var oldDetail = _detail.GetById(data.ID);
+            if (_product.GetById(oldDetail.ProductID.Value).Quantity < (data.Quantity - oldDetail.Quantity))
+            {
+                return false;
+            }
             var detail = new OrderDetail();
             detail.ModifiedID = _user.FindUser(username).ID;
             detail.ModifiedDate = DateTime.Now;
@@ -90,7 +124,7 @@ namespace EasyShopping.BusinessLogic.Business
         public bool RemoveOrder(int id)
         {
             var result = _repo.Remove(id);
-            return false;
+            return result;
         }
 
         public bool IsExisted(int productId, int cartId)
@@ -100,24 +134,79 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool CheckOut(OrderViewDTO order, string username)
         {
+
             var dto = new OrderDTO();
+            int userId = _user.FindUser(username).ID;
+            
             dto.ID = order.ID;
             dto.ModifiedDate = DateTime.Now;
-            dto.ModifiedID = _user.FindUser(username).ID;
+            dto.ModifiedID = userId;
             dto.Note = order.Note;
             dto.OrderCode = order.OrderCode;
-            dto.StatusID = order.StatusID;
-            dto.StoreId = order.StoreId;
+            dto.StatusID = WAITINGFORSHIPPING;
             dto.Total = order.Total;
-            dto.UserID = _user.FindUser(username).ID;
+            dto.UserID = userId;
             dto.Price = order.Price;
             dto.CityID = _city.GetByName(order.City).Id;
             dto.CountryID = _country.GetByName(order.Country).Id;
             var DisString = order.District.Split('.');
             if (DisString.Length > 1) { dto.DistrictID = _district.GetByName(DisString[1]).Id; }
-            else if (DisString.Length == 1){ dto.DistrictID = _district.GetByName(DisString[0]).Id; }
-            var result = _repo.CheckOut(dto.Translate<OrderDTO, Order>());
-            return result;
+            else if (DisString.Length == 1) { dto.DistrictID = _district.GetByName(DisString[0]).Id; }
+            dto.Address = order.Address;
+            dto.Note = order.Note;
+            if (order.StoreId != null)
+            {
+                dto.StoreId = order.StoreId.Value;
+                var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
+                return result;
+            }
+            else
+            {
+                IList<OrderDetail> details = _detail.GetByOrderId(order.ID).ToList();
+                try
+                {
+                    foreach (var d in details)
+                    {
+                        var newOrder = new OrderDTO();
+                        newOrder.OrderCode = CodeGenerator.RandomString(6);
+                        newOrder.StatusID = WAITINGFORSHIPPING;
+                        newOrder.ModifiedDate = DateTime.Now;
+                        newOrder.ModifiedID = 1;
+                        newOrder.CreatedDate = DateTime.Now;
+                        newOrder.UserID = null;
+                        newOrder = _repo.Create(newOrder.Translate<OrderDTO, Order>()).Translate<Order, OrderDTO>();
+                        newOrder.Address = STORAGE_ADDRESS;
+                        newOrder.CityID = CITY_ID;
+                        newOrder.DistrictID = DISTRICT_ID;
+                        newOrder.CountryID = COUNTRY_ID;
+                        newOrder.StoreId = d.Product.StoreID;
+                        newOrder.ParentId = order.ID;
+                        _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
+                        var childDetails = _detail.GetByStoreId(d.Product.StoreID, order.ID);
+                        foreach (var c in childDetails)
+                        {
+                            var child = _detail.GetById(c.ID);
+                            child.ModifiedDate = DateTime.Now;
+                            child.OrderID = newOrder.ID;
+                            _detail.EditDetail(child);
+                            details.Remove(details.Where(x => x.ID == c.ID).Single());
+                        }
+                    }
+                    dto.StoreId = null;
+                    var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
+                    return result;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                    return false;
+                }
+            }
+        }
+
+        public IEnumerable<OrderDetailDTO> GetByStoreId(int storeId, int orderId)
+        {
+            return _detail.GetByStoreId(storeId, orderId).Translate<OrderDetail, OrderDetailDTO>();
         }
     }
 }

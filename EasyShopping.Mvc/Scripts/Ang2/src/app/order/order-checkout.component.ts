@@ -117,6 +117,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
                 alert("Checkout Successfully!");
+                this.router.navigate[''];
             }
             else {
                 alert("Checkout Failed!");
