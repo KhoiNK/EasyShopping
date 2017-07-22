@@ -18,6 +18,7 @@ namespace EasyShopping.Api.Models
         public int StatusID { get; set; }
         public double Total { get; set; }
         public bool Taken { get; set; }
+        public int ParentId { get; set; }
     }
 
     public class AddToCartModel

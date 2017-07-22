@@ -18,16 +18,6 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public IEnumerable<Product> GetAll()
-        {
-            return _db.Products.Include("Images")
-                .Include("ProductType")
-                .Include("ProductStatu")
-                .Include("Store")
-                .OrderByDescending(x => x.CreatedDate)
-                .ToList();
-        }
-
         public IEnumerable<Product> GetList(int storeid)
         {
             return _db.Products
@@ -44,7 +34,7 @@ namespace EasyShopping.Repository.Repository
             var target = _db.Targets.Where(x => x.UserId == userId).OrderByDescending(x => x.Count).ToArray();
             if (target.Length == 0)
             {
-                var result = _db.Products.Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -59,10 +49,11 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Product> GetWithoutUserId()
         {
-            var target = _db.Targets.OrderByDescending(x=>x.Count).ToArray();
+            var target = _db.Targets.OrderByDescending(x => x.Count).ToArray();
+
             if (target.Length == 0)
             {
-                var result = _db.Products.Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -78,12 +69,15 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Product> GetWithTarget(Target[] target)
         {
             int[] prodTypeIDs = target.Select(t => t.ProductTypeId.Value).ToArray();
+            var rnd = new Random();
             var products = _db.Products
                                 .Include("ProductType")
                                 .Include("ProductStatu")
                                 .Include("Country")
                                 .Include("Store")
-                                .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value))
+                                .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value) && x.StatusID != REMOVED)
+                                .OrderByDescending(x=>x.CreatedDate)
+                                .Take(20)
                                 .ToList();
             return products;
         }
@@ -143,18 +137,24 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var product = GetById(data.ID);
-                if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
-                {
-                    var thumbailLink = product.ThumbailLink;
-                    var thumbailCode = product.ThumbailCode;
-                    product = data;
-                    product.ThumbailLink = thumbailLink;
-                    product.ThumbailCode = thumbailCode;
-                    _db.SaveChanges();
-                    return true;
-                }
-                product = data;
+                var product = _db.Products.Where(x => x.ID == data.ID).Single();
+                product.ActionLog = data.ActionLog;
+                product.CreatedDate = data.CreatedDate;
+                product.Description = data.Description;
+                product.Height = data.Height;
+                product.ManufacturedCountryID = data.ManufacturedCountryID;
+                product.ModifiedDate = DateTime.Now;
+                product.Name = data.Name;
+                product.Price = data.Price;
+                product.ProductID = data.ProductID;
+                product.ProductTypeID = data.ProductTypeID;
+                product.Quantity = data.Quantity;
+                product.StatusID = data.StatusID;
+                product.StoreID = data.StoreID;
+                product.ThumbailCode = data.ThumbailCode;
+                product.ThumbailLink = data.ThumbailLink;
+                product.Weight = data.Weight;
+
                 _db.SaveChanges();
                 return true;
             }
@@ -168,8 +168,15 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Product> GetByName(string name)
         {
-            var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
-            return products;
+            try {
+                var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
+                return products;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return null;
+            }
         }
 
         public IEnumerable<Product> GetApproveList(int id)

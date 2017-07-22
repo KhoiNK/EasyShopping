@@ -1,4 +1,4 @@
-﻿import { NgModule } from '@angular/core';
+﻿import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { ProductComponent } from './product.component';
 import { ProductAddComponent } from './product-add.component';
 import { ProductApproveListComponent } from './product-approve-list.component';
 import { ProductDetailComponent } from './product-detail.component';
-
+import { ProductEditComponent } from './product-edit.component';
 
 @NgModule({
     imports: [
@@ -23,7 +23,8 @@ import { ProductDetailComponent } from './product-detail.component';
         ProductComponent,
         ProductListComponent,
         ProductApproveListComponent,
-        ProductDetailComponent
+        ProductDetailComponent,
+        ProductEditComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

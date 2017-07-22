@@ -48,8 +48,10 @@
     <Compile Include="Business\CountryBusinessLogic.cs" />
     <Compile Include="Business\DistrictBusinessLogic.cs" />
     <Compile Include="Business\OrderBusinessLogic.cs" />
+    <Compile Include="Business\PartnerBusiness.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
     <Compile Include="Business\ProductTypeBusiness.cs" />
+    <Compile Include="Business\ShipperBusinessLogic.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\CodeGenerator.cs" />
@@ -59,6 +61,7 @@
     <Compile Include="Models\CountryDTO.cs" />
     <Compile Include="Models\DistrictDTO.cs" />
     <Compile Include="Models\ImageDTO.cs" />
+    <Compile Include="Models\MessageDTO.cs" />
     <Compile Include="Models\OrderDetailDTO.cs" />
     <Compile Include="Models\OrderDTO.cs" />
     <Compile Include="Models\OrderStatusDTO.cs" />

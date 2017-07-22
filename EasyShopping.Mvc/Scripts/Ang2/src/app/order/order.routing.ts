@@ -3,6 +3,7 @@
 import { OrderComponent } from './order.component';
 import { OrderList } from './order-list.component';
 import { OrderDetailComponent } from './order-detail.component';
+import { CheckOutComponent } from './order-checkout.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -18,6 +19,10 @@ const appRoutes: Routes = [{
         {
             path: 'order-detail/:id',
             component: OrderDetailComponent
+        },
+        {
+            path: 'order-checkout/:id',
+            component: CheckOutComponent
         }
     ]
 }];

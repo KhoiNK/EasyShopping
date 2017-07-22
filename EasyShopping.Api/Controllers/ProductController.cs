@@ -58,7 +58,7 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                if(!_store.IsOwner(id, name))
+                if (!_store.IsOwner(id, name))
                 {
                     return null;
                 }
@@ -67,7 +67,7 @@ namespace EasyShopping.Api.Controllers
             }
             catch
             {
-                return null;    
+                return null;
             }
         }
 
@@ -75,20 +75,34 @@ namespace EasyShopping.Api.Controllers
         [ActionName("EditProduct")]
         public IHttpActionResult Put([FromBody] ProductApiModel data)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-            var result = _business.Edit(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
-            if (result) { return Ok(); }
-            return BadRequest();
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.Edit(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("GetDetail")]
         public ProductApiViewModel GetDetail(int id)
         {
             ProductApiViewModel product = ApiTranslators.Translate<ProductViewDTO, ProductApiViewModel>(_business.GetById(id));
             if (product != null) { return product; }
             return null;
+        }
+
+        [HttpGet]
+        [ActionName("GetWithName")]
+        public IHttpActionResult GetWithName(string id)
+        {
+            var result = _business.GetByName(id);
+            return Ok(result);
         }
         //public 
     }

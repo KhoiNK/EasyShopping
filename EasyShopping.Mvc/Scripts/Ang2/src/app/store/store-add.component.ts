@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit, ElementRef, OnDestroy, NgZone, ViewChild } from '@angular/core';
-import { Http } from '@angular/http';
 import { StoreServices } from './store.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -19,12 +18,13 @@ export class StoreAddComponent implements OnInit {
     public countries: any[];
     public districts: any[];
     public cities: any[];
-    public location: any;
+    //public location: any;
     public address: any[];
     public searchControl: FormControl;
     public zoom: number;
     public latitude: number;
     public longitude: number;
+    public thumbailImg: string;
 
     constructor(private storeService: StoreServices
         , private uploadService: UploadService
@@ -36,7 +36,7 @@ export class StoreAddComponent implements OnInit {
 
     ) {
         this.store = {};
-        this.location = {};
+        //this.location = {};
     }
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -95,11 +95,24 @@ export class StoreAddComponent implements OnInit {
         this.address = place;
     }
 
+    setThumbailImg() {
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
+        let file: File = inputEl.files[0];
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+    }
+
+    _handleReaderLoaded(readerEvt: any) {
+        var binaryString = readerEvt.target.result;
+        this.thumbailImg = btoa(binaryString);
+        //console.log(btoa(binaryString));
+    }
+
 
     SaveChange() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
-        let thumbailImg: string = this.b64.GetB64(file);
         let locationResult: any;
         this.store.Address = this.address;
         this.store.LatX = this.latitude;
@@ -114,30 +127,26 @@ export class StoreAddComponent implements OnInit {
         });
 
         if (file == null) {
-            this.storeService.CreateStore(this.store).subscribe(
-                (res: any) => {
-                    if (res.ID != null) {
-                        alert("Added Successfully!");
-                        this.router.navigate[''];
-                    }
-                }, err => {
-                    console.log(err);
-                });
+            this.CreateStore(this.store);
         }
 
-        this.uploadService.UploadImage(thumbailImg).subscribe((res: any) => {
+        this.uploadService.UploadImage(this.thumbailImg).subscribe((res: any) => {
             this.store.ImgLink = res.data.link;
-            this.storeService.CreateStore(this.store).subscribe(
-                (res: any) => {
-                    if (res.ID) {
-                        alert("Added Successfully!");
-                        this.router.navigate[''];
-                    }
-                }, err => {
-                    console.log(err);
-                });
+            this.CreateStore(this.store);
         }, err => {
             console.log(err);
         });
+    }
+
+    CreateStore(store: any) {
+        this.storeService.CreateStore(store).subscribe(
+            (res: any) => {
+                if (res.ID) {
+                    alert("Added Successfully!");
+                    this.router.navigate[''];
+                }
+            }, err => {
+                console.log(err);
+            });
     }
 }

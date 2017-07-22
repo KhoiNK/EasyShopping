@@ -31,17 +31,26 @@ namespace EasyShopping.Repository.Repository
             return stores;
         }
 
+
         public Store FindByID(int id)
         {
-            return _db.Stores
-                .Include("User")
-                .Include("StoreStatu")
-                .Include("Ward")
-                .Include("District")
-                .Include("Country")
-                .Include("Province")
-                .Where(x => x.ID == id)
-                .SingleOrDefault();
+            try
+            {
+                return _db.Stores
+               .Include("User")
+               .Include("StoreStatu")
+               .Include("Ward")
+               .Include("District")
+               .Include("Country")
+               .Include("Province")
+               .Where(x => x.ID == id)
+               .SingleOrDefault();
+            }
+            catch
+            {
+                return null;
+            }
+           
         }
 
         public Store Create(Store store)
@@ -90,7 +99,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => x.Name.Equals(name))
+                .Where(x => x.Name.Contains(name))
                 .ToList();
         }
 
@@ -111,7 +120,24 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 Store editStore = _db.Stores.Where(x => x.ID == store.ID).Single();
-                editStore = store;
+                editStore.Address = store.Address;
+                editStore.BankAccount = store.BankAccount;
+                editStore.CityId = store.CityId;
+                editStore.CountryId = store.CountryId;
+                editStore.CreatedDate = store.CreatedDate;
+                editStore.Description = store.Description;
+                editStore.DistrictId = store.DistrictId;
+                editStore.ImgLink = store.ImgLink;
+                editStore.LatX = store.LatX;
+                editStore.LatY = store.LatY;
+                editStore.ModifiedByID = store.ModifiedByID;
+                editStore.ModifiedDate = DateTime.Now;
+                editStore.Name = store.Name;
+                editStore.StatusID = store.StatusID;
+                editStore.TaxCode = store.TaxCode;
+                editStore.RecruitmentMessage = store.RecruitmentMessage;
+                editStore.RequiredDeposit = store.RequiredDeposit;
+                editStore.IsRecruiting = store.IsRecruiting;
                 _db.SaveChanges();
                 return true;
             }
@@ -143,6 +169,12 @@ namespace EasyShopping.Repository.Repository
                 Console.WriteLine(e.StackTrace);
                 return false;
             }
+        }
+        
+        public IEnumerable<Order> GetStoreOrders(int id)
+        {
+            var orders = _db.Orders.Where(x => x.StoreId == id).ToList();
+            return orders;
         }
     }
 }

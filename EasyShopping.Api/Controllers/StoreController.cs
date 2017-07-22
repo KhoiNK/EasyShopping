@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Http;
 
 
@@ -22,12 +23,21 @@ namespace EasyShopping.Api.Controllers
         }
         public StoreApiModel Post([FromBody]StoreApiModel store)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-            store.ModifiedUser = name;
-            store.UserName = name;
-            var newstore = _business.CreateStore(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
-            return store;
+            try
+            {
+                //idenity user
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                //identity user/
+                store.ModifiedUser = name;
+                store.UserName = name;
+                var newstore = _business.CreateStore(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
+                return ApiTranslators.Translate<StoreDTO, StoreApiModel>(newstore);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public IEnumerable<StoreApiModel> Get(int page, int index = 10)
@@ -35,10 +45,13 @@ namespace EasyShopping.Api.Controllers
             return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetAll(index, page));
         }
 
-        public IEnumerable<StoreApiModel> Get(string searchkey)
+        [ActionName("Search")]
+        [HttpGet]
+        public IEnumerable<StoreApiModel> Search(string id)
         {
-            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByName(searchkey));
+            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetByName(id));
         }
+
 
         public StoreApiModel Get(int id)
         {
@@ -68,20 +81,30 @@ namespace EasyShopping.Api.Controllers
 
         //}
 
-        public IHttpActionResult Put(StoreApiModel store)
+        public IHttpActionResult Put([FromBody] StoreApiModel store)
         {
-            var result = _business.Put(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
-            if (result) { return Ok(result); }
-            else { return BadRequest(); }
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.Put(ApiTranslators.Translate<StoreApiModel, StoreDTO>(store));
+                if (result) { return Ok(result); }
+                else { return BadRequest(); }
+            }
+            catch
+            {
+                return BadRequest("false");
+            }
         }
 
-
-
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public bool Approve(int id)
         {
             return _business.ApproveStore(id);
         }
 
+        #region Allowance
         [HttpGet]
         [ActionName("GetAllowance")]
         public bool GetAllowance(int id)
@@ -117,6 +140,6 @@ namespace EasyShopping.Api.Controllers
                 return false;
             }
         }
-
+        #endregion
     }
 }

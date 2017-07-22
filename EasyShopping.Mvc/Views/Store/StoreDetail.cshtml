@@ -1,200 +1,97 @@
-﻿<div class="container">
-    <div class="row">
-        <div class="col-sm-3">
-            <div class="left-sidebar">
-                <h2>Category</h2>
-                <div class="panel-group category-products" id="accordian">
-                    <!--category-productsr-->
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
-                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                    Sportswear
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="sportswear" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="">Nike </a></li>
-                                    <li><a href="">Under Armour </a></li>
-                                    <li><a href="">Adidas </a></li>
-                                    <li><a href="">Puma</a></li>
-                                    <li><a href="">ASICS </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordian" href="#mens">
-                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                    Mens
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="mens" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="">Fendi</a></li>
-                                    <li><a href="">Guess</a></li>
-                                    <li><a href="">Valentino</a></li>
-                                    <li><a href="">Dior</a></li>
-                                    <li><a href="">Versace</a></li>
-                                    <li><a href="">Armani</a></li>
-                                    <li><a href="">Prada</a></li>
-                                    <li><a href="">Dolce and Gabbana</a></li>
-                                    <li><a href="">Chanel</a></li>
-                                    <li><a href="">Gucci</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+﻿
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">{{store.Name}}</h2>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <img src="{{store.ImgLink}}" alt="http://placehold.it/150x200" class="img-rounded img-responsive" style="width:150px;height:200px" />
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordian" href="#womens">
-                                    <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                    Womens
-                                </a>
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <h4>
+                                {{store.Name}}
                             </h4>
-                        </div>
-                        <div id="womens" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <ul>
-                                    <li><a href="">Fendi</a></li>
-                                    <li><a href="">Guess</a></li>
-                                    <li><a href="">Valentino</a></li>
-                                    <li><a href="">Dior</a></li>
-                                    <li><a href="">Versace</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Kids</a></h4>
+                            <p>
+                                <i class="fa fa-user-o"></i> Status: {{store.Status}}
+                                <br />
+                                <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
+                                <br />
+                                <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
+                                <br />
+                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
+                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply" >Apply</button>
+                                <button *ngIf="isOwner && store.IsRecruiting == false" data-toggle="modal" data-target="#recruit" class="btn btn-default">Recruit</button>
+                                <button *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()" class="btn btn-default">Disable Recruitment</button>
+                            </p>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Fashion</a></h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Households</a></h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Interiors</a></h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Clothing</a></h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Bags</a></h4>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                        </div>
-                    </div>
-                </div><!--/category-productsr-->
-
-                <div class="brands_products">
-                    <!--brands_products-->
-                    <h2>Brands</h2>
-                    <div class="brands-name">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li><a href=""> <span class="pull-right">(50)</span>Acne</a></li>
-                            <li><a href=""> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                            <li><a href=""> <span class="pull-right">(27)</span>Albiro</a></li>
-                            <li><a href=""> <span class="pull-right">(32)</span>Ronhill</a></li>
-                            <li><a href=""> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                            <li><a href=""> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                            <li><a href=""> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-                        </ul>
-                    </div>
-                </div><!--/brands_products-->
-
+                </div>
             </div>
         </div>
-
-        <div class="col-sm-9 padding-right">
-            <div class="features_items">
-                <!--features_items-->
-                <h2 class="title text-center">{{store.Name}}</h2>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="well well-sm">
-                            <div class="row">
-                                <div class="col-sm-6 col-md-4">
-                                    <img src="http://placehold.it/150x200" alt="" class="img-rounded img-responsive" />
-
-                                </div>
-                                <div class="col-sm-6 col-md-8">
-                                    <h4>
-                                        {{store.Name}}
-                                    </h4>
-                                    <p>
-                                        <label>
-                                            Store ID: {{store.ID}}
-                                        </label>
-                                        <i class="fa fa-user-o"></i> Status: {{store.Status}}
-                                        <br />
-                                        <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
-                                        <br />
-                                        <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
-                                        <br />
-                                        <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
-                                        <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-add', store.ID]">Approve List</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-sm-4" *ngFor="let product of store.Products">
+        <div class="clearfix"></div>
+        <div *ngFor="let product of store.Products">
+            <template [ngIf]="product.StatusID == 1">
+                <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
+                            <a class="btn btn-primary" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]" >Edit</a>
                             <div class="productinfo text-center">
-                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" class="img-responsive" style="width:50px; height:50px"/></a>
-                                <h2>{{product.Price}}</h2>
+                                <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" style="width:50px; height:50px; text-align:center" /></a>
+                                <h2>{{product.Price | currency:'USD':true:'1.0-0'}}</h2>
                                 <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
-                                <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                             </div>
 
                         </div>
-                        @*<div class="choose">
-                            <ul class="nav nav-pills nav-justified">
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                <li><a href=""><i class="fa fa-plus-square"></i>Add to compare</a></li>
-                            </ul>
-                        </div>*@
                     </div>
                 </div>
-                <div class="clearfix"></div>
-                <ul class="pagination" style="text-align:center">
-                    <li class="active"><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">&raquo;</a></li>
-                </ul>
-            </div><!--features_items-->
+            </template>
         </div>
-    </div>
+        <div class="clearfix"></div>
+        <div class="modal fade" id="recruit" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Recruitment Announcement</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea [(ngModel)]="store.RecruitmentMessage"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" (click)="SetRecruitment()">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="apply" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Recruitment Requirement</h4>
+                    </div>
+                    <div class="modal-body">
+                        {{store.RecruitmentMessage}}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" (click)="Apply()">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--features_items-->
 </div>
+
+
+
 
 
 

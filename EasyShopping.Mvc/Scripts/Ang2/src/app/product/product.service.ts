@@ -32,6 +32,14 @@ export class ProductService {
     }
 
     GetDetail(id: number): Observable<any> {
-        return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
+        return this._http.get(this.apiUrl + "/GetDetail/" + id).map(res => res.json());
+    }
+
+    Edit(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/EditProduct", data).map(res => res.json());
+    }
+
+    GetByName(data: string): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetWithName/" + data).map(res => res.json());
     }
 }

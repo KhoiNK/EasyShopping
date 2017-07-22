@@ -22,7 +22,19 @@ export class OrderServices {
         return this._http.get(this.apiUrl).map(res => res.json());
     }
 
+    GetDetail(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetDetail/" + id).map(res => res.json());
+    }
+
     GetOrderDetail(id: number): Observable<any> {
-        return this._http.get(this.apiUrl + "/" + id).map(res => res.json());
+        return this._http.get(this.apiUrl + "/GetOrderDetail/" + id).map(res => res.json());
+    }
+
+    ChangeQuantity(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/ChangeQuantity", data).map(res => res.json());
+    }
+
+    CheckOut(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/CheckOut", data).map(res => res.json());
     }
 }

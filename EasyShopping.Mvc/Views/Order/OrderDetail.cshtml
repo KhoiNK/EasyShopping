@@ -1,11 +1,11 @@
-﻿<div *ngIf="order">
-    <table class="table">
+﻿<div class="col-sm-9">
+    <div class="alert-info" *ngIf="message" style="border-radius: 5px; height:30px">{{message}}</div>
+    <table class="table" *ngIf="details">
         <thead class="thead-inverse">
             <tr>
                 <td>
                     Name
                 </td>
-                <td>Img</td>
                 <td>
                     Quantity
                 </td>
@@ -18,13 +18,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of order.Products">
-                <td>{{product.Name}}</td>
-                <td><img src="{{product.ThumbailLink}}" style="width:20px; height:20px"/></td>
-                <td>{{product.Quantity}}</td>
-                <td>{{product.Price | currency:'USD':true:'1.2-2'}}</td>
-                <td>{{this.Math.round(+product.Quantity * +product.Price) | currency:'USD':true:'1.2-2'}}</td>
+            <tr *ngFor="let detail of details">
+                <td>{{detail.Product}}</td>
+                <td><input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}"/>
+                <template [ngIf]="order.StatusID == 4">
+                    <button (click)="ChangeQuantity(detail.ID)" class="btn btn-default">Edit</button>
+                </template>
+                </td>
+                <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
+                <td>{{this.Math.round(+detail.Quantity * +detail.Price) | currency:'USD':true:'1.2-2'}}</td>
             </tr>
         </tbody>
     </table>
+    <template [ngIf]="order.StatusID == 4">
+        <a class="btn btn-success" [routerLink]="['/orders/order-checkout', id]">Check Out</a>
+    </template>
 </div>
+

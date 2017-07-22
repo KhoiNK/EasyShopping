@@ -32,8 +32,16 @@ namespace EasyShopping.Repository.Repository
 
         public District GetByName(string name)
         {
-            var result = _db.Districts.Where(x => x.Name.Contains(name)).Single();
-            return result;
+            try {
+                var result = _db.Districts.Where(x => x.Name.Contains(name.Trim())).Single();
+                return result;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return null;
+            }
+            
         }
     }
 }

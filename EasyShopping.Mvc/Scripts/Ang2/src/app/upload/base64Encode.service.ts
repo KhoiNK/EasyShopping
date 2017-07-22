@@ -18,8 +18,15 @@ export class Base64EncodeService {
     //}
     public base64textString: string = "";
 
-    GetB64(file: File): string {
-        this.handleFileSelect(file);
+    GetB64(file: File): Promise<string> {
+        return new Promise<void>((re) => {
+            re(this.handleFileSelect(file));
+        }).then(() => {
+            return this.base64textString;
+        });
+    }
+
+    GetB64String() {
         return this.base64textString;
     }
 
@@ -28,14 +35,9 @@ export class Base64EncodeService {
     }
 
     handleFileSelect(file: File) {
-
-        if (file) {
-            var reader = new FileReader();
-
-            reader.onload = this._handleReaderLoaded.bind(this);
-
-            reader.readAsBinaryString(file);
-        }
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
     }
 
     _handleReaderLoaded(readerEvt: any) {

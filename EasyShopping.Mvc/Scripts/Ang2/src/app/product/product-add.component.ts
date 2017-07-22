@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, ElementRef, OnDestroy, Input } from '@angular/core';
 import { ProductService } from './product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { CountryServices } from '../country/country.service';
 import { ProductTypeService } from './product-type.service';
 import { NgForm } from '@angular/forms';
 import { Base64EncodeService } from '../upload/base64Encode.service';
+import { Observable } from 'rxjs/Observable';
 
 //import { FirebaseService } from '../firebase/firebase.service';
 //import { Upload } from '../firebase/Upload';
@@ -19,10 +20,12 @@ import { Base64EncodeService } from '../upload/base64Encode.service';
 
 export class ProductAddComponent implements OnInit, OnDestroy {
     public product: any;
-    public storeid: number;
     public countries: any[];
     public types: any[];
     private subscription: Subscription;
+    public storeId: number;
+    public message: string;
+    public thumbailImg: string;
     constructor(private productservice: ProductService
         , private activateRoute: ActivatedRoute
         , private router: Router
@@ -39,7 +42,7 @@ export class ProductAddComponent implements OnInit, OnDestroy {
         this.countryService.GetCountryList().subscribe((res: any) => this.countries = res);
         this.productTypeService.GetList().subscribe((res: any) => this.types = res);
         this.subscription = this.activateRoute.params.subscribe(params => {
-            this.storeid = params['storeId'];
+            this.storeId = params['storeId'];
         });
     }
 
@@ -47,24 +50,57 @@ export class ProductAddComponent implements OnInit, OnDestroy {
         this.product.ManufacturedCountryID = countryid;
     }
 
-    saveProduct() {
-        this.product.StoreID = this.storeid;
+    setThumbailImg() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
-        let thumbailImg: string = this.b64.GetB64(file);
-        this.uploadservice.UploadImage(thumbailImg).subscribe((res: any) => {
-            this.product.ThumbailLink = res.data.link;
-            this.product.ThumbailCode = res.data.id;
-            this.productservice.AddProduct(this.product).subscribe(
-                (res: any) => {
-                    if (res.ID) {
-                        alert("Added successfully");
-                        this.router.navigate(['/stores/store-detail/' + this.product.StoreID]);
-                    }
-                }, err => {
-                    console.log(err);
-                });
-        });
+        var reader = new FileReader();
+        reader.onload = this._handleReaderLoaded.bind(this);
+        reader.readAsBinaryString(file);
+    }
+
+    _handleReaderLoaded(readerEvt: any) {
+        var binaryString = readerEvt.target.result;
+        this.thumbailImg = btoa(binaryString);
+        //console.log(btoa(binaryString));
+    }
+
+    saveProduct() {
+        this.product.StoreID = this.storeId;
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
+        if (inputEl.files[0] == null) {
+            alert("Add image please!");
+            return false;
+        }
+        if (inputEl.files.length > 0) {
+            let file: File = inputEl.files[0];
+            
+            this.uploadservice.UploadImage(this.thumbailImg).subscribe((res: any) => {
+                this.product.ThumbailLink = res.data.link;
+                this.product.ThumbailCode = res.data.id;
+                alert("toi day roi");
+                this.AddProduct(this.product);
+            }, err => {
+                return false;
+            });
+
+        }
+        else {
+            this.AddProduct(this.product);
+        }
+    }
+
+    AddProduct(product: any) {
+        this.productservice.AddProduct(product).subscribe(
+            (res: any) => {
+                if (res.ID) {
+                    this.message = "Added successfully";
+                    setTimeout(() => {
+                        this.router.navigate(['/stores/store-detail/' + product.StoreID]);
+                    }, 3000);
+                }
+            }, err => {
+                console.log(err);
+            });
     }
 
     ngOnDestroy() {

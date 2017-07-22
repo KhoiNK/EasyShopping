@@ -31,6 +31,9 @@ namespace EasyShopping.BusinessLogic.Models
         public double LatX { get; set; }
         public double LatY { get; set; }
         public IEnumerable<ProductDTO> Products { get; set; }
+        public bool IsRecruiting { get; set; }
+        public string RecruitmentMessage { get; set; }
+        public double? RequiredDeposit { get; set; }
     }
 
 }

@@ -13,9 +13,11 @@ import { LoginComponent } from './auth/login.component';
 import { IAuthService, AuthService } from './auth/auth.service';
 import { Header } from './header.component';
 import { Footer } from './footer.component';
+import { SideBar } from './sidebar.component';
 //import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
 import { GoogleMapComponent } from './commonService/google-map.component';
+import { ProductListComponent } from '../app/product/product-list.component';
 
 @NgModule({
     imports: [
@@ -33,10 +35,10 @@ import { GoogleMapComponent } from './commonService/google-map.component';
     declarations: [
         Header,
         Footer,
+        SideBar,
         //GetListCountries,
         AppComponent,
         LoginComponent,
-        GoogleMapComponent
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },

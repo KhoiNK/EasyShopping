@@ -1,8 +1,51 @@
-﻿<div class="container" *ngIf="orders">
-    <div class="row">
-        <h2>Order List</h2>
-    </div>
-    <div class="row" *ngFor="let order of orders">
-        <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
+﻿<div class="col-sm-9">
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#home">Ordering</a></li>
+        <li><a data-toggle="tab" href="#menu1">Waiting For Shipping</a></li>
+        <li><a data-toggle="tab" href="#menu2">Completed</a></li>
+        <li><a data-toggle="tab" href="#menu3">Delivering</a></li>
+    </ul>
+
+    <div class="tab-content" *ngIf="orders">
+        <div id="home" class="tab-pane fade in active">
+            <div *ngFor="let order of orders">
+                <template [ngIf]="order.StatusID == 4">
+                    <div class="row">
+                        Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br />
+                        Created Date: {{order.CreateDate | date}}
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade in active">
+            <div *ngFor="let order of orders">
+                <template [ngIf]="order.StatusID == 1">
+                    <div class="row">
+                        Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
+                        Created Date: {{order.CreateDate | date}}
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade in active">
+            <div *ngFor="let order of orders">
+                <template [ngIf]="order.StatusID == 3">
+                    <div class="row">
+                        Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
+                        Created Date: {{order.CreateDate | date}}
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div id="menu3" class="tab-pane fade in active">
+            <div *ngFor="let order of orders">
+                <template [ngIf]="order.StatusID == 2">
+                    <div class="row">
+                        Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
+                        Created Date: {{order.CreateDate | date}}
+                    </div>
+                </template>
+            </div>
+        </div>
     </div>
 </div>

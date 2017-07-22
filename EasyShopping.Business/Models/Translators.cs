@@ -62,7 +62,27 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<Image, ImageDTO>();
 
                 cfg.CreateMap<OrderDetailDTO, OrderDetail>();
-                cfg.CreateMap<OrderDetail, OrderStatusDTO>();
+                cfg.CreateMap<OrderDetail, OrderDetailDTO>()
+                .ForMember(dto => dto.Product,
+                opt => opt.MapFrom(entity => entity.Product.Name))
+                .ForMember(dto => dto.Price,
+                opt => opt.MapFrom(entity => entity.Product.Price));
+
+                cfg.CreateMap<OrderViewDTO, Order>();
+                cfg.CreateMap<Order, OrderViewDTO>()
+                .ForMember(
+                    dto => dto.Country,
+                    opt => opt.MapFrom(entity => entity.Country.CommonName)
+                ).ForMember(
+                    dto => dto.City,
+                    opt => opt.MapFrom(entity => entity.Province.Name)
+                ).ForMember(
+                    dto => dto.District,
+                    opt => opt.MapFrom(entity => entity.District.Name)
+                ).ForMember(
+                    dto => dto.Status,
+                    opt => opt.MapFrom(entity => entity.OrderStatu.Description)
+                );
 
                 cfg.CreateMap<OrderDTO, Order>();
                 cfg.CreateMap<Order, OrderDTO>();
@@ -71,7 +91,9 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<OrderStatu, OrderStatusDTO>();
 
                 cfg.CreateMap<PartnerDTO, Partner>();
-                cfg.CreateMap<Partner, PartnerDTO>();
+                cfg.CreateMap<Partner, PartnerDTO>()
+                .ForMember(dto => dto.UserName,
+                opt => opt.MapFrom(entity => entity.User.UserName));
 
                 cfg.CreateMap<ProductViewDTO, Product>();
 
@@ -87,7 +109,7 @@ namespace EasyShopping.BusinessLogic.Models
                 )
                 .ForMember(
                     dto => dto.Store,
-                    opt => opt.MapFrom(entity => entity.Store.Name)    
+                    opt => opt.MapFrom(entity => entity.Store.Name)
                 )
                 .ForMember(
                     dto => dto.ManufacturedCountry,
@@ -119,6 +141,15 @@ namespace EasyShopping.BusinessLogic.Models
 
                 cfg.CreateMap<ShippingDetailDTO, ShippingDetail>();
                 cfg.CreateMap<ShippingDetail, ShippingDetailDTO>();
+
+                cfg.CreateMap<ShippingDetail, ShippingDetailViewDTO>()
+                .ForMember(
+                    dto => dto.ShipperName
+                    , opt => opt.MapFrom(entity => entity.ShipperDetail.User.UserName)
+                ).ForMember(
+                    dto => dto.Status
+                    , opt => opt.MapFrom(entity => entity.Order.OrderStatu.Description)
+                );
 
                 cfg.CreateMap<ShipStatusDTO, ShipperStatu>();
                 cfg.CreateMap<ShipperStatu, ShipStatusDTO>();
@@ -234,26 +265,29 @@ namespace EasyShopping.BusinessLogic.Models
 
         public static Store ToStoreEntity(StoreDTO dto)
         {
-            var store = new Store()
-            {
-                Address = dto.Address,
-                BankAccount = dto.BankAccount,
-                CityId = dto.CityId,
-                CountryId = dto.CountryId,
-                CreatedDate = dto.CreatedDate,
-                ModifiedDate = dto.ModifiedDate,
-                Description = dto.Description,
-                DistrictId = dto.DistrictId,
-                ImgLink = dto.ImgLink,
-                LatX = dto.LatX,
-                LatY = dto.LatY,
-                ModifiedByID = dto.ModifiedByID,
-                Name = dto.Name,
-                StatusID = dto.StatusID,
-                TaxCode = dto.TaxCode,
-                UserID = dto.UserID,
-                WardId = dto.WardId
-            };
+            var store = new Store();
+            store.ID = dto.ID;
+            store.Address = dto.Address;
+            store.BankAccount = dto.BankAccount;
+            store.CityId = dto.CityId;
+            store.CountryId = dto.CountryId;
+            store.CreatedDate = dto.CreatedDate;
+            store.ModifiedDate = dto.ModifiedDate;
+            store.Description = dto.Description;
+            store.DistrictId = dto.DistrictId;
+            store.ImgLink = dto.ImgLink;
+            store.LatX = dto.LatX;
+            store.LatY = dto.LatY;
+            store.ModifiedByID = dto.ModifiedByID;
+            store.Name = dto.Name;
+            store.StatusID = dto.StatusID;
+            store.TaxCode = dto.TaxCode;
+            store.UserID = dto.UserID;
+            store.WardId = dto.WardId;
+            store.IsRecruiting = dto.IsRecruiting;
+            store.RecruitmentMessage = dto.RecruitmentMessage;
+            store.RequiredDeposit = dto.RequiredDeposit;
+
             return store;
         }
     }

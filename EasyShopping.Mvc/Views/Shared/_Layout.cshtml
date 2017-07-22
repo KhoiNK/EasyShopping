@@ -25,6 +25,9 @@
         };
 
         System.import('/Scripts/Ang2/dist/main.js').catch(function (err) { console.error(err); });
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
     </script>
 </body>
 </html>

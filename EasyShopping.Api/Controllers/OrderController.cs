@@ -19,6 +19,7 @@ namespace EasyShopping.Api.Controllers
             _business = new OrderBusinessLogic();
         }
         [HttpPost]
+        [ActionName("Post")]
         public IHttpActionResult Post([FromBody] AddToCartModel data)
         {
             try
@@ -59,9 +60,11 @@ namespace EasyShopping.Api.Controllers
         {
             var identity = (ClaimsIdentity)User.Identity;
             var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-            return Ok(ApiTranslators.Translate<OrderDTO, OrderApiModel>(_business.GetByUser(name)));
+            return Ok(ApiTranslators.Translate<OrderViewDTO, OrderApiModel>(_business.GetByUser(name)));
         }
-
+        
+        [HttpGet]
+        [ActionName("GetDetail")]
         public IHttpActionResult Get(int id)
         {
             var order = _business.GetById(id);
@@ -70,6 +73,68 @@ namespace EasyShopping.Api.Controllers
                 return Ok(order);
             }
             return BadRequest();
+        }
+
+        [HttpGet]
+        [ActionName("GetOrderDetail")]
+        public IHttpActionResult GetOrderDetail(int id)
+        {
+            var result = _business.GetOrderDetail(id);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        [Route("v1/Order/CheckOut")]
+        public IHttpActionResult CheckOut([FromBody] OrderViewDTO order)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.CheckOut(order, name));
+            }
+            catch
+            {
+                return Ok(false);
+            }
+        }
+
+        [HttpPut]
+        [Route("v1/Order/ChangeQuantity")]
+        public bool ChangeQuantity([FromBody] OrderDetailDTO data)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.ChangeQuantity(data, name);
+            }
+            catch {
+                return false;
+            }
+        }
+
+        [HttpDelete]
+        [ActionName("RemoveOrder")]
+        public bool RemoveOrder(int id)
+        {
+            var result = _business.RemoveOrder(id);
+            return result;
+        }
+
+        [HttpDelete]
+        [ActionName("RemoveItem")]
+        public bool RemoveItem(int id)
+        {
+            var result = _business.RemoveItem(id);
+            return result;
+        }
+
+        [HttpPost]
+        [Route("v1/Order/GetByStoreId")]
+        public IHttpActionResult GetByStoreId([FromBody]AddToCartModel cart)
+        {
+            return Ok(_business.GetByStoreId(cart.productId, cart.cartId));
         }
     }
 }

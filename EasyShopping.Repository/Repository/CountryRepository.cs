@@ -31,8 +31,15 @@ namespace Easyshopping.Repository.Repository
 
         public Country GetByName(string name)
         {
-            var result = _db.Countries.Where(x => x.CommonName.Contains(name)).Single();
-            return result;
+            try {
+                var result = _db.Countries.Where(x => x.CommonName.Contains(name.Trim())).SingleOrDefault();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException);
+                return null;
+            }
         }
     }
 }

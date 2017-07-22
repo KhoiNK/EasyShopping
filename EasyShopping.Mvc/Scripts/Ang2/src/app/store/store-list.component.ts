@@ -8,23 +8,16 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: '/Store',
     providers: [StoreServices]
 })
-export class StoreListComponent implements OnInit {
-    public page: Number;
+export class StoreListComponent {
+    public searchkey: string;
     public stores: any[];
     public subscription: Subscription;
     constructor(private storeservice: StoreServices, private activatedRoute: ActivatedRoute) {
 
     }
 
-    ngOnInit() {
-        this.subscription = this.activatedRoute.params.subscribe(params => {
-            this.page = params['page'];
-        });
-        this.LoadData(this.page);
-    }
-
-    LoadData(page: Number) {
-        this.storeservice.GetListStore(page).subscribe((res: any) => {
+    LoadData() {
+        this.storeservice.GetListStore(this.searchkey).subscribe((res: any) => {
             this.stores = res;
         }, error => {
             console.log(error);

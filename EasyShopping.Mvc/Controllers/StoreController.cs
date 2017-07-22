@@ -10,7 +10,7 @@ namespace EasyShopping.Mvc.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return PartialView();
         }
 
         public ActionResult AddStore()
@@ -29,6 +29,11 @@ namespace EasyShopping.Mvc.Controllers
         }
 
         public ActionResult StoreListByUser()
+        {
+            return PartialView();
+        }
+
+        public ActionResult ApproveList()
         {
             return PartialView();
         }

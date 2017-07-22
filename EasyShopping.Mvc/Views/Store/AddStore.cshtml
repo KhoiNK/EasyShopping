@@ -1,38 +1,40 @@
-﻿<div class="container">
-    <h1>Add Store</h1>
-    <div class="form">
-        <div class="form_row">
-            <label>Name:</label>
-            <input type="text" class="form_name" [(ngModel)]="store.Name" name="name" />
-        </div>
-        <div class="form_row">
-            <label>Tax Code:</label>
-            <input type="text" class="form_name" name="" [(ngModel)]="store.TaxCode"/>
-        </div>
-        <div class="form_row">
-            <label>Bank Account:</label>
-            <input type="text" class="form_name" name="" [(ngModel)]="store.BankAccount"/>
-        </div>
-        <div class="form_row">
-            <label>Description:</label>
-            <textarea [(ngModel)]="store.Description" class="form_name" name="description"></textarea>
-        </div>
-        <div class="form_row">
-            <label>Address:</label>
-            @*<input type="text" [(ngModel)]="store.Address" class="form_name"/>*@
-            <div class="form-group">
-                <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+﻿<div class="col-sm-9">
+    <div class="container">
+        <h1>Add Store</h1>
+        <div class="form">
+            <div class="form_row">
+                <label>Name:</label>
+                <input type="text" class="form_name" [(ngModel)]="store.Name" name="name" />
             </div>
-            <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-                <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
-            </sebm-google-map>
-        </div>
-        <div class="form_row">
-            <label>Avatar:</label>
-            <input type="file" class="form_name" name="photo" id="photo"/>
-        </div>
-        <div class="form_row">
-            <button type="submit" class="form_submit" (click)="SaveChange($event)"> Add</button>
+            <div class="form_row">
+                <label>Tax Code:</label>
+                <input type="text" class="form_name" name="" [(ngModel)]="store.TaxCode" />
+            </div>
+            <div class="form_row">
+                <label>Bank Account:</label>
+                <input type="text" class="form_name" name="" [(ngModel)]="store.BankAccount" />
+            </div>
+            <div class="form_row">
+                <label>Description:</label>
+                <textarea [(ngModel)]="store.Description" class="form_name" name="description"></textarea>
+            </div>
+            <div class="form_row">
+                <label>Address:</label>
+                @*<input type="text" [(ngModel)]="store.Address" class="form_name"/>*@
+                <div class="form-group">
+                    <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl" />
+                </div>
+                <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                    <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
+                </sebm-google-map>
+            </div>
+            <div class="form_row">
+                <label>Avatar:</label>
+                <input type="file" class="form_name" name="photo" id="photo" (change)="setThumbailImg()" />
+            </div>
+            <div class="form_row">
+                <button type="submit" class="form_submit" (click)="SaveChange($event)"> Add</button>
+            </div>
         </div>
     </div>
 </div>

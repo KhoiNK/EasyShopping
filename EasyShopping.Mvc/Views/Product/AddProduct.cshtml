@@ -1,5 +1,9 @@
-﻿@*<form class="form" #addProductForm="ngForm" (ngSubmit)="saveProduct($event)" enctype="multipart/form-data">*@
-<label>Store ID: {{storeid}}</label>
+﻿<div class="col-sm-9">
+    @*<form class="form" #addProductForm="ngForm" (ngSubmit)="saveProduct($event)" enctype="multipart/form-data">*@
+    <div *ngIf="message" class="alert alert-success">
+        {{message}}
+    </div>
+
     <div class="form_row">
         <label>Name:</label>
         <input type="text" [(ngModel)]="product.Name" placeholder="Name" class="form_name" #name="ngModel" />
@@ -36,7 +40,16 @@
             <option *ngFor="let type of types" value="{{type.ID}}">{{type.Name}}</option>
         </select>
     </div>
+    <div class="form_row">
+        <input id="photo" type="file" (change)="setThumbailImg()" />
+    </div>
+    <div class="form_row">
+        <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
+    </div>
 
-    <input id="photo" type="file" />
-    <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
-@*</form>*@
+
+
+    @*</form>*@
+
+
+</div>
