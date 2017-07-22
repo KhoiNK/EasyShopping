@@ -154,9 +154,13 @@ namespace EasyShopping.Repository.Repository
                 order.StoreId = data.StoreId;
                 order.Total = data.Total;
                 order.UserID = data.UserID;
-                if (order.DistrictID != 0)
+                if (order.DistrictID != 0 && order.DistrictID != null)
                 {
                     order.DistrictID = data.DistrictID;
+                }
+                else
+                {
+                    order.DistrictID = null;
                 }
                 order.CountryID = data.CountryID;
                 order.CityID = data.CityID;
@@ -185,6 +189,12 @@ namespace EasyShopping.Repository.Repository
                 }
             }
             return details;
+        }
+
+        public int HasParent(int id)
+        {
+            var count = _db.Orders.Where(x => x.ParentId == id).Count();
+            return count;
         }
     }
 }

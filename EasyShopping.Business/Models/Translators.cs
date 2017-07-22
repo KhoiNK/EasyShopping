@@ -142,6 +142,15 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<ShippingDetailDTO, ShippingDetail>();
                 cfg.CreateMap<ShippingDetail, ShippingDetailDTO>();
 
+                cfg.CreateMap<ShippingDetail, ShippingDetailViewDTO>()
+                .ForMember(
+                    dto => dto.ShipperName
+                    , opt => opt.MapFrom(entity => entity.ShipperDetail.User.UserName)
+                ).ForMember(
+                    dto => dto.Status
+                    , opt => opt.MapFrom(entity => entity.Order.OrderStatu.Description)
+                );
+
                 cfg.CreateMap<ShipStatusDTO, ShipperStatu>();
                 cfg.CreateMap<ShipperStatu, ShipStatusDTO>();
 

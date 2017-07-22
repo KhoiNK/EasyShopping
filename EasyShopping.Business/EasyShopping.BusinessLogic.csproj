@@ -51,6 +51,7 @@
     <Compile Include="Business\PartnerBusiness.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
     <Compile Include="Business\ProductTypeBusiness.cs" />
+    <Compile Include="Business\ShipperBusinessLogic.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserBusinessLogic.cs" />
     <Compile Include="CommonMethod\CodeGenerator.cs" />

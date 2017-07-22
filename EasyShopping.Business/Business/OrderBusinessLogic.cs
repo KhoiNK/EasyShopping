@@ -4,6 +4,7 @@ using EasyShopping.BusinessLogic.Models;
 using EasyShopping.Repository.Models.Entity;
 using EasyShopping.Repository.Repository;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,7 @@ namespace EasyShopping.BusinessLogic.Business
         public IEnumerable<OrderDetailDTO> GetOrderDetail(int id)
         {
             var result = new List<OrderDetailDTO>();
-            if (_repo.GetById(id).StoreId != null)
+            if (_repo.HasParent(id) == 0)
             {
                 result = _detail.GetByOrderId(id).Translate<OrderDetail, OrderDetailDTO>().ToList();
             }
@@ -162,7 +163,12 @@ namespace EasyShopping.BusinessLogic.Business
             }
             else
             {
-                IList<OrderDetail> details = _detail.GetByOrderId(order.ID).ToList();
+                //IList<OrderDetail> details = _detail.GetByOrderId(order.ID).ToList();
+                var details = new ConcurrentDictionary<int, OrderDetail>();
+                foreach(var d in _detail.GetByOrderId(order.ID).ToList())
+                {
+                    details.TryAdd(d.ID, d);
+                }
                 try
                 {
                     foreach (var d in details)
@@ -179,17 +185,19 @@ namespace EasyShopping.BusinessLogic.Business
                         newOrder.CityID = CITY_ID;
                         newOrder.DistrictID = DISTRICT_ID;
                         newOrder.CountryID = COUNTRY_ID;
-                        newOrder.StoreId = d.Product.StoreID;
+                        newOrder.StoreId = d.Value.Product.StoreID;
                         newOrder.ParentId = order.ID;
                         _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
-                        var childDetails = _detail.GetByStoreId(d.Product.StoreID, order.ID);
+                        var childDetails = _detail.GetByStoreId(d.Value.Product.StoreID, order.ID);
                         foreach (var c in childDetails)
                         {
                             var child = _detail.GetById(c.ID);
                             child.ModifiedDate = DateTime.Now;
                             child.OrderID = newOrder.ID;
                             _detail.EditDetail(child);
-                            details.Remove(details.Where(x => x.ID == c.ID).Single());
+                            //details.Remove(details.Where(x => x.ID == c.ID).Single());
+                            var temp = d.Value;
+                            details.TryRemove(c.ID, out temp);
                         }
                     }
                     dto.StoreId = null;
