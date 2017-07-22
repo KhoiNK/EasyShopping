@@ -74,6 +74,7 @@ public class RequestActivity extends Activity {
     public void onBackPressed() {
         super.onBackPressed();
         if (isModified) {
+            isModified=false;
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

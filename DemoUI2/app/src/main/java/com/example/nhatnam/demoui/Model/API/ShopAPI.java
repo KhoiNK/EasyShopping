@@ -20,5 +20,5 @@ public interface ShopAPI {
                               @Field("FromProvince") int FromProvince,
                               @Field("FromDistrict") int FromDistrict,
                               @Field("ToProvince") int ToProvince,
-                              @Field("ShipperID") int ToDistrict);
+                              @Field("ToDistrict") int ToDistrict);
 }

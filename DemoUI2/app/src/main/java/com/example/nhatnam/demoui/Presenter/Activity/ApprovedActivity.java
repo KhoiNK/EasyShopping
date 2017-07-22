@@ -1,13 +1,11 @@
 package com.example.nhatnam.demoui.Presenter.Activity;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.example.nhatnam.demoui.Model.API.ListenerRequest;
 import com.example.nhatnam.demoui.Model.API.ShippingAPI;
 import com.example.nhatnam.demoui.Model.API.Utils.RetrofitUtils;
 import com.example.nhatnam.demoui.Model.ShippingDetail;
@@ -64,37 +62,4 @@ public class ApprovedActivity extends Activity {
         });
     }
 
-
-    private class DataLoading extends AsyncTask<String, Void, String> {
-        private ShippingAPI shippingAPI;
-        private List<ShippingDetail> shippingDetails;
-        ListenerRequest listener;
-
-        public DataLoading(ListenerRequest listener) {
-            this.listener = listener;
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            shippingAPI = RetrofitUtils.get().create(ShippingAPI.class);
-            shippingAPI.getApprovedOrder(MainActivity.user.getID()).enqueue(new Callback<List<ShippingDetail>>() {
-                @Override
-                public void onResponse(Call<List<ShippingDetail>> call, Response<List<ShippingDetail>> response) {
-                    shippingDetails = response.body();
-                }
-
-                @Override
-                public void onFailure(Call<List<ShippingDetail>> call, Throwable t) {
-                    Log.d("Loi request detail:", t.getMessage());
-                }
-            });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            listener.onResult(shippingDetails);
-        }
-    }
 }

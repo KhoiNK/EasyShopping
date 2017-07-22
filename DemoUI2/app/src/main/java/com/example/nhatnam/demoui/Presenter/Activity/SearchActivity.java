@@ -166,32 +166,32 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             int toDistrict;
             if (fprovince != null) {
                 fromCity = fprovince.getId();
+            } else fromCity = 0;
+            if (fdistrict != null)
+                fromDistrict = fdistrict.getId();
+            else fromDistrict = 0;
 
-                if (fdistrict != null)
-                    fromDistrict = fdistrict.getId();
-                else fromDistrict = 0;
+            if (tprovince != null)
+                toCity = tprovince.getId();
+            else toCity = 0;
 
-                if (tprovince != null)
-                    toCity = tprovince.getId();
-                else toCity = 0;
+            if (tdistrict != null)
+                toDistrict = tdistrict.getId();
+            else toDistrict = 0;
+            Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+            intent.putExtra("fromCity", fromCity);
+            intent.putExtra("fromDistrict", fromDistrict);
+            intent.putExtra("toCity", toCity);
+            intent.putExtra("toDistrict", toDistrict);
+            MainActivity.STATUS = 1;
+            fprovince = null;
+            fdistrict = null;
+            tprovince = null;
+            tdistrict = null;
+            startActivity(intent);
+            SearchActivity.this.finish();
 
-                if (tdistrict != null)
-                    toDistrict = tdistrict.getId();
-                else toDistrict = 0;
-                Intent intent = new Intent(SearchActivity.this, MainActivity.class);
-                intent.putExtra("fromCity",fromCity);
-                intent.putExtra("fromDistrict",fromDistrict);
-                intent.putExtra("toCity",toCity);
-                intent.putExtra("toDistrict",toDistrict);
-                MainActivity.STATUS=1;
-                fprovince=null;
-                fdistrict=null;
-                tprovince=null;
-                tdistrict=null;
-                startActivity(intent);
-                SearchActivity.this.finish();
 
-            }
         }
     }
 }

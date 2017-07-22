@@ -117,18 +117,20 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             public void onResult(User user1) {
                 user = user1;
                 if (user == null) {
+                    myProgress.dismiss();
                     Toast toast = Toast.makeText(LoginActivity.this, "Your Password or Username is wrong", Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
                     if (!user.isShipper()) {
+                        myProgress.dismiss();
                         Toast toast = Toast.makeText(LoginActivity.this, "This app only support shipper", Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
                         loginPrefsEditor.putString("ID", String.valueOf(user.getID()));
                         loginPrefsEditor.commit();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        myProgress.dismiss();
                         startActivity(intent);
+                        myProgress.dismiss();
                         LoginActivity.this.finish();
 //            }
                     }

@@ -21,6 +21,8 @@ public interface ShippingAPI {
     Call<List<ShippingDetail>> getApprovedOrder(@Path("UserID") int UserID);
     @GET("api/shippingdetails/request/{UserID}")
     Call<List<ShippingDetail>> getRequestOrder(@Path("UserID") int UserID);
+    @GET("api/shippingdetails/num_Approved/{UserID}")
+    Call<Integer> getNumApproved(@Path("UserID") int UserID);
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "api/shippingdetails/cancel/1", hasBody = true)
     Call<Integer> cancelOrder(@Field("OrderID") int OrderID,
