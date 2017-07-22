@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView ivUser;
     private LinearLayout linearLayout;
     boolean doubleBackToExitPressedOnce = false;
-    private NearRoute nearRoute= new NearRoute();
+    private NearRoute nearRoute = new NearRoute();
     public static boolean pass;
 
     @Override
@@ -184,6 +184,7 @@ public class MainActivity extends AppCompatActivity
             for (Marker marker : originMarkers)
                 marker.remove();
         }
+        nearRoute.clear();
 // double press on back key to close app
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();
@@ -277,8 +278,12 @@ public class MainActivity extends AppCompatActivity
             } catch (Exception e) {
                 Log.d("loi chuyen intent", e.getMessage());
             }
-        }else if (id == R.id.nav_search_way) {
-            nearRoute.findNearRoute();
+        } else if (id == R.id.nav_search_way) {
+            if (nearRoute.getArrayPoint().size() > 0) {
+                nearRoute.findNearRoute();
+                findNearRoute(nearRoute.getPassPoint());
+            }
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -594,7 +599,7 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
                             if (mDestination != null) {
-                                pass=false;
+                                pass = false;
                                 nearRoute.add(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
                                 nearRoute.add(new Point(mDestination));
                                 nearRoute.calculateDistance();
@@ -621,12 +626,14 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
     Runnable r = new Runnable() {
         @Override
-        public void run(){
+        public void run() {
 //            doSomething(); //<-- put your code in here.
         }
     };
+
     public boolean checkShopByLatlng(LatLng latLng) {
         for (Shop shop : listshops) {
             if (shop.getListOrder().size() == 0) {
@@ -814,6 +821,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDirectionFinderStart() {
+        count = 0;
         progressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction..!", true);
 //
@@ -858,9 +866,11 @@ public class MainActivity extends AppCompatActivity
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
                     .build();
 
+            count++;
             destinationMarkers.add(map.addMarker(new MarkerOptions()
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                     .title(route.endAddress)
+                    .snippet("Number " + count)
                     .position(route.endLocation)));
             Toast toast = Toast.makeText(MainActivity.this, "Distance: " + route.distance.text + "    Duration: " + route.duration.text, Toast.LENGTH_LONG);
             toast.show();
@@ -881,6 +891,15 @@ public class MainActivity extends AppCompatActivity
 
         try {
             new DirectionFinder(this, origin, destination, myLatlng.latitude + "," + myLatlng.longitude).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void findNearRoute(List<Point> mPointList) {
+
+        try {
+            new DirectionFinder(this, mPointList).executeMutil();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

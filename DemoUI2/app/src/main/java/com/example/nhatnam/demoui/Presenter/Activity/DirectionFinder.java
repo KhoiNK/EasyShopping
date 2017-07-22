@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.example.nhatnam.demoui.Model.API.DirectionFinderListener;
 import com.example.nhatnam.demoui.Model.Distance;
 import com.example.nhatnam.demoui.Model.Duration;
+import com.example.nhatnam.demoui.Model.Point;
 import com.example.nhatnam.demoui.Model.Route;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -34,6 +35,7 @@ public class DirectionFinder {
     private String origin;
     private String destination;
     private String myPost;
+    private List<Point> mPointList;
 
     public DirectionFinder(DirectionFinderListener listener, String origin, String destination, String myPost) {
         this.listener = listener;
@@ -41,13 +43,28 @@ public class DirectionFinder {
         this.destination = destination;
         this.myPost=myPost;
     }
+    public DirectionFinder(DirectionFinderListener listener, List<Point> passPoint) {
+        this.listener = listener;
+        mPointList= passPoint;
+    }
 
     public void execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
         new DownloadRawData().execute(createUrlFromMe());
         new DownloadRawData().execute(createUrl());
     }
+    public void executeMutil() throws UnsupportedEncodingException {
+        listener.onDirectionFinderStart();
+        for(Point point:mPointList){
+            new DownloadRawData().execute(createMultiUrl(point.getFrom(),point.getDestination()));
+        }
+    }
+    private String createMultiUrl(String origin, String destination) throws UnsupportedEncodingException {
+        String urlOrigin = URLEncoder.encode(origin, "utf-8");
+        String urlDestination = URLEncoder.encode(destination, "utf-8");
 
+        return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+    }
     private String createUrl() throws UnsupportedEncodingException {
         String urlOrigin = URLEncoder.encode(origin, "utf-8");
         String urlDestination = URLEncoder.encode(destination, "utf-8");

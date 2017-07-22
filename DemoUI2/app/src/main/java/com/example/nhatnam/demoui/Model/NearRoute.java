@@ -31,6 +31,11 @@ public class NearRoute {
     }
 
 
+    public void clear(){
+//        arrayPoint= new ArrayList<>();
+        arrayPoint.removeAll(arrayPoint);
+        passPoint.removeAll(passPoint);
+    }
     //add a point that know from location
     public void add(Point point) {
         if (arrayPoint.size() > 0) {
@@ -96,6 +101,7 @@ public class NearRoute {
         for (int i = 0; i < size; i++) {
             if (listPoint.getList().get(i).getDistance() < MIN && listPoint.getList().get(i).isEnable) {
                 Position = i;
+                MIN=listPoint.getList().get(i).getDistance();
             }
         }
         return Position;
@@ -118,16 +124,19 @@ public class NearRoute {
         int max = arrayPoint.size();
         int nowStand = 0;
         int nextStep;
-        while (max > 1) {
+        while (max > 0) {
             nextStep = Min(arrayPoint.get(nowStand));
             passPoint.add(arrayPoint.get(nowStand).getList().get(nextStep));
-            recheckPassed(nowStand);
+            recheckPassed(nextStep);
             if(nextStep%2==0){
-                checkEnable(nextStep);
+                checkEnable(nextStep+1);
             }
             nowStand = nextStep;
             max--;
         }
     }
 
+    public List<ListPoint> getArrayPoint() {
+        return arrayPoint;
+    }
 }
