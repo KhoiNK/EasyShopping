@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { UploadService } from '../upload/upload-image.service';
 import { CountryServices } from '../country/country.service';
 import { ProductTypeService } from './product-type.service';
-import { NgForm } from '@angular/forms';
 import { Base64EncodeService } from '../upload/base64Encode.service';
 import { Observable } from 'rxjs/Observable';
 

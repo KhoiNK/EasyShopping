@@ -24,6 +24,10 @@ const routes: Routes = [
         path: 'orders',
         loadChildren: 'app/order/order.module#OrderModule'
     },
+    {
+        path: 'shippers',
+        loadChildren: 'app/shipper/shipper.module#ShipperModule'
+    }
     //{
     //    path: 'contracts',
     //    loadChildren: 'app/contract/contract.module#ContractModule'

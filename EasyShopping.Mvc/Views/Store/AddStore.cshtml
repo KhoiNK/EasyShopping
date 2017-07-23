@@ -33,8 +33,22 @@
                 <input type="file" class="form_name" name="photo" id="photo" (change)="setThumbailImg()" />
             </div>
             <div class="form_row">
-                <button type="submit" class="form_submit" (click)="SaveChange($event)"> Add</button>
+                <button type="submit" class="form_submit" (click)="SaveChange($event)">Add</button>
+                <button hidden data-toggle="modal" data-target="#modalMessage" id="modalClick"></button>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalMessage" role="dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                Your ID is {{store.ID}}.
+                Please drop us an email which includes a copy of your CV and the title following [ES-Store] Store *Your ID*.
+                Thanks for being a part of us.
+                Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-default" [routerLink]="['/products']">Back to Homepage</a>
         </div>
     </div>
 </div>

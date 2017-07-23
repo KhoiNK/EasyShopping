@@ -24,7 +24,7 @@ namespace EasyShopping.Repository.Repository
             return true;
         }
 
-        public bool Apply(ShipperDetail data)
+        public ShipperDetail Apply(ShipperDetail data)
         {
             try {
                 var shipper = new ShipperDetail();
@@ -33,14 +33,14 @@ namespace EasyShopping.Repository.Repository
                 shipper.ShipperId = data.ShipperId;
                 shipper.StatusId = data.StatusId;
                 shipper.RegDate = data.RegDate;
-                _db.ShipperDetails.Add(shipper);
+                shipper = _db.ShipperDetails.Add(shipper);
                 _db.SaveChanges();
-                return true;
+                return shipper;
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.StackTrace);
-                return false;
+                return null;
             }
         }
 

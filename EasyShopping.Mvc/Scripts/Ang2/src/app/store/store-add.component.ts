@@ -143,7 +143,12 @@ export class StoreAddComponent implements OnInit {
             (res: any) => {
                 if (res.ID) {
                     alert("Added Successfully!");
-                    this.router.navigate[''];
+                    this.store = res;
+                    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#modalClick');
+                    inputEl.click();
+                    setTimeout(() => {
+                        this.router.navigate[''];
+                    }, 20000);
                 }
             }, err => {
                 console.log(err);
