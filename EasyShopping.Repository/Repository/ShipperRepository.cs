@@ -15,11 +15,10 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public bool Reject(int id, int userId)
+        public bool Reject(int id)
         {
             var shipper = _db.ShippingDetails.Where(x => x.ID == id).SingleOrDefault();
-            shipper.ModifiedID = userId;
-            shipper.ModifiedDate = DateTime.Now;
+            _db.ShippingDetails.Remove(shipper);
             _db.SaveChanges();
             return true;
         }
@@ -39,7 +38,7 @@ namespace EasyShopping.Repository.Repository
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.InnerException.InnerException.Message);
                 return null;
             }
         }

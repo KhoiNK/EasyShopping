@@ -16,7 +16,5 @@ namespace EasyShopping.BusinessLogic.Models
         public Nullable<double> Total { get; set; }
         public Nullable<double> RecentBalance { get; set; }
         public string BankAccount { get; set; }
-        public Nullable<double> LatX { get; set; }
-        public Nullable<double> LatY { get; set; }
     }
 }

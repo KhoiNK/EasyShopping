@@ -20,7 +20,7 @@ const appRoutes: Routes = [{
             component: ShipperListComponent
         },
         {
-            path: 'shipper-store-list/:storeid',
+            path: 'shipper-store-list/:id',
             component: ShipperGetByStoreComponent
         }
     ]

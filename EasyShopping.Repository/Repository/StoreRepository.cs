@@ -53,11 +53,28 @@ namespace EasyShopping.Repository.Repository
            
         }
 
-        public Store Create(Store store)
+        public Store Create(Store data)
         {
-            store = _db.Stores.Add(store);
-            _db.SaveChanges();
-            return FindByID(store.ID);
+            try {
+                var store = new Store();
+                store = data;
+                if (store.DistrictId == 0)
+                {
+                    store.DistrictId = null;
+                }
+                store.WardId = null;
+                store = _db.Stores.Add(store);
+                _db.SaveChanges();
+                return FindByID(store.ID);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.InnerException);
+                return null;
+            }
         }
 
         public bool Delete(int id)
@@ -99,7 +116,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => x.Name.Contains(name))
+                .Where(x => x.Name.Contains(name) && (x.StatusID == OPEN))
                 .ToList();
         }
 

@@ -38,10 +38,9 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.Update(shipper.Translate<ShipperDetailDTO, ShipperDetail>());
         }
 
-        public bool Reject(int id, string username)
+        public bool Reject(int id)
         {
-            var user = _user.FindUser(username);
-            var result = _repo.Reject(id, user.ID);
+            var result = _repo.Reject(id);
             return result;
         }
 

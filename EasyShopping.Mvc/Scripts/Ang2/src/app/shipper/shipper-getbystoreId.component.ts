@@ -24,9 +24,12 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscription = this.activateRoute.params.subscribe(params => {
-            this.storeid = params['storeId'];
+            this.storeid = params['id'];
         });
+        this.LoadData();
+    }
 
+    LoadData() {
         this.shipperSrvc.GetByStoreId(this.storeid).subscribe((res: any) => {
             this.shippers = res;
         }, err => {
@@ -38,6 +41,7 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
         this.shipperSrvc.RejectShipper(id).subscribe((res: any) => {
             if (res == true) {
                 alert("Reject successfully!");
+                this.LoadData();
             }
         }, err => {
             console.log(err);

@@ -27,6 +27,7 @@
                                 <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply" >Apply</button>
                                 <button *ngIf="isOwner && store.IsRecruiting == false" data-toggle="modal" data-target="#recruit" class="btn btn-default">Recruit</button>
                                 <button *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()" class="btn btn-default">Disable Recruitment</button>
+                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
                             </p>
                         </div>
                     </div>

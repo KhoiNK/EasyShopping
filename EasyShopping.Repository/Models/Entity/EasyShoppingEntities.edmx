@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -86,7 +86,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderCode" Type="varchar" MaxLength="50" />
           <Property Name="Note" Type="nvarchar" MaxLength="100" />
-          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UserID" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
@@ -214,8 +214,6 @@
           <Property Name="Total" Type="float" />
           <Property Name="RecentBalance" Type="float" />
           <Property Name="BankAccount" Type="varchar" MaxLength="50" />
-          <Property Name="LatX" Type="float" />
-          <Property Name="LatY" Type="float" />
         </EntityType>
         <EntityType Name="ShipperRating">
           <Key>
@@ -350,7 +348,7 @@
           <Property Name="ProductDetailID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Message__FromID__4BAC3F29">
+        <Association Name="FK__Message__FromID__71D1E811">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -362,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SentID__4CA06362">
+        <Association Name="FK__Message__SentID__72C60C4A">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -374,7 +372,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__CityID__4D94879B">
+        <Association Name="FK__Order__CityID__73BA3083">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -386,7 +384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__CountryID__4E88ABD4">
+        <Association Name="FK__Order__CountryID__74AE54BC">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -398,7 +396,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__DistrictI__4F7CD00D">
+        <Association Name="FK__Order__DistrictI__75A278F5">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -410,7 +408,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__StoreId__5070F446">
+        <Association Name="FK__Order__StoreId__76969D2E">
           <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -422,7 +420,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__WardID__5165187F">
+        <Association Name="FK__Order__WardID__778AC167">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -434,7 +432,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__CityId__66603565">
+        <Association Name="FK__Stores__CityId__0D7A0286">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -446,7 +444,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__CountryI__6754599E">
+        <Association Name="FK__Stores__CountryI__0E6E26BF">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -458,7 +456,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__District__68487DD7">
+        <Association Name="FK__Stores__District__0F624AF8">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -470,7 +468,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__WardId__693CA210">
+        <Association Name="FK__Stores__WardId__10566F31">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Stores" Multiplicity="*" />
           <ReferentialConstraint>
@@ -482,7 +480,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__WardID__6C190EBB">
+        <Association Name="FK__Users__WardID__1332DBDC">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
           <ReferentialConstraint>
@@ -945,51 +943,51 @@
           <EntitySet Name="UserStatus" EntityType="Self.UserStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ward" EntityType="Self.Ward" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Message__FromID__4BAC3F29" Association="Self.FK__Message__FromID__4BAC3F29">
+          <AssociationSet Name="FK__Message__FromID__71D1E811" Association="Self.FK__Message__FromID__71D1E811">
             <End Role="Users" EntitySet="Users" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SentID__4CA06362" Association="Self.FK__Message__SentID__4CA06362">
+          <AssociationSet Name="FK__Message__SentID__72C60C4A" Association="Self.FK__Message__SentID__72C60C4A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Message" EntitySet="Message" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__CityID__4D94879B" Association="Self.FK__Order__CityID__4D94879B">
+          <AssociationSet Name="FK__Order__CityID__73BA3083" Association="Self.FK__Order__CityID__73BA3083">
             <End Role="Province" EntitySet="Province" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__CountryID__4E88ABD4" Association="Self.FK__Order__CountryID__4E88ABD4">
+          <AssociationSet Name="FK__Order__CountryID__74AE54BC" Association="Self.FK__Order__CountryID__74AE54BC">
             <End Role="Country" EntitySet="Country" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__DistrictI__4F7CD00D" Association="Self.FK__Order__DistrictI__4F7CD00D">
+          <AssociationSet Name="FK__Order__DistrictI__75A278F5" Association="Self.FK__Order__DistrictI__75A278F5">
             <End Role="District" EntitySet="District" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__StoreId__5070F446" Association="Self.FK__Order__StoreId__5070F446">
+          <AssociationSet Name="FK__Order__StoreId__76969D2E" Association="Self.FK__Order__StoreId__76969D2E">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__WardID__5165187F" Association="Self.FK__Order__WardID__5165187F">
+          <AssociationSet Name="FK__Order__WardID__778AC167" Association="Self.FK__Order__WardID__778AC167">
             <End Role="Ward" EntitySet="Ward" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__CityId__66603565" Association="Self.FK__Stores__CityId__66603565">
+          <AssociationSet Name="FK__Stores__CityId__0D7A0286" Association="Self.FK__Stores__CityId__0D7A0286">
             <End Role="Province" EntitySet="Province" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__CountryI__6754599E" Association="Self.FK__Stores__CountryI__6754599E">
+          <AssociationSet Name="FK__Stores__CountryI__0E6E26BF" Association="Self.FK__Stores__CountryI__0E6E26BF">
             <End Role="Country" EntitySet="Country" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__District__68487DD7" Association="Self.FK__Stores__District__68487DD7">
+          <AssociationSet Name="FK__Stores__District__0F624AF8" Association="Self.FK__Stores__District__0F624AF8">
             <End Role="District" EntitySet="District" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__WardId__693CA210" Association="Self.FK__Stores__WardId__693CA210">
+          <AssociationSet Name="FK__Stores__WardId__10566F31" Association="Self.FK__Stores__WardId__10566F31">
             <End Role="Ward" EntitySet="Ward" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__WardID__6C190EBB" Association="Self.FK__Users__WardID__6C190EBB">
+          <AssociationSet Name="FK__Users__WardID__1332DBDC" Association="Self.FK__Users__WardID__1332DBDC">
             <End Role="Ward" EntitySet="Ward" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -1182,8 +1180,8 @@
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="Flags" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CountryID__4E88ABD4" FromRole="Country" ToRole="Order" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CountryI__6754599E" FromRole="Country" ToRole="Stores" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CountryID__74AE54BC" FromRole="Country" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CountryI__0E6E26BF" FromRole="Country" ToRole="Stores" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Country" FromRole="Country" ToRole="Product" />
           <NavigationProperty Name="Provinces" Relationship="Self.FK_Province_Country" FromRole="Country" ToRole="Province" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Country" FromRole="Country" ToRole="Users" />
@@ -1200,8 +1198,8 @@
           <Property Name="SortOrder" Type="Int32" />
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__DistrictI__4F7CD00D" FromRole="District" ToRole="Order" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__District__68487DD7" FromRole="District" ToRole="Stores" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__DistrictI__75A278F5" FromRole="District" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__District__0F624AF8" FromRole="District" ToRole="Stores" />
           <NavigationProperty Name="Province" Relationship="Self.FK_District_Province" FromRole="District" ToRole="Province" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_District" FromRole="District" ToRole="Users" />
           <NavigationProperty Name="Wards" Relationship="Self.FK_Ward_District" FromRole="District" ToRole="Ward" />
@@ -1225,8 +1223,8 @@
           <Property Name="FromID" Type="Int32" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="IsRead" Type="Boolean" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Message__FromID__4BAC3F29" FromRole="Message" ToRole="Users" />
-          <NavigationProperty Name="User1" Relationship="Self.FK__Message__SentID__4CA06362" FromRole="Message" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Message__FromID__71D1E811" FromRole="Message" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__Message__SentID__72C60C4A" FromRole="Message" ToRole="Users" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1235,7 +1233,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
           <Property Name="UserID" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
@@ -1249,11 +1247,11 @@
           <Property Name="StoreId" Type="Int32" />
           <Property Name="Price" Type="Double" />
           <Property Name="ParentId" Type="Int32" />
-          <NavigationProperty Name="Country" Relationship="Self.FK__Order__CountryID__4E88ABD4" FromRole="Order" ToRole="Country" />
-          <NavigationProperty Name="District" Relationship="Self.FK__Order__DistrictI__4F7CD00D" FromRole="Order" ToRole="District" />
-          <NavigationProperty Name="Province" Relationship="Self.FK__Order__CityID__4D94879B" FromRole="Order" ToRole="Province" />
-          <NavigationProperty Name="Store" Relationship="Self.FK__Order__StoreId__5070F446" FromRole="Order" ToRole="Stores" />
-          <NavigationProperty Name="Ward" Relationship="Self.FK__Order__WardID__5165187F" FromRole="Order" ToRole="Ward" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Order__CountryID__74AE54BC" FromRole="Order" ToRole="Country" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Order__DistrictI__75A278F5" FromRole="Order" ToRole="District" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Order__CityID__73BA3083" FromRole="Order" ToRole="Province" />
+          <NavigationProperty Name="Store" Relationship="Self.FK__Order__StoreId__76969D2E" FromRole="Order" ToRole="Stores" />
+          <NavigationProperty Name="Ward" Relationship="Self.FK__Order__WardID__778AC167" FromRole="Order" ToRole="Ward" />
           <NavigationProperty Name="OrderStatu" Relationship="Self.FK_Order_OrderStatus" FromRole="Order" ToRole="OrderStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Order_Users" FromRole="Order" ToRole="Users" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
@@ -1360,8 +1358,8 @@
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="Country" Relationship="Self.FK_Province_Country" FromRole="Province" ToRole="Country" />
           <NavigationProperty Name="Districts" Relationship="Self.FK_District_Province" FromRole="Province" ToRole="District" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CityID__4D94879B" FromRole="Province" ToRole="Order" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CityId__66603565" FromRole="Province" ToRole="Stores" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__CityID__73BA3083" FromRole="Province" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__CityId__0D7A0286" FromRole="Province" ToRole="Stores" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Province" FromRole="Province" ToRole="Users" />
         </EntityType>
         <EntityType Name="Rating">
@@ -1396,8 +1394,6 @@
           <Property Name="Total" Type="Double" />
           <Property Name="RecentBalance" Type="Double" />
           <Property Name="BankAccount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LatX" Type="Double" />
-          <Property Name="LatY" Type="Double" />
           <NavigationProperty Name="ShipperStatu" Relationship="Self.FK_ShipperDetail_ShippStatus" FromRole="ShipperDetail" ToRole="ShipperStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_ShipperDetail_Users" FromRole="ShipperDetail" ToRole="Users" />
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_ShipperDetail" FromRole="ShipperDetail" ToRole="ShipperRating" />
@@ -1473,14 +1469,14 @@
           <Property Name="RequiredDeposit" Type="Double" />
           <Property Name="IsRecruiting" Type="Boolean" />
           <Property Name="RecruitmentMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Country" Relationship="Self.FK__Stores__CountryI__6754599E" FromRole="Stores" ToRole="Country" />
-          <NavigationProperty Name="District" Relationship="Self.FK__Stores__District__68487DD7" FromRole="Stores" ToRole="District" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StoreId__5070F446" FromRole="Stores" ToRole="Order" />
+          <NavigationProperty Name="Country" Relationship="Self.FK__Stores__CountryI__0E6E26BF" FromRole="Stores" ToRole="Country" />
+          <NavigationProperty Name="District" Relationship="Self.FK__Stores__District__0F624AF8" FromRole="Stores" ToRole="District" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__StoreId__76969D2E" FromRole="Stores" ToRole="Order" />
           <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Stores" FromRole="Stores" ToRole="Partner" />
           <NavigationProperty Name="Products" Relationship="Self.FK_ProductDetail_Stores" FromRole="Stores" ToRole="Product" />
-          <NavigationProperty Name="Province" Relationship="Self.FK__Stores__CityId__66603565" FromRole="Stores" ToRole="Province" />
+          <NavigationProperty Name="Province" Relationship="Self.FK__Stores__CityId__0D7A0286" FromRole="Stores" ToRole="Province" />
           <NavigationProperty Name="StoreRatings" Relationship="Self.FK_StroreRating_Stores" FromRole="Stores" ToRole="StoreRating" />
-          <NavigationProperty Name="Ward" Relationship="Self.FK__Stores__WardId__693CA210" FromRole="Stores" ToRole="Ward" />
+          <NavigationProperty Name="Ward" Relationship="Self.FK__Stores__WardId__10566F31" FromRole="Stores" ToRole="Ward" />
           <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Stores_Users" FromRole="Stores" ToRole="Users" />
         </EntityType>
@@ -1528,8 +1524,8 @@
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
           <NavigationProperty Name="Country" Relationship="Self.FK_Users_Country" FromRole="Users" ToRole="Country" />
           <NavigationProperty Name="District" Relationship="Self.FK_Users_District" FromRole="Users" ToRole="District" />
-          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FromID__4BAC3F29" FromRole="Users" ToRole="Message" />
-          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SentID__4CA06362" FromRole="Users" ToRole="Message" />
+          <NavigationProperty Name="Messages" Relationship="Self.FK__Message__FromID__71D1E811" FromRole="Users" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="Self.FK__Message__SentID__72C60C4A" FromRole="Users" ToRole="Message" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Users" FromRole="Users" ToRole="Order" />
           <NavigationProperty Name="Partners" Relationship="Self.FK_Partner_Users" FromRole="Users" ToRole="Partner" />
           <NavigationProperty Name="Province" Relationship="Self.FK_Users_Province" FromRole="Users" ToRole="Province" />
@@ -1539,7 +1535,7 @@
           <NavigationProperty Name="ShipperRatings" Relationship="Self.FK_ShipperRating_Users" FromRole="Users" ToRole="ShipperRating" />
           <NavigationProperty Name="StoreRatings" Relationship="Self.FK_StroreRating_Users" FromRole="Users" ToRole="StoreRating" />
           <NavigationProperty Name="Stores" Relationship="Self.FK_Stores_Users" FromRole="Users" ToRole="Stores" />
-          <NavigationProperty Name="Ward" Relationship="Self.FK__Users__WardID__6C190EBB" FromRole="Users" ToRole="Ward" />
+          <NavigationProperty Name="Ward" Relationship="Self.FK__Users__WardID__1332DBDC" FromRole="Users" ToRole="Ward" />
           <NavigationProperty Name="UserStatu" Relationship="Self.FK_Users_User_Status" FromRole="Users" ToRole="UserStatus" />
           <NavigationProperty Name="Wishlists" Relationship="Self.FK_UserWishlist" FromRole="Users" ToRole="Wishlist" />
         </EntityType>
@@ -1564,9 +1560,9 @@
           <Property Name="IsPublished" Type="Boolean" />
           <Property Name="IsDeleted" Type="Boolean" />
           <NavigationProperty Name="District" Relationship="Self.FK_Ward_District" FromRole="Ward" ToRole="District" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__WardID__5165187F" FromRole="Ward" ToRole="Order" />
-          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__WardId__693CA210" FromRole="Ward" ToRole="Stores" />
-          <NavigationProperty Name="Users" Relationship="Self.FK__Users__WardID__6C190EBB" FromRole="Ward" ToRole="Users" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__WardID__778AC167" FromRole="Ward" ToRole="Order" />
+          <NavigationProperty Name="Stores" Relationship="Self.FK__Stores__WardId__10566F31" FromRole="Ward" ToRole="Stores" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__WardID__1332DBDC" FromRole="Ward" ToRole="Users" />
         </EntityType>
         <EntityType Name="Wishlist">
           <Key>
@@ -1602,7 +1598,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__CountryID__4E88ABD4">
+        <Association Name="FK__Order__CountryID__74AE54BC">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1614,7 +1610,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__CountryI__6754599E">
+        <Association Name="FK__Stores__CountryI__0E6E26BF">
           <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1664,7 +1660,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__DistrictI__4F7CD00D">
+        <Association Name="FK__Order__DistrictI__75A278F5">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1676,7 +1672,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__District__68487DD7">
+        <Association Name="FK__Stores__District__0F624AF8">
           <End Role="District" Type="Self.District" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1736,7 +1732,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__FromID__4BAC3F29">
+        <Association Name="FK__Message__FromID__71D1E811">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1748,7 +1744,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Message__SentID__4CA06362">
+        <Association Name="FK__Message__SentID__72C60C4A">
           <End Role="Users" Type="Self.User" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1760,7 +1756,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__CityID__4D94879B">
+        <Association Name="FK__Order__CityID__73BA3083">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1772,7 +1768,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__StoreId__5070F446">
+        <Association Name="FK__Order__StoreId__76969D2E">
           <End Role="Stores" Type="Self.Store" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1784,7 +1780,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Order__WardID__5165187F">
+        <Association Name="FK__Order__WardID__778AC167">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1940,7 +1936,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__CityId__66603565">
+        <Association Name="FK__Stores__CityId__0D7A0286">
           <End Role="Province" Type="Self.Province" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2072,7 +2068,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Stores__WardId__693CA210">
+        <Association Name="FK__Stores__WardId__10566F31">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Stores" Type="Self.Store" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2108,7 +2104,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Users__WardID__6C190EBB">
+        <Association Name="FK__Users__WardID__1332DBDC">
           <End Role="Ward" Type="Self.Ward" Multiplicity="0..1" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
@@ -2181,11 +2177,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Comment" EntitySet="Comments" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__CountryID__4E88ABD4" Association="Self.FK__Order__CountryID__4E88ABD4">
+          <AssociationSet Name="FK__Order__CountryID__74AE54BC" Association="Self.FK__Order__CountryID__74AE54BC">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__CountryI__6754599E" Association="Self.FK__Stores__CountryI__6754599E">
+          <AssociationSet Name="FK__Stores__CountryI__0E6E26BF" Association="Self.FK__Stores__CountryI__0E6E26BF">
             <End Role="Country" EntitySet="Countries" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
@@ -2201,11 +2197,11 @@
             <End Role="Country" EntitySet="Countries" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__DistrictI__4F7CD00D" Association="Self.FK__Order__DistrictI__4F7CD00D">
+          <AssociationSet Name="FK__Order__DistrictI__75A278F5" Association="Self.FK__Order__DistrictI__75A278F5">
             <End Role="District" EntitySet="Districts" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__District__68487DD7" Association="Self.FK__Stores__District__68487DD7">
+          <AssociationSet Name="FK__Stores__District__0F624AF8" Association="Self.FK__Stores__District__0F624AF8">
             <End Role="District" EntitySet="Districts" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
@@ -2225,23 +2221,23 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Image" EntitySet="Images" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__FromID__4BAC3F29" Association="Self.FK__Message__FromID__4BAC3F29">
+          <AssociationSet Name="FK__Message__FromID__71D1E811" Association="Self.FK__Message__FromID__71D1E811">
             <End Role="Users" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Message__SentID__4CA06362" Association="Self.FK__Message__SentID__4CA06362">
+          <AssociationSet Name="FK__Message__SentID__72C60C4A" Association="Self.FK__Message__SentID__72C60C4A">
             <End Role="Users" EntitySet="Users" />
             <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__CityID__4D94879B" Association="Self.FK__Order__CityID__4D94879B">
+          <AssociationSet Name="FK__Order__CityID__73BA3083" Association="Self.FK__Order__CityID__73BA3083">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__StoreId__5070F446" Association="Self.FK__Order__StoreId__5070F446">
+          <AssociationSet Name="FK__Order__StoreId__76969D2E" Association="Self.FK__Order__StoreId__76969D2E">
             <End Role="Stores" EntitySet="Stores" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__Order__WardID__5165187F" Association="Self.FK__Order__WardID__5165187F">
+          <AssociationSet Name="FK__Order__WardID__778AC167" Association="Self.FK__Order__WardID__778AC167">
             <End Role="Ward" EntitySet="Wards" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
@@ -2293,7 +2289,7 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__CityId__66603565" Association="Self.FK__Stores__CityId__66603565">
+          <AssociationSet Name="FK__Stores__CityId__0D7A0286" Association="Self.FK__Stores__CityId__0D7A0286">
             <End Role="Province" EntitySet="Provinces" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
@@ -2337,7 +2333,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="StoreRating" EntitySet="StoreRatings" />
           </AssociationSet>
-          <AssociationSet Name="FK__Stores__WardId__693CA210" Association="Self.FK__Stores__WardId__693CA210">
+          <AssociationSet Name="FK__Stores__WardId__10566F31" Association="Self.FK__Stores__WardId__10566F31">
             <End Role="Ward" EntitySet="Wards" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
@@ -2349,7 +2345,7 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Stores" EntitySet="Stores" />
           </AssociationSet>
-          <AssociationSet Name="FK__Users__WardID__6C190EBB" Association="Self.FK__Users__WardID__6C190EBB">
+          <AssociationSet Name="FK__Users__WardID__1332DBDC" Association="Self.FK__Users__WardID__1332DBDC">
             <End Role="Ward" EntitySet="Wards" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
@@ -2592,8 +2588,6 @@
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="RecentBalance" ColumnName="RecentBalance" />
                 <ScalarProperty Name="BankAccount" ColumnName="BankAccount" />
-                <ScalarProperty Name="LatX" ColumnName="LatX" />
-                <ScalarProperty Name="LatY" ColumnName="LatY" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

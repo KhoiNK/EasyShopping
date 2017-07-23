@@ -30,8 +30,6 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<double> Total { get; set; }
         public Nullable<double> RecentBalance { get; set; }
         public string BankAccount { get; set; }
-        public Nullable<double> LatX { get; set; }
-        public Nullable<double> LatY { get; set; }
     
         public virtual ShipperStatu ShipperStatu { get; set; }
         public virtual User User { get; set; }

@@ -40,7 +40,7 @@ namespace EasyShopping.BusinessLogic.Business
             store.DistrictId = _district.GetByName(store.District).Id;
             store.ModifiedByID = _userbusiness.GetByName(store.UserName).Result.ID;
 
-            _repo.Create(BusinessTranslators.ToStoreEntity(store));
+            store = _repo.Create(BusinessTranslators.ToStoreEntity(store)).Translate<Store, StoreDTO>();
             return store;
         }
 

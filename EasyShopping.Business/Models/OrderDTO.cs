@@ -48,6 +48,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int WardID { get; set; }
         public int? StoreId { get; set; }
         public double Price { get; set; }
-        public int ParentId { get; set; }
+        public int? ParentId { get; set; }
     }
 }

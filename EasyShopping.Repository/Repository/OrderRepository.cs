@@ -153,8 +153,11 @@ namespace EasyShopping.Repository.Repository
                 order.StatusID = data.StatusID;
                 order.StoreId = data.StoreId;
                 order.Total = data.Total;
-                order.UserID = data.UserID;
-                if (order.DistrictID != 0 && order.DistrictID != null)
+                if (data.UserID.HasValue)
+                {
+                    order.UserID = data.UserID.Value;
+                }
+                if (data.DistrictID != 0 && data.DistrictID != null)
                 {
                     order.DistrictID = data.DistrictID;
                 }
@@ -165,13 +168,15 @@ namespace EasyShopping.Repository.Repository
                 order.CountryID = data.CountryID;
                 order.CityID = data.CityID;
                 order.Address = data.Address;
-                order.CreatedDate = data.CreatedDate;
                 _db.SaveChanges();
                 return true;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.Message);
+                Console.WriteLine(e.InnerException.StackTrace);
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                Console.WriteLine(e.StackTrace);
                 return false;
             }
         }
