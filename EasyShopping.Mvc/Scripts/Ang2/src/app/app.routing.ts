@@ -27,6 +27,10 @@ const routes: Routes = [
     {
         path: 'shippers',
         loadChildren: 'app/shipper/shipper.module#ShipperModule'
+    },
+    {
+        path: 'partners',
+        loadChildren: 'app/partner/partner.module#PartnerModule'
     }
     //{
     //    path: 'contracts',

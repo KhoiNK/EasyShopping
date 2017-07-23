@@ -20,7 +20,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("GetList")]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult GetList(int id)
         {
             if(_business.GetList(id).Count() <= 0)
             {
@@ -29,7 +29,7 @@ namespace EasyShopping.Api.Controllers
             return Ok(_business.GetList(id));
         }
 
-        [HttpPost]
+        [HttpGet]
         [ActionName("Approve")]
         public bool Approve(int id)
         {

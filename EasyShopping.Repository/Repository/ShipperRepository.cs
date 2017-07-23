@@ -18,6 +18,8 @@ namespace EasyShopping.Repository.Repository
         public bool Reject(int id)
         {
             var shipper = _db.ShippingDetails.Where(x => x.ID == id).SingleOrDefault();
+            var order = _db.Orders.Where(x => x.ID == shipper.OrderID).SingleOrDefault();
+            order.StatusID = 1;
             _db.ShippingDetails.Remove(shipper);
             _db.SaveChanges();
             return true;
@@ -29,9 +31,11 @@ namespace EasyShopping.Repository.Repository
                 var shipper = new ShipperDetail();
                 shipper.BankAccount = data.BankAccount;
                 shipper.Deposit = data.Deposit;
+                shipper.RecentBalance = data.Deposit;
                 shipper.ShipperId = data.ShipperId;
                 shipper.StatusId = data.StatusId;
                 shipper.RegDate = data.RegDate;
+                shipper.Total = 0;
                 shipper = _db.ShipperDetails.Add(shipper);
                 _db.SaveChanges();
                 return shipper;

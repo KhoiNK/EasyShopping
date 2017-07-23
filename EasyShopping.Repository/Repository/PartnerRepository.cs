@@ -37,12 +37,14 @@ namespace EasyShopping.Repository.Repository
             }
         }
 
-        public bool Eidt(Partner partner)
+        public bool Edit(Partner partner)
         {
             try
             {
                 var newpartner = _db.Partners.Where(x => x.ID == partner.ID).Single();
-                newpartner = partner;
+                newpartner.isWorking = partner.isWorking;
+                newpartner.ModifiedDate = partner.ModifiedDate;
+                newpartner.ModifiedID = partner.ModifiedID;
                 _db.SaveChanges();
                 return true;
             }

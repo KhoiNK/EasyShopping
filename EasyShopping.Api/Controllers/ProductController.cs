@@ -42,12 +42,19 @@ namespace EasyShopping.Api.Controllers
         [ActionName("AddProduct")]
         public IHttpActionResult Post([FromBody] ProductApiModel data)
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-            ProductDTO newproduct = _business.Add(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
-            ProductApiModel newProduct = ApiTranslators.Translate<ProductDTO, ProductApiModel>(newproduct);
-            if (newProduct != null) return Ok(newProduct);
-            return BadRequest();
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                ProductDTO newproduct = _business.Add(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
+                ProductApiModel newProduct = ApiTranslators.Translate<ProductDTO, ProductApiModel>(newproduct);
+                if (newProduct != null) return Ok(newProduct);
+                return BadRequest();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
         [HttpGet]

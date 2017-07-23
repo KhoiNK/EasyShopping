@@ -16,7 +16,7 @@
         <tbody>
             <tr>
                 <td>{{shipper.ID}}</td>
-                <td><button class="btn btn-success" (click)="Approve(shipper.ID)">Approve</button></td>
+                <td><button class="btn btn-success" (click)="Approve(shipper.ID)" *ngIf="shipper.StatusId == 1">Approve</button></td>
             </tr>
         </tbody>
     </table>
