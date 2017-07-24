@@ -1,0 +1,23 @@
+﻿<div class="col-sm-9">
+    <div style="display: -webkit-box; position:relative">
+        <input [(ngModel)]="searchkey" class="search_box form-control" (keyup)="LoadData()" />
+    </div>
+    <table class="table" *ngIf="shipper">
+        <thead>
+            <tr>
+                <td>
+                    ID
+                </td>
+                <td>
+                    Action
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{shipper.ID}}</td>
+                <td><button class="btn btn-success" (click)="Approve(shipper.ID)" *ngIf="shipper.StatusId == 1">Approve</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

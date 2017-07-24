@@ -22,6 +22,7 @@
                 <template [ngIf]="order.StatusID == 1">
                     <div class="row">
                         Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
+                        Order Code: {{order.OrderCode}}
                         Created Date: {{order.CreateDate | date}}
                     </div>
                 </template>

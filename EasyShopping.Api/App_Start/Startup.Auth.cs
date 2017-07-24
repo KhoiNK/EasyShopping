@@ -49,14 +49,14 @@ namespace EasyShopping.Api
 
             // Enable the application to use bearer tokens to authenticate users
             //app.UseOAuthBearerTokens(OAuthOptions);
-
+            
             app.UseOAuthAuthorizationServer(OAuthOptions);
             //System.Diagnostics.Debugger.Launch();
             app.UseJwtBearerAuthentication(
                new JwtBearerAuthenticationOptions
                {               
                    AuthenticationMode = AuthenticationMode.Active,
-                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3", "56cccccc" },
+                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3", "56cccccc", "nhanvienshipshop12" },
                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                    {
                         new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)

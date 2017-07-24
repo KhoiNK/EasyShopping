@@ -23,12 +23,12 @@ namespace EasyShopping.BusinessLogic.Business
             _user = new UserRepository();
         }
 
-        public bool Apply(ShipperDetailDTO data, string username)
+        public ShipperDetailDTO Apply(ShipperDetailDTO data, string username)
         {
             data.RegDate = DateTime.Now;
             data.StatusId = WAITINGFORAPPROVE;
             data.ShipperId = _user.FindUser(username).ID;
-            return _repo.Apply(data.Translate<ShipperDetailDTO, ShipperDetail>());
+            return _repo.Apply(data.Translate<ShipperDetailDTO, ShipperDetail>()).Translate<ShipperDetail, ShipperDetailDTO>();
         }
 
         public bool Approve(int id)
@@ -38,10 +38,9 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.Update(shipper.Translate<ShipperDetailDTO, ShipperDetail>());
         }
 
-        public bool Reject(int id, string username)
+        public bool Reject(int id)
         {
-            var user = _user.FindUser(username);
-            var result = _repo.Reject(id, user.ID);
+            var result = _repo.Reject(id);
             return result;
         }
 

@@ -17,4 +17,12 @@ export class PartnerService {
     Apply(storeId: number): Observable<any> {
         return this._http.get(this.apiUrl + "/Apply/" + storeId).map(res => res.json());
     }
+
+    GetList(storeId: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetList/" + storeId).map(res => res.json());
+    }
+
+    Approve(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/Approve/" + id).map(res => res.json());
+    }
 }

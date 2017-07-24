@@ -154,7 +154,6 @@ namespace EasyShopping.BusinessLogic.Business
             if (DisString.Length > 1) { dto.DistrictID = _district.GetByName(DisString[1]).Id; }
             else if (DisString.Length == 1) { dto.DistrictID = _district.GetByName(DisString[0]).Id; }
             dto.Address = order.Address;
-            dto.Note = order.Note;
             if (order.StoreId != null)
             {
                 dto.StoreId = order.StoreId.Value;
@@ -201,6 +200,7 @@ namespace EasyShopping.BusinessLogic.Business
                         }
                     }
                     dto.StoreId = null;
+                    dto.ParentId = null;
                     var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
                     return result;
                 }

@@ -67,7 +67,8 @@ namespace EasyShopping.BusinessLogic.Business
             var partner = FindById(id);
             partner.ModifiedID = _user.GetByName(name).Result.ID;
             partner.ModifiedDate = DateTime.Now;
-            return _repo.Eidt(partner.Translate<PartnerDTO, Partner>());
+            partner.isWorking = true;
+            return _repo.Edit(partner.Translate<PartnerDTO, Partner>());
         }
     }
 }

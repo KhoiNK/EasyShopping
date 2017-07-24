@@ -5,7 +5,7 @@ import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 declare var window: any;
 
 @Injectable()
-export class StoreServices {
+export class ShipperServices {
     private apiUrl = window.GlobalSettings.ApiBase + 'Shipper';
 
     constructor(private _http: AuthHttp) {

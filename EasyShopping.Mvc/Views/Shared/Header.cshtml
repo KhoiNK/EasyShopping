@@ -70,13 +70,20 @@
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/orders']">My Orders</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
+                            <li *ngIf="isSignedIn"><a [routerLink]="['/shippers']">Be a shipper</a></li>
+                            <li *ngIf="isSignedIn"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
                             <li><a [routerLink]="['/stores']">Find Store</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search" />
+                    <div class="search_box search_recommend">
+                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" [(ngModel)]="searchkey"/>
+                        <ul *ngIf="products" id="searchResult">
+                            <li *ngFor="let product of products">
+                                <a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

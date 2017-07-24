@@ -262,7 +262,7 @@ a#scrollUp i{
   height: 35px;
   outline: medium none;
   padding-left: 10px;
-  width: 155px;
+  width: 100%;
   background-image: url(../images/home/searchicon.png);
   background-repeat: no-repeat;
   background-position: 130px;
@@ -2628,4 +2628,18 @@ h2.title {
 
 .agm-map-container {
   height: 300px;
+}
+
+.search_recommend{
+    position:relative;
+}
+
+.search_recommend ul {
+    position: absolute;
+    right: 2px;
+    background-color:white;
+}
+
+.search_recommend a{
+    color: red;
 }

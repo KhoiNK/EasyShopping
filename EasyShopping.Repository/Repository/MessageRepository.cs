@@ -18,7 +18,9 @@ namespace EasyShopping.Repository.Repository
         public bool CreateMessage(Message mess)
         {
             try {
-                _db.Messages.Add(mess);
+                var message = new Message();
+                message = mess;
+                _db.Messages.Add(message);
                 _db.SaveChanges();
                 return true;
             }
@@ -31,7 +33,7 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Message> Get(int userId)
         {
             try {
-                var result = _db.Messages.Where(x => x.SentID == userId).ToList();
+                var result = _db.Messages.Include("User").Include("User1").Where(x => x.SentID == userId).ToList();
                 return result;
             }
             catch(Exception e)

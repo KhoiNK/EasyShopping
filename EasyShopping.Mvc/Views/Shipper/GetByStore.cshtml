@@ -1,0 +1,20 @@
+﻿<div class="col-sm-9">
+    <table class="table" *ngIf="shippers" >
+        <thead>
+            <tr>
+                <td>Shipper</td>
+                <td>Order</td>
+                <td>Status</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let shipper of shippers">
+                <td>{{shipper.ShipperName}}</td>
+                <td>{{shipper.OrderID}}</td>
+                <td>{{shipper.Status}}</td>
+                <td><button class="btn btn-danger" (click)="RejectShipper(shipper.ID)">Reject</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,22 @@
+﻿<div class="col-sm-9" *ngIf="partners">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let partner of partners">
+
+                <td>
+                    {{partner.UserName}}
+                </td>
+                <td>
+                    <button (click)="Approve(partner.ID)" class="btn btn-success">Approve</button>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

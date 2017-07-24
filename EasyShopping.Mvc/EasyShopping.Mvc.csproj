@@ -174,7 +174,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PartnerController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ShipperController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -285,6 +287,10 @@
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Shared\SideBar.cshtml" />
     <Content Include="Views\Order\CheckOut.cshtml" />
+    <Content Include="Views\Shipper\Apply.cshtml" />
+    <Content Include="Views\Shipper\GetByStore.cshtml" />
+    <Content Include="Views\Shipper\GetApproveList.cshtml" />
+    <Content Include="Views\Partner\PartnerList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -326,6 +332,10 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\part-list.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product-approve-list.component.ts" />
@@ -338,6 +348,12 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-apply.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-approve.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-getbystoreId.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\sidebar.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />

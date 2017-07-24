@@ -19,7 +19,8 @@ export class StoreAddComponent implements OnInit {
     public districts: any[];
     public cities: any[];
     //public location: any;
-    public address: any[];
+    public position: any[];
+    public address: string;
     public searchControl: FormControl;
     public zoom: number;
     public latitude: number;
@@ -71,6 +72,7 @@ export class StoreAddComponent implements OnInit {
                     //set latitude, longitude and zoom
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
+                    this.address = place.formatted_address;
                     let places = place.address_components;
                     console.log(places);
                     this.setLatLng(place.geometry.location.lat(), place.geometry.location.lng(), place.address_components);
@@ -92,7 +94,7 @@ export class StoreAddComponent implements OnInit {
     private setLatLng(lat: any, lng: any, place: any[]) {
         this.latitude = lat;
         this.longitude = lng;
-        this.address = place;
+        this.position = place;
     }
 
     setThumbailImg() {
@@ -117,10 +119,7 @@ export class StoreAddComponent implements OnInit {
         this.store.Address = this.address;
         this.store.LatX = this.latitude;
         this.store.LatY = this.longitude;
-        let tempAdress: any;
-        this.address.forEach((component) => {
-            if (component.types[0] == 'street_number') { tempAdress = component.long_name; }
-            if (component.types[0] == 'route') { this.store.Address = tempAdress + " " + component.long_name }
+        this.position.forEach((component) => {
             if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
             if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
             if (component.types[0] == 'country') { this.store.Country = component.long_name; }
@@ -143,7 +142,12 @@ export class StoreAddComponent implements OnInit {
             (res: any) => {
                 if (res.ID) {
                     alert("Added Successfully!");
-                    this.router.navigate[''];
+                    this.store = res;
+                    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#modalClick');
+                    inputEl.click();
+                    //setTimeout(() => {
+                    //    this.router.navigate[''];
+                    //}, 20000);
                 }
             }, err => {
                 console.log(err);
