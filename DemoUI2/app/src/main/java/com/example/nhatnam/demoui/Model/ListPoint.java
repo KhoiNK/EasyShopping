@@ -9,7 +9,13 @@ import java.util.List;
 
 public class ListPoint {
     private List<Point> list;
-    public boolean isEnable= true;
+
+    public ListPoint(List<Point> list) {
+        this.list = list;
+    }
+
+    public ListPoint() {
+    }
 
     public List<Point> getList() {
         return list;
@@ -34,5 +40,19 @@ public class ListPoint {
         for (Point point:list){
             point.findDistance();
         }
+    }
+    public List<Point> Clone(){
+        List<Point> clone= new ArrayList<>();
+        for(Point point:list){
+            clone.add(new Point(point));
+        }
+        return clone;
+    }
+    public double sum(){
+        double sum=0;
+        for(Point point:list){
+            sum=sum+point.getDistance();
+        }
+        return sum;
     }
 }

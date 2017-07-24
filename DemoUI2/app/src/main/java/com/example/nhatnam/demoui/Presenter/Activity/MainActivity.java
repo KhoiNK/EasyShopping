@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     private List<Polyline> mypolylinePaths = new ArrayList<>();
     private List<Marker> listMarkerShop = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private LatLng shopLatlng;
+    public static LatLng shopLatlng;
     public static String mDestination = null;
     public static Order mOrder = null;
     public static LatLng myLatlng;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     private ImageView ivUser;
     private LinearLayout linearLayout;
     boolean doubleBackToExitPressedOnce = false;
-    private NearRoute nearRoute = new NearRoute();
+    public static NearRoute nearRoute = new NearRoute();
     public static boolean pass;
 
     @Override
@@ -280,8 +280,11 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_search_way) {
             if (nearRoute.getArrayPoint().size() > 0) {
-                nearRoute.findNearRoute();
-                findNearRoute(nearRoute.getPassPoint());
+//                nearRoute.findNearRoute();
+//                findNearRoute(nearRoute.getPassPoint());
+                List<Point> mPointList=nearRoute.findtheway();
+                reCheck(mPointList);
+                findNearRoute(mPointList);
             }
 
         }
@@ -290,6 +293,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void reCheck(List<Point> points){
+        for(int i=0;i<points.size();i++){
+            if(points.get(i).getDistance()==0){
+                points.remove(i);
+            }
+        }
+    }
 
     public void CreateMap() {
         // Tạo Progress Bar
@@ -599,17 +609,10 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
                             if (mDestination != null) {
-                                pass = false;
-                                nearRoute.add(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
-                                nearRoute.add(new Point(mDestination));
-                                nearRoute.calculateDistance();
-//                                while (!pass){
-////                                    nearRoute.calculateDistance();
-//                                    pass=nearRoute.check();
-//                                }
+//                                nearRoute.add(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
+//                                nearRoute.add(new Point(mDestination));
 //                                nearRoute.calculateDistance();
-//                                Handler h = new Handler();
-//                                h.postDelayed(r, 1000);
+
                                 findDirection(shopLatlng.latitude + "," + shopLatlng.longitude, mDestination);
                                 searchOrdersSameDestination(mOrder.getCityID(), mOrder.getDistrictID());
                                 mDestination = null;
@@ -627,12 +630,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    Runnable r = new Runnable() {
-        @Override
-        public void run() {
-//            doSomething(); //<-- put your code in here.
-        }
-    };
 
     public boolean checkShopByLatlng(LatLng latLng) {
         for (Shop shop : listshops) {

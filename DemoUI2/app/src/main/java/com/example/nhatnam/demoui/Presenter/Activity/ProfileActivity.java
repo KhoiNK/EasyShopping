@@ -68,7 +68,11 @@ public class ProfileActivity extends Activity {
         if(user.getPhone()!=null){
             tvPhone.setText(user.getPhone());
         }
-        tvTotal.setText(format.format(user.getTotal()));
+        if(user.getTotal()!=null){
+            tvTotal.setText(format.format(user.getTotal()));
+        }else {
+            tvTotal.setText("0");
+        }
         tvCurrentDeposit.setText(format.format(user.getCurrentDeposit()));
         tvDeposit.setText(format.format(user.getDeposit()));
         if(user.getUserImage()!=null){

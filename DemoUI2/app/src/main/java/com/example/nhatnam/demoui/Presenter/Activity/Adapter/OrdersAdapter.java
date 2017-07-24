@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.nhatnam.demoui.Model.API.OrderAPI;
 import com.example.nhatnam.demoui.Model.Order;
+import com.example.nhatnam.demoui.Model.Point;
 import com.example.nhatnam.demoui.Presenter.Activity.Dialog.CustomDialogClass;
 import com.example.nhatnam.demoui.Presenter.Activity.MainActivity;
 import com.example.nhatnam.demoui.R;
@@ -22,6 +23,9 @@ import com.example.nhatnam.demoui.R;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static com.example.nhatnam.demoui.Presenter.Activity.MainActivity.mDestination;
+import static com.example.nhatnam.demoui.Presenter.Activity.MainActivity.nearRoute;
+import static com.example.nhatnam.demoui.Presenter.Activity.MainActivity.shopLatlng;
 import static com.example.nhatnam.demoui.R.id.tvOrderID;
 
 /**
@@ -78,13 +82,23 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
 
                     int id = Integer.parseInt(viewHolder.tvOrderID.getText().toString());
                     mOrders.get(findViewByOrderID(id)).check();
+                    if (mOrders.get(findViewByOrderID(id)).isChecked) {
+                        nearRoute.add(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
+                        nearRoute.add(new Point(mOrders.get(findViewByOrderID(id)).getAddress()));
+//                        nearRoute.addFloyd(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
+//                        nearRoute.addFloyd(new Point(mOrders.get(findViewByOrderID(id)).getAddress()));
+                        nearRoute.calculateDistance();
+                    } else {
+                        nearRoute.remove(new Point(shopLatlng.latitude + "," + shopLatlng.longitude),
+                                new Point(mOrders.get(findViewByOrderID(id)).getAddress()));
+                    }
                 }
             });
             viewHolder.tvDestination.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int id = Integer.parseInt(viewHolder.tvOrderID.getText().toString());
-                    MainActivity.mDestination = viewHolder.tvDestination.getText().toString();
+                    mDestination = viewHolder.tvDestination.getText().toString();
                     MainActivity.mOrder = mOrders.get(findViewByOrderID(id));
 
                     cdd.dismiss();
@@ -99,7 +113,7 @@ public class OrdersAdapter extends ArrayAdapter<Order> {
         if (order.getOrderDetail() != null) {
             viewHolder.tvWeight.setText(String.valueOf(order.getOrderDetail().getWeight() / 1000) + " Kg");
         }
-        viewHolder.tvPrice.setText(format.format(order.getPrice()));
+        viewHolder.tvPrice.setText(format.format(order.getPrice()) + " VND");
         viewHolder.tvOrderID.setText(String.valueOf(order.getID()));
         viewHolder.tvDestination.setText(order.getAddress());
         viewHolder.isCheck.setChecked(getItem(position).isChecked);

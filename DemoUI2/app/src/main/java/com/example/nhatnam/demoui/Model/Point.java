@@ -24,8 +24,14 @@ public class Point {
         this.from = from;
         this.destination= destination;
         isEnable=false;
+//        isEnable=true;
     }
-
+    public Point(Point point) {
+          this.from=point.getFrom();
+          this.destination=point.getDestination();
+        this.Distance=point.getDistance();
+        this.isEnable=point.isEnable;
+    }
     public String getFrom() {
         return from;
     }

@@ -25,7 +25,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Giá : "
+                    android:text="Price : "
                     android:textSize="@dimen/normal_text_size" />
 
                 <TextView
@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Đến :"
+                    android:text="To :"
                     android:textSize="@dimen/normal_text_size" />
 
                 <TextView
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Khối lượng :"
+                    android:text="Weight :"
                     android:textSize="@dimen/normal_text_size" />
 
                 <TextView

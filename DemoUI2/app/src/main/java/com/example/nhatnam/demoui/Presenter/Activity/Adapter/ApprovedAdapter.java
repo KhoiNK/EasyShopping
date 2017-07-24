@@ -138,7 +138,7 @@ public class ApprovedAdapter extends ArrayAdapter<ShippingDetail> {
         if (shippingDetail.getOrder().getOrderDetail() != null) {
             viewHolder.tvWeight.setText(String.valueOf(shippingDetail.getOrder().getOrderDetail().getWeight() / 1000) + " Kg");
         }
-        viewHolder.tvPrice.setText(String.valueOf(shippingDetail.getOrder().getPrice()));
+        viewHolder.tvPrice.setText(String.valueOf(shippingDetail.getOrder().getPrice())+" VND");
         viewHolder.tvShopName.setText(shippingDetail.getStoreName());
         viewHolder.tvOrderID.setText(String.valueOf(shippingDetail.getOrder().getID()));
         viewHolder.tvDestination.setText(shippingDetail.getOrder().getAddress());
