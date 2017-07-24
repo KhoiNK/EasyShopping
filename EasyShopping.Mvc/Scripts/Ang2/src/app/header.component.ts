@@ -1,6 +1,7 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ElementRef } from '@angular/core';
 import { IAuthService, AuthService } from './auth/auth.service';
 import { UserServices } from './user/user.service';
+import { ProductService } from './product/product.service';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 
@@ -10,7 +11,7 @@ const PROFILE: string = 'profile',
 @Component({
     selector: 'my-header',
     templateUrl: '/Home/Header',
-    providers: [UserServices]
+    providers: [UserServices, ProductService]
 })
 
 export class Header implements OnInit {
@@ -18,8 +19,14 @@ export class Header implements OnInit {
     public user: any;
     public profile: any;
     public role: any;
+    public searchkey: string = "";
+    public products: any[];
 
-    constructor(private authService: IAuthService, private router: Router, private userservice: UserServices) {
+    constructor(private authService: IAuthService
+        , private router: Router
+        , private userservice: UserServices
+        , private productSrv: ProductService
+        , private el: ElementRef) {
         let cacheProfile = localStorage.getItem(PROFILE);
         let cartId = localStorage.getItem(CART);
         this.profile = JSON.parse(cacheProfile) || {};
@@ -58,5 +65,19 @@ export class Header implements OnInit {
         this.user = {};
         this.isSignedIn = false;
         this.router.navigate(['/']);
+    }
+
+    SearchProduct() {
+        if (this.searchkey.trim() != "") {
+            this.productSrv.GetByName(this.searchkey).subscribe((res: any) => {
+                this.products = res;
+            }, err => {
+                console.log(err);
+            })
+        }
+        if (this.searchkey.trim() == "") {
+            let inputEl: HTMLElement = this.el.nativeElement.querySelector('#searchResult');
+            inputEl.hidden;
+        }
     }
 }

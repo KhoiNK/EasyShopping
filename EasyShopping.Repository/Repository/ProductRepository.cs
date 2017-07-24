@@ -169,7 +169,7 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Product> GetByName(string name)
         {
             try {
-                var products = _db.Products.Where(x => x.Name.Contains(name)).ToList();
+                var products = _db.Products.Where(x => x.Name.Contains(name) && (x.Quantity > 0)).Take(5).ToList();
                 return products;
             }
             catch(Exception e)

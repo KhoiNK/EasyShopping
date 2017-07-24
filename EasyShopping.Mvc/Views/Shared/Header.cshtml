@@ -77,8 +77,13 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="search_box pull-right">
-                        <input type="text" placeholder="Search" />
+                    <div class="search_box search_recommend">
+                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" [(ngModel)]="searchkey"/>
+                        <ul *ngIf="products" id="searchResult">
+                            <li *ngFor="let product of products">
+                                <a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

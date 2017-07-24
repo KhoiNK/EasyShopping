@@ -105,7 +105,7 @@ namespace EasyShopping.Api.Controllers
         }
 
         [HttpGet]
-        [ActionName("GetWithName")]
+        [Route("v1/Product/GetWithName/{id}")]
         public IHttpActionResult GetWithName(string id)
         {
             var result = _business.GetByName(id);
