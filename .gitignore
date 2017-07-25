@@ -242,3 +242,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /EasyShopping.Mvc/Content/img
+/EasyShopping.Api/Scripts
