@@ -108,6 +108,10 @@ namespace EasyShopping.BusinessLogic.Business
             return _repo.GetList().Translate<User, UserDTO>();
         }
 
+        public IEnumerable<string> GetAllUserName()
+        {
+            return _repo.GetAllUserName();
+        }
 
         #region Private methods
 

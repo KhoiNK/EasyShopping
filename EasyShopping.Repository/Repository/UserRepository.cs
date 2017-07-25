@@ -1,6 +1,4 @@
 ﻿using EasyShopping.Repository.Models.Entity;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,6 +104,11 @@ namespace Easyshopping.Repository.Repository
                 .Include("District")
                 .Include("Role")
                 .ToList();
+        }
+
+        public IEnumerable<string> GetAllUserName()
+        {
+            return _db.Users.Select(x => x.UserName).ToList();
         }
 
         public IEnumerable<User> GetList(int pageIdx, int pageSize)

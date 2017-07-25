@@ -186,13 +186,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repository\City\" />
-    <Folder Include="Repository\Country\" />
-    <Folder Include="Repository\District\" />
-    <Folder Include="Repository\Store\" />
-    <Folder Include="Repository\User\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\Entity\EasyShoppingEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

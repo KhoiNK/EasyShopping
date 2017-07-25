@@ -12,8 +12,9 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt=""/></a>
-                                        <h2>{{product.Price}}</h2>
                                         <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
+                                        <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
+                                        
                                         <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                     </div>
 
@@ -22,7 +23,6 @@
                         </div>
                     </template>
                 </div>
-
                 <div class="clearfix"></div>
             </div><!--features_items-->
         </div>

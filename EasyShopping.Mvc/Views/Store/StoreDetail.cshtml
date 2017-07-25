@@ -22,6 +22,7 @@
                                 <br />
                                 <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
                                 <br />
+                                <button class="btn btn default">Product Management</button>
                                 <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner List</a>

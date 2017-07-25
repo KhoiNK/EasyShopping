@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { ProductListComponent } from '../app/product/product-list.component';
 
 @Component({
     selector: 'my-app',
@@ -7,6 +6,7 @@ import { ProductListComponent } from '../app/product/product-list.component';
     <my-header></my-header>
 
     <div class="container body-content">
+        <my-slider></my-slider>
         <my-sidebar></my-sidebar>
         <router-outlet></router-outlet>
     </div>
@@ -16,9 +16,4 @@ import { ProductListComponent } from '../app/product/product-list.component';
 export class AppComponent {
     public searchkey: string;
 
-    @ViewChild(ProductListComponent) productList: ProductListComponent;
-
-    LoadData() {
-        this.productList.LoadWithName(this.searchkey);
-    }
 }

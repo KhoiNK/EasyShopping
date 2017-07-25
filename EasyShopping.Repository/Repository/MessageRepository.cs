@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EasyShopping.Repository.Repository
 {
@@ -15,18 +13,18 @@ namespace EasyShopping.Repository.Repository
             _db = new EasyShoppingEntities();
         }
 
-        public bool CreateMessage(Message mess)
+        public Message CreateMessage(Message mess)
         {
             try {
                 var message = new Message();
                 message = mess;
-                _db.Messages.Add(message);
+                message = _db.Messages.Add(message);
                 _db.SaveChanges();
-                return true;
+                return message;
             }
             catch
             {
-                return false;
+                return null;
             }
         }
 

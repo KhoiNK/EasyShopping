@@ -28,5 +28,10 @@ namespace EasyShopping.Controllers
         {
             return PartialView("~/Views/Shared/SideBar.cshtml");
         }
+
+        public ActionResult Slider()
+        {
+            return PartialView("~/Views/Shared/Slider.cshtml");
+        }
     }
 }

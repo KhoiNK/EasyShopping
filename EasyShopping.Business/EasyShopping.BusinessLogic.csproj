@@ -47,6 +47,7 @@
     <Compile Include="Business\CityBusinessLogic.cs" />
     <Compile Include="Business\CountryBusinessLogic.cs" />
     <Compile Include="Business\DistrictBusinessLogic.cs" />
+    <Compile Include="Business\MessageBusinessLogic.cs" />
     <Compile Include="Business\OrderBusinessLogic.cs" />
     <Compile Include="Business\PartnerBusiness.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
@@ -92,11 +93,7 @@
       <Name>EasyShopping.Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Business\CountryLogic\" />
-    <Folder Include="Business\Store\" />
-    <Folder Include="Business\UserLogic\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

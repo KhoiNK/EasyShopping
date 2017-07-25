@@ -32,12 +32,14 @@
         <!--header-middle-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="logo pull-left">
-                        <a href="index.html"><img src="" alt="" /></a>
-                    </div>
-                </div>
                 <div class="col-sm-8">
+                    <div class="logo pull-left">
+                        <a [routerLink]="['/']"><img src="~/Content/img/home/logo.png" alt="" /></a>
+                        <img src="~/Content/img/home/partner2.png" class="side-logo"/>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
@@ -66,7 +68,7 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a [routerLink]="['']" class="active">Home</a></li>
+                            <li id="home"><a [routerLink]="['']" class="active">Home</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/orders']">My Orders</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>

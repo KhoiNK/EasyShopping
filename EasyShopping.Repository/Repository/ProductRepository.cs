@@ -170,6 +170,7 @@ namespace EasyShopping.Repository.Repository
         {
             try {
                 var products = _db.Products.Where(x => x.Name.Contains(name) && (x.Quantity > 0)).Take(5).ToList();
+                
                 return products;
             }
             catch(Exception e)

@@ -16,6 +16,9 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Microsoft.Owin.Security.Jwt;
 using System.Threading.Tasks;
+using Microsoft.Owin.Cors;
+using Microsoft.AspNet.SignalR;
+using EasyShopping.BusinessLogic.Business;
 
 namespace EasyShopping.Api
 {
@@ -49,14 +52,16 @@ namespace EasyShopping.Api
 
             // Enable the application to use bearer tokens to authenticate users
             //app.UseOAuthBearerTokens(OAuthOptions);
-            
+            var _business = new UserBusinessLogic();
+            var users = _business.GetAllUserName().ToArray();
+            //new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3", "56cccccc", "nhanvienshipshop12" },
             app.UseOAuthAuthorizationServer(OAuthOptions);
             //System.Diagnostics.Debugger.Launch();
             app.UseJwtBearerAuthentication(
                new JwtBearerAuthenticationOptions
                {               
                    AuthenticationMode = AuthenticationMode.Active,
-                   AllowedAudiences = new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3", "56cccccc", "nhanvienshipshop12" },
+                   AllowedAudiences = users,
                    IssuerSecurityTokenProviders = new IIssuerSecurityTokenProvider[]
                    {
                         new SymmetricKeyIssuerSecurityTokenProvider(Const.Issuer, Const.Secret)
@@ -71,6 +76,34 @@ namespace EasyShopping.Api
                        }
                    }
                });
+
+            // Branch the pipeline here for requests that start with "/signalr"
+            app.Map("/signalr", map =>
+            {
+                // Setup the CORS middleware to run before SignalR.
+                // By default this will allow all origins. You can 
+                // configure the set of origins and/or http verbs by
+                // providing a cors options with a different policy.
+                map.UseCors(CorsOptions.AllowAll);
+
+                map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+                {
+                    Provider = new QueryStringOAuthBearerProvider()
+                });
+
+                var hubConfiguration = new HubConfiguration
+                {
+                    // You can enable JSONP by uncommenting line below.
+                    // JSONP requests are insecure but some older browsers (and some
+                    // versions of IE) require JSONP to work cross domain
+                    EnableJSONP = true,
+                    EnableDetailedErrors = true
+                };
+                // Run the SignalR pipeline. We're not using MapSignalR
+                // since this branch already runs under the "/signalr"
+                // path.
+                map.RunSignalR(hubConfiguration);
+            });
 
             // Uncomment the following lines to enable logging in with third party login providers
 

@@ -201,6 +201,38 @@
     <Content Include="Content\css\UserList.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\15877742_1158779367505232_1506744517_o.jpg" />
+    <Content Include="Content\img\home\bg_border.png" />
+    <Content Include="Content\img\home\gallery1.jpg" />
+    <Content Include="Content\img\home\gallery2.jpg" />
+    <Content Include="Content\img\home\gallery3.jpg" />
+    <Content Include="Content\img\home\gallery4.jpg" />
+    <Content Include="Content\img\home\girl1.jpg" />
+    <Content Include="Content\img\home\girl2.jpg" />
+    <Content Include="Content\img\home\girl3.jpg" />
+    <Content Include="Content\img\home\iframe1.png" />
+    <Content Include="Content\img\home\iframe2.png" />
+    <Content Include="Content\img\home\iframe3.png" />
+    <Content Include="Content\img\home\iframe4.png" />
+    <Content Include="Content\img\home\logo.png" />
+    <Content Include="Content\img\home\map.png" />
+    <Content Include="Content\img\home\new.png" />
+    <Content Include="Content\img\home\partner1.png" />
+    <Content Include="Content\img\home\partner2.png" />
+    <Content Include="Content\img\home\partner3.png" />
+    <Content Include="Content\img\home\partner4.png" />
+    <Content Include="Content\img\home\pricing.png" />
+    <Content Include="Content\img\home\product1.jpg" />
+    <Content Include="Content\img\home\product2.jpg" />
+    <Content Include="Content\img\home\product3.jpg" />
+    <Content Include="Content\img\home\product4.jpg" />
+    <Content Include="Content\img\home\product5.jpg" />
+    <Content Include="Content\img\home\product6.jpg" />
+    <Content Include="Content\img\home\recommend1.jpg" />
+    <Content Include="Content\img\home\recommend2.jpg" />
+    <Content Include="Content\img\home\recommend3.jpg" />
+    <Content Include="Content\img\home\sale.png" />
+    <Content Include="Content\img\home\searchicon.png" />
+    <Content Include="Content\img\home\shipping.jpg" />
     <Content Include="Content\img\map.png" />
     <Content Include="Content\lib\bootstrap.css" />
     <Content Include="Content\lib\bootstrap.min.css" />
@@ -291,6 +323,7 @@
     <Content Include="Views\Shipper\GetByStore.cshtml" />
     <Content Include="Views\Shipper\GetApproveList.cshtml" />
     <Content Include="Views\Partner\PartnerList.cshtml" />
+    <Content Include="Views\Shared\Slider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,6 +389,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\sidebar.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\slider.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />

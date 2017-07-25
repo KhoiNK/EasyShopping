@@ -76,6 +76,7 @@ export class Header implements OnInit {
             })
         }
         if (this.searchkey.trim() == "") {
+            this.products = [];
             let inputEl: HTMLElement = this.el.nativeElement.querySelector('#searchResult');
             inputEl.hidden;
         }

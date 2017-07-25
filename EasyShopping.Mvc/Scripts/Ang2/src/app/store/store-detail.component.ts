@@ -38,7 +38,7 @@ export class StoreDetailComponent implements OnInit {
         , private activatedRoute: ActivatedRoute
         , private orderService: OrderServices
         , private partnerService: PartnerService
-        , private router: Router;
+        , private router: Router
         //, private countryService: CountryServices
         //, private productTypeService: ProductTypeService
         //, private productservice: ProductService
@@ -145,30 +145,4 @@ export class StoreDetailComponent implements OnInit {
             console.log(err);
         });
     }
-    //saveProduct() {
-    //    this.product.StoreID = this.id;
-    //    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
-    //    if (inputEl.files.length > 0) {
-    //        let file: File = inputEl.files[0];
-    //        let thumbailImg: string = this.b64.GetB64(file);
-    //        this.uploadservice.UploadImage(thumbailImg).subscribe((res: any) => {
-    //            this.product.ThumbailLink = res.data.link;
-    //            this.product.ThumbailCode = res.data.id;
-    //            this.AddProduct(this.product);
-    //        });
-    //    }
-    //    this.AddProduct(this.product);
-    //}
-
-    //AddProduct(product: any) {
-    //    this.productservice.AddProduct(product).subscribe(
-    //        (res: any) => {
-    //            if (res.ID) {
-    //                alert("Added successfully");
-    //                this.router.navigate(['/stores/store-detail/' + product.StoreID]);
-    //            }
-    //        }, err => {
-    //            console.log(err);
-    //        });
-    //}
 }

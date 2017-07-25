@@ -15,6 +15,7 @@ namespace EasyShopping.Api.Controllers
 {
     
     //[Route("v1/nguoidung")]
+    [Authorize]
     public class UserController : ApiController
     {
         private UserBusinessLogic _business = null;
