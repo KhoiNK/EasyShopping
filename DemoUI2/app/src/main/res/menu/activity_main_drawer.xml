@@ -4,32 +4,64 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_search"
+            android:icon="@drawable/search_icon"
             android:title="Search" />
         <item
             android:id="@+id/Approved"
-            android:title="Approved Orders" />
-        <item
-            android:id="@+id/nav_request"
-            android:title="Waitting for Approve" />
+            android:icon="@drawable/approve_icon"
+            android:title="Approved" />
+        <!--<item-->
+            <!--android:id="@+id/nav_request"-->
+            <!--android:title="Waiting" />-->
         <item
             android:id="@+id/nav_profile"
+            android:icon="@drawable/user_icon"
             android:title="Profile" />
+        <item
+            android:id="@+id/nav_search_way"
+            android:icon="@drawable/search_icon"
+            android:title="Find Near Route"/>
+        <item
+            android:title=""
+            android:enabled="false"/>
+        <item
+            android:title=""
+            android:enabled="false"/>
+        <item
+            android:title=""
+            android:enabled="false"/>
+        <item
+            android:title=""
+            android:enabled="false"/>
+        <item
+            android:title=""
+            android:enabled="false"/>
         <!--<item-->
             <!--android:id="@+id/nav_manage"-->
             <!--android:icon="@drawable/ic_menu_manage"-->
             <!--android:title="Tools" />-->
     </group>
 
-    <item android:title="">
+    <group android:id="@+id/grp2" android:checkableBehavior="single" >
         <menu>
             <item
                 android:id="@+id/nav_logout"
+                android:icon="@drawable/logout_icon"
                 android:title="Log Out" />
-            <!--<item-->
-                <!--android:id="@+id/nav_send"-->
-                <!--android:icon="@drawable/ic_menu_send"-->
-                <!--android:title="Send" />-->
         </menu>
-    </item>
+    </group>
+
+    <!--<item android:title="">-->
+
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/nav_logout"-->
+                <!--android:title="Log Out" />-->
+            <!--&lt;!&ndash;<item&ndash;&gt;-->
+                <!--&lt;!&ndash;android:id="@+id/nav_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:icon="@drawable/ic_menu_send"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:title="Send" />&ndash;&gt;-->
+        <!--</menu>-->
+    <!--</item>-->
 
 </menu>

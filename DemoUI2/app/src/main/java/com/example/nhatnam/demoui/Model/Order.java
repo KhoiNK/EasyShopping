@@ -16,15 +16,21 @@ public class Order implements Serializable {
     @SerializedName("OrderCode")
     @Expose
     private String orderCode;
+    @SerializedName("DistrictID")
+    @Expose
+    private int DistrictID;
+    @SerializedName("CityID")
+    @Expose
+    private int CityID;
     @SerializedName("Address")
     @Expose
     private String address;
     @SerializedName("OrderDetails")
     @Expose
     private OrderDetail orderDetail;
-    @SerializedName("Total")
+    @SerializedName("Price")
     @Expose
-    private Double Total;
+    private Double Price;
     public boolean isChecked = false;
 
     public String getOrderCode() {
@@ -51,12 +57,12 @@ public class Order implements Serializable {
         this.orderDetail = orderDetail;
     }
 
-    public Double getTotal() {
-        return Total;
+    public Double getPrice() {
+        return Price;
     }
 
-    public void setTotal(Double total) {
-        Total = total;
+    public void setPrice(Double price) {
+        Price = price;
     }
 
     public int getID() {
@@ -71,5 +77,13 @@ public class Order implements Serializable {
         if (isChecked) {
             isChecked = false;
         } else isChecked = true;
+    }
+
+    public int getDistrictID() {
+        return DistrictID;
+    }
+
+    public int getCityID() {
+        return CityID;
     }
 }

@@ -16,38 +16,47 @@ import android.location.LocationManager;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.nhatnam.demoui.Model.API.DirectionFinderListener;
+import com.example.nhatnam.demoui.Model.API.ShippingAPI;
 import com.example.nhatnam.demoui.Model.API.ShopAPI;
-import com.example.nhatnam.demoui.Presenter.Activity.Dialog.CustomDialogClass;
-import com.example.nhatnam.demoui.Presenter.Activity.Adapter.ShopAdapter;
+import com.example.nhatnam.demoui.Model.API.Utils.RetrofitUtils;
+import com.example.nhatnam.demoui.Model.NearRoute;
+import com.example.nhatnam.demoui.Model.Order;
+import com.example.nhatnam.demoui.Model.Point;
 import com.example.nhatnam.demoui.Model.Route;
 import com.example.nhatnam.demoui.Model.Shop;
 import com.example.nhatnam.demoui.Model.User;
+import com.example.nhatnam.demoui.Presenter.Activity.Adapter.ShopAdapter;
+import com.example.nhatnam.demoui.Presenter.Activity.Dialog.CustomDialogClass;
 import com.example.nhatnam.demoui.R;
-import com.example.nhatnam.demoui.Model.API.Utils.RetrofitUtils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -68,8 +77,10 @@ public class MainActivity extends AppCompatActivity
     private static final int SEARCH_ACTIVITY = 1;
     private static final int LOGIN_ACTIVITY = 0;
     private static final int REQUEST_ACTIVITY = 2;
+    private static final String BACK_GROUND = "https://scontent.fsgn2-2.fna.fbcdn.net/v/t35.0-12/20257459_840147529481194_60797793_o.jpg?oh=c43fbfc18074e4685490c3f9912f97c1&oe=59751988";
+    private static final int FIND_NEAR = 1;
+    private static final int SEARCH = 2;
 
-    //    private ListView lvOrders;
     public static int STATUS = 0;
     private ProgressDialog myProgress;
     private static final String MYTAG = "MYTAG";
@@ -78,30 +89,33 @@ public class MainActivity extends AppCompatActivity
     private ShopAdapter shopAdapter;
     private ShopAPI mShopAPI;
     private TextView txtUsername;
+    private int NUM;
     private SharedPreferences loginPreferences;
     private SharedPreferences.Editor loginPrefsEditor;
     private List<Marker> originMarkers = new ArrayList<>();
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private List<Polyline> mypolylinePaths = new ArrayList<>();
+    private List<Marker> listMarkerShop = new ArrayList<>();
     private ProgressDialog progressDialog;
-    private LatLng shopLatlng;
+    public static LatLng shopLatlng;
     public static String mDestination = null;
+    public static Order mOrder = null;
     public static LatLng myLatlng;
     private int count = 0;
+    private ImageView ivUser;
+    private LinearLayout linearLayout;
+    boolean doubleBackToExitPressedOnce = false;
+    public static NearRoute nearRoute = new NearRoute();
+    public static boolean pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        user = LoginActivity.user;
-        if (STATUS == SEARCH_ACTIVITY) {
-            searchFromandTo();
-        }else {
-            getShop();
-        }
-        CreateMap();
 
+        CreateMap();
+        user = LoginActivity.user;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -126,36 +140,87 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    private void showShopOnMap() {
+        if (STATUS == SEARCH_ACTIVITY) {
+            ShopAdapter.STATUS = SEARCH;
+            searchFromandTo();
+        } else {
+            ShopAdapter.STATUS = FIND_NEAR;
+            getShop();
+        }
+//        checkApproved();
+    }
+
     private void searchFromandTo() {
         Bundle bundle = getIntent().getExtras();
+
         int fromCity = bundle.getInt("fromCity");
         int fromDistrict = bundle.getInt("fromDistrict");
         int toCity = bundle.getInt("toCity");
         int toDistrict = bundle.getInt("toDistrict");
         searchShop(fromCity, fromDistrict, toCity, toDistrict);
-        STATUS = 0;
+    }
+
+    private void searchOrdersSameDestination(int toCity, int toDistrict) {
+        ShopAdapter.STATUS = SEARCH;
+        searchShop(0, 0, toCity, toDistrict);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("Closing Activity")
-                    .setMessage("Are you sure you want to close this activity?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
+        //remove polyline on map
+        if (listMarkerShop != null) {
+            for (Polyline polyline : mypolylinePaths) {
+                polyline.remove();
+            }
+            //reload map
+            showShopOnMap();
         }
+        if (destinationMarkers != null) {
+            for (Marker marker : destinationMarkers)
+                marker.remove();
+        }
+        if (originMarkers != null) {
+            for (Marker marker : originMarkers)
+                marker.remove();
+        }
+        nearRoute.clear();
+// double press on back key to close app
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else if (!doubleBackToExitPressedOnce) {
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit.", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        } else {
+            super.onBackPressed();
+            return;
+        }
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            new AlertDialog.Builder(this)
+//                    .setIcon(android.R.drawable.ic_dialog_alert)
+//                    .setTitle("Closing Activity")
+//                    .setMessage("Are you sure you want to close this activity?")
+//                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            finish();
+//                        }
+//
+//                    })
+//                    .setNegativeButton("No", null)
+//                    .show();
+//        }
     }
 
     @Override
@@ -190,11 +255,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.Approved) {
             Intent intent = new Intent(this, ApprovedActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_request) {
-            Intent intent = new Intent(this, RequestActivity.class);
+        }
+//        else if (id == R.id.nav_request) {
+//            Intent intent = new Intent(this, RequestActivity.class);
+//            startActivity(intent);
+//        }
+        else if (id == R.id.nav_profile) {
+            Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_profile) {
-
         } else if (id == R.id.nav_logout) {
             loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
             loginPrefsEditor = loginPreferences.edit();
@@ -210,12 +278,28 @@ public class MainActivity extends AppCompatActivity
             } catch (Exception e) {
                 Log.d("loi chuyen intent", e.getMessage());
             }
+        } else if (id == R.id.nav_search_way) {
+            if (nearRoute.getArrayPoint().size() > 0) {
+//                nearRoute.findNearRoute();
+//                findNearRoute(nearRoute.getPassPoint());
+                List<Point> mPointList=nearRoute.findtheway();
+                reCheck(mPointList);
+                findNearRoute(mPointList);
+            }
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    private void reCheck(List<Point> points){
+        for(int i=0;i<points.size();i++){
+            if(points.get(i).getDistance()==0){
+                points.remove(i);
+            }
+        }
+    }
 
     public void CreateMap() {
         // Tạo Progress Bar
@@ -305,6 +389,7 @@ public class MainActivity extends AppCompatActivity
 
         // Hiển thị vị trí hiện thời trên bản đồ.
         this.showMyLocation();
+        showShopOnMap();
     }
 
 
@@ -418,7 +503,8 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-    public void refreshLocation(){
+
+    public void refreshLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         String locationProvider = this.getEnabledLocationProvider();
@@ -458,7 +544,7 @@ public class MainActivity extends AppCompatActivity
             myLatlng = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
         }
     }
-    
+
 
     public void addMarker() {
 //        // test ShopAdapter
@@ -502,7 +588,7 @@ public class MainActivity extends AppCompatActivity
 //        //
 
         shopAdapter = new ShopAdapter(listshops);
-        shopAdapter.addMaker(map);
+        listMarkerShop = shopAdapter.addMaker(map, listMarkerShop);
         //
 //        map.addMarker(new MarkerOptions()
 //                .position(new LatLng(16.075642, 108.169785)));
@@ -513,27 +599,37 @@ public class MainActivity extends AppCompatActivity
                 ;
 //                lvOrders = (ListView) findViewById(R.id.list_orders);
                 //dialog
-                shopLatlng = marker.getPosition();
-                CustomDialogClass cdd = new CustomDialogClass(MainActivity.this
-                        , listshops.get(shopAdapter.findShopByLatlng(marker.getPosition())).getListOrder());
-                cdd.setCdd(cdd);
-                cdd.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialogInterface) {
-                        if (mDestination != null) {
-                            findDirection(shopLatlng.latitude + "," + shopLatlng.longitude, mDestination);
-                            mDestination = null;
+                int i = shopAdapter.findShopByLatlng(marker.getPosition());
+                if (i >= 0) {
+                    shopLatlng = marker.getPosition();
+                    CustomDialogClass cdd = new CustomDialogClass(MainActivity.this
+                            , listshops.get(shopAdapter.findShopByLatlng(marker.getPosition())).getListOrder());
+                    cdd.setCdd(cdd);
+                    cdd.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            if (mDestination != null) {
+//                                nearRoute.add(new Point(shopLatlng.latitude + "," + shopLatlng.longitude));
+//                                nearRoute.add(new Point(mDestination));
+//                                nearRoute.calculateDistance();
+
+                                findDirection(shopLatlng.latitude + "," + shopLatlng.longitude, mDestination);
+                                searchOrdersSameDestination(mOrder.getCityID(), mOrder.getDistrictID());
+                                mDestination = null;
+                                mOrder = null;
+                            }
+                            if (checkShopByLatlng(shopLatlng)) {
+                                marker.remove();
+                            }
                         }
-                        if (checkShopByLatlng(shopLatlng)) {
-                            marker.remove();
-                        }
-                    }
-                });
-                cdd.show();
+                    });
+                    cdd.show();
+                }
                 return false;
             }
         });
     }
+
 
     public boolean checkShopByLatlng(LatLng latLng) {
         for (Shop shop : listshops) {
@@ -613,8 +709,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onLocationChanged(Location location) {
 
-////        count++;
-////        if (count == TIME_REFRESH) {
+//        count++;
+//        if (count == TIME_REFRESH) {
+//        checkApproved();
         refreshLocation();
 //        mShopAPI = RetrofitUtils.get().create(ShopAPI.class);
 //        Call<List<Shop>> call = mShopAPI.getShops(user.getID(), 0, 0, 0, 0);
@@ -637,6 +734,36 @@ public class MainActivity extends AppCompatActivity
 //            }
 //        });
 ////        }
+    }
+
+    public void checkApproved() {
+        ShippingAPI mShipping = RetrofitUtils.get().create(ShippingAPI.class);
+        mShipping.getNumApproved(user.getID()).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                NUM = response.body();
+                loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+                loginPrefsEditor = loginPreferences.edit();
+                int mNum = loginPreferences.getInt("NUM", 0);
+
+                if (mNum > 0) {
+                    if (mNum != NUM) {
+                        notifyShow();
+                        loginPrefsEditor.putInt("NUM", NUM);
+                        loginPrefsEditor.commit();
+                    }
+                } else {
+                    loginPrefsEditor.putInt("NUM", NUM);
+                    loginPrefsEditor.commit();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+
+            }
+        });
     }
 
     private void notifyShow() {
@@ -668,7 +795,15 @@ public class MainActivity extends AppCompatActivity
     void getUser() {
         Bundle bundle = getIntent().getExtras();
         txtUsername = (TextView) findViewById(R.id.textView2);
-        txtUsername.setText(user.getUserName());
+        linearLayout = (LinearLayout) findViewById(R.id.nav_header_background);
+        ivUser = (ImageView) findViewById(R.id.nav_header_profile_image);
+        txtUsername.setText(user.getFirstName());
+        if (user.getUserImage() != null) {
+            Glide.with(this)
+                    .load(user.getUserImage())
+                    .into(ivUser);
+        }
+
     }
 
     private interface SearchListener {
@@ -683,6 +818,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDirectionFinderStart() {
+        count = 0;
         progressDialog = ProgressDialog.show(this, "Please wait.",
                 "Finding direction..!", true);
 //
@@ -710,9 +846,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDirectionFinderSuccess(List<Route> routes) {
         progressDialog.dismiss();
-        polylinePaths = new ArrayList<>();
-        originMarkers = new ArrayList<>();
-        destinationMarkers = new ArrayList<>();
+        if (polylinePaths == null) {
+            polylinePaths = new ArrayList<>();
+        }
+        if (originMarkers == null) {
+            originMarkers = new ArrayList<>();
+        }
+        if (destinationMarkers == null) {
+            destinationMarkers = new ArrayList<>();
+        }
         for (Route route : routes) {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(myLatlng)             // Sets the center of the map to location user
@@ -721,12 +863,18 @@ public class MainActivity extends AppCompatActivity
                     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
                     .build();
 
+            count++;
+            destinationMarkers.add(map.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                    .title(route.endAddress)
+                    .snippet("Number " + count)
+                    .position(route.endLocation)));
             Toast toast = Toast.makeText(MainActivity.this, "Distance: " + route.distance.text + "    Duration: " + route.duration.text, Toast.LENGTH_LONG);
             toast.show();
             PolylineOptions polylineOptions = new PolylineOptions().
                     geodesic(true).
                     color(Color.BLUE).
-                    width(10);
+                    width(15);
 
             for (int i = 0; i < route.points.size(); i++)
                 polylineOptions.add(route.points.get(i));
@@ -740,6 +888,15 @@ public class MainActivity extends AppCompatActivity
 
         try {
             new DirectionFinder(this, origin, destination, myLatlng.latitude + "," + myLatlng.longitude).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void findNearRoute(List<Point> mPointList) {
+
+        try {
+            new DirectionFinder(this, mPointList).executeMutil();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

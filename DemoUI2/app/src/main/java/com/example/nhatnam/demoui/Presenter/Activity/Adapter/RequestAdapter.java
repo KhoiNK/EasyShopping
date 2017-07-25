@@ -59,8 +59,6 @@ public class RequestAdapter extends ArrayAdapter<ShippingDetail> {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
-        final View finalConvertView;
-        final int post = position;
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.request_item, parent, false);
@@ -87,7 +85,6 @@ public class RequestAdapter extends ArrayAdapter<ShippingDetail> {
 //                    }
                 }
             });
-            finalConvertView = convertView;
             convertView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
@@ -103,9 +100,9 @@ public class RequestAdapter extends ArrayAdapter<ShippingDetail> {
         ShippingDetail shippingDetail = getItem(position);
         // Fill data
         if (shippingDetail.getOrder().getOrderDetail() != null) {
-            viewHolder.tvPrice.setText(String.valueOf(shippingDetail.getOrder().getOrderDetail().getPrice()));
             viewHolder.tvWeight.setText(String.valueOf(shippingDetail.getOrder().getOrderDetail().getWeight() / 1000) + " Kg");
         }
+        viewHolder.tvPrice.setText(String.valueOf(shippingDetail.getOrder().getPrice()));
         viewHolder.tvShopName.setText(shippingDetail.getStoreName());
         viewHolder.tvOrderID.setText(String.valueOf(shippingDetail.getOrder().getID()));
         viewHolder.tvDestination.setText(shippingDetail.getOrder().getAddress());
@@ -122,22 +119,7 @@ public class RequestAdapter extends ArrayAdapter<ShippingDetail> {
                 "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, final int id) {
-                        shippingAPI= RetrofitUtils.get().create(ShippingAPI.class);
-                        shippingAPI.cancelOrder(mShippingDetail.get(listId).getOrder().getID(),MainActivity.user.getID()).enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                mShippingDetail.remove(listId);
-                                notifyDataSetChanged();
-                                RequestActivity.isModified=true;
-                                Toast.makeText(getContext(),"Cancel Successfull",Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-                                Log.d("loi cancel Request",t.getMessage());
-                            }
-                        });
-                        dialog.cancel();
+                        cancelOrder(listId,dialog);
                     }
                 });
 
@@ -152,9 +134,25 @@ public class RequestAdapter extends ArrayAdapter<ShippingDetail> {
         alert11.show();
     }
 
-    private void cancelOrder(int OrderID, int UserID){
+    private void cancelOrder(final int id,DialogInterface dialog){
+        shippingAPI= RetrofitUtils.get().create(ShippingAPI.class);
+        shippingAPI.cancelOrder(mShippingDetail.get(id).getOrder().getID(),MainActivity.user.getID()).enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                mShippingDetail.remove(id);
+                notifyDataSetChanged();
+                RequestActivity.isModified=true;
+                Toast.makeText(getContext(),"Cancel Successfull",Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+                Log.d("loi cancel Request",t.getMessage());
+            }
+        });
+        dialog.cancel();
     }
+
     private int findViewByOrderID(int id) {
         for (int i = 0; i < mShippingDetail.size(); i++) {
             if (mShippingDetail.get(i).getOrder().getID() == id) {

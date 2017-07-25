@@ -82,22 +82,26 @@ public class CustomDialogClass extends Dialog implements View.OnClickListener {
                 i++;
         }
         cdd.dismiss();
-        Toast toast = Toast.makeText(context, "Sent success "+count+" request", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "Sent success " + count + " request", Toast.LENGTH_SHORT);
         toast.show();
     }
 
     void takeOrder(int UserID, int OrderID) {
         mOrderAPI = RetrofitUtils.get().create(OrderAPI.class);
-        mOrderAPI.takeOrder(OrderID, UserID).enqueue(new Callback<Integer>() {
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                Log.d("dung", response.body().toString());
-            }
+        try {
+            mOrderAPI.takeOrder(OrderID, UserID).enqueue(new Callback<Integer>() {
+                @Override
+                public void onResponse(Call<Integer> call, Response<Integer> response) {
+//                    Log.d("dung", response.body().toString());
+                }
 
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                Log.d("loi lay order", t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<Integer> call, Throwable t) {
+                    Log.d("loi lay order", t.getMessage());
+                }
+            });
+        }catch (Exception e){
+            Log.d("loi lay order catch", e.getMessage());
+        }
     }
 }
