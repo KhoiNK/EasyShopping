@@ -19,6 +19,8 @@ namespace EasyShopping.Api.Controllers
     {
         ProductBusinessLogic _business;
         StoreBusinessLogic _store;
+
+        private const string DELETE = "Delete";
         public ProductController()
         {
             _business = new ProductBusinessLogic();
@@ -40,6 +42,7 @@ namespace EasyShopping.Api.Controllers
         }
         [HttpPost]
         [ActionName("AddProduct")]
+        [Authorize]
         public IHttpActionResult Post([FromBody] ProductApiModel data)
         {
             try
@@ -63,6 +66,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("ApproveList")]
+        [Authorize]
         public IEnumerable<ProductApiModel> GetApproveList(int id)
         {
             try
@@ -84,6 +88,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpPut]
         [ActionName("EditProduct")]
+        [Authorize]
         public IHttpActionResult Put([FromBody] ProductApiModel data)
         {
             try
@@ -116,5 +121,22 @@ namespace EasyShopping.Api.Controllers
             return Ok(result);
         }
         //public 
+
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.Remove(id, name);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

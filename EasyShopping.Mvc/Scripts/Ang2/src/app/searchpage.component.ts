@@ -26,9 +26,9 @@ export class SearchPageComponent implements OnInit{
     ngOnInit() {
         this.subscription = this.activateRoute.params.subscribe(params => {
             this.searchname = params['searchname'];
+            this.LoadProduct(this.searchname);
+            this.LoadStore(this.searchname);
         });
-        this.LoadProduct(this.searchname);
-        this.LoadStore(this.searchname);
     }
 
     LoadProduct(name: string) {

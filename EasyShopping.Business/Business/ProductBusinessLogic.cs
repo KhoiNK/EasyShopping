@@ -87,6 +87,11 @@ namespace EasyShopping.BusinessLogic.Business
                     return _repo.Edit(product);
 
                 case DELETE:
+                    if (_partner.IsPartner(data.StoreID,userID))
+                    {
+                        data.StatusID = WAITINGFORAPPROVE;
+                        return _repo.Edit(data.Translate<ProductDTO, Product>());
+                    }
                     return _repo.Remove(data.ID);
 
                 default:
@@ -133,6 +138,19 @@ namespace EasyShopping.BusinessLogic.Business
         public ProductDTO GetProduct(int id)
         {
             return _repo.GetById(id).Translate<Product, ProductDTO>();
+        }
+
+        public bool Remove(int id, string username)
+        {
+            var product = _repo.GetById(id);
+            var userId = _user.FindUser(username).ID;
+            if(_partner.IsPartner(product.StoreID, userId))
+            {
+                product.StatusID = WAITINGFORAPPROVE;
+                product.ActionLog = DELETE;
+                return _repo.Edit(product);
+            }
+            return _repo.Remove(id);
         }
     }
 }

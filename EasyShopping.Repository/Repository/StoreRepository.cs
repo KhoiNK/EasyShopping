@@ -175,7 +175,7 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                if (_db.Partners.Where(x => (x.StoreID == storeId) && (x.UseID == id)).Single() != null)
+                if (_db.Partners.Where(x => (x.StoreID == storeId) && (x.UseID == id) && (x.isWorking == true)).Single() != null)
                 {
                     return true;
                 }

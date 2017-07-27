@@ -25,4 +25,16 @@ export class PartnerService {
     Approve(id: number): Observable<any> {
         return this._http.get(this.apiUrl + "/Approve/" + id).map(res => res.json());
     }
+
+    IsApplied(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/IsApplied/" + id).map(res => res.json());
+    }
+
+    RemoveApply(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/RemoveApply/" + id).map(res => res.json());
+    }
+
+    RemovePartner(id: number): Observable<any> {
+        return this._http.delete(this.apiUrl + "/" + id).map(res => res.json());
+    }
 }

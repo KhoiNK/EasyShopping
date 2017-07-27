@@ -42,4 +42,8 @@ export class ProductService {
     GetByName(data: string): Observable<any> {
         return this._http.get(this.apiUrl + "/GetWithName/" + data).map(res => res.json());
     }
+
+    Delete(id: number): Observable<any> {
+        return this._http.delete(this.apiUrl + "/" + id).map(res => res.json());
+    }
 }

@@ -45,6 +45,23 @@ export class partnerListComponent implements OnInit, OnDestroy {
         })
     }
 
+    RemovePartner(id: number) {
+        var result = confirm("Are you sure want to remove this partner?");
+        if (result) {
+            this.partnerservice.RemovePartner(id).subscribe((res: any) => {
+                if (res == true) {
+                    alert("Remove Successfully!");
+                    this.LoadData();
+                }
+                else {
+                    alert("Remove failed!");
+                }
+            }, err => {
+                console.log(err);
+            });
+        }
+    }
+
     ngOnDestroy() {
         this.subscription.unsubscribe();
     }

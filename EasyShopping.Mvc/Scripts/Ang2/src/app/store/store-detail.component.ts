@@ -22,6 +22,7 @@ import { UploadService } from '../upload/upload-image.service';
         ProductTypeService,
         Base64EncodeService,
         UploadService,
+        ProductService
     ]
 })
 export class StoreDetailComponent implements OnInit {
@@ -31,6 +32,7 @@ export class StoreDetailComponent implements OnInit {
     public subscription: Subscription;
     public isOwner: boolean = false;
     public isAllowed: boolean = false;
+    public isApplied: boolean = false;
     public product: any;
     public countries: any[];
     public types: any[];
@@ -39,13 +41,8 @@ export class StoreDetailComponent implements OnInit {
         , private orderService: OrderServices
         , private partnerService: PartnerService
         , private router: Router
-        //, private countryService: CountryServices
-        //, private productTypeService: ProductTypeService
-        //, private productservice: ProductService
-        //, private el: ElementRef
-        //, private router: Router
-        //, private b64: Base64EncodeService
-        /*, private uploadservice: UploadService*/) {
+        , private productservice: ProductService
+    ) {
         this.store = {};
         this.product = {};
     }
@@ -61,7 +58,6 @@ export class StoreDetailComponent implements OnInit {
             }
         }, err => {
             console.log(err);
-            //this.LoadData(this.id);
         });
         this.storeservice.CheckOwner(this.id).subscribe(res => {
             if (res == true == true) {
@@ -69,7 +65,11 @@ export class StoreDetailComponent implements OnInit {
             }
         }, err => {
             console.log(err);
-            //this.LoadData(this.id);
+        });
+        this.partnerService.IsApplied(this.id).subscribe(res => {
+            this.isApplied = res;
+        }, err => {
+            console.log(err);
         });
         //this.countryService.GetCountryList().subscribe((res: any) => this.countries = res);
         //this.productTypeService.GetList().subscribe((res: any) => this.types = res);
@@ -140,6 +140,37 @@ export class StoreDetailComponent implements OnInit {
             if (res == true) {
                 alert("Update successfully!");
                 this.router.navigate['/stores/store-detail/' + this.store.ID];
+            }
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    RemoveProduct(id: number) {
+        var answer = confirm("Are You sure want to delete this product?");
+        if (answer) {
+            this.productservice.Delete(id).subscribe((res: any) => {
+                if (res == true) {
+                    alert("Deleted successfully!");
+                    this.LoadData(this.id);
+                }
+                else {
+                    alert("Deleted failed!");
+                }
+            }, err => {
+                console.log(err);
+            });
+        }
+    }
+
+    RemoveApply() {
+        this.partnerService.RemoveApply(this.id).subscribe((res: any) => {
+            if (res == true) {
+                alert("Removed successful!");
+                window.location.reload();
+            }
+            else {
+                alert("remove failed!");
             }
         }, err => {
             console.log(err);

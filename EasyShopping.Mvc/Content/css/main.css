@@ -2398,6 +2398,13 @@ h2.title {
     margin-top: 16px;
 }
 
+.btn.btn-danger{
+    background: red;
+    border: 0 none;
+    border-radius: 0;
+    margin-top: 16px;
+}
+
 .blank-arrow {
     position: relative;
 }

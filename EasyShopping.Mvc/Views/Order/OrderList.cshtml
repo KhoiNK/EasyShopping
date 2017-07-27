@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-        <div id="menu1" class="tab-pane fade in active">
+        <div id="menu1" class="tab-pane fade">
             <div *ngFor="let order of orders">
                     <div class="row">
                         Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
@@ -24,7 +24,7 @@
                     </div>
             </div>
         </div>
-        <div id="menu2" class="tab-pane fade in active">
+        <div id="menu2" class="tab-pane fade">
             <div *ngFor="let order of orders">
                     <div class="row">
                         Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
@@ -32,7 +32,7 @@
                     </div>
             </div>
         </div>
-        <div id="menu3" class="tab-pane fade in active">
+        <div id="menu3" class="tab-pane fade">
             <div *ngFor="let order of orders">
                     <div class="row">
                         Order: <a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>

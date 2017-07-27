@@ -37,9 +37,26 @@ namespace EasyShopping.BusinessLogic.Business
             return result.Translate<Message, MessageDTO>();
         }
 
+        public IEnumerable<MessageDTO> GetThumbail(string name)
+        {
+            var id = _user.FindUser(name).ID;
+            var result = _repo.GetThumbail(id);
+            return result.Translate<Message, MessageDTO>();
+        }
+
         public bool MarkAsRead(int id)
         {
             return _repo.MarkAsRead(id);
+        }
+
+        public int CountUnread(string name)
+        {
+            return _repo.CountUnread(_user.FindUser(name).ID);
+        }
+
+        public MessageDTO GetDetail(int id)
+        {
+            return _repo.GetDetail(id).Translate<Message, MessageDTO>();
         }
     }
 }

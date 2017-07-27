@@ -19,6 +19,12 @@ namespace EasyShopping.BusinessLogic.Business
             _user = new UserBusinessLogic();
         }
 
+        public bool IsApplied(int storeId, string username)
+        {
+            var userId = _user.GetByName(username).Result.ID;
+            return _repo.IsApplied(userId, storeId);
+        }
+
         public bool Apply(string name, int storeId)
         {
             var partner = new PartnerDTO();
@@ -69,6 +75,11 @@ namespace EasyShopping.BusinessLogic.Business
             partner.ModifiedDate = DateTime.Now;
             partner.isWorking = true;
             return _repo.Edit(partner.Translate<PartnerDTO, Partner>());
+        }
+
+        public bool Remove(int id)
+        {
+            return _repo.Remove(id);
         }
     }
 }

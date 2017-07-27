@@ -28,7 +28,8 @@
                                 <button class="btn btn-default" data-toggle="collapse" data-target="#expand_partner_management" *ngIf="isOwner">Partner Management</button>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner List</a>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
-                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply">Apply</button>
+                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true && !isApplied" data-toggle="modal" data-target="#apply">Apply</button>
+                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && isApplied" (click)="RemoveApply()">Remove Apply</button>
                             </div>
                             <div id="expand_product_management" class="collapse expand_management">
                                 <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
@@ -50,13 +51,13 @@
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <a class="btn btn-primary" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]">Edit</a>
+                            <a class="btn btn-danger" *ngIf="isAllowed" (click)="RemoveProduct(product.ID)">Delete</a>
                             <div class="productinfo text-center">
                                 <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" style="width:50px; height:50px; text-align:center" /></a>
                                 <h2>{{product.Price | currency:'USD':true:'1.0-0'}}</h2>
                                 <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
                                 <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -89,6 +90,19 @@
                     </div>
                     <div class="modal-body">
                         {{store.RecruitmentMessage}}
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" (click)="Apply()">Apply</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="message" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        {{message}}
                     </div>
                     <div class="modal-footer">
                         <button class="btn btn-success" (click)="Apply()">Apply</button>

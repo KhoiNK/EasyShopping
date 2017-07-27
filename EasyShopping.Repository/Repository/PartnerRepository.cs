@@ -59,7 +59,8 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                _db.Partners.Where(x => x.ID == id).Single().isWorking = false;
+                var partner = _db.Partners.Where(x => x.ID == id).Single();
+                _db.Partners.Remove(partner);
                 _db.SaveChanges();
                 return true;
             }
@@ -74,7 +75,7 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                if((userId.HasValue) && (storeId.HasValue) && (id.Value == 0))
+                if(!id.HasValue)
                 {
                     _db.Partners.Remove(_db.Partners.Where(x => (x.UseID == userId.Value) && (x.StoreID == storeId.Value)).Single());
                     _db.SaveChanges();
@@ -123,7 +124,7 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var partners = _db.Partners.Where(x => x.StoreID == storeId && x.isWorking == false).ToList();
+                var partners = _db.Partners.Where(x => x.StoreID == storeId).ToList();
                 return partners;
             }
             catch(Exception e)

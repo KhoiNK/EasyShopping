@@ -20,6 +20,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("GetList")]
+        [Authorize]
         public IHttpActionResult GetList(int id)
         {
             if(_business.GetList(id).Count() <= 0)
@@ -31,6 +32,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("Approve")]
+        [Authorize]
         public bool Approve(int id)
         {
             try
@@ -60,6 +62,62 @@ namespace EasyShopping.Api.Controllers
                 Console.WriteLine(e.InnerException);
                 return false;
             }
+        }
+
+        [HttpGet]
+        [ActionName("IsApplied")]
+        public bool IsApplied(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.IsApplied(id, name);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        [HttpGet]
+        [ActionName("RemoveApply")]
+        public bool RemoveApply(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.RemoveApply(name, id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [HttpGet]
+        [ActionName("RemoveFromApprovement")]
+        [Authorize]
+        public bool RemoveFromApprovement(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.RemoveFromApprovement(id);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [Authorize]
+        public bool Delete(int id)
+        {
+            return _business.Remove(id);
         }
     }
 }
