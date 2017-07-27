@@ -84,5 +84,6 @@ export class Header implements OnInit {
 
     SetSearchKey() {
         this.globalSrv.changeSearchProduct(this.searchkey);
+        this.router.navigate(['/searchs', this.searchkey]);
     }
 }

@@ -186,5 +186,7 @@ namespace EasyShopping.Repository.Repository
             var products = store.Products.Where(x => x.StatusID == WAITINGFORAPPROVE).ToList();
             return products;
         }
+
+        
     }
 }

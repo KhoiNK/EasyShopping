@@ -3,21 +3,25 @@ import { ProductService } from './product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApprovementServices } from '../approvement/approve-product.service';
+import {StoreServices } from '../store/store.service';
 
 @Component({
     selector: 'product-approve-list',
     templateUrl: "/Product/ApproveList",
-    providers: [ProductService, ApprovementServices]
+    providers: [ProductService, ApprovementServices, StoreServices]
 })
 
 export class ProductApproveListComponent implements OnInit {
     public products: any[];
     public subscription: Subscription;
     private id: number;
+    public isAllowed: boolean = false;
+    public isOwner: boolean = false;
     constructor(private productService: ProductService
         , private router: Router
         , private activateRoute: ActivatedRoute
-        , private approveSrv: ApprovementServices) {
+        , private approveSrv: ApprovementServices
+        , private storeservice: StoreServices) {
 
     }
 
@@ -26,6 +30,22 @@ export class ProductApproveListComponent implements OnInit {
             this.id = params['id'];
         });
         this.LoadData(this.id);
+        this.storeservice.CheckAllowance(this.id).subscribe(res => {
+            if (res == true) {
+                this.isAllowed = true;
+            }
+        }, err => {
+            console.log(err);
+            //this.LoadData(this.id);
+        });
+        this.storeservice.CheckOwner(this.id).subscribe(res => {
+            if (res == true == true) {
+                this.isOwner = true;
+            }
+        }, err => {
+            console.log(err);
+            //this.LoadData(this.id);
+        });
     }
 
     LoadData(id: number) {

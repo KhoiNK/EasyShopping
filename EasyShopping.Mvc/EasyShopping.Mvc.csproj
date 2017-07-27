@@ -325,6 +325,7 @@
     <Content Include="Views\Partner\PartnerList.cshtml" />
     <Content Include="Views\Shared\Slider.cshtml" />
     <Content Include="Views\Store\Introduction.cshtml" />
+    <Content Include="Views\Shared\SearchPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -383,6 +384,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\product.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\product\Product.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\searchpage.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-apply.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-approve.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-getbystoreId.component.ts" />

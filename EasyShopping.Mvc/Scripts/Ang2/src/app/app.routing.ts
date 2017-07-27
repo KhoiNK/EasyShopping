@@ -1,6 +1,7 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
 import { loginRoutes } from './auth/login.routing';
+import { SearchPageComponent } from './searchpage.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,10 @@ const routes: Routes = [
     {
         path: 'partners',
         loadChildren: 'app/partner/partner.module#PartnerModule'
+    },
+    {
+        path: 'searchs/:searchname',
+        component: SearchPageComponent
     },
     //{
     //    path: 'contracts',

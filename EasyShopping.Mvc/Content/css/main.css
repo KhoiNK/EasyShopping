@@ -912,6 +912,7 @@ h2.title {
 
 .productinfo img {
     width: 100%;
+    object-fit:cover;
 }
 
 .productinfo {
@@ -1043,25 +1044,26 @@ h2.title {
                 background: #FE980F;
                 color: #fff;
             }
+.nav-tabs{
+    background-color: #425161;
+}
 
 .nav-tabs li.active a, .nav-tabs li.active a:hover, .nav-tabs li.active a:focus {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
-    background-color: #FE980F;
-    border: 0px;
-    color: #FFFFFF;
+    background-color: #FFF;
+    color: #425161;
     cursor: default;
     margin-right: 0;
     margin-left: 0;
 }
 
 .nav-tabs li a {
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 4px 4px 0 0;
     line-height: 1.42857;
     margin-right: 0;
+    color: white;
 }
 
 .recommended_items {
@@ -2723,4 +2725,21 @@ form > textarea{
 
 .expand_product_management a{
     margin: 10px;
+}
+
+.search_container{
+    margin: 30px 0px 10px 0px;
+    display:inline-block;
+    border: 0.5px solid #F7F7F5;
+    width: 100%;
+    text-decoration:none;
+    color:black;
+}
+
+
+.search_container:hover{
+    border: 1.5px solid #F7F7F5;
+    box-shadow: 4px 5px 8px 0px rgba(128, 128, 128, 0.41);
+    text-decoration:none;
+    color:black;
 }

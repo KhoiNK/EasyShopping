@@ -12,6 +12,9 @@
                 <thead>
                     <tr>
                         <td>
+
+                        </td>
+                        <td>
                             ID
                         </td>
                         <td>
@@ -37,13 +40,14 @@
                 <tbody class="tab-content">
                     <tr *ngFor="let product of products">
                         <template [ngIf]="product.ActionLog == 'Create'">
+                            <td><a class="fa fa-pencil-square-o" [routerLink]="['/products/product-edit', product.ID]"></a></td>
                             <td>{{product.ID}}</td>
                             <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
                             <td>{{product.Name}}</td>
                             <td>{{product.Description}}</td>
                             <td>{{product.Quantity}}</td>
                             <td>{{product.Price}}</td>
-                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)" *ngIf="isOwner">Approve</button>
                         </template>
                     </tr>
                 </tbody>
@@ -83,6 +87,7 @@
                 <tbody class="tab-content">
                     <tr *ngFor="let product of products">
                         <template [ngIf]="product.ActionLog != 'Create' && product.ActionLog != 'Delete'">
+                            <td><a class="fa fa-pencil-square-o" [routerLink]="['/products/product-edit', product.ID]"></a></td>
                             <td>{{product.ID}}</td>
                             <td><img src="{{product.ThumbailLink}}" style="width: 10px; height:10px" /></td>
                             <td>{{product.Name}}</td>
@@ -90,7 +95,7 @@
                             <td>{{product.Quantity}}</td>
                             <td>{{product.Price}}</td>
                             <td data-toggle="tooltip" data-placement="top" title="{{product.ActionLog}}">{{product.ActionLog}}</td>
-                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)" *ngIf="isOwner">Approve</button>
                         </template>
                     </tr>
                 </tbody>
@@ -133,7 +138,7 @@
                             <td>{{product.Description}}</td>
                             <td>{{product.Quantity}}</td>
                             <td>{{product.Price}}</td>
-                            <td><button class="btn btn-success" (click)="Approve(product.ID)">Approve</button>
+                            <td><button class="btn btn-success" (click)="Approve(product.ID)" *ngIf="isOwner">Approve</button>
                         </template>
                     </tr>
                 </tbody>
