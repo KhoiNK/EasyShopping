@@ -675,10 +675,11 @@ ul.sub-menu {
     padding-bottom: 20px;
     padding-top: 15px;
     background-color: white;
+    box-shadow:4px 4px 8px 2px rgba(128, 128, 128, 0.41);
 }
 
 .left-sidebar h2, .brands_products h2 {
-    color: #D2534A;
+    color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 18px;
     font-weight: 700;
@@ -708,7 +709,7 @@ ul.sub-menu {
         z-index: -1;
         left: 50%;
         margin-left: -65px;
-        background-color: white;
+        background-color: #d2534a;
     }
 
 h2.title:before {
@@ -863,11 +864,19 @@ h2.title {
 }
 
 .product-image-wrapper {
-    border: 1.5px solid #F7F7F5;
     overflow: hidden;
     margin-bottom: 30px;
     background-color: white;
+    object-fit:cover;
+}
+
+.product-image-wrapper:hover{
+    border: 1.5px solid #F7F7F5;
     box-shadow: 4px 5px 8px 0px rgba(128, 128, 128, 0.41);
+}
+
+.product-image-wrapper img{
+    height: 150px;
 }
 
 .single-products {
@@ -948,6 +957,7 @@ h2.title {
     .product-overlay .add-to-cart:hover {
         background: #fff;
         color: #FE980F;
+        background-color:#425161;
     }
 
 
@@ -961,7 +971,7 @@ h2.title {
 
 
 .add-to-cart {
-    background: #D2534A;
+    background: #425161;
     border: 0 none;
     border-radius: 0;
     color: white;
@@ -971,7 +981,7 @@ h2.title {
 }
 
     .add-to-cart:hover {
-        background: #FE980F;
+        background-color:#D2534A;
         border: 0 none;
         border-radius: 0;
         color: #FFFFFF;
@@ -983,11 +993,6 @@ h2.title {
 
 .add-to-cart i {
     margin-right: 5px;
-}
-
-.add-to-cart:hover {
-    background: #FE980F;
-    color: #FFFFFF;
 }
 
 .choose {
@@ -2385,7 +2390,7 @@ h2.title {
     }
 
 .btn.btn-primary {
-    background: #FE980F;
+    background: #425161;
     border: 0 none;
     border-radius: 0;
     margin-top: 16px;
@@ -2541,7 +2546,7 @@ h2.title {
 }
 
 .form {
-    padding: 20px;
+    padding: 0px 20px 0px 40px;
 }
 
 .form_row {
@@ -2553,7 +2558,7 @@ h2.title {
 
     .form_row label {
         margin-top: 10px;
-        width: 100px;
+        width: 100%;
         float: left;
         padding: 5px 0 0px 0;
         font-size: 16px;
@@ -2568,12 +2573,12 @@ h2.title {
     height: 34px;
     float: left;
     padding: 0px 0px 0 4px;
-    background-color: #F4F6F7;
-    border: 1px #90A9B7 solid;
     color: #000;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    border-top:hidden;
+    border-left:hidden;
+    border-right:hidden;
+    border-bottom: 1px solid #cbcbcb;
+    background-color: white;
 }
 
 .form_date {
@@ -2673,13 +2678,49 @@ h2 {
     max-width:600px;
     box-shadow:4px 4px 8px 3px rgba(128, 128, 128, 0.41);
     margin-left: 80px;
+
 }
 
 .add-form h1{
-    color:#D2534A;
+    color:white;
     text-align:center;
+    background-color:#425161;
+    border-radius:10px 10px 0 0;
+    margin-top: 0px;
 }
 
 .form-body{
     padding: 0 0 5% 0;
+}
+
+.form-body .container{
+    padding: 0px;
+}
+
+.left-sidebar{
+    padding-left: 30px;
+    
+}
+
+textarea:focus,
+input:focus{
+    outline:none;
+}
+
+form > textarea{
+    border-top:hidden;
+    border-left:hidden;
+    border-right:hidden;
+    background-color:white;
+}
+
+.expand_management{
+    margin: 10px 0 0 0;
+    transition: height 0.5s;
+    
+    max-width:50%;
+}
+
+.expand_product_management a{
+    margin: 10px;
 }

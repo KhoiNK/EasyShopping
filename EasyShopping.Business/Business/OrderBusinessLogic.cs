@@ -216,5 +216,11 @@ namespace EasyShopping.BusinessLogic.Business
         {
             return _detail.GetByStoreId(storeId, orderId).Translate<OrderDetail, OrderDetailDTO>();
         }
+
+        public IEnumerable<OrderViewDTO> GetByStatus(int id, string username)
+        {
+            var userId = _user.FindUser(username).ID;
+            return _repo.GetByStatus(id, userId).Translate<Order, OrderViewDTO>();
+        }
     }
 }

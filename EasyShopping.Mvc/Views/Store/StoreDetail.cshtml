@@ -1,4 +1,4 @@
-﻿
+﻿@Html.Partial("~/Views/Shared/SideBar.cshtml")
 <div class="col-sm-9 padding-right">
     <div class="features_items">
         <!--features_items-->
@@ -15,22 +15,29 @@
                             <h4>
                                 {{store.Name}}
                             </h4>
-                            <p>
-                                <i class="fa fa-user-o"></i> Status: {{store.Status}}
-                                <br />
-                                <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
-                                <br />
-                                <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
-                                <br />
-                                <button class="btn btn default">Product Management</button>
-                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
-                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
+
+                            <i class="fa fa-user-o"></i> Status: {{store.Status}}
+                            <br />
+                            <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
+                            <br />
+                            <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}, {{store.Ward}}, {{store.District}}, {{store.City}}
+                            <br />
+                            <div class="row">
+
+                                <button class="btn btn-default" data-toggle="collapse" data-target="#expand_product_management" *ngIf="isAllowed">Product Management</button>
+                                <button class="btn btn-default" data-toggle="collapse" data-target="#expand_partner_management" *ngIf="isOwner">Partner Management</button>
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner List</a>
-                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply" >Apply</button>
+                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
+                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true" data-toggle="modal" data-target="#apply">Apply</button>
+                            </div>
+                            <div id="expand_product_management" class="collapse expand_management">
+                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
+                            </div>
+                            <div id="expand_partner_management" class="collapse expand_management">
                                 <button *ngIf="isOwner && store.IsRecruiting == false" data-toggle="modal" data-target="#recruit" class="btn btn-default">Recruit</button>
                                 <button *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()" class="btn btn-default">Disable Recruitment</button>
-                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,7 +49,7 @@
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">
                         <div class="single-products">
-                            <a class="btn btn-primary" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]" >Edit</a>
+                            <a class="btn btn-primary" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]">Edit</a>
                             <div class="productinfo text-center">
                                 <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" style="width:50px; height:50px; text-align:center" /></a>
                                 <h2>{{product.Price | currency:'USD':true:'1.0-0'}}</h2>

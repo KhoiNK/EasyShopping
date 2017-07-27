@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
+    [Authorize]
     public class OrderController : ApiController
     {
         OrderBusinessLogic _business;
@@ -135,6 +136,22 @@ namespace EasyShopping.Api.Controllers
         public IHttpActionResult GetByStoreId([FromBody]AddToCartModel cart)
         {
             return Ok(_business.GetByStoreId(cart.productId, cart.cartId));
+        }
+
+        [HttpGet]
+        [ActionName("GetByStatus")]
+        public IHttpActionResult GetByStatus(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.GetByStatus(id, name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

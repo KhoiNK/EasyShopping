@@ -1,22 +1,38 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductService } from './product.service';
 import { OrderServices } from '../order/order.service';
+import { GlobalService } from '../global-observable.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'product-list',
     templateUrl: '/Product',
-    providers: [ProductService, OrderServices]
+    providers: [ProductService, OrderServices, GlobalService]
 })
 
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
     public products: any[];
     public CART: string = "cart";
     public PROFILE: string = 'profile';
-    constructor(private productservice: ProductService, private orderService: OrderServices) {
+    public subscription: Subscription;
+    constructor(private productservice: ProductService
+        , private orderService: OrderServices
+        , private globalSrv: GlobalService
+    ) {
     }
 
     ngOnInit() {
-        this.loadData();
+        //this.loadData();
+        this.subscription = this.globalSrv.searchproduct$.subscribe((res: any) => {
+            if (res == "") {
+                this.loadData();
+            }
+            else {
+                this.LoadWithName(res);
+            }
+        }, err => {
+            console.log(err);
+        });
     }
 
     loadData() {
@@ -62,5 +78,9 @@ export class ProductListComponent implements OnInit {
         }, err => {
             console.log(err);
         });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

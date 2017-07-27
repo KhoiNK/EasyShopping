@@ -1,4 +1,6 @@
-﻿<div class="container">
+﻿@Html.Partial("~/Views/Shared/Slider.cshtml")
+@Html.Partial("~/Views/Shared/SideBar.cshtml")
+<div class="container">
     <div class="row">
         <div class="col-sm-9 padding-right">
             <div class="features_items" *ngIf="products">
@@ -6,7 +8,7 @@
                 <div class="clearfix"></div>
                 <div *ngFor="let product of products">
                     <template [ngIf]="product.Status == 'Available'">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
 
                             <div class="product-image-wrapper">
                                 <div class="single-products">

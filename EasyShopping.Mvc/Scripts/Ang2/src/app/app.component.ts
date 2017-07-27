@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { GlobalService } from './global-observable.service';
 
 @Component({
     selector: 'my-app',
@@ -6,14 +7,14 @@ import { Component, ViewChild } from '@angular/core';
     <my-header></my-header>
 
     <div class="container body-content">
-        <my-slider></my-slider>
-        <my-sidebar></my-sidebar>
+        
         <router-outlet></router-outlet>
     </div>
     <my-footer></my-footer>
   `,
+    providers: [GlobalService]
 })
 export class AppComponent {
-    public searchkey: string;
-
+    //<my-slider></my-slider>
+        //<my-sidebar > </my-sidebar>
 }

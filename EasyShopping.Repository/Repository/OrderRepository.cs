@@ -201,5 +201,11 @@ namespace EasyShopping.Repository.Repository
             var count = _db.Orders.Where(x => x.ParentId == id).Count();
             return count;
         }
+
+        public IEnumerable<Order> GetByStatus(int id, int userId)
+        {
+            var result = _db.Orders.Where(x => (x.StatusID == id) && (x.UserID == userId)).OrderByDescending(x=>x.CreatedDate).Take(5).ToList();
+            return result;
+        }
     }
 }

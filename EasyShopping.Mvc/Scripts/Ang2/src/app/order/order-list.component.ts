@@ -10,6 +10,7 @@ import { OrderServices } from './order.service';
 export class OrderList implements OnInit {
     public id: number;
     public orders: any[];
+    public orderslist: any[];
 
     constructor(private orderService: OrderServices) {
 
@@ -17,10 +18,14 @@ export class OrderList implements OnInit {
 
     ngOnInit() {
         this.orderService.GetOrderByUserId().subscribe((res: any) => {
-            this.orders = res;
+            this.orderslist = res;
+            this.LoadData(4);
         }, err => {
             console.log(err);
         });
     }
 
+    LoadData(id: number) {
+        this.orders = this.orderslist.filter((x) => x.StatusID == id);
+    }
 }

@@ -324,6 +324,7 @@
     <Content Include="Views\Shipper\GetApproveList.cshtml" />
     <Content Include="Views\Partner\PartnerList.cshtml" />
     <Content Include="Views\Shared\Slider.cshtml" />
+    <Content Include="Views\Store\Introduction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,6 +357,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\district\district.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\global-observable.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />

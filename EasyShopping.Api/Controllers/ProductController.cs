@@ -48,6 +48,10 @@ namespace EasyShopping.Api.Controllers
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
                 ProductDTO newproduct = _business.Add(ApiTranslators.Translate<ProductApiModel, ProductDTO>(data), name);
                 ProductApiModel newProduct = ApiTranslators.Translate<ProductDTO, ProductApiModel>(newproduct);
+                if(newProduct.StatusID == 2)
+                {
+
+                }
                 if (newProduct != null) return Ok(newProduct);
                 return BadRequest();
             }

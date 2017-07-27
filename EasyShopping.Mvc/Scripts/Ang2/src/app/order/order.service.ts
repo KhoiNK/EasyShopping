@@ -37,4 +37,8 @@ export class OrderServices {
     CheckOut(data: any): Observable<any> {
         return this._http.put(this.apiUrl + "/CheckOut", data).map(res => res.json());
     }
+
+    GetByStatus(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetByStatus/" + id).map(res => res.json());
+    }
 }

@@ -4,6 +4,7 @@ import { UserServices } from './user/user.service';
 import { ProductService } from './product/product.service';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
+import { GlobalService } from './global-observable.service';
 
 const PROFILE: string = 'profile',
     CART: string = 'cart';
@@ -11,7 +12,7 @@ const PROFILE: string = 'profile',
 @Component({
     selector: 'my-header',
     templateUrl: '/Home/Header',
-    providers: [UserServices, ProductService]
+    providers: [UserServices, ProductService, GlobalService]
 })
 
 export class Header implements OnInit {
@@ -26,7 +27,8 @@ export class Header implements OnInit {
         , private router: Router
         , private userservice: UserServices
         , private productSrv: ProductService
-        , private el: ElementRef) {
+        , private el: ElementRef
+        , private globalSrv: GlobalService) {
         let cacheProfile = localStorage.getItem(PROFILE);
         let cartId = localStorage.getItem(CART);
         this.profile = JSON.parse(cacheProfile) || {};
@@ -77,8 +79,10 @@ export class Header implements OnInit {
         }
         if (this.searchkey.trim() == "") {
             this.products = [];
-            let inputEl: HTMLElement = this.el.nativeElement.querySelector('#searchResult');
-            inputEl.hidden;
         }
+    }
+
+    SetSearchKey() {
+        this.globalSrv.changeSearchProduct(this.searchkey);
     }
 }

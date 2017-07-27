@@ -28,9 +28,20 @@ namespace EasyShopping.Api.SignalR
         public static void PushToUser(string who, MessageDTO message, EasyShoppingHub hub)
         {
             IHubConnectionContext<dynamic> clients = GetClients(hub);
+            
             foreach (var connectionId in _connections.GetConnections(who))
             {
                 clients.Client(connectionId).addChatMessage(message);
+            }
+        }
+
+        public static void Show(string who, EasyShoppingHub hub)
+        {
+            IHubConnectionContext<dynamic> clients = GetClients(hub);
+            IHubContext context = GlobalHost.ConnectionManager.GetHubContext<EasyShoppingHub>();
+            foreach (var connectionId in _connections.GetConnections(who))
+            {
+                clients.Client(connectionId).showAll();
             }
         }
 

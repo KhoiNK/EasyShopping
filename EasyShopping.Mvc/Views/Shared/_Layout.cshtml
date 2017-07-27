@@ -21,8 +21,10 @@
     <script>
         window.GlobalSettings = {
             LoginUrl: 'http://api.easyshop.local/Token',
-            ApiBase: 'http://api.easyshop.local/v1/'
+            ApiBase: 'http://api.easyshop.local/v1/',
+            slider: true
         };
+        
 
         System.import('/Scripts/Ang2/dist/main.js').catch(function (err) { console.error(err); });
         $(document).ready(function () {
