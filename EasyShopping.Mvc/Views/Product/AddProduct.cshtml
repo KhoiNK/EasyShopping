@@ -3,7 +3,7 @@
     <div *ngIf="message" class="alert alert-success">
         {{message}}
     </div>
-
+    <button data-toggle="collapse" data-target="#clickchoi">click choi</button>
     <div class="form_row">
         <label>Name:</label>
         <input type="text" [(ngModel)]="product.Name" placeholder="Name" class="form_name" #name="ngModel" />
@@ -46,10 +46,5 @@
     <div class="form_row">
         <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
     </div>
-
-
-
-    @*</form>*@
-
-
 </div>
+<div class="collapse" id="clickchoi" style="background-color:yellow; max-height:20px; max-width:80px"> abc xyz</div>

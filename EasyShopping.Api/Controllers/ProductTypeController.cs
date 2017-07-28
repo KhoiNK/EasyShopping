@@ -23,5 +23,12 @@ namespace EasyShopping.Api.Controllers
         {
             return ApiTranslators.Translate<ProductTypeDTO, ProductTypeApiModel>(_business.GetAll());
         }
+
+        [HttpGet]
+        [Route("v1/ProductType/GetWithTarget")]
+        public IHttpActionResult GetWithTarget()
+        {
+            return Ok(_business.GetWithTarget());
+        }
     }
 }

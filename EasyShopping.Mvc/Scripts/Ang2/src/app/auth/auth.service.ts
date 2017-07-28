@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable, ElementRef } from '@angular/core';
 import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -46,7 +46,7 @@ export class AuthService extends IAuthService {
 
     private _authSubject: BehaviorSubject<IAuthenticatedEvent>;
     private _profile: Profile;
-    
+    private el: ElementRef;
     get profile(): Profile {
         return this._profile;
     }
@@ -117,7 +117,11 @@ export class AuthService extends IAuthService {
                         isAuthenticated: true,
                         profile: this._profile
                     });
-                   
+                }
+                if (response.error) {
+                    let inputEl: HTMLLabelElement = this.el.nativeElement.querySelector('#errMess');
+                    inputEl.innerText = "Login failed please check your username or password";
+                    inputEl.removeAttribute('hidden');
                 }
             });
     }

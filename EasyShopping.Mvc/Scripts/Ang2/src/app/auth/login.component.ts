@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
 
     public username: string;
     public password: string;
+    public err: string = "";
+    
 
     constructor(private authService: IAuthService, private router: Router) {
 

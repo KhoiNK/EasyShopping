@@ -34,7 +34,7 @@ namespace EasyShopping.Repository.Repository
             var target = _db.Targets.Where(x => x.UserId == userId).OrderByDescending(x => x.Count).ToArray();
             if (target.Length == 0)
             {
-                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(10).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -53,7 +53,7 @@ namespace EasyShopping.Repository.Repository
 
             if (target.Length == 0)
             {
-                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(30).ToList();
+                var result = _db.Products.Where(x => x.StatusID != REMOVED).Take(10).ToList();
                 return result;
             }
             if (target.Length < 5)
@@ -77,7 +77,7 @@ namespace EasyShopping.Repository.Repository
                                 .Include("Store")
                                 .Where(x => prodTypeIDs.Contains(x.ProductTypeID.Value) && x.StatusID != REMOVED)
                                 .OrderByDescending(x=>x.CreatedDate)
-                                .Take(20)
+                                .Take(10)
                                 .ToList();
             return products;
         }
@@ -187,6 +187,10 @@ namespace EasyShopping.Repository.Repository
             return products;
         }
 
-        
+        public IEnumerable<Product> GetWithTypeId(int id)
+        {
+            var result = _db.Products.Where(x => x.ProductTypeID == id).OrderByDescending(x=>x.CreatedDate).Take(10).ToList();
+            return result;
+        }
     }
 }

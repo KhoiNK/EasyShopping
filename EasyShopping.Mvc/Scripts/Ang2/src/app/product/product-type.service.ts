@@ -15,5 +15,9 @@ export class ProductTypeService {
     GetList(): Observable<any[]> {
         return this._http.get(this.apiUrl).map(res => res.json());
     }
+
+    GetWithTarget(): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetWithTarget/").map(res => res.json());
+    }
 }
 

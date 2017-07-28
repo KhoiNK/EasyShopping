@@ -85,6 +85,8 @@ export class Header implements OnInit {
         this.authService.logOut();
         this.user = {};
         this.isSignedIn = false;
+        this.mess = [];
+        this.count = 0;
         this.router.navigate(['/']);
     }
 

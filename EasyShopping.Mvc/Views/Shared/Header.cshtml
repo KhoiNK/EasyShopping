@@ -16,23 +16,20 @@
                         <ul class="nav navbar-nav">
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
                             <li>
-                                <a href="javascript:void(0)">
-                                    <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myMess"></i>
-                                    <div class="noti_count" *ngIf="count > 0">
-                                        {{count}}
-                                    </div>
-                                    
-                                    <ul class="row collapse noti_mess" id="myMess" *ngIf="mess">
-                                        <li><i class="fa fa-caret-up" aria-hidden="true"></i></li>
-                                        <li style="color:black; background-color:white" *ngFor="let message of mess">
-                                            <a [routerLink]="['/users/user-detail', message.FromID]">
-                                                {{message.From}}
-                                            </a>
-                                            sends you a message <br />
-                                            {{message.Description}}
-                                        </li>
-                                    </ul>
+                                <a href="#myNotiMess" data-toggle="collapse">
+                                    <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myNotiMess"></i>
                                 </a>
+                                <div class="noti_count" *ngIf="count > 0">
+                                    {{count}}
+                                </div>
+
+                                <ul class="collapse noti_mess" id="myNotiMess" *ngIf="mess != []">
+                                    <li><i class="fa fa-caret-up" aria-hidden="true" style="color:white"></i></li>
+                                    <li class="noti_list" *ngFor="let message of mess">
+                                        {{message.Description}}
+                                    </li>
+                                </ul>
+
                             </li>
                             <li><a [routerLink]="['/orders/order-detail', cart]"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li *ngIf="!isSignedIn"><a [routerLink]="['/login']"><i class="fa fa-lock"></i> Login</a></li>

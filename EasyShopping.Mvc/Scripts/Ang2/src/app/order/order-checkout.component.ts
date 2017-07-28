@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { NgForm, FormControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 
+const CART: string = "cart";
 @Component({
     selector: 'order-checkout',
     templateUrl: 'Order/CheckOut',
@@ -21,7 +22,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     public zoom: number;
     public latitude: number;
     public longitude: number;
-    const CART: string = "cart";
+    
     constructor(private orderService: OrderServices
         , private activateRoute: ActivatedRoute
         , private el: ElementRef
@@ -118,7 +119,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
                 alert("Checkout Successfully!");
-                localStorage.removeItem(this.CART);
+                localStorage.removeItem(CART);
                 this.router.navigate['/'];
             }
             else {

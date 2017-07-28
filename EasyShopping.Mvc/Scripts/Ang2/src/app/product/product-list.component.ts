@@ -3,11 +3,12 @@ import { ProductService } from './product.service';
 import { OrderServices } from '../order/order.service';
 import { GlobalService } from '../global-observable.service';
 import { Subscription } from 'rxjs';
+import { ProductTypeService } from './product-type.service';
 
 @Component({
     selector: 'product-list',
     templateUrl: '/Product',
-    providers: [ProductService, OrderServices, GlobalService]
+    providers: [ProductService, OrderServices, GlobalService, ProductTypeService]
 })
 
 export class ProductListComponent implements OnInit, OnDestroy {
@@ -15,9 +16,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     public CART: string = "cart";
     public PROFILE: string = 'profile';
     public subscription: Subscription;
+    public types: any[];
     constructor(private productservice: ProductService
         , private orderService: OrderServices
         , private globalSrv: GlobalService
+        , private productTypeSrv: ProductTypeService
     ) {
     }
 
@@ -38,6 +41,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
     loadData() {
         this.productservice.GetList().subscribe((res: any) => {
             this.products = res;
+        }, err => {
+            console.log(err);
+        });
+        this.productTypeSrv.GetWithTarget().subscribe((res: any) => {
+            this.types = res;
         }, err => {
             console.log(err);
         });

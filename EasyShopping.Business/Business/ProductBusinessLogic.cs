@@ -173,5 +173,11 @@ namespace EasyShopping.BusinessLogic.Business
             mess.Description = des;
             _mess.CreateMessage(mess);
         }
+
+        public IEnumerable<ProductViewDTO> GetWithType(int id)
+        {
+            var result = _repo.GetWithTypeId(id).Translate<Product, ProductViewDTO>();
+            return result;
+        }
     }
 }

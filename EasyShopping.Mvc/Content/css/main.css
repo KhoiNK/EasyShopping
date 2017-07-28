@@ -191,6 +191,7 @@ a#scrollUp {
         padding: 0;
         padding-right: 0;
         margin-top: 10px;
+        background-color: none;
     }
 
 
@@ -199,10 +200,11 @@ a#scrollUp {
         }
 
 
-    .shop-menu ul li a:hover {
-        font-weight: normal;
-        background-color: none;
-    }
+        .shop-menu ul li a:hover {
+            font-weight: normal;
+            background-color: none;
+            background: none;
+        }
 
 
 .header-bottom {
@@ -239,11 +241,12 @@ a#scrollUp {
             color: #fe980f;
         }
 
-/*.mainmenu ul li a:hover, .mainmenu ul li a.active, .shop-menu ul li a.active {
+        .mainmenu ul li a:hover, .mainmenu ul li a.active, .shop-menu ul li a.active {
             font-weight: bold;
             background: none;
+            background-color: none;
             color: #fe980f;
-        }*/
+        }
 
 .search_box input {
     background: white;
@@ -264,9 +267,10 @@ a#scrollUp {
 
 /*  Dropdown menu*/
 
-/*.navbar-header .navbar-toggle .icon-bar {
-    background-color: #fff;
-}*/
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: none;
+    background: none;
+}
 
 
 .nav.navbar-nav > li:hover > ul.sub-menu {
@@ -313,7 +317,7 @@ ul.sub-menu {
 
         .navbar-nav li ul.sub-menu li a:hover {
             color: #FDB45E;
-            background-color:none;
+            background-color: none;
         }
 
 .fa-angle-down {
@@ -818,11 +822,12 @@ h2.title {
     margin-bottom: 30px;
     background-color: white;
     object-fit: cover;
+    max-width: 200px;
 }
 
     .product-image-wrapper:hover {
         border: 1.5px solid #F7F7F5;
-        box-shadow: 4px 5px 8px 0px rgba(128, 128, 128, 0.41);
+        box-shadow: 2px 3px 8px 0px rgba(128, 128, 128, 0.41);
     }
 
     .product-image-wrapper img {
@@ -1004,7 +1009,7 @@ h2.title {
         -moz-border-left-colors: none;
         -moz-border-right-colors: none;
         -moz-border-top-colors: none;
-        background-color:none;
+        background-color: none;
         color: #425161;
         cursor: default;
         margin-right: 0;
@@ -2712,23 +2717,32 @@ form > textarea {
     position: absolute;
     width: 20px;
     text-align: center;
-    top: -6px;
-    right: -15px;
+    top: 0px;
+    right: 2px;
+    color:white;
 }
 
 .noti_mess {
-    position:absolute;
-    z-index:2;
-    top: -6px;
-    left: -12px;
-    max-width: 100%;
-    padding: 0px;
+    position: absolute;
+    z-index: 2;
+    top: 23px;
+    left: -37px;
+    max-width: 500%;
+    padding-top: 0px;
+    transition:0.5s height;
 }
 
-.noti_mess li a{
-    color:black;
-}
+    .noti_mess li a {
+        color: black;
+    }
 
-.noti_mess li a:hover{
-    font-weight:normal;
+        .noti_mess li a:hover {
+            font-weight: normal;
+        }
+
+.noti_list {
+    color: black;
+    background-color: white;
+    border: 0.1px solid #a3a2a0;
+    border-bottom: 0px;
 }
