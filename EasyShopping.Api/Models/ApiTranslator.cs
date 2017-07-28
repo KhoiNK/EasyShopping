@@ -123,6 +123,9 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<WishListApiModel, WishlistDTO>();
                 cfg.CreateMap<WishlistDTO, WishListApiModel>();
 
+                cfg.CreateMap<MessageApiModel, MessageDTO>();
+                cfg.CreateMap<MessageDTO, MessageApiModel>();
+
                 //cfg.CreateMap <..., ...> ();
             });
 

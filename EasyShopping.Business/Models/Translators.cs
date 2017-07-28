@@ -124,6 +124,9 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<ProductTypeDTO, ProductType>();
                 cfg.CreateMap<ProductType, ProductTypeDTO>();
 
+                cfg.CreateMap<ProductTypeViewDTO, ProductType>();
+                cfg.CreateMap<ProductType, ProductTypeViewDTO>();
+
                 cfg.CreateMap<ProvinceDTO, Province>();
                 cfg.CreateMap<Province, ProvinceDTO>();
 
@@ -216,6 +219,16 @@ namespace EasyShopping.BusinessLogic.Models
 
                 cfg.CreateMap<WishlistDTO, Wishlist>();
                 cfg.CreateMap<Wishlist, WishlistDTO>();
+
+                cfg.CreateMap<MessageDTO, Message>();
+                cfg.CreateMap<Message, MessageDTO>()
+                .ForMember(
+                    dto => dto.From,
+                    opt => opt.MapFrom(entity => entity.User.UserName)
+                ).ForMember(
+                    dto => dto.Sent,
+                    opt => opt.MapFrom(entity => entity.User1.UserName)
+                );
 
                 //cfg.CreateMap<..., ...>();
             });

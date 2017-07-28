@@ -4,7 +4,7 @@ import { UserServices } from './user/user.service';
 import { ProductService } from './product/product.service';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
-import { GlobalService } from './global-observable.service';
+import { MessageServices } from '../app/message/message.service';
 
 const PROFILE: string = 'profile',
     CART: string = 'cart';
@@ -12,7 +12,7 @@ const PROFILE: string = 'profile',
 @Component({
     selector: 'my-header',
     templateUrl: '/Home/Header',
-    providers: [UserServices, ProductService, GlobalService]
+    providers: [UserServices, ProductService, MessageServices]
 })
 
 export class Header implements OnInit {
@@ -22,13 +22,15 @@ export class Header implements OnInit {
     public role: any;
     public searchkey: string = "";
     public products: any[];
+    public count: number = 0;
+    public mess: any[];
 
     constructor(private authService: IAuthService
         , private router: Router
         , private userservice: UserServices
         , private productSrv: ProductService
         , private el: ElementRef
-        , private globalSrv: GlobalService) {
+        , private messSrv: MessageServices) {
         let cacheProfile = localStorage.getItem(PROFILE);
         let cartId = localStorage.getItem(CART);
         this.profile = JSON.parse(cacheProfile) || {};
@@ -56,6 +58,23 @@ export class Header implements OnInit {
                     });
                 }
             });
+        this.messSrv.GetMessThumb().subscribe((res: any) => {
+            if (res) {
+                this.mess = res;
+            }
+            else if (res.status === 400) {
+                this.mess = [];
+            }
+        }, err => {
+            console.log(err);
+            this.mess = [];
+        });
+        this.messSrv.GetUnread().subscribe((res: any) => {
+            this.count = res;
+        }, err => {
+            console.log(err);
+            this.count = 0;
+        });
     }
 
     loggedIn() {
@@ -83,7 +102,6 @@ export class Header implements OnInit {
     }
 
     SetSearchKey() {
-        this.globalSrv.changeSearchProduct(this.searchkey);
         this.router.navigate(['/searchs', this.searchkey]);
     }
 }

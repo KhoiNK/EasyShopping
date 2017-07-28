@@ -7,7 +7,7 @@
                 <div class="col-sm-8">
                     <div class="logo pull-left">
                         <a [routerLink]="['/']"><img src="~/Content/img/home/logo.png" alt="" /></a>
-                        <img src="~/Content/img/home/partner2.png" class="side-logo"/>
+                        <img src="~/Content/img/home/partner2.png" class="side-logo" />
                     </div>
 
                 </div>
@@ -15,6 +15,25 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myMess"></i>
+                                    <div class="noti_count" *ngIf="count > 0">
+                                        {{count}}
+                                    </div>
+                                    
+                                    <ul class="row collapse noti_mess" id="myMess" *ngIf="mess">
+                                        <li><i class="fa fa-caret-up" aria-hidden="true"></i></li>
+                                        <li style="color:black; background-color:white" *ngFor="let message of mess">
+                                            <a [routerLink]="['/users/user-detail', message.FromID]">
+                                                {{message.From}}
+                                            </a>
+                                            sends you a message <br />
+                                            {{message.Description}}
+                                        </li>
+                                    </ul>
+                                </a>
+                            </li>
                             <li><a [routerLink]="['/orders/order-detail', cart]"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li *ngIf="!isSignedIn"><a [routerLink]="['/login']"><i class="fa fa-lock"></i> Login</a></li>
                             <li *ngIf="isSignedIn"><a (click)="logout()"><i class="fa fa-lock"></i> Logout</a></li>
@@ -46,13 +65,13 @@
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/shippers']">Be a shipper</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
-                            
+
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box search_recommend">
-                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" (keyup.enter)="SetSearchKey()" [(ngModel)]="searchkey"/>
+                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" (keyup.enter)="SetSearchKey()" [(ngModel)]="searchkey" />
                         <ul *ngIf="products" id="searchResult">
                             <li *ngFor="let product of products">
                                 <a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a>

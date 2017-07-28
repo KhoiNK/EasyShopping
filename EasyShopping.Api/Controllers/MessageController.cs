@@ -44,6 +44,24 @@ namespace EasyShopping.Api.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        [Route("v1/Message/Count")]
+        public IHttpActionResult Count()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.CountUnread(name);
+                return Ok(result);
+            }
+            catch
+            {
+                Console.WriteLine(InternalServerError().ToString());
+                return BadRequest();
+            }
+        }
         
         [HttpGet]
         [ActionName("MarkAsRead")]

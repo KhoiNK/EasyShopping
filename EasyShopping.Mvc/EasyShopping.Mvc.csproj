@@ -196,7 +196,6 @@
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\prettyPhoto.css" />
     <Content Include="Content\css\responsive.css" />
-    <Content Include="Content\css\Site.css" />
     <Content Include="Content\css\StoreList.css" />
     <Content Include="Content\css\UserList.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
@@ -361,6 +360,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\global-observable.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\message\message.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-checkout.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-list.component.ts" />

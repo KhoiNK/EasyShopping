@@ -76,7 +76,6 @@ export class ProductAddComponent implements OnInit, OnDestroy {
             this.uploadservice.UploadImage(this.thumbailImg).subscribe((res: any) => {
                 this.product.ThumbailLink = res.data.link;
                 this.product.ThumbailCode = res.data.id;
-                alert("toi day roi");
                 this.AddProduct(this.product);
             }, err => {
                 return false;

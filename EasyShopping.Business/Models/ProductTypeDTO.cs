@@ -10,4 +10,11 @@ namespace EasyShopping.BusinessLogic.Models
         public int ID { get; set; }
         public string Name { get; set; }
     }
+
+    public class ProductTypeViewDTO
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        IEnumerable<ProductViewDTO> product { get; set; }
+    }
 }

@@ -14,6 +14,7 @@ namespace EasyShopping.BusinessLogic.Business
         private UserRepository _user;
         private PartnerRepository _partner;
         private StoreRepository _store;
+        private MessageBusinessLogic _mess;
 
         private const int AVAILABLE = 1;
         private const int OUTOFSTOCK = 3;
@@ -27,18 +28,20 @@ namespace EasyShopping.BusinessLogic.Business
             _user = new UserRepository();
             _partner = new PartnerRepository();
             _store = new StoreRepository();
+            _mess = new MessageBusinessLogic();
         }
         public ProductDTO Add(ProductDTO data, string userName)
         {
-            var userID = _user.FindUser(userName).ID;
+            var user = _user.FindUser(userName);
             data.ActionLog = "Create";
-            if (_partner.IsPartner(data.StoreID, userID))
+            if (_partner.IsPartner(data.StoreID, user.ID))
             {
                 data.StatusID = WAITINGFORAPPROVE;
+
             }
             else
             {
-                if (_store.IsOwner(data.StoreID, userID))
+                if (_store.IsOwner(data.StoreID, user.ID))
                 {
                     data.StatusID = AVAILABLE;
                 }
@@ -48,6 +51,8 @@ namespace EasyShopping.BusinessLogic.Business
             data.CreatedDate = System.DateTime.Now;
             data.ModifiedDate = System.DateTime.Now;
             ProductDTO product = _repo.Add(data.Translate<ProductDTO, Product>()).Translate<Product, ProductDTO>();
+            string des = user.UserName + " created product " + data.Name; 
+            CreateMessage(user.ID, _store.FindByID(data.StoreID).UserID, des);
             return product;
         }
 
@@ -78,7 +83,8 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool Edit(ProductDTO data, string username)
         {
-            var userID = _user.FindUser(username).ID;
+            var user = _user.FindUser(username);
+            string des = "";
             switch (data.ActionLog)
             {
                 case CREATE:
@@ -87,9 +93,11 @@ namespace EasyShopping.BusinessLogic.Business
                     return _repo.Edit(product);
 
                 case DELETE:
-                    if (_partner.IsPartner(data.StoreID,userID))
+                    if (_partner.IsPartner(data.StoreID,user.ID))
                     {
                         data.StatusID = WAITINGFORAPPROVE;
+                        des = user.UserName + " deleted product " + data.Name;
+                        CreateMessage(user.ID, _store.FindByID(data.StoreID).UserID, des);
                         return _repo.Edit(data.Translate<ProductDTO, Product>());
                     }
                     return _repo.Remove(data.ID);
@@ -100,19 +108,21 @@ namespace EasyShopping.BusinessLogic.Business
                         data.ThumbailLink = _repo.GetById(data.ID).ThumbailLink;
                         data.ThumbailCode = _repo.GetById(data.ID).ThumbailCode;
                     }
-                    if (_partner.IsPartner(data.StoreID, userID))
+                    if (_partner.IsPartner(data.StoreID, user.ID))
                     {
                         data.StatusID = WAITINGFORAPPROVE;
                     }
                     else
                     {
-                        if (_store.IsOwner(data.StoreID, userID))
+                        if (_store.IsOwner(data.StoreID, user.ID))
                         {
                             data.StatusID = AVAILABLE;
                             return _repo.Edit(data.Translate<ProductDTO, Product>());
                         }
                         else { return false; }
                     }
+                    des = user.UserName + " edited product " + data.Name;
+                    CreateMessage(user.ID, _store.FindByID(data.StoreID).UserID, des);
                     return _repo.Edit(data.Translate<ProductDTO, Product>());
             }
         }
@@ -143,14 +153,25 @@ namespace EasyShopping.BusinessLogic.Business
         public bool Remove(int id, string username)
         {
             var product = _repo.GetById(id);
-            var userId = _user.FindUser(username).ID;
-            if(_partner.IsPartner(product.StoreID, userId))
+            var user = _user.FindUser(username);
+            if(_partner.IsPartner(product.StoreID, user.ID))
             {
                 product.StatusID = WAITINGFORAPPROVE;
                 product.ActionLog = DELETE;
+                string des = user.UserName + " removed product " + product.Name;
+                CreateMessage(user.ID, _store.FindByID(product.StoreID).UserID, des);
                 return _repo.Edit(product);
             }
             return _repo.Remove(id);
+        }
+
+        public void CreateMessage(int fromId, int toId, string des)
+        {
+            var mess = new MessageDTO();
+            mess.FromID = fromId;
+            mess.SentID = toId;
+            mess.Description = des;
+            _mess.CreateMessage(mess);
         }
     }
 }

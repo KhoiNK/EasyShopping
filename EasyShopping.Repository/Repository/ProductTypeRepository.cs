@@ -17,5 +17,12 @@ namespace EasyShopping.Repository.Repository
         {
             return _db.ProductTypes.ToList();
         }
+
+        public IEnumerable<ProductType> GetWithTarget()
+        {
+            int[] targets = _db.Targets.Select(x=>x.ProductTypeId.Value).Take(5).ToArray();
+            var products = _db.ProductTypes.Include("Products").Where(x => targets.Contains(x.ID));
+            return products;
+        }
     }
 }

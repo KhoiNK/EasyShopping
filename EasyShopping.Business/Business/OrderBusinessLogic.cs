@@ -92,7 +92,13 @@ namespace EasyShopping.BusinessLogic.Business
         public IEnumerable<OrderViewDTO> GetByUser(string username)
         {
             var userId = _user.FindUser(username).ID;
-            return _repo.GetByUserId(userId).Translate<Order, OrderViewDTO>();
+            var orders = _repo.GetByUserId(userId).Translate<Order, OrderViewDTO>();
+            foreach (var order in orders)
+            {
+                var details = _detail.GetByOrderId(order.ID).Translate<OrderDetail, OrderDetailDTO>();
+                order.details = GetOrderDetail(order.ID);
+            }
+            return orders;
         }
 
         public bool AddMoreItem(int cartId, int productId)
@@ -138,7 +144,7 @@ namespace EasyShopping.BusinessLogic.Business
 
             var dto = new OrderDTO();
             int userId = _user.FindUser(username).ID;
-            
+
             dto.ID = order.ID;
             dto.ModifiedDate = DateTime.Now;
             dto.ModifiedID = userId;
@@ -164,7 +170,7 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 //IList<OrderDetail> details = _detail.GetByOrderId(order.ID).ToList();
                 var details = new ConcurrentDictionary<int, OrderDetail>();
-                foreach(var d in _detail.GetByOrderId(order.ID).ToList())
+                foreach (var d in _detail.GetByOrderId(order.ID).ToList())
                 {
                     details.TryAdd(d.ID, d);
                 }
