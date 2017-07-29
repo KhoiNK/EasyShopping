@@ -8,14 +8,18 @@ import { OrderServices } from './order.service';
 })
 
 export class OrderList implements OnInit {
-    public id: number;
+    public id: number = 0;
     public orders: any[];
     public Math: any;
     public data: any;
     public message: string = "";
+    public orderdetail: any;
+    public total: number = 0;
+
     constructor(private orderService: OrderServices, private el: ElementRef) {
         this.Math = Math;
         this.data = {};
+        this.orderdetail = {};
     }
 
     ngOnInit() {
@@ -44,5 +48,20 @@ export class OrderList implements OnInit {
             }
         });
         return;
+    }
+
+    SetOrderDetail(id: number) {
+        this.total = 0;
+        this.orderdetail = this.orders.filter(x => x.ID == id);
+        this.id = id;
+        this.orderdetail[0].details.forEach((component: any) => {
+            this.total = this.total + (+component.Quantity * +component.Price);
+        });
+    }
+
+    ResetValue() {
+        this.total = 0;
+        this.orderdetail = {};
+        this.id = 0;
     }
 }

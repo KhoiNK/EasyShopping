@@ -85,7 +85,7 @@ namespace EasyShopping.BusinessLogic.Business
         public OrderViewDTO GetById(int id)
         {
             var order = _repo.GetById(id).Translate<Order, OrderViewDTO>();
-
+            order.details = GetOrderDetail(order.ID);
             return order;
         }
 
@@ -95,7 +95,6 @@ namespace EasyShopping.BusinessLogic.Business
             var orders = _repo.GetByUserId(userId).Translate<Order, OrderViewDTO>();
             foreach (var order in orders)
             {
-                var details = _detail.GetByOrderId(order.ID).Translate<OrderDetail, OrderDetailDTO>();
                 order.details = GetOrderDetail(order.ID);
             }
             return orders;

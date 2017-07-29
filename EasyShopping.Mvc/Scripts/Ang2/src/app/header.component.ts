@@ -52,10 +52,13 @@ export class Header implements OnInit {
             .authenticatedObservable()
             .subscribe((res) => {
                 this.isSignedIn = res.isAuthenticated;
-                if (this.isSignedIn) {
+                if (this.isSignedIn == true) {
                     this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
                         this.user = res;
                     });
+                }
+                else {
+                    this.isSignedIn = false;
                 }
             });
         this.messSrv.GetMessThumb().subscribe((res: any) => {

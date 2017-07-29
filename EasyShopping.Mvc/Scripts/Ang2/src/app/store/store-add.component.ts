@@ -74,7 +74,6 @@ export class StoreAddComponent implements OnInit {
                     this.longitude = place.geometry.location.lng();
                     this.address = place.formatted_address;
                     let places = place.address_components;
-                    console.log(places);
                     this.setLatLng(place.geometry.location.lat(), place.geometry.location.lng(), place.address_components);
                     this.zoom = 12;
                 });

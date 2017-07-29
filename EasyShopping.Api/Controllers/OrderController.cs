@@ -117,6 +117,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpDelete]
         [ActionName("RemoveOrder")]
+        [Authorize]
         public bool RemoveOrder(int id)
         {
             var result = _business.RemoveOrder(id);
@@ -125,6 +126,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpDelete]
         [ActionName("RemoveItem")]
+        [Authorize]
         public bool RemoveItem(int id)
         {
             var result = _business.RemoveItem(id);
@@ -133,6 +135,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpPost]
         [Route("v1/Order/GetByStoreId")]
+        [Authorize]
         public IHttpActionResult GetByStoreId([FromBody]AddToCartModel cart)
         {
             return Ok(_business.GetByStoreId(cart.productId, cart.cartId));

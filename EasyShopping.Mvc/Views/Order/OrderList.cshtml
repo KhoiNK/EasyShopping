@@ -1,26 +1,22 @@
 ﻿<div class="col-sm-9">
-    <i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" data-target="#abcxyz"></i>
-    <div id="abcxyz" class="collapse">
-        <h1>hello</h1>
-    </div>
-    <ul class="nav nav-tabs">
-        <li><a data-toggle="tab" href="#menu" (click)="LoadData(4)">Ordering</a></li>
-        <li><a data-toggle="tab" href="#menu1" (click)="LoadData(1)">Waiting For Shipping</a></li>
-        <li><a data-toggle="tab" href="#menu2" (click)="LoadData(3)">Completed</a></li>
-        <li><a data-toggle="tab" href="#menu3" (click)="LoadData(2)">Delivering</a></li>
+    <ul class="nav nav-tabs" (change)="ResetValue()">
+        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu" (click)="LoadData(4)">Ordering</a></li>
+        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu1" (click)="LoadData(1)">Waiting For Shipping</a></li>
+        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu2" (click)="LoadData(3)">Completed</a></li>
+        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu3" (click)="LoadData(2)">Delivering</a></li>
     </ul>
-
+    <button data-toggle="collapse" data-target="#testthuchoi" hidden id="clickMess">click me</button>
     <div class="tab-content" *ngIf="orders">
         <div id="menu" class="tab-pane fade in active">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 4">
                     <div class="row">
-                        <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
+                        <div class="col-sm-1" (click)="SetOrderDetail(order.ID)"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID" ></i></div>
                         <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
                         <div class="col-sm-3">{{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
-                    <div class="row collapse" id="detail{{order.ID}}">
+                    <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -33,9 +29,6 @@
                                     <td>
                                         Price
                                     </td>
-                                    <td>
-                                        Total
-                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,11 +40,9 @@
                                         <button (click)="ChangeQuantity(detail.ID)" class="btn btn-default">Edit</button>
                                     </td>
                                     <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
-                                    <td>{{this.Math.round(+detail.Quantity * +detail.Price) | currency:'USD':true:'1.2-2'}}</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <a class="btn btn-success" [routerLink]="['/orders/order-checkout', id]">Check Out</a>
                     </div>
                 </template>
             </div>
@@ -65,7 +56,7 @@
                     <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                     <div class="col-sm-3"> Created Date: {{order.CreatedDate | date}}</div>
                 </div>
-                <div class="row collapse" id="detail{{order.ID}}">
+                <div class="row collapse table-tab" id="detail{{order.ID}}">
                     <table class="table">
                         <thead class="thead-inverse">
                             <tr>
@@ -78,9 +69,6 @@
                                 <td>
                                     Price
                                 </td>
-                                <td>
-                                    Total
-                                </td>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,7 +79,6 @@
                                     
                                 </td>
                                 <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
-                                <td>{{this.Math.round(+detail.Quantity * +detail.Price) | currency:'USD':true:'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -114,7 +101,7 @@
                         <div class="col-sm-3">{{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
-                    <div class="row collapse" id="detail{{order.ID}}">
+                    <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -127,9 +114,6 @@
                                     <td>
                                         Price
                                     </td>
-                                    <td>
-                                        Total
-                                    </td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -140,7 +124,6 @@
                                         
                                     </td>
                                     <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
-                                    <td>{{this.Math.round(+detail.Quantity * +detail.Price) | currency:'USD':true:'1.2-2'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -156,8 +139,46 @@
                         <div class="col-sm-3">{{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
+                    <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <table class="table">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                    <td>
+                                        Quantity
+                                    </td>
+                                    <td>
+                                        Price
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let detail of order.details">
+                                    <td>{{detail.Product}}</td>
+                                    <td>
+                                        {{detail.Quantity}}
+
+                                    </td>
+                                    <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </template>
             </div>
         </div>
     </div>
+</div>
+<div class="col-sm-3" *ngIf="total > 0">
+    <h2 style="color:#425161">Order Detail</h2>
+    <div style="border:0.5px solid grey"></div>
+    <div class="col">Temporary Cost:</div>
+    <div class="col"><label style="font-weight:bold">{{total | currency:'USD':true:'1.2-2'}}</label></div>
+    <div style="border:0.5px solid grey"></div>
+    <div><a class="btn checkout_btn" [routerLink]="['/orders/order-checkout', id]">Check Out</a></div>
+</div>
+<div style="background-color:darkseagreen; color:white; max-height: 20px; max-width:50px; position:fixed; transition: 0.5s ease-out" class="collapse" id="testthuchoi">
+    <label>Hello</label>
 </div>

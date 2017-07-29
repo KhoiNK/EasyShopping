@@ -2621,7 +2621,7 @@ h2.title {
 
 .body-content {
     background-color: white;
-    padding: 30px 0 0 0;
+    padding: 30px 0 30px 0;
 }
 
 h2 {
@@ -2719,7 +2719,7 @@ form > textarea {
     text-align: center;
     top: 0px;
     right: 2px;
-    color:white;
+    color: white;
 }
 
 .noti_mess {
@@ -2729,7 +2729,7 @@ form > textarea {
     left: -37px;
     max-width: 500%;
     padding-top: 0px;
-    transition:0.5s height;
+    transition: 0.5s height;
 }
 
     .noti_mess li a {
@@ -2745,4 +2745,24 @@ form > textarea {
     background-color: white;
     border: 0.1px solid #a3a2a0;
     border-bottom: 0px;
+}
+
+.table-tab {
+    padding: 0 15px 0 15px;
+}
+
+.table-tab table thead{
+    background-color: #425161;
+    color: white;
+}
+
+.tab-content {
+    border-bottom: 0.5px solid grey;
+}
+
+.checkout_btn {
+    width: 100%;
+    background-color: orangered;
+    color: white;
+    margin-top: 10px;
 }

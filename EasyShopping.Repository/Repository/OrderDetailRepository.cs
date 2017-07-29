@@ -97,10 +97,6 @@ namespace EasyShopping.Repository.Repository
                 var detail = _db.OrderDetails.Where(x => x.ID == id).Single();
                 var product = _db.Products.Where(x => x.ID == detail.ProductID).SingleOrDefault();
                 product.Quantity = product.Quantity + detail.Quantity.Value;
-                if (product.Quantity == 0)
-                {
-                    product.StatusID = OUTOFSTOCK;
-                }
                 _db.OrderDetails.Remove(detail);
                 _db.SaveChanges();
                 return true;
