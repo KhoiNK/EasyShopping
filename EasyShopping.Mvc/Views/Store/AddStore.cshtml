@@ -43,17 +43,19 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modalMessage" role="dialog" *ngIf="store">
-        <div class="modal-content">
-            <div class="modal-body">
-                Your ID is {{store.ID}}.
-                Please drop us an email which includes a copy of your CV and the title following [ES-Store] Store *Your ID*.
-                Thanks for being a part of us.
-                Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.
+    <div class="modal fade" id="modalMessage" role="dialog" *ngIf="store" style="overflow:hidden">
+        <div class="modal-content" style="margin:100px">
+            <div class="modal-body" style="height:200px">
+                <label style="color:#5cb85c">Created successfully!</label><br />
+                Your ID is {{store.ID}}.<br />
+                Please drop us an email which includes a copy of your CV and the title following [ES-Store] Store *Your ID*.<br />
+                Thanks for being a part of us.<br />
+                <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
+                <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;">Back to Homepage</a>
             </div>
         </div>
         <div class="modal-footer">
-            <a class="btn btn-default" [routerLink]="['/products']">Back to Homepage</a>
+           
         </div>
     </div>
 </div>

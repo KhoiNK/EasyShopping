@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-sm-1" (click)="SetOrderDetail(order.ID)"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID" ></i></div>
                         <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
-                        <div class="col-sm-3">{{order.OrderCode}}</div>
+                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
@@ -98,7 +98,7 @@
                         <div class="col-sm-3">
                             #<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
                         </div>
-                        <div class="col-sm-3">{{order.OrderCode}}</div>
+                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
@@ -136,7 +136,7 @@
                 <template [ngIf]="order.StatusID === 2">
                     <div class="row">
                         <div class="col-sm-3">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a></div>
-                        <div class="col-sm-3">{{order.OrderCode}}</div>
+                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
