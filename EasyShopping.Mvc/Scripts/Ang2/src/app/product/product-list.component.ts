@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { ProductService } from './product.service';
 import { OrderServices } from '../order/order.service';
 import { GlobalService } from '../global-observable.service';
@@ -21,6 +21,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
         , private orderService: OrderServices
         , private globalSrv: GlobalService
         , private productTypeSrv: ProductTypeService
+        , private el: ElementRef
     ) {
     }
 
@@ -62,7 +63,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 order.productId = productId;
                 this.orderService.AddToCart(order).subscribe((res: any) => {
                     localStorage.setItem(this.CART, JSON.stringify(res.ID));
-                    alert("Added Successfully");
+                    let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
+                    inputel.removeAttribute('hidden');
+                    setTimeout(() => {
+                        inputel.hidden = true;
+                    }, 1000);
+
+
                 }, err => {
                     console.log(err);
                 });
@@ -71,7 +78,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 order.cartId = cartId;
                 this.orderService.AddToCart(order).subscribe((res: any) => {
                     if (JSON.stringify(res) == 'true') {
-                        alert("Added Successfully into order ID: " + cartId);
+                        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
+                        inputel.removeAttribute('hidden');
+                        setTimeout(() => {
+                            inputel.hidden = true;
+                        }, 1000);
                     }
                 }, err => {
                     console.log(err);

@@ -192,5 +192,10 @@ namespace EasyShopping.Repository.Repository
             var result = _db.Products.Where(x => x.ProductTypeID == id).OrderByDescending(x=>x.CreatedDate).Take(10).ToList();
             return result;
         }
+
+        public int GetQuantity(int id)
+        {
+            return _db.Products.Where(x => x.ID == id).Single().Quantity;
+        }
     }
 }

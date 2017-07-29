@@ -2766,3 +2766,18 @@ form > textarea {
     color: white;
     margin-top: 10px;
 }
+
+.action_noti{
+    top: 10px;
+    position: fixed;
+    background-color: #69CC63;
+    color: #ffffff;
+    max-height: 50px;
+    max-width: 500px;
+    transition: 0.5s ease-out;
+    height: auto;
+    width: 200px;
+    right: 20px;
+    box-shadow: 4px 3px 0px 1px #497646;
+    z-index:99;
+}

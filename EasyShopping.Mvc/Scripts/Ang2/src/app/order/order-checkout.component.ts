@@ -120,7 +120,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
             if (res == true) {
                 alert("Checkout Successfully!");
                 localStorage.removeItem(CART);
-                this.router.navigate['/'];
+                this.router.navigate(['/']);
             }
             else {
                 alert("Checkout Failed!");

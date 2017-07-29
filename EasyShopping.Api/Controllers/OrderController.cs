@@ -15,9 +15,11 @@ namespace EasyShopping.Api.Controllers
     public class OrderController : ApiController
     {
         OrderBusinessLogic _business;
+        ProductBusinessLogic _product;
         public OrderController()
         {
             _business = new OrderBusinessLogic();
+            _product = new ProductBusinessLogic();
         }
         [HttpPost]
         [ActionName("Post")]
@@ -108,6 +110,7 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+
                 return _business.ChangeQuantity(data, name);
             }
             catch {

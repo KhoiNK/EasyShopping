@@ -179,5 +179,10 @@ namespace EasyShopping.BusinessLogic.Business
             var result = _repo.GetWithTypeId(id).Translate<Product, ProductViewDTO>();
             return result;
         }
+
+        public int GetQuantity(int id)
+        {
+            return _repo.GetQuantity(id);
+        }
     }
 }
