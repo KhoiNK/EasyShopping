@@ -399,6 +399,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-add.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.component.ts" />

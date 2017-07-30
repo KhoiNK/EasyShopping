@@ -5,7 +5,6 @@
         <li (click)="ResetValue()"><a data-toggle="tab" href="#menu2" (click)="LoadData(3)">Completed</a></li>
         <li (click)="ResetValue()"><a data-toggle="tab" href="#menu3" (click)="LoadData(2)">Delivering</a></li>
     </ul>
-    <button data-toggle="collapse" data-target="#testthuchoi" hidden id="clickMess">click me</button>
     <div class="tab-content" *ngIf="orders">
         <div id="menu" class="tab-pane fade in active">
             <div *ngFor="let order of orders">
@@ -15,11 +14,15 @@
                         <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
+                        <div class="col-sm-3"><i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveOrder(order.ID)"></i></div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
+                                    <td>
+                                         
+                                    </td>
                                     <td>
                                         Name
                                     </td>
@@ -33,13 +36,17 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let detail of order.details">
+                                    <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px"/></td>
                                     <td>{{detail.Product}}</td>
                                     <td>
-
-                                        <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" />
-                                        <button (click)="ChangeQuantity(detail.ID)" class="btn btn-default">Edit</button>
+                                        <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ID)"></i>
+                                        <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" readonly style="max-width:50px; text-align:center"/>
+                                        <i class="fa fa-plus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'add', detail.ID)"></i>
                                     </td>
-                                    <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
+                                    <td>
+                                        {{detail.Price | currency:'USD':true:'1.2-2'}}
+                                        <i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveItem(detail.ID)"></i>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -100,6 +107,7 @@
                         </div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
+
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">
@@ -179,6 +187,6 @@
     <div style="border:0.5px solid grey"></div>
     <div><a class="btn checkout_btn" [routerLink]="['/orders/order-checkout', id]">Check Out</a></div>
 </div>
-<div style="background-color:darkseagreen; color:white; max-height: 20px; max-width:50px; position:fixed; transition: 0.5s ease-out" class="collapse" id="testthuchoi">
-    <label>Hello</label>
+<div class="action_noti" id="cartMess" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>

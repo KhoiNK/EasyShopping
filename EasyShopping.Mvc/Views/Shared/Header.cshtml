@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-sm-8">
                     <div class="logo pull-left">
-                        <a [routerLink]="['/']"><img src="~/Content/img/ogo.png" alt="" /></a>
+                        <a [routerLink]="['/']"><img src="~/Content/img/logo.png" alt="" /></a>
                         <img src="~/Content/img/partner2.png" class="side-logo" />
                     </div>
 
@@ -15,7 +15,7 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
-                            <li>
+                            <li *ngIf="isSignedIn">
                                 <a href="#myNotiMess" data-toggle="collapse">
                                     <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myNotiMess"></i>
                                 </a>

@@ -41,4 +41,12 @@ export class OrderServices {
     GetByStatus(id: number): Observable<any> {
         return this._http.get(this.apiUrl + "/GetByStatus/" + id).map(res => res.json());
     }
+
+    RemoveItem(id: number): Observable<any> {
+        return this._http.delete(this.apiUrl + "/RemoveItem/" + id).map(res => res.json());
+    }
+
+    RemoveOrder(id: number): Observable<any> {
+        return this._http.delete(this.apiUrl + "/RemoveOrder/" + id).map(res => res.json());
+    }
 }

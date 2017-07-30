@@ -11,6 +11,8 @@ namespace EasyShopping.Repository.Repository
         const int WAITINGFORAPPROVE = 3;
         const int OPEN = 1;
         const int CLOSED = 2;
+        const int REMOVE = 4;
+
         public StoreRepository()
         {
             _db = new EasyShoppingEntities();
@@ -26,6 +28,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
+                .Where(x=>x.StatusID != REMOVE)
                 .ToList()
                 .Skip(skipped);
             return stores;
@@ -43,7 +46,7 @@ namespace EasyShopping.Repository.Repository
                .Include("District")
                .Include("Country")
                .Include("Province")
-               .Where(x => x.ID == id)
+               .Where(x => (x.ID == id) && (x.StatusID != REMOVE))
                .SingleOrDefault();
             }
             catch
@@ -82,6 +85,11 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 var store = _db.Stores.Where(x => x.ID == id).Single();
+                var products = _db.Products.Where(s => s.StoreID == store.ID).ToList();
+                foreach(var p in products)
+                {
+                    p.StatusID = REMOVE;
+                }
                 store.StatusID = CLOSED;
                 _db.SaveChanges();
                 return true;
@@ -128,7 +136,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => x.UserID == id).ToList();
+                .Where(x => (x.UserID == id) && (x.StatusID == OPEN)).ToList();
             return stores;
         }
 

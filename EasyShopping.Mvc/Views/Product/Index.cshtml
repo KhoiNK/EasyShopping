@@ -2,72 +2,37 @@
 @Html.Partial("~/Views/Shared/SideBar.cshtml")
 <div class="container">
     <div class="row">
-        <div class="col-sm-9 padding-right">
-            @*<div class="features_items" *ngIf="products">
-                    <!--features_items-->
-                    <div class="clearfix"></div>
-                    <div *ngFor="let product of products">
-                        <template [ngIf]="product.Status == 'Available'">
-                            <div class="col-sm-3">
+        <div class="col-sm-9">
+            <div class="features_items" *ngIf="products">
+                <!--features_items-->
+                <div class="clearfix"></div>
+                <div *ngFor="let product of products">
+                    <template [ngIf]="product.Status == 'Available'">
+                        <div class="col-sm-3">
 
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
-                                            <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
-                                            <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                    <div class="productinfo text-center">
+                                        <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
+                                        <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
+                                        <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
 
-                                            <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                        </div>
-
+                                        <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                     </div>
-                                </div>
-                            </div>
-                        </template>
-                    </div>
-                    <div class="clearfix"></div>
-                </div><!--features_items-->*@
-            <div class="recommended_items">
-                <!--recommended_items-->
-                <h2 class="title text-center">recommended items</h2>
 
-                <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div *ngIf="products" class="item active">
-                            <div class="row">
-                                <div class="col-sm-3" *ngFor="let product of products" style="padding: 0px 0px 30px 0px;">
-                                    <div class="col item">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
-                                                    <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
-                                                    <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
-                                                    <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
+                    </template>
                 </div>
-            </div>
+                <div class="clearfix"></div>
+            </div><!--features_items-->
         </div>
     </div>
 </div>
 <div class="action_noti" id="cartMess" hidden>
     <label style="margin:10px">Added successfully!</label>
 </div>
-
 
 
 

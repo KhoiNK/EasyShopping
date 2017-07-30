@@ -5,6 +5,7 @@ import { StoreDetailComponent } from './store-detail.component';
 import { StoreListByUserComponent } from './store-listbyuserid.component';
 import { StoreAddComponent } from './store-add.component';
 import { StoreApproveList } from './store-approve-list.component';
+import { StoreEditComponent } from './store-edit.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -31,6 +32,10 @@ const appRoutes: Routes = [{
         {
             path: 'store-approve-list',
             component: StoreApproveList,
+        },
+        {
+            path: 'store-edit/:id',
+            component: StoreEditComponent
         }
     ]
 }];

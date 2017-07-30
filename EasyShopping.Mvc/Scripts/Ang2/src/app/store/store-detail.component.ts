@@ -2,14 +2,9 @@
 import { StoreServices } from './store.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductAddComponent } from '../product/product-add.component';
 import { OrderServices } from '../order/order.service';
 import { PartnerService } from '../partner/partner.service';
-import { CountryServices } from '../country/country.service';
-import { ProductTypeService } from '../product/product-type.service';
 import { ProductService } from '../product/product.service';
-import { Base64EncodeService } from '../upload/base64Encode.service';
-import { UploadService } from '../upload/upload-image.service';
 
 @Component({
     selector: 'store-detail',
@@ -18,10 +13,6 @@ import { UploadService } from '../upload/upload-image.service';
         StoreServices,
         OrderServices,
         PartnerService,
-        CountryServices,
-        ProductTypeService,
-        Base64EncodeService,
-        UploadService,
         ProductService
     ]
 })
@@ -33,18 +24,19 @@ export class StoreDetailComponent implements OnInit {
     public isOwner: boolean = false;
     public isAllowed: boolean = false;
     public isApplied: boolean = false;
-    public product: any;
-    public countries: any[];
-    public types: any[];
+    private command: string = "";
+    public message: string = "";
+    public tempId: number = 0;
+
     constructor(private storeservice: StoreServices
         , private activatedRoute: ActivatedRoute
         , private orderService: OrderServices
         , private partnerService: PartnerService
         , private router: Router
         , private productservice: ProductService
+        , private el: ElementRef
     ) {
         this.store = {};
-        this.product = {};
     }
 
     ngOnInit() {
@@ -71,19 +63,22 @@ export class StoreDetailComponent implements OnInit {
         }, err => {
             console.log(err);
         });
-        //this.countryService.GetCountryList().subscribe((res: any) => this.countries = res);
-        //this.productTypeService.GetList().subscribe((res: any) => this.types = res);
     }
 
     Apply() {
         this.partnerService.Apply(this.store.ID).subscribe((res: any) => {
             if (res == true) {
-                alert("Apply Succesfully!");
-                this.LoadData(this.id);
+                this.SetMessage("Applied successfully!");
+                window.location.reload();
             }
         }, err => {
             console.log(err);
         });
+    }
+
+    SetCommand(command: string, id: number ) {
+        this.command = command;
+        this.tempId = id;
     }
 
     LoadData(id: number) {
@@ -102,7 +97,7 @@ export class StoreDetailComponent implements OnInit {
             order.productId = productId;
             this.orderService.AddToCart(order).subscribe((res: any) => {
                 localStorage.setItem(this.CART, JSON.stringify(res.ID));
-                alert("Added Successfully");
+                this.SetMessage("Added successfully!");
             }, err => {
                 console.log(err);
             });
@@ -111,7 +106,7 @@ export class StoreDetailComponent implements OnInit {
             order.cartId = cartId;
             this.orderService.AddToCart(order).subscribe((res: any) => {
                 if (JSON.stringify(res) == 'true') {
-                    alert("Added Successfully into order ID: " + cartId);
+                    this.SetMessage("Added successfully!");
                 }
             }, err => {
                 console.log(err);
@@ -126,8 +121,8 @@ export class StoreDetailComponent implements OnInit {
         this.store.IsRecruiting = true;
         this.storeservice.EditStore(this.store).subscribe((res: any) => {
             if (res == true) {
-                alert("Update successfully!");
-                this.router.navigate['/stores/store-detail/' + this.store.ID];
+                this.SetMessage("Edited successfully!");
+                window.location.reload();
             }
         }, err => {
             console.log(err);
@@ -138,24 +133,34 @@ export class StoreDetailComponent implements OnInit {
         this.store.IsRecruiting = false;
         this.storeservice.EditStore(this.store).subscribe((res: any) => {
             if (res == true) {
-                alert("Update successfully!");
-                this.router.navigate['/stores/store-detail/' + this.store.ID];
+                this.SetMessage("Edited successfully!");
+                window.location.reload();
             }
         }, err => {
             console.log(err);
         });
     }
 
-    RemoveProduct(id: number) {
-        var answer = confirm("Are You sure want to delete this product?");
-        if (answer) {
-            this.productservice.Delete(id).subscribe((res: any) => {
+    Remove() {
+        if (this.command == "product") {
+            this.productservice.Delete(this.tempId).subscribe((res: any) => {
                 if (res == true) {
-                    alert("Deleted successfully!");
+                    this.SetMessage("Removed successfully!");
                     this.LoadData(this.id);
                 }
                 else {
-                    alert("Deleted failed!");
+                    this.SetMessage("Removed failed!");
+                    this.LoadData(this.id);
+                }
+            }, err => {
+                console.log(err);
+            });
+        }
+        if (this.command == "store") {
+            this.storeservice.RemoveStore(this.tempId).subscribe((res: any) => {
+                if (res == true) {
+                    this.SetMessage("Removed successfully!");
+                    this.router.navigate(['/']);
                 }
             }, err => {
                 console.log(err);
@@ -166,8 +171,11 @@ export class StoreDetailComponent implements OnInit {
     RemoveApply() {
         this.partnerService.RemoveApply(this.id).subscribe((res: any) => {
             if (res == true) {
-                alert("Removed successful!");
-                window.location.reload();
+                this.SetMessage("Removed successful!");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+                
             }
             else {
                 alert("remove failed!");
@@ -175,5 +183,14 @@ export class StoreDetailComponent implements OnInit {
         }, err => {
             console.log(err);
         });
+    }
+
+    SetMessage(mess: string) {
+        this.message = mess;
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#storeMess');
+        inputEl.removeAttribute('hidden');
+        setTimeout(() => {
+            inputEl.hidden = true;
+        }, 1000);
     }
 }

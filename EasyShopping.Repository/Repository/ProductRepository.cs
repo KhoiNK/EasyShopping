@@ -12,7 +12,8 @@ namespace EasyShopping.Repository.Repository
         private EasyShoppingEntities _db = null;
         private const int REMOVED = 4;
         private const int WAITINGFORAPPROVE = 2;
-
+        private const int AVAILABLE = 1;
+        private const int OUTOFSTOCK = 3;
         public ProductRepository()
         {
             _db = new EasyShoppingEntities();
@@ -25,7 +26,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("ProductType")
                 .Include("ProductStatu")
                 .Include("Store")
-                .Where(x => x.StoreID == storeid)
+                .Where(x => (x.StoreID == storeid))
                 .ToList();
         }
 
@@ -169,7 +170,7 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<Product> GetByName(string name)
         {
             try {
-                var products = _db.Products.Where(x => x.Name.Contains(name) && (x.Quantity > 0)).Take(5).ToList();
+                var products = _db.Products.Where(x => x.Name.Contains(name) && (x.Quantity > 0) && (x.StatusID == AVAILABLE)).Take(5).ToList();
                 
                 return products;
             }
@@ -189,7 +190,7 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Product> GetWithTypeId(int id)
         {
-            var result = _db.Products.Where(x => x.ProductTypeID == id).OrderByDescending(x=>x.CreatedDate).Take(10).ToList();
+            var result = _db.Products.Where(x => (x.ProductTypeID == id) &&(x.StatusID == AVAILABLE)).OrderByDescending(x=>x.CreatedDate).Take(10).ToList();
             return result;
         }
 

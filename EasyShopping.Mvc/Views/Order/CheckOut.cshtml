@@ -1,7 +1,4 @@
-﻿<div class="col-sm-3">
-
-</div>
-<div class="col-sm-9">
+﻿<div class="col-sm-7">
     <div class="form_row">
         <label>Note:</label>
         <input type="text" [(ngModel)]="order.Note" class="form-control"/>
@@ -18,5 +15,11 @@
     </div>
     <div class="form_row">
         <button (click)="SaveChange()" class="btn btn-success">Check out</button>
+    </div>
+</div>
+<div class="col-sm-5" *ngIf="order">
+    <div *ngFor="let detail of order.details" class="row">
+        <div class="col-xs-9">{{detail.Name}}</div>
+        <div class="col-xs-3">{{detail.Price}}</div>
     </div>
 </div>

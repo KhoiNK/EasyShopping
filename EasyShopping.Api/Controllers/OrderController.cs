@@ -110,7 +110,10 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-
+                if(data.Quantity > _product.GetQuantity(data.ProductID))
+                {
+                    return false;
+                }
                 return _business.ChangeQuantity(data, name);
             }
             catch {

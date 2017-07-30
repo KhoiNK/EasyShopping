@@ -8,12 +8,12 @@ import { Base64EncodeService } from '../upload/base64Encode.service';
 import { AgmCoreModule, MapsAPILoader, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 
 @Component({
-    selector: 'store-add',
-    templateUrl: 'Store/AddStore',
+    selector: 'store-edit',
+    templateUrl: 'Store/EditStore',
     providers: [StoreServices, UploadService, Base64EncodeService]
 })
 
-export class StoreAddComponent implements OnInit {
+export class StoreEditComponent implements OnInit {
     public store: any;
     public countries: any[];
     public districts: any[];
@@ -26,6 +26,8 @@ export class StoreAddComponent implements OnInit {
     public latitude: number;
     public longitude: number;
     public thumbailImg: string;
+    public subscription: Subscription;
+    public storeId: number;
 
     constructor(private storeService: StoreServices
         , private uploadService: UploadService
@@ -34,7 +36,7 @@ export class StoreAddComponent implements OnInit {
         , private router: Router
         , private mapsAPILoader: MapsAPILoader
         , private ngZone: NgZone
-
+        , private activateRoute: ActivatedRoute
     ) {
         this.store = {};
         //this.location = {};
@@ -42,6 +44,15 @@ export class StoreAddComponent implements OnInit {
     @ViewChild("search")
     public searchElementRef: ElementRef;
     ngOnInit() {
+        this.subscription = this.activateRoute.params.subscribe(params => {
+            this.storeId = params['id'];
+        });
+        this.storeService.GetStoreById(this.storeId).subscribe((res: any) => {
+            this.store = res;
+        }, err => {
+            console.log(err);
+        });
+
         //set google maps defaults
         this.zoom = 4;
         this.latitude = 39.8282;
@@ -62,8 +73,8 @@ export class StoreAddComponent implements OnInit {
                 this.ngZone.run(() => {
                     //get the place result
                     let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-                    
-                    
+
+
                     //verify result
                     if (place.geometry === undefined || place.geometry === null) {
                         return;
@@ -73,8 +84,8 @@ export class StoreAddComponent implements OnInit {
                     this.latitude = place.geometry.location.lat();
                     this.longitude = place.geometry.location.lng();
                     this.address = place.formatted_address;
-                    this.position = place.address_components;
-                    
+                    let places = place.address_components;
+                    this.setLatLng(place.geometry.location.lat(), place.geometry.location.lng(), place.address_components);
                     this.zoom = 12;
                 });
             });
@@ -90,6 +101,12 @@ export class StoreAddComponent implements OnInit {
         }
     }
 
+    private setLatLng(lat: any, lng: any, place: any[]) {
+        this.latitude = lat;
+        this.longitude = lng;
+        this.position = place;
+    }
+
     setThumbailImg() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
@@ -100,8 +117,6 @@ export class StoreAddComponent implements OnInit {
 
     _handleReaderLoaded(readerEvt: any) {
         var binaryString = readerEvt.target.result;
-        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#previewImg');
-        inputEl.setAttribute('src', "data:image/jpeg;base64,"+ btoa(binaryString));
         this.thumbailImg = btoa(binaryString);
         //console.log(btoa(binaryString));
     }
@@ -110,19 +125,22 @@ export class StoreAddComponent implements OnInit {
     SaveChange() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
-        this.store.Address = this.address;
-        this.store.LatX = this.latitude;
-        this.store.LatY = this.longitude;
-        this.position.forEach((component) => {
-            if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
-            if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
-            if (component.types[0] == 'country') { this.store.Country = component.long_name; }
-        });
-
+        if (this.address != undefined || this.address != "") {
+            let locationResult: any;
+            this.store.Address = this.address;
+            this.store.LatX = this.latitude;
+            this.store.LatY = this.longitude;
+            this.position.forEach((component) => {
+                if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
+                if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
+                if (component.types[0] == 'country') { this.store.Country = component.long_name; }
+            });
+        }
         if (file == null) {
             this.CreateStore(this.store);
         }
-        if (file != null) {
+
+        if (file != null || file != undefined) {
             this.uploadService.UploadImage(this.thumbailImg).subscribe((res: any) => {
                 this.store.ImgLink = res.data.link;
                 this.CreateStore(this.store);
@@ -135,13 +153,6 @@ export class StoreAddComponent implements OnInit {
     CreateStore(store: any) {
         this.storeService.CreateStore(store).subscribe(
             (res: any) => {
-                if (res == null) {
-                    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#storeMess');
-                    inputEl.removeAttribute('hidden');
-                    setTimeout(() => {
-                        inputEl.hidden == true;
-                    }, 1000);
-                }
                 if (res.ID) {
                     alert("Added Successfully!");
                     this.store = res;

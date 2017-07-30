@@ -1,6 +1,6 @@
-﻿import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
+﻿import { Component, OnInit, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { StoreServices } from './store.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ export class StoreApproveList {
     public searchkey: number;
     public store: any;
 
-    constructor(private storeService: StoreServices, private router: Router) {
+    constructor(private storeService: StoreServices, private router: Router, private el: ElementRef) {
         this.store = {};
     }
 
@@ -22,8 +22,9 @@ export class StoreApproveList {
             this.storeService.GetStoreById(this.searchkey).subscribe((res: any) => {
                 this.store = res;
             }, err => {
+                let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#errorMess');
+                inputEl.removeAttribute('hidden');
                 console.log(err);
-                alert("Can not find this store");
             });
         }
     }
@@ -31,8 +32,12 @@ export class StoreApproveList {
     Approve(id: number) {
         this.storeService.Approve(id).subscribe((res: any) => {
             if (res == true) {
-                alert("Approve Successfully!");
-                this.router.navigate['/stores/store-approve-list'];
+                let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#approveMess');
+                inputEl.removeAttribute('hidden');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+                
             }
         }, err => {
             console.log(err);

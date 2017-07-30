@@ -1,4 +1,4 @@
-﻿<div class="col-sm-9 form-body">
+﻿<div class="col-sm-7 form-body">
 
     <div class="container add-form">
         <h1>Edit Store</h1>
@@ -21,7 +21,7 @@
             </div>
             <div class="form_row">
                 <label>Required Deposit:</label>
-                <textarea [(ngModel)]="store.RequiredDeposit" class="form_name" name="description"></textarea>
+                <textarea [(ngModel)]="store.RequiredDeposit" class="form_name" name="description" id="mytextarea"></textarea>
             </div>
             <div class="form_row">
                 <label>Address:</label>
@@ -36,12 +36,50 @@
             <div class="form_row">
                 <label>Avatar:</label>
                 <input type="file" class="form_name" name="photo" id="photo" (change)="setThumbailImg()" />
+
             </div>
             <div class="form_row">
                 <button type="submit" class="form_submit" (click)="SaveChange($event)">Add</button>
-                
+                <button hidden data-toggle="modal" data-target="#modalMessage" id="modalClick"></button>
             </div>
         </div>
     </div>
-    
+</div>
+<div class="modal fade" id="modalMessage" role="dialog" *ngIf="store" style="overflow:hidden">
+    <div class="modal-content" style="margin:100px">
+        <div class="modal-body" style="height:200px">
+            <label style="color:#5cb85c">Created successfully!</label><br />
+            Your ID is {{store.ID}}.<br />
+            Please drop us an email which includes a copy of your CV and the title following [ES-Store] Store *Your ID*.<br />
+            Thanks for being a part of us.<br />
+            <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
+            <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
+        </div>
+    </div>
+</div>
+<div class="error_noti" id="storeMess" hidden>
+    <label style="margin:10px">Added Failed!</label>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-3" style="border:1px solid #d1d1d1; padding:0px; border-radius:8px">
+    <h2 style="background-color:#425161; border-radius:8px 8px 0 0; text-align:center; color:white">Quick Preview</h2>
+    <div style="padding: 18px">
+        <img style="object-fit:fill; height:100%; width:100%" id="previewImg" />
+        <div>
+            <label>Store Name: </label>
+            <p>{{store.Name}}</p>
+        </div>
+        <div>
+            <label>
+                Address:
+            </label>
+            <p>{{address}}</p>
+        </div>
+        <div>
+            <label>
+                Description:
+            </label>
+            <p>{{store.Description}}</p>
+        </div>
+    </div>
 </div>

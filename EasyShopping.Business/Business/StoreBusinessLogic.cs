@@ -35,14 +35,17 @@ namespace EasyShopping.BusinessLogic.Business
 
         public StoreDTO CreateStore(StoreDTO store)
         {
+            var userId = _userbusiness.GetByName(store.UserName).Result.ID;
             store.CreatedDate = System.DateTime.Now;
             store.ModifiedDate = System.DateTime.Now;
             store.StatusID = WAITINGFORAPPROVE;
-            store.UserID = _userbusiness.GetByName(store.UserName).Result.ID;
+            store.UserID = userId;
             store.CityId = _city.GetByName(store.City).Id;
             store.CountryId = _country.GetByName(store.Country).Id;
-            store.DistrictId = _district.GetByName(store.District).Id;
-            store.ModifiedByID = _userbusiness.GetByName(store.UserName).Result.ID;
+            var DisString = store.District.Split('.');
+            if (DisString.Length > 1) { store.DistrictId = _district.GetByName(DisString[1]).Id; }
+            else if (DisString.Length == 1) { store.DistrictId = _district.GetByName(DisString[0]).Id; }
+            store.ModifiedByID = userId;
 
             store = _repo.Create(BusinessTranslators.ToStoreEntity(store)).Translate<Store, StoreDTO>();
             return store;
@@ -85,18 +88,6 @@ namespace EasyShopping.BusinessLogic.Business
             mess.Description = "Your store " + store.Name + " is activated.";
             _mess.CreateMessage(mess);
             return result;
-        }
-
-        public IEnumerable<StoreDTO> GetAll(int pagesize, int page)
-        {
-            IEnumerable<StoreDTO> store = _repo.GetList(pagesize, page).Translate<Store, StoreDTO>();
-
-            foreach (var s in store)
-            {
-                s.ModifiedUser = _userbusiness.GetByID(s.ModifiedByID).UserName;
-            }
-
-            return store;
         }
 
         public IEnumerable<StoreDTO> GetByName(string searchkey)

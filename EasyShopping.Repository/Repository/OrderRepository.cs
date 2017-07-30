@@ -119,15 +119,15 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var order = _db.Orders.Where(x => x.ID == id).Single();
-                var details = _db.OrderDetails.Where(x => x.OrderID == order.ID).ToList();
+                var details = _db.OrderDetails.Where(x => x.OrderID == id).ToList();
                 if(details.Count() > 0)
                 {
                     foreach (var detail in details)
                     {
-                        _detail.Remove(detail.ID);
+                        _db.OrderDetails.Remove(detail);
                     }
                 }
+                var order = _db.Orders.Where(x => x.ID == id).Single();
                 _db.Orders.Remove(order);
                 _db.SaveChanges();
                 return true;

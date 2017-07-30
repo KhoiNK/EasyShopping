@@ -1,7 +1,7 @@
-﻿<div class="col-sm-9 form-body">
+﻿<div class="col-sm-7 form-body">
     
     <div class="container add-form">
-        <h1>Add Store</h1>
+        <h2>Add Store</h2>
         <div class="form">
             <div class="form_row">
                 <label>Name:</label>
@@ -36,6 +36,7 @@
             <div class="form_row">
                 <label>Avatar:</label>
                 <input type="file" class="form_name" name="photo" id="photo" (change)="setThumbailImg()" />
+                
             </div>
             <div class="form_row">
                 <button type="submit" class="form_submit" (click)="SaveChange($event)">Add</button>
@@ -53,6 +54,32 @@
             Thanks for being a part of us.<br />
             <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
             <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
+        </div>
+    </div>
+</div>
+<div class="error_noti" id="storeMess" hidden>
+    <label style="margin:10px">Added Failed!</label>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-3" style="border:1px solid #d1d1d1; padding:0px; border-radius:8px">
+    <h2 style="background-color:#425161; border-radius:8px 8px 0 0; text-align:center; color:white">Quick Preview</h2>
+    <div style="padding: 18px">
+        <img style="object-fit:fill; height:100%; width:100%" id="previewImg" />
+        <div>
+            <label>Store Name: </label>
+            <p>{{store.Name}}</p>
+        </div>
+        <div>
+            <label>
+                Address:
+            </label>
+            <p>{{address}}</p>
+        </div>
+        <div>
+            <label>
+                Description:
+            </label>
+            <p>{{store.Description}}</p>
         </div>
     </div>
 </div>

@@ -40,11 +40,6 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
-        public IEnumerable<StoreApiModel> Get(int page, int index = 10)
-        {
-            return ApiTranslators.Translate<StoreDTO, StoreApiModel>(_business.GetAll(index, page));
-        }
-
         [ActionName("Search")]
         [HttpGet]
         public IEnumerable<StoreApiModel> Search(string id)
@@ -74,13 +69,6 @@ namespace EasyShopping.Api.Controllers
             
         }
 
-        //public bool Put([FromBody]StoreApiModel store)
-        //{
-        //    var identity = (ClaimsIdentity)User.Identity;
-        //    var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-
-        //}
-
         public IHttpActionResult Put([FromBody] StoreApiModel store)
         {
             try
@@ -102,6 +90,19 @@ namespace EasyShopping.Api.Controllers
         public bool Approve(int id)
         {
             return _business.ApproveStore(id);
+        }
+
+        public bool Delete(int id)
+        {
+            try {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return _business.Delete(id,name).Result;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         #region Allowance

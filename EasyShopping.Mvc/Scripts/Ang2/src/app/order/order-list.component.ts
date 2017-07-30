@@ -15,6 +15,7 @@ export class OrderList implements OnInit {
     public message: string = "";
     public orderdetail: any;
     public total: number = 0;
+    public inputElement: HTMLInputElement;
 
     constructor(private orderService: OrderServices, private el: ElementRef) {
         this.Math = Math;
@@ -34,17 +35,29 @@ export class OrderList implements OnInit {
         });
     }
 
-    ChangeQuantity(id: number) {
+    ChangeQuantity(id: number, command: string, productId: number) {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector("#item" + id);
         let quantity = inputEl.value;
         this.data.ID = id;
-        this.data.Quantity = quantity;
+        this.data.ProductID = productId;
+        if (command == "add") {
+            this.data.Quantity = +quantity + 1;
+        }
+        if (command == "minus") {
+            this.data.Quantity = +quantity - 1;
+        }
         this.orderService.ChangeQuantity(this.data).subscribe((res: any) => {
             if (res == true) {
-                this.message = "Changed successfully!";
+                if (command == "add") {
+                    inputEl.value = "" + (parseInt(inputEl.value) + 1);
+                }
+                if (command == "minus") {
+                    inputEl.value = "" + (parseInt(inputEl.value) - 1);
+                }
+                this.SetMessage("Changed successfully!");
             }
             else {
-                this.message = "Changed failed!";
+                this.SetMessage("Changed failed!");
             }
         });
         return;
@@ -63,5 +76,45 @@ export class OrderList implements OnInit {
         this.total = 0;
         this.orderdetail = {};
         this.id = 0;
+    }
+
+    RemoveItem(id: number) {
+        this.orderService.RemoveItem(id).subscribe((res: any) => {
+            if (res == true) {
+                this.SetMessage("Removed successfully!");
+                this.LoadData();
+            }
+            if (res == false) {
+                this.SetMessage("Removed failed!");
+            }
+        }, err => {
+            this.SetMessage("Removed failed!");
+            console.log(err);
+        });
+    }
+
+    RemoveOrder(id: number) {
+        this.orderService.RemoveOrder(id).subscribe((res: any) => {
+            if (res == true) {
+                this.SetMessage("Removed successfully!");
+                localStorage.removeItem("cart");
+                this.LoadData();
+            }
+            if (res == false) {
+                this.SetMessage("Removed failed!");
+            }
+        }, err => {
+            this.SetMessage("Removed failed!");
+            console.log(err);
+        });
+    }
+
+    SetMessage(mess: string) {
+        this.inputElement = this.el.nativeElement.querySelector('#cartMess');
+        this.inputElement.removeAttribute('hidden');
+        setTimeout(() => {
+            this.inputElement.hidden = true;
+        }, 1000);
+        this.message = mess;
     }
 }

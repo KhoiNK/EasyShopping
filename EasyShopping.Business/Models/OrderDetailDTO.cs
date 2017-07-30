@@ -16,5 +16,6 @@ namespace EasyShopping.BusinessLogic.Models
         public DateTime ModifiedDate { get; set; }
         public int ModifiedID { get; set; }
         public int Quantity { get; set; }
+        public string Img { get; set; }
     }
 }
