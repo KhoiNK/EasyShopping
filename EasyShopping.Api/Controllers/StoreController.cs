@@ -21,6 +21,8 @@ namespace EasyShopping.Api.Controllers
         {
             _business = new StoreBusinessLogic();
         }
+
+        [Authorize]
         public StoreApiModel Post([FromBody]StoreApiModel store)
         {
             try
@@ -69,6 +71,7 @@ namespace EasyShopping.Api.Controllers
             
         }
 
+        [Authorize]
         public IHttpActionResult Put([FromBody] StoreApiModel store)
         {
             try
@@ -92,6 +95,7 @@ namespace EasyShopping.Api.Controllers
             return _business.ApproveStore(id);
         }
 
+        [Authorize]
         public bool Delete(int id)
         {
             try {
@@ -108,6 +112,7 @@ namespace EasyShopping.Api.Controllers
         #region Allowance
         [HttpGet]
         [ActionName("GetAllowance")]
+        [Authorize]
         public bool GetAllowance(int id)
         {
             try
@@ -126,6 +131,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("IsOwner")]
+        [Authorize]
         public bool IsOwner(int id)
         {
             try

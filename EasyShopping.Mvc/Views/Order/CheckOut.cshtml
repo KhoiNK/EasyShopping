@@ -1,11 +1,15 @@
 ﻿<div class="col-sm-7">
     <div class="form_row">
-        <label>Note:</label>
-        <input type="text" [(ngModel)]="order.Note" class="form-control"/>
+        <label>Phone:</label>
+        <input type="text" [(ngModel)]="phone" class="form-control" />
     </div>
     <div class="form_row">
+        <label>Note:</label>
+        <input type="text" [(ngModel)]="note" class="form-control"/>
+    </div>
+    <div class="form_row">
+
         <label>Address:</label>
-        @*<input type="text" [(ngModel)]="store.Address" class="form_name"/>*@
         <div class="form-group">
             <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl" />
         </div>
@@ -17,9 +21,45 @@
         <button (click)="SaveChange()" class="btn btn-success">Check out</button>
     </div>
 </div>
-<div class="col-sm-5" *ngIf="order">
-    <div *ngFor="let detail of order.details" class="row">
-        <div class="col-xs-9">{{detail.Name}}</div>
-        <div class="col-xs-3">{{detail.Price}}</div>
-    </div>
+<div class="col-sm-5" *ngIf="order" >
+    <h2 style="color:#425161">Order Detail</h2>
+    <div style="border:3px solid #425161; width:100%"></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    Name
+                </td>
+                <td>
+                    Quantity
+                </td>
+                <td>
+                    Price
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detail of order.details">
+                <td>
+                    {{detail.Product}}
+                </td>
+                <td>
+                    {{detail.Quantity}}
+                </td>
+                <td>
+                    {{detail.Price | currency:'USD':true:'1.2-2'}}
+                </td>
+            </tr>
+            <tr style="background-color:#f1f1f1">
+                <td>Shipping fee</td>
+                <td> </td>
+                <td style="color:green">{{shippingfee | currency:'USD':true:'1.2-2'}}</td>
+            </tr>
+            <tr style="background-color:#f1f1f1">
+                <td><h3 style="margin:0px">Total</h3></td>
+                <td> </td>
+                <td style="color:#fe980f; font-weight:bold">{{total | currency:'USD':true:'1.2-2'}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

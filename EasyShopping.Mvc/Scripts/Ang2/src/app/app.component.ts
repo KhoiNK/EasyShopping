@@ -12,7 +12,6 @@ import { GlobalService } from './global-observable.service';
     </div>
     <my-footer></my-footer>
   `,
-    providers: [GlobalService]
 })
 export class AppComponent {
     //<my-slider></my-slider>

@@ -26,7 +26,7 @@
                                 <ul class="collapse noti_mess" id="myNotiMess" *ngIf="mess != []">
                                     <li><i class="fa fa-caret-up" aria-hidden="true" style="color:white"></i></li>
                                     <li class="noti_list" *ngFor="let message of mess">
-                                        {{message.Description}}
+                                       {{message.From}} {{message.Description}} 
                                     </li>
                                 </ul>
 

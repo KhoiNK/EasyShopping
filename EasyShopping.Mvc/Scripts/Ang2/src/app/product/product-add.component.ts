@@ -25,6 +25,7 @@ export class ProductAddComponent implements OnInit, OnDestroy {
     public storeId: number;
     public message: string;
     public thumbailImg: string;
+    public productType: string = "";
     constructor(private productservice: ProductService
         , private activateRoute: ActivatedRoute
         , private router: Router
@@ -49,6 +50,10 @@ export class ProductAddComponent implements OnInit, OnDestroy {
         this.product.ManufacturedCountryID = countryid;
     }
 
+    SetType() {
+        this.productType = this.types.filter(x => x.ID == this.product.ProductTypeID)[0].Name;
+    }
+
     setThumbailImg() {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
         let file: File = inputEl.files[0];
@@ -59,6 +64,8 @@ export class ProductAddComponent implements OnInit, OnDestroy {
 
     _handleReaderLoaded(readerEvt: any) {
         var binaryString = readerEvt.target.result;
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#previewImg');
+        inputEl.setAttribute('src', "data:image/jpeg;base64," + btoa(binaryString));
         this.thumbailImg = btoa(binaryString);
         //console.log(btoa(binaryString));
     }
@@ -91,14 +98,32 @@ export class ProductAddComponent implements OnInit, OnDestroy {
         this.productservice.AddProduct(product).subscribe(
             (res: any) => {
                 if (res.ID) {
-                    this.message = "Added successfully";
+                    this.SetMessage();
                     setTimeout(() => {
                         this.router.navigate(['/stores/store-detail/' + product.StoreID]);
                     }, 3000);
                 }
             }, err => {
+                this.SetErrMess("Added failed");
                 console.log(err);
             });
+    }
+
+    SetMessage() {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#succMess');
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
     }
 
     ngOnDestroy() {

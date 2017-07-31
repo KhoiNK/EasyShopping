@@ -1,50 +1,80 @@
-﻿<div class="col-sm-9">
+﻿<div class="col-sm-7 form-body">
     @*<form class="form" #addProductForm="ngForm" (ngSubmit)="saveProduct($event)" enctype="multipart/form-data">*@
-    <div *ngIf="message" class="alert alert-success">
-        {{message}}
-    </div>
-    <button data-toggle="collapse" data-target="#clickchoi">click choi</button>
-    <div class="form_row">
-        <label>Name:</label>
-        <input type="text" [(ngModel)]="product.Name" placeholder="Name" class="form_name" #name="ngModel" />
-    </div>
-    <div class="form_row">
-        <label>Description:</label>
-        <input type="text" [(ngModel)]="product.Description" placeholder="Description" class="form_name" />
-    </div>
-    <div class="form_row form-inline">
-        <label>Manufactured Country:</label>
-        <select [(ngModel)]="product.ManufacturedCountryID" name="mancountry">
-            <option *ngFor="let country of countries" value={{country.Id}}>{{country.CommonName}}</option>
-        </select>
-    </div>
-    <div class="form_row">
-        <label>Price: </label>
-        <input type="text" [(ngModel)]="product.Price" name="price" class="form_name" />
-    </div>
-    <div class="form_row">
-        <label>Quantity:</label>
-        <input type="text" [(ngModel)]="product.Quantity" name="quantity" class="form_name" />
-    </div>
-    <div class="form_row">
-        <label>Weight (cm):</label>
-        <input type="text" [(ngModel)]="product.Weight" name="weight" class="form_name" />
-    </div>
-    <div class="form_row">
-        <label>Height (cm):</label>
-        <input type="text" [(ngModel)]="product.Height" name="height" class="form_name" />
-    </div>
-    <div class="form_row form-inline">
-        <label>Product Type:</label>
-        <select [(ngModel)]="product.ProductTypeID" name="type">
-            <option *ngFor="let type of types" value="{{type.ID}}">{{type.Name}}</option>
-        </select>
-    </div>
-    <div class="form_row">
-        <input id="photo" type="file" (change)="setThumbailImg()" />
-    </div>
-    <div class="form_row">
-        <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
+    <div class="container add-form">
+        <h2>Add Product</h2>
+        <div class="form">
+            <div class="form_row">
+                <label>Name:</label>
+                <input type="text" [(ngModel)]="product.Name" placeholder="Name" class="form_name" #name="ngModel" />
+            </div>
+            <div class="form_row">
+                <label>Description:</label>
+                <input type="text" [(ngModel)]="product.Description" placeholder="Description" class="form_name" />
+            </div>
+            <div class="form_row form-inline">
+                <label>Manufactured Country:</label>
+                <select [(ngModel)]="product.ManufacturedCountryID" name="mancountry">
+                    <option *ngFor="let country of countries" value={{country.Id}}>{{country.CommonName}}</option>
+                </select>
+            </div>
+            <div class="form_row">
+                <label>Price: </label>
+                <input type="text" [(ngModel)]="product.Price" name="price" class="form_name" />
+            </div>
+            <div class="form_row">
+                <label>Quantity:</label>
+                <input type="text" [(ngModel)]="product.Quantity" name="quantity" class="form_name" />
+            </div>
+            <div class="form_row">
+                <label>Weight (cm):</label>
+                <input type="text" [(ngModel)]="product.Weight" name="weight" class="form_name" />
+            </div>
+            <div class="form_row">
+                <label>Height (cm):</label>
+                <input type="text" [(ngModel)]="product.Height" name="height" class="form_name" />
+            </div>
+            <div class="form_row form-inline">
+                <label>Product Type:</label>
+                <select [(ngModel)]="product.ProductTypeID" name="type" (change)="SetType()">
+                    <option *ngFor="let type of types" value="{{type.ID}}" >{{type.Name}}</option>
+                </select>
+            </div>
+            <div class="form_row">
+                <input id="photo" type="file" (change)="setThumbailImg()" />
+            </div>
+            <div class="form_row">
+                <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
+            </div>
+        </div>
+
     </div>
 </div>
-<div class="collapse" id="clickchoi" style="background-color:yellow; max-height:20px; max-width:80px"> abc xyz</div>
+<div class="col-md-1"></div>
+<div class="col-md-3" style="border:1px solid #d1d1d1; padding:0px; border-radius:8px">
+    <h2 style="background-color:#425161; border-radius:8px 8px 0 0; text-align:center; color:white">Quick Preview</h2>
+    <div style="padding: 18px">
+        <img style="object-fit:fill; height:100%; width:100%" id="previewImg" />
+        <div>
+            <label>Name: </label>
+            <p>{{product.Name}}</p>
+        </div>
+        <div>
+            <label>
+                Type:
+            </label>
+            <p>{{productType}}</p>
+        </div>
+        <div>
+            <label>
+                Description:
+            </label>
+            <p>{{product.Description}}</p>
+        </div>
+    </div>
+</div>
+<div class="action_noti" id="succMess" hidden>
+    <label style="margin:10px">Added successfully!</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>

@@ -20,6 +20,7 @@ import { SearchPageComponent } from './searchpage.component';
 import { routing } from './app.routing';
 import { GoogleMapComponent } from './commonService/google-map.component';
 import { ProductListComponent } from '../app/product/product-list.component';
+import { GlobalService } from './global-observable.service';
 
 @NgModule({
     imports: [
@@ -55,7 +56,8 @@ import { ProductListComponent } from '../app/product/product-list.component';
                 return localStorage.getItem('id_token');
             },
             noJwtError: true
-        })
+        }),
+        GlobalService
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

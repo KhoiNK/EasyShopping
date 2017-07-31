@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
                     }
                 });
         }
+        this.gloSrv.globalMess$.subscribe((res: any) => {
+            this.err = res;
+        });
     }
 
     private login() {

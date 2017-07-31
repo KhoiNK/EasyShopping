@@ -39,9 +39,9 @@
                                     <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px"/></td>
                                     <td>{{detail.Product}}</td>
                                     <td>
-                                        <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ID)"></i>
+                                        <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ProductID)"></i>
                                         <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" readonly style="max-width:50px; text-align:center"/>
-                                        <i class="fa fa-plus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'add', detail.ID)"></i>
+                                        <i class="fa fa-plus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'add', detail.ProductID)"></i>
                                     </td>
                                     <td>
                                         {{detail.Price | currency:'USD':true:'1.2-2'}}

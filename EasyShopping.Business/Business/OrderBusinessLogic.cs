@@ -152,7 +152,7 @@ namespace EasyShopping.BusinessLogic.Business
             dto.StatusID = WAITINGFORSHIPPING;
             dto.Total = order.Total;
             dto.UserID = userId;
-            dto.Price = order.Price;
+            dto.Price = 30000;
             dto.CityID = _city.GetByName(order.City).Id;
             dto.CountryID = _country.GetByName(order.Country).Id;
             var DisString = order.District.Split('.');
@@ -191,6 +191,7 @@ namespace EasyShopping.BusinessLogic.Business
                         newOrder.CountryID = COUNTRY_ID;
                         newOrder.StoreId = d.Value.Product.StoreID;
                         newOrder.ParentId = order.ID;
+                        newOrder.Price = 10000;
                         _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
                         var childDetails = _detail.GetByStoreId(d.Value.Product.StoreID, order.ID);
                         foreach (var c in childDetails)

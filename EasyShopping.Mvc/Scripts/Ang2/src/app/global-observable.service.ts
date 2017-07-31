@@ -8,9 +8,6 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class GlobalService {
 
-    constructor() {
-
-    }
     public _sysmess = new Subject<string>();
 
     globalMess$ = this._sysmess.asObservable();

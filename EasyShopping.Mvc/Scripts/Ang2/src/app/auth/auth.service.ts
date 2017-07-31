@@ -48,11 +48,12 @@ export class AuthService extends IAuthService {
     private _authSubject: BehaviorSubject<IAuthenticatedEvent>;
     private _profile: Profile;
     private el: ElementRef;
+    
     get profile(): Profile {
         return this._profile;
     }
 
-    constructor(private ngHttp: Http) {
+    constructor(private ngHttp: Http, private gloSrv: GlobalService) {
         super();
         
         this._profile = new Profile;
@@ -120,8 +121,8 @@ export class AuthService extends IAuthService {
                     });
                 }
             }, err => {
-                let gloSrv = new GlobalService();
-                gloSrv.changeMess("Wrong username or password");
+                console.log(err);
+                this.gloSrv.changeMess('invalid username or password');
             });
     }
 }

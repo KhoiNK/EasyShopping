@@ -14,6 +14,7 @@ const CART: string = "cart";
 
 export class CheckOutComponent implements OnInit, OnDestroy {
     public id: number;
+    public note: string;
     public order: any;
     public subscription: Subscription;
     public location: any[];
@@ -22,6 +23,9 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     public zoom: number;
     public latitude: number;
     public longitude: number;
+    public shippingfee: number = 30000;
+    public total: number = 0
+    public phone: string;
     
     constructor(private orderService: OrderServices
         , private activateRoute: ActivatedRoute
@@ -96,6 +100,11 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     LoadData(id: number) {
         this.orderService.GetDetail(id).subscribe((res: any) => {
             this.order = res;
+            let details: any[] = this.order.details;
+            details.forEach(item => {
+                this.total = this.total + (+item.Price * +item.Quantity);
+            });
+            this.total = this.total + this.shippingfee;
             //load Places Autocomplete
             this.searchElementRef.nativeElement.value = res.Address;
         }, err => {
@@ -116,6 +125,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     }
 
     CheckOut(order: any) {
+        this.order.Note = this.note + "Phone:" + this.phone;
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
                 alert("Checkout Successfully!");
