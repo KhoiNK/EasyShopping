@@ -5,6 +5,8 @@ import { ProductService } from './product/product.service';
 import { Router } from '@angular/router';
 import { tokenNotExpired } from 'angular2-jwt';
 import { MessageServices } from '../app/message/message.service';
+import { Subject } from 'rxjs/Subject';
+import { GlobalService } from './global-observable.service';
 
 const PROFILE: string = 'profile',
     CART: string = 'cart';
@@ -12,7 +14,7 @@ const PROFILE: string = 'profile',
 @Component({
     selector: 'my-header',
     templateUrl: '/Home/Header',
-    providers: [UserServices, ProductService, MessageServices]
+    providers: [UserServices, ProductService, MessageServices, GlobalService]
 })
 
 export class Header implements OnInit {
@@ -24,20 +26,22 @@ export class Header implements OnInit {
     public products: any[];
     public count: number = 0;
     public mess: any[];
+    public systemMess : string ="";
 
     constructor(private authService: IAuthService
         , private router: Router
         , private userservice: UserServices
         , private productSrv: ProductService
         , private el: ElementRef
-        , private messSrv: MessageServices) {
-        let cacheProfile = localStorage.getItem(PROFILE);
+        , private messSrv: MessageServices
+        , private gloSrv: GlobalService
+    ){
+        let cacheProfile = {};
         let cartId = localStorage.getItem(CART);
-        this.profile = JSON.parse(cacheProfile) || {};
-        this.user = this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
-            this.user = res;
-        }) || {};
-        this.role = localStorage.getItem("role");
+        this.profile = {};
+        this.user = {}; //this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
+        //    this.user = res;
+        //}) || 
     }
 
     ngOnInit() {
@@ -51,33 +55,25 @@ export class Header implements OnInit {
         this.authService
             .authenticatedObservable()
             .subscribe((res) => {
+                let cacheProfile = localStorage.getItem(PROFILE);
+                this.profile = JSON.parse(cacheProfile)
                 this.isSignedIn = res.isAuthenticated;
                 if (this.isSignedIn == true) {
                     this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
                         this.user = res;
+                    });
+                    this.role = this.profile.role;
+                    this.messSrv.GetUnread().subscribe((res: any) => {
+                        this.count = res;
+                    }, err => {
+                        console.log(err);
+                        this.count = 0;
                     });
                 }
                 else {
                     this.isSignedIn = false;
                 }
             });
-        this.messSrv.GetMessThumb().subscribe((res: any) => {
-            if (res) {
-                this.mess = res;
-            }
-            else if (res.status === 400) {
-                this.mess = [];
-            }
-        }, err => {
-            console.log(err);
-            this.mess = [];
-        });
-        this.messSrv.GetUnread().subscribe((res: any) => {
-            this.count = res;
-        }, err => {
-            console.log(err);
-            this.count = 0;
-        });
     }
 
     loggedIn() {
@@ -90,6 +86,7 @@ export class Header implements OnInit {
         this.isSignedIn = false;
         this.mess = [];
         this.count = 0;
+        this.role = {};
         this.router.navigate(['/']);
     }
 
@@ -104,6 +101,20 @@ export class Header implements OnInit {
         if (this.searchkey.trim() == "") {
             this.products = [];
         }
+    }
+
+    GetMessage() {
+        this.messSrv.GetMessThumb().subscribe((res: any) => {
+            if (res) {
+                this.mess = res;
+            }
+            else if (res.status === 400) {
+                this.mess = [];
+            }
+        }, err => {
+            console.log(err);
+            this.mess = [];
+        });
     }
 
     SetSearchKey() {

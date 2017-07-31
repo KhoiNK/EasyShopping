@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAuthService, AuthService } from './auth.service';
+import { GlobalService } from '../global-observable.service';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -15,10 +16,14 @@ export class LoginComponent implements OnInit {
     public username: string;
     public password: string;
     public err: string = "";
-    
 
-    constructor(private authService: IAuthService, private router: Router) {
 
+    constructor(private authService: IAuthService, private router: Router, private gloSrv: GlobalService) {
+        this.gloSrv.globalMess$.subscribe(res => {
+            this.err = res;
+        }, err => {
+            console.log(err);
+        });
     }
 
     ngOnInit() {

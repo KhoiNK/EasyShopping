@@ -28,6 +28,7 @@ export class StoreEditComponent implements OnInit {
     public thumbailImg: string;
     public subscription: Subscription;
     public storeId: number;
+    public mess: string = "";
 
     constructor(private storeService: StoreServices
         , private uploadService: UploadService
@@ -85,6 +86,7 @@ export class StoreEditComponent implements OnInit {
                     this.longitude = place.geometry.location.lng();
                     this.address = place.formatted_address;
                     let places = place.address_components;
+                    this.store.Address = "";
                     this.setLatLng(place.geometry.location.lat(), place.geometry.location.lng(), place.address_components);
                     this.zoom = 12;
                 });
@@ -117,6 +119,10 @@ export class StoreEditComponent implements OnInit {
 
     _handleReaderLoaded(readerEvt: any) {
         var binaryString = readerEvt.target.result;
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#previewImg');
+        let imgEl: HTMLInputElement = this.el.nativeElement.querySelector('#storeThumbailImg');
+        imgEl.hidden = true;
+        inputEl.setAttribute('src', "data:image/jpeg;base64," + btoa(binaryString));
         this.thumbailImg = btoa(binaryString);
         //console.log(btoa(binaryString));
     }
@@ -137,33 +143,38 @@ export class StoreEditComponent implements OnInit {
             });
         }
         if (file == null) {
-            this.CreateStore(this.store);
+            this.EditStore(this.store);
         }
 
         if (file != null || file != undefined) {
             this.uploadService.UploadImage(this.thumbailImg).subscribe((res: any) => {
                 this.store.ImgLink = res.data.link;
-                this.CreateStore(this.store);
+                this.EditStore(this.store);
             }, err => {
                 console.log(err);
             });
         }
     }
 
-    CreateStore(store: any) {
-        this.storeService.CreateStore(store).subscribe(
+    EditStore(store: any) {
+        this.storeService.EditStore(store).subscribe(
             (res: any) => {
                 if (res.ID) {
-                    alert("Added Successfully!");
                     this.store = res;
-                    let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#modalClick');
-                    inputEl.click();
-                    //setTimeout(() => {
-                    //    this.router.navigate[''];
-                    //}, 20000);
+                    this.SetMessage("Updated successfully", "storeMess_success");
+                    setTimeout(() => {
+                        this.router.navigate(['/stores/store-detail/' + this.storeId]);
+                    }, 2000);
                 }
             }, err => {
+                this.SetMessage("Updated failed", "storeMess_error");
                 console.log(err);
             });
+    }
+
+    SetMessage(mess: string, id: string) {
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#' + id);
+        this.mess = mess;
+        inputEl.removeAttribute('hidden');
     }
 }

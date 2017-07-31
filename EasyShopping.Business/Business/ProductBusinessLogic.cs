@@ -32,7 +32,7 @@ namespace EasyShopping.BusinessLogic.Business
         }
         public ProductDTO Add(ProductDTO data, string userName)
         {
-            var user = _user.FindUser(userName);
+            var user = _user.FindUser(userName); 
             data.ActionLog = "Create";
             if (_partner.IsPartner(data.StoreID, user.ID))
             {

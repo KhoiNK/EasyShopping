@@ -1,7 +1,7 @@
 ﻿<div class="col-sm-7 form-body">
 
     <div class="container add-form">
-        <h1>Edit Store</h1>
+        <h2>Edit Store</h2>
         <div class="form">
             <div class="form_row">
                 <label>Name:</label>
@@ -45,25 +45,17 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="modalMessage" role="dialog" *ngIf="store" style="overflow:hidden">
-    <div class="modal-content" style="margin:100px">
-        <div class="modal-body" style="height:200px">
-            <label style="color:#5cb85c">Created successfully!</label><br />
-            Your ID is {{store.ID}}.<br />
-            Please drop us an email which includes a copy of your CV and the title following [ES-Store] Store *Your ID*.<br />
-            Thanks for being a part of us.<br />
-            <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
-            <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
-        </div>
-    </div>
+<div class="error_noti" id="storeMess_error" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>
-<div class="error_noti" id="storeMess" hidden>
-    <label style="margin:10px">Added Failed!</label>
+<div class="action_noti" id="storeMess_success" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>
 <div class="col-md-1"></div>
 <div class="col-md-3" style="border:1px solid #d1d1d1; padding:0px; border-radius:8px">
     <h2 style="background-color:#425161; border-radius:8px 8px 0 0; text-align:center; color:white">Quick Preview</h2>
     <div style="padding: 18px">
+        <img style="object-fit:fill; height:100%; width:100%" src="{{store.ImgLink}}" id="storeThumbailImg" />
         <img style="object-fit:fill; height:100%; width:100%" id="previewImg" />
         <div>
             <label>Store Name: </label>
@@ -73,7 +65,8 @@
             <label>
                 Address:
             </label>
-            <p>{{address}}</p>
+            <p *ngIf="address != ''">{{address}}</p>
+            <p *ngIf="store.Address != ''">{{store.Address}}</p>
         </div>
         <div>
             <label>

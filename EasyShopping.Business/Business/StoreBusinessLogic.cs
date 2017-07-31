@@ -119,9 +119,20 @@ namespace EasyShopping.BusinessLogic.Business
             return store;
         }
 
-        public bool Put(StoreDTO store)
+        public bool Put(StoreDTO store, string name)
         {
-            store.ModifiedDate = DateTime.Now;
+            var userId = _userbusiness.GetByName(store.UserName).Result.ID;
+            store.ModifiedDate = System.DateTime.Now;
+            store.CityId = _city.GetByName(store.City).Id;
+            store.CountryId = _country.GetByName(store.Country).Id;
+            var DisString = store.District.Split('.');
+            if (DisString.Length > 1) { store.DistrictId = _district.GetByName(DisString[1]).Id; }
+            else if (DisString.Length == 1) { store.DistrictId = _district.GetByName(DisString[0]).Id; }
+            store.ModifiedByID = userId;
+            if (string.IsNullOrEmpty(store.ImgLink))
+            {
+                store.ImgLink = _repo.FindByID(store.ID).ImgLink;
+            }
             var result = _repo.Put(BusinessTranslators.ToStoreEntity(store));
             return result;
         }

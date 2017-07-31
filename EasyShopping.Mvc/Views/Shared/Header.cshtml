@@ -17,7 +17,7 @@
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
                             <li *ngIf="isSignedIn">
                                 <a href="#myNotiMess" data-toggle="collapse">
-                                    <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myNotiMess"></i>
+                                    <i class="fa fa-bell-o" aria-hidden="true" data-toggle="collapse" data-target="#myNotiMess" (click)="GetMessage()"></i>
                                 </a>
                                 <div class="noti_count" *ngIf="count > 0">
                                     {{count}}
@@ -59,9 +59,9 @@
                             <li id="home"><a [routerLink]="['']" class="active">Home</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/orders']">My Orders</a></li>
-                            <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
+                            <li *ngIf="role == 'Admin'"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
                             <li *ngIf="isSignedIn"><a [routerLink]="['/shippers']">Be a shipper</a></li>
-                            <li *ngIf="isSignedIn"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
+                            <li *ngIf="role == 'Admin'"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
 
                         </ul>
                     </div>

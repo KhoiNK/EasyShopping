@@ -1,4 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductService } from './product.service';
 import { OrderServices } from '../order/order.service';
 import { GlobalService } from '../global-observable.service';
@@ -17,17 +18,19 @@ export class ProductListComponent implements OnInit, OnDestroy {
     public PROFILE: string = 'profile';
     public subscription: Subscription;
     public types: any[];
+    public message: string = "";
     constructor(private productservice: ProductService
         , private orderService: OrderServices
         , private globalSrv: GlobalService
         , private productTypeSrv: ProductTypeService
         , private el: ElementRef
+        , private router: Router
     ) {
     }
 
     ngOnInit() {
         //this.loadData();
-        this.subscription = this.globalSrv.searchproduct$.subscribe((res: any) => {
+        this.subscription = this.globalSrv.globalMess$.subscribe((res: any) => {
             if (res == "") {
                 this.loadData();
             }
@@ -36,7 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
             }
         }, err => {
             console.log(err);
-        });
+            });
     }
 
     loadData() {
@@ -63,14 +66,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 order.productId = productId;
                 this.orderService.AddToCart(order).subscribe((res: any) => {
                     localStorage.setItem(this.CART, JSON.stringify(res.ID));
-                    let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
-                    inputel.removeAttribute('hidden');
-                    setTimeout(() => {
-                        inputel.hidden = true;
-                    }, 1000);
-
-
+                    this.SetMessage();
                 }, err => {
+                    this.SetErrMess("Please login first");
+                    setTimeout(() => {
+                        this.router.navigate(['/login']);
+                    }, 3000);
                     console.log(err);
                 });
             } else {
@@ -78,17 +79,31 @@ export class ProductListComponent implements OnInit, OnDestroy {
                 order.cartId = cartId;
                 this.orderService.AddToCart(order).subscribe((res: any) => {
                     if (JSON.stringify(res) == 'true') {
-                        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
-                        inputel.removeAttribute('hidden');
-                        setTimeout(() => {
-                            inputel.hidden = true;
-                        }, 1000);
+                        this.SetMessage();
                     }
                 }, err => {
+                    this.SetErrMess("Added failed");
                     console.log(err);
                 });
             }
         }
+    }
+
+    SetMessage() {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
     }
 
     LoadWithName(name: string) {

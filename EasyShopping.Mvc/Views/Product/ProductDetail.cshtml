@@ -1,15 +1,92 @@
-﻿<div class="col-sm-9 padding-right" *ngIf="product">
-    <div class="row">
+﻿@Html.Partial("~/Views/Shared/SideBar.cshtml")
+<div class="col-sm-9 padding-right" *ngIf="product">
+    <div class="row" style="width:100%">
         <img src="{{product.ThumbailLink}}" class="col-lg-3" />
         <div class="col-lg-9">
+            <label>Supplier: <a [routerLink]="['/stores/store-detail', product.StoreID]">{{product.Store}}</a></label><br />
             <label>Name : {{product.Name}}</label><br />
             <label>Price: {{product.Price | currency:'USD':true:'1.2-2'}}</label><br />
             <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)">Add To Cart</button>
         </div>
     </div>
-    <div class="row">
+    <div class="row product-detail" *ngIf="sameproducts">
+        <h2>Same products from other suppliers:</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>
+                        Supplier
+                    </td>
+                    <td>
+                        Name
+                    </td>
+                    <td>
+                        Price
+                    </td>
+                    <td>
+                         
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let same of sameproducts">
+                    <template [ngIf]="same.StoreID != product.StoreID">
+                        <td>
+                            <img class="img-responsive" style="max-height: 50px; max-width:50px; object-fit:scale-down" src="{{same.ThumbailLink}}" />
+                        </td>
+                        <td>
+                            <a [routerLink]="['/stores/store-detail', same.StoreID]">{{same.Store}}</a>
+                        </td>
+                        <td>
+                            <a [routerLink]="['/products/product-detail', same.ID]">{{same.Name}}</a>
+                        </td>
+                        <td>
+                            {{same.Price | currency:'USD':true:'1.2-2'}}
+                        </td>
+                        <td>
+                            <button class="btn btn-default add-to-cart" (click)="AddToCart(same.ID)">Add To Cart</button>
+                        </td>
+                    </template>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row product-detail">
         <h2>Description</h2>
         {{product.Description}}
     </div>
+    <div class="row product-detail">
+        <h3>{{product.Name}}'s Information</h3>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td>
+                        Height:
+                    </td>
+                    <td>
+                        {{product.Height}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Weight</td>
+                    <td>{{product.Weight}}</td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td>{{product.Quantity}}</td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>{{product.ProductType}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
+<div class="action_noti" id="cartMess" hidden>
+    <label style="margin:10px">Added successfully!</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>

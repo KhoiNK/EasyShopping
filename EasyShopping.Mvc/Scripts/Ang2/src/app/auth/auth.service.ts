@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, URLSearchParams } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { tokenNotExpired } from 'angular2-jwt';
+import { GlobalService } from '../global-observable.service';
 
 // Avoid name not found warnings
 declare var Auth0Lock: any;
@@ -118,11 +119,9 @@ export class AuthService extends IAuthService {
                         profile: this._profile
                     });
                 }
-                if (response.error) {
-                    let inputEl: HTMLLabelElement = this.el.nativeElement.querySelector('#errMess');
-                    inputEl.innerText = "Login failed please check your username or password";
-                    inputEl.removeAttribute('hidden');
-                }
+            }, err => {
+                let gloSrv = new GlobalService();
+                gloSrv.changeMess("Wrong username or password");
             });
     }
 }
