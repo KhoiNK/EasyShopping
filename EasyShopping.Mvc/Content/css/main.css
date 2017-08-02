@@ -882,7 +882,7 @@ h2.title {
 
 .productinfo img {
     width: 100%;
-    object-fit: cover;
+    object-fit: scale-down;
 }
 
 .productinfo {
@@ -2737,10 +2737,12 @@ form > textarea {
     position: absolute;
     z-index: 2;
     top: 23px;
-    left: -37px;
+    left: 2px;
     max-width: 500%;
     padding-top: 0px;
     transition: 0.5s height;
+    width:200px;
+    padding-left:0px;
 }
 
     .noti_mess li a {
@@ -2756,6 +2758,7 @@ form > textarea {
     background-color: white;
     border: 0.1px solid #a3a2a0;
     border-bottom: 0px;
+    width: 200px;
 }
 
 .table-tab {

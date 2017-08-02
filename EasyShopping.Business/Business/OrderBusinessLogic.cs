@@ -21,7 +21,12 @@ namespace EasyShopping.BusinessLogic.Business
         private CityRepository _city;
         private CountryRepository _country;
         private DistrictRepository _district;
+        private MessageBusinessLogic _message;
         private const int ORDERING = 4;
+        private const int CANCEL = 5;
+        private const int PROCESSING = 6;
+        private const int TYPE_ORDER = 1;
+
         #region Temp Data
         private const int WAITINGFORSHIPPING = 1;
         private const string STORAGE_ADDRESS = "386 Nui Thanh, Hai Chau, Da Nang";
@@ -39,6 +44,7 @@ namespace EasyShopping.BusinessLogic.Business
             _country = new CountryRepository();
             _city = new CityRepository();
             _district = new DistrictRepository();
+            _message = new MessageBusinessLogic();
         }
 
         public OrderViewDTO CreateOrder(string username, int productId)
@@ -84,8 +90,9 @@ namespace EasyShopping.BusinessLogic.Business
 
         public OrderViewDTO GetById(int id)
         {
-            var order = _repo.GetById(id).Translate<Order, OrderViewDTO>();
-            order.details = GetOrderDetail(order.ID);
+            var context = _repo.GetById(id);
+            var order = context.Translate<Order, OrderViewDTO>();
+            
             return order;
         }
 
@@ -140,10 +147,8 @@ namespace EasyShopping.BusinessLogic.Business
 
         public bool CheckOut(OrderViewDTO order, string username)
         {
-
             var dto = new OrderDTO();
             int userId = _user.FindUser(username).ID;
-
             dto.ID = order.ID;
             dto.ModifiedDate = DateTime.Now;
             dto.ModifiedID = userId;
@@ -167,7 +172,6 @@ namespace EasyShopping.BusinessLogic.Business
             }
             else
             {
-                //IList<OrderDetail> details = _detail.GetByOrderId(order.ID).ToList();
                 var details = new ConcurrentDictionary<int, OrderDetail>();
                 foreach (var d in _detail.GetByOrderId(order.ID).ToList())
                 {
@@ -191,7 +195,7 @@ namespace EasyShopping.BusinessLogic.Business
                         newOrder.CountryID = COUNTRY_ID;
                         newOrder.StoreId = d.Value.Product.StoreID;
                         newOrder.ParentId = order.ID;
-                        newOrder.Price = 10000;
+                        newOrder.Price = 30000;
                         _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
                         var childDetails = _detail.GetByStoreId(d.Value.Product.StoreID, order.ID);
                         foreach (var c in childDetails)
@@ -200,7 +204,6 @@ namespace EasyShopping.BusinessLogic.Business
                             child.ModifiedDate = DateTime.Now;
                             child.OrderID = newOrder.ID;
                             _detail.EditDetail(child);
-                            //details.Remove(details.Where(x => x.ID == c.ID).Single());
                             var temp = d.Value;
                             details.TryRemove(c.ID, out temp);
                         }
@@ -218,15 +221,78 @@ namespace EasyShopping.BusinessLogic.Business
             }
         }
 
-        public IEnumerable<OrderDetailDTO> GetByStoreId(int storeId, int orderId)
-        {
-            return _detail.GetByStoreId(storeId, orderId).Translate<OrderDetail, OrderDetailDTO>();
-        }
-
         public IEnumerable<OrderViewDTO> GetByStatus(int id, string username)
         {
             var userId = _user.FindUser(username).ID;
-            return _repo.GetByStatus(id, userId).Translate<Order, OrderViewDTO>();
+            var orders = _repo.GetByStatus(id, userId).Translate<Order, OrderViewDTO>();
+            foreach (var order in orders)
+            {
+                order.details = GetOrderDetail(order.ID);
+            }
+            return orders;
+        }
+
+        public bool CancelOrder(int id, string name)
+        {
+            var fromUserId = _user.FindUser(name).ID;
+            int? parentID = _repo.GetById(id).ParentId;
+            int toUserID = 0;
+            if (parentID.HasValue)
+            {
+                toUserID = _repo.GetById(parentID.Value).UserID.Value;
+                if(fromUserId == toUserID)
+                {
+                    toUserID = _repo.GetById(id).Store.UserID;
+                }
+            }
+            else
+            {
+                toUserID = _repo.GetById(id).UserID.Value;
+                if (fromUserId == toUserID)
+                {
+                    toUserID = _repo.GetById(id).Store.UserID;
+                }
+            }
+            var result = _repo.RejectOrder(id);
+            if (result)
+            {
+                var mess = new MessageDTO();
+                mess.Description = "Your order " + id + " is canceled.";
+                mess.FromID = fromUserId;
+                mess.SentID = toUserID;
+                mess.MessageType = TYPE_ORDER;
+                mess.DataID = id;
+                _message.CreateMessage(mess);
+            }
+            return result;
+        }
+
+        public bool AcceptOrder(int id, string name)
+        {
+            var fromUserId = _user.FindUser(name).ID;
+            var order = _repo.GetById(id);
+            order.StatusID = PROCESSING;
+            int toUserID = 0;
+            if (order.ParentId.HasValue)
+            {
+                toUserID = _repo.GetById(order.ParentId.Value).UserID.Value;
+            }
+            else
+            {
+                toUserID = order.UserID.Value;
+            }
+            var result = _repo.UpdateOrder(order);
+            if (result)
+            {
+                var mess = new MessageDTO();
+                mess.Description = "Your order " + id + " is canceled.";
+                mess.FromID = fromUserId;
+                mess.SentID = toUserID;
+                mess.MessageType = TYPE_ORDER;
+                mess.DataID = id;
+                _message.CreateMessage(mess);
+            }
+            return result;
         }
     }
 }

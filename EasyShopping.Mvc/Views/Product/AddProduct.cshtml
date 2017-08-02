@@ -44,6 +44,7 @@
             </div>
             <div class="form_row">
                 <button type="submit" class="btn btn-default" (click)="saveProduct($event)">Save</button>
+                <a class="btn btn-danger" [routerLink]="['/stores/store-detail', storeId]">Cancel</a>
             </div>
         </div>
 

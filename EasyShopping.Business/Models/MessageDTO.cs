@@ -12,5 +12,7 @@ namespace EasyShopping.BusinessLogic.Models
         public string From { get; set; }
         public DateTime CreatedDate { get; set; }
         public bool IsRead { get; set; }
+        public Nullable<int> MessageType { get; set; }
+        public Nullable<int> DataID { get; set; }
     }
 }

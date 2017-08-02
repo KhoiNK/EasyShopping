@@ -20,8 +20,11 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> FromID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<bool> IsRead { get; set; }
+        public Nullable<int> MessageType { get; set; }
+        public Nullable<int> DataID { get; set; }
     
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
+        public virtual MessageType MessageType1 { get; set; }
     }
 }

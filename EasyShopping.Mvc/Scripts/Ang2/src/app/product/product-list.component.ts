@@ -29,17 +29,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        //this.loadData();
-        this.subscription = this.globalSrv.globalMess$.subscribe((res: any) => {
-            if (res == "") {
-                this.loadData();
-            }
-            else {
-                this.LoadWithName(res);
-            }
-        }, err => {
-            console.log(err);
-            });
+        this.loadData();
+        //this.subscription = this.globalSrv.globalMess$.subscribe((res: any) => {
+        //    if (res == "") {
+        //        this.loadData();
+        //    }
+        //    else {
+        //        this.LoadWithName(res);
+        //    }
+        //}, err => {
+        //    console.log(err);
+        //    });
     }
 
     loadData() {
@@ -112,9 +112,5 @@ export class ProductListComponent implements OnInit, OnDestroy {
         }, err => {
             console.log(err);
         });
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 }

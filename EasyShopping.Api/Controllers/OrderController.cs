@@ -11,7 +11,6 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
-    [Authorize]
     public class OrderController : ApiController
     {
         OrderBusinessLogic _business;
@@ -65,7 +64,7 @@ namespace EasyShopping.Api.Controllers
             var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
             return Ok(_business.GetByUser(name));
         }
-        
+
         [HttpGet]
         [ActionName("GetDetail")]
         public IHttpActionResult Get(int id)
@@ -110,13 +109,14 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                if(data.Quantity > _product.GetQuantity(data.ProductID))
+                if (data.Quantity > _product.GetQuantity(data.ProductID))
                 {
                     return false;
                 }
                 return _business.ChangeQuantity(data, name);
             }
-            catch {
+            catch
+            {
                 return false;
             }
         }
@@ -139,14 +139,6 @@ namespace EasyShopping.Api.Controllers
             return result;
         }
 
-        [HttpPost]
-        [Route("v1/Order/GetByStoreId")]
-        [Authorize]
-        public IHttpActionResult GetByStoreId([FromBody]AddToCartModel cart)
-        {
-            return Ok(_business.GetByStoreId(cart.productId, cart.cartId));
-        }
-
         [HttpGet]
         [ActionName("GetByStatus")]
         public IHttpActionResult GetByStatus(int id)
@@ -156,6 +148,22 @@ namespace EasyShopping.Api.Controllers
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
                 return Ok(_business.GetByStatus(id, name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [ActionName("CancelOrder")]
+        public IHttpActionResult CancelOrder(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.CancelOrder(id, name));
             }
             catch
             {

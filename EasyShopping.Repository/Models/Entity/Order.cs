@@ -38,6 +38,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<int> StoreId { get; set; }
         public Nullable<double> Price { get; set; }
         public Nullable<int> ParentId { get; set; }
+        public Nullable<bool> IsTaken { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }

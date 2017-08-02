@@ -26,7 +26,7 @@ export class Header implements OnInit {
     public products: any[];
     public count: number = 0;
     public mess: any[];
-    public systemMess : string ="";
+    public systemMess: string = "";
 
     constructor(private authService: IAuthService
         , private router: Router
@@ -35,23 +35,14 @@ export class Header implements OnInit {
         , private el: ElementRef
         , private messSrv: MessageServices
         , private gloSrv: GlobalService
-    ){
+    ) {
         let cacheProfile = {};
         let cartId = localStorage.getItem(CART);
         this.profile = {};
-        this.user = {}; //this.userservice.GetUser(this.profile.userName).subscribe((res: any) => {
-        //    this.user = res;
-        //}) || 
+        this.user = {};
     }
 
     ngOnInit() {
-        //if (this.authService.isAuthenticated()) {
-        //    this.isSignedIn = this.authService.isAuthenticated();
-        //    this.name = this.authService.getProfile().name;
-        //    this.userservice.GetUser(this.name).subscribe((res: any) => {
-        //        this.user = res;
-        //    });
-        //}
         this.authService
             .authenticatedObservable()
             .subscribe((res) => {
@@ -63,17 +54,19 @@ export class Header implements OnInit {
                         this.user = res;
                     });
                     this.role = this.profile.role;
-                    this.messSrv.GetUnread().subscribe((res: any) => {
-                        this.count = res;
-                    }, err => {
-                        console.log(err);
-                        this.count = 0;
-                    });
+                    this.GetMessCount();
                 }
                 else {
                     this.isSignedIn = false;
                 }
             });
+
+        setInterval(() => {
+            if (tokenNotExpired('id_token')) {
+                this.GetMessCount();
+            }
+        }, 10000);
+
     }
 
     loggedIn() {
@@ -88,6 +81,16 @@ export class Header implements OnInit {
         this.count = 0;
         this.role = {};
         this.router.navigate(['/']);
+    }
+
+    GetMessCount() {
+        this.messSrv.GetUnread().subscribe((res: any) => {
+            this.count = res;
+        }, err => {
+            
+            console.log(err);
+            this.count = 0;
+        });
     }
 
     SearchProduct() {
@@ -120,4 +123,5 @@ export class Header implements OnInit {
     SetSearchKey() {
         this.router.navigate(['/searchs', this.searchkey]);
     }
+
 }

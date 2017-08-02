@@ -10,6 +10,9 @@ namespace EasyShopping.Repository.Repository
     public class ShipperRepository
     {
         EasyShoppingEntities _db;
+
+        const int WAITING_FOR_SHIPPING = 1;
+
         public ShipperRepository()
         {
             _db = new EasyShoppingEntities();
@@ -19,8 +22,9 @@ namespace EasyShopping.Repository.Repository
         {
             var shipper = _db.ShippingDetails.Where(x => x.ID == id).SingleOrDefault();
             var order = _db.Orders.Where(x => x.ID == shipper.OrderID).SingleOrDefault();
-            order.StatusID = 1;
-            _db.ShippingDetails.Remove(shipper);
+            order.StatusID = WAITING_FOR_SHIPPING;
+            order.IsTaken = false;
+            shipper.IsReject = true;
             _db.SaveChanges();
             return true;
         }

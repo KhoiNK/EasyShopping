@@ -7,23 +7,19 @@
                 <!--features_items-->
                 <div class="clearfix"></div>
                 <div *ngFor="let product of products">
-                    <template [ngIf]="product.Status == 'Available'">
                         <div class="col-sm-3">
-
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
                                         <a [routerLink]="['/products/product-detail', product.ID]"><p>{{product.Name}}</p></a>
                                         <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
-
                                         <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-                    </template>
                 </div>
                 <div class="clearfix"></div>
             </div><!--features_items-->

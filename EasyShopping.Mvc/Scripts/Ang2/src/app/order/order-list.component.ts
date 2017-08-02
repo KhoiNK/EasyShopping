@@ -16,6 +16,7 @@ export class OrderList implements OnInit {
     public orderdetail: any;
     public total: number = 0;
     public inputElement: HTMLInputElement;
+    public statusId: number = 1;
 
     constructor(private orderService: OrderServices, private el: ElementRef) {
         this.Math = Math;
@@ -24,11 +25,21 @@ export class OrderList implements OnInit {
     }
 
     ngOnInit() {
-        this.LoadData();
+        this.LoadData(4);
     }
 
-    LoadData() {
-        this.orderService.GetOrderByUserId().subscribe((res: any) => {
+    LoadData(id: number) {
+        //this.orderService.GetOrderByUserId().subscribe((res: any) => {
+        //    this.orders = res;
+        //}, err => {
+        //    console.log(err);
+        //});
+        
+        if (id == null || id == undefined) {
+            id = 4;
+        }
+        this.statusId = id;
+        this.orderService.GetByStatus(id).subscribe((res: any) => {
             this.orders = res;
         }, err => {
             console.log(err);
@@ -55,6 +66,8 @@ export class OrderList implements OnInit {
                     inputEl.value = "" + (parseInt(inputEl.value) - 1);
                 }
                 this.SetMessage("Changed successfully!");
+                this.LoadData(this.statusId);
+                this.SetOrderDetail(this.id);
             }
             else {
                 this.SetMessage("Changed failed!");
@@ -82,7 +95,7 @@ export class OrderList implements OnInit {
         this.orderService.RemoveItem(id).subscribe((res: any) => {
             if (res == true) {
                 this.SetMessage("Removed successfully!");
-                this.LoadData();
+                this.LoadData(this.statusId);
             }
             if (res == false) {
                 this.SetMessage("Removed failed!");
@@ -98,7 +111,7 @@ export class OrderList implements OnInit {
             if (res == true) {
                 this.SetMessage("Removed successfully!");
                 localStorage.removeItem("cart");
-                this.LoadData();
+                this.LoadData(this.statusId);
             }
             if (res == false) {
                 this.SetMessage("Removed failed!");

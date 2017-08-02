@@ -20,6 +20,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedID { get; set; }
         public Nullable<int> ShipperID { get; set; }
+        public Nullable<bool> IsReject { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual ShipperDetail ShipperDetail { get; set; }

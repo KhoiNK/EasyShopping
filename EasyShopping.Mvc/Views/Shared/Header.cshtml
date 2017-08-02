@@ -26,7 +26,7 @@
                                 <ul class="collapse noti_mess" id="myNotiMess" *ngIf="mess != []">
                                     <li><i class="fa fa-caret-up" aria-hidden="true" style="color:white"></i></li>
                                     <li class="noti_list" *ngFor="let message of mess">
-                                       {{message.From}} {{message.Description}} 
+                                       <a data-toggle="modal" data-target="#noti_detail">{{message.Description}} </a>
                                     </li>
                                 </ul>
 
@@ -80,3 +80,13 @@
         </div>
     </div><!--/header-bottom-->
 </header>
+<div class="modal fade" id="noti_detail" style="overflow:hidden" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="margin:100px">
+            <h1>Hello</h1>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

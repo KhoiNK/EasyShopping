@@ -12,6 +12,8 @@ namespace EasyShopping.Repository.Repository
     {
         private const int WAITINGFORSHIPPING = 1;
         private const int ORDERING = 4;
+        private const int CANCEL = 5;
+        private const int PROCESSING = 6;
 
         EasyShoppingEntities _db;
         OrderDetailRepository _detail;
@@ -43,30 +45,6 @@ namespace EasyShopping.Repository.Repository
                 return null;
             }
         }
-
-        //public bool CheckOut(Order data)
-        //{
-        //    Target(data);
-        //    try
-        //    {
-        //        //var test = _db.OrderDetails.Where(x => x.OrderID == data.ID).Select(x => x.Product.StoreID).ToList();
-
-        //        var order = _db.Orders.Where(x => x.ID == data.ID).Single();
-        //        order.StatusID = WAITINGFORSHIPPING;
-        //        order.Address = data.Address;
-        //        order.CityID = data.CityID;
-        //        order.CountryID = data.CountryID;
-        //        order.DistrictID = data.DistrictID;
-        //        order.Note = order.Note;
-        //        _db.SaveChanges();
-        //        return true;
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Console.WriteLine(e.InnerException);
-        //        return false;
-        //    }
-        //}
 
         public void Target(Order data)
         {
@@ -100,7 +78,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Province")
                 .Include("OrderStatu")
-                .Where(x => x.UserID == userId).ToList();
+                .Where(x => x.UserID == userId).Take(5).OrderByDescending(x => x.CreatedDate).ToList();
             return orders;
         }
 
@@ -120,7 +98,7 @@ namespace EasyShopping.Repository.Repository
             try
             {
                 var details = _db.OrderDetails.Where(x => x.OrderID == id).ToList();
-                if(details.Count() > 0)
+                if (details.Count() > 0)
                 {
                     foreach (var detail in details)
                     {
@@ -185,10 +163,11 @@ namespace EasyShopping.Repository.Repository
         {
             var result = _db.Orders.Where(x => x.ParentId == parentId).ToList();
             var details = new List<OrderDetail>();
-            foreach(var r in result)
+            
+            foreach (var r in result)
             {
                 var detail = _db.OrderDetails.Where(x => x.OrderID == r.ID).ToList();
-                foreach(var d in detail)
+                foreach (var d in detail)
                 {
                     details.Add(d);
                 }
@@ -204,8 +183,68 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Order> GetByStatus(int id, int userId)
         {
-            var result = _db.Orders.Where(x => (x.StatusID == id) && (x.UserID == userId)).OrderByDescending(x=>x.CreatedDate).Take(5).ToList();
+            var result = _db.Orders.Where(x => (x.StatusID == id) && (x.UserID == userId)).OrderByDescending(x => x.CreatedDate).Take(5).ToList();
             return result;
+        }
+
+        public IEnumerable<Order> GetByStore(int id)
+        {
+            try
+            {
+                var result = _db.Orders
+                .Include("Country")
+                .Include("District")
+                .Include("Province")
+                .Include("OrderStatu").Where(x => x.StoreId == id).ToList();
+                return result;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return null;
+            }
+        }
+
+        public IEnumerable<Order> GetByParent(int id)
+        {
+            try {
+                var result = _db.Orders.Include("Country")
+                .Include("District")
+                .Include("Province")
+                .Include("OrderStatu").Where(x => x.ParentId == id).ToList();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return null;
+            }
+        }
+
+        public bool RejectOrder(int id)
+        {
+            try {
+                var details = _db.OrderDetails.Where(x => x.OrderID == id).ToList();
+                if(details.Count() > 0)
+                {
+                    foreach (var p in details)
+                    {
+                        var product = _db.Products.Where(x => x.ID == p.ProductID).Single();
+                        product.Quantity = product.Quantity + p.Quantity.Value;
+                        _db.SaveChanges();
+                    }
+                }
+                var order = _db.Orders.Where(x => x.ID == id).Single();
+                order.StatusID = CANCEL;
+                _db.SaveChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return false;
+            }
+
         }
     }
 }

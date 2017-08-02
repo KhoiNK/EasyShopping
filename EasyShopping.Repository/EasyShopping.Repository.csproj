@@ -92,6 +92,9 @@
     <Compile Include="Models\Entity\Message.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\MessageType.cs">
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\Order.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
@@ -186,7 +189,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\Entity\EasyShoppingEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
