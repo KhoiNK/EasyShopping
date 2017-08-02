@@ -41,7 +41,7 @@ namespace EasyShopping.Api.Controllers
             catch
             {
                 Console.WriteLine(InternalServerError().ToString());
-                return BadRequest();
+                return BadRequest(InternalServerError().ToString());
             }
         }
 
@@ -59,7 +59,7 @@ namespace EasyShopping.Api.Controllers
             catch
             {
                 Console.WriteLine(InternalServerError().ToString());
-                return BadRequest();
+                return BadRequest(InternalServerError().ToString());
             }
         }
         

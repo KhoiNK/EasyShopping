@@ -93,11 +93,13 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<ShippingDetail> GetByStore(int storeId)
         {
-            try {
+            try
+            {
                 var result = _db.ShippingDetails
                     .Include("Order")
                     .Include("ShipperDetail")
-                    .Where(x => x.Order.StoreId == storeId).ToList();
+                    .Where(x => (x.Order.StoreId == storeId) && (x.Order.StatusID == WAITING_FOR_SHIPPING))
+                    .ToList();
                 return result;
             }
             catch(Exception e)

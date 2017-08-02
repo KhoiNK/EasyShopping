@@ -36,6 +36,7 @@ namespace EasyShopping.Repository.Repository
                     .Include("User1")
                     .Where(x => x.SentID == userId)
                     .OrderByDescending(x=>x.CreatedDate)
+                    .Take(5)
                     .ToList();
                 return result;
             }

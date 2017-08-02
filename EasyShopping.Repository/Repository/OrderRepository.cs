@@ -89,6 +89,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Province")
                 .Include("OrderStatu")
+                .Include("Store")
                 .Where(x => x.ID == id).Single();
             return order;
         }
@@ -183,7 +184,16 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<Order> GetByStatus(int id, int userId)
         {
-            var result = _db.Orders.Where(x => (x.StatusID == id) && (x.UserID == userId)).OrderByDescending(x => x.CreatedDate).Take(5).ToList();
+            var result = new List<Order>();
+            if(id != ORDERING)
+            {
+                result = _db.Orders.Where(x => (x.StatusID != ORDERING) && (x.UserID == userId)).OrderByDescending(x => x.CreatedDate).ToList();
+            }
+            else
+            {
+                result = _db.Orders.Where(x => (x.StatusID == ORDERING) && (x.UserID == userId)).OrderByDescending(x => x.CreatedDate).Take(5).ToList();
+            }
+            
             return result;
         }
 
@@ -195,7 +205,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("Country")
                 .Include("District")
                 .Include("Province")
-                .Include("OrderStatu").Where(x => x.StoreId == id).ToList();
+                .Include("OrderStatu").Where(x => (x.StoreId == id) && (x.StatusID != WAITINGFORSHIPPING)).ToList();
                 return result;
             }
             catch(Exception e)

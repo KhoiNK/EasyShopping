@@ -22,6 +22,10 @@ export class OrderServices {
         return this._http.get(this.apiUrl).map(res => res.json());
     }
 
+    GetByStore(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetByStore/" + id).map(res => res.json());
+    }
+
     GetDetail(id: number): Observable<any> {
         return this._http.get(this.apiUrl + "/GetDetail/" + id).map(res => res.json());
     }
@@ -48,5 +52,13 @@ export class OrderServices {
 
     RemoveOrder(id: number): Observable<any> {
         return this._http.delete(this.apiUrl + "/RemoveOrder/" + id).map(res => res.json());
+    }
+
+    AcceptOrder(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/AcceptOrder/" + id).map(res => res.json());
+    }
+
+    CancelOrder(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/CancelOrder/" + id).map(res => res.json());
     }
 }

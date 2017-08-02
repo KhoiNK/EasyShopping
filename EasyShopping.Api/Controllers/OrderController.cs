@@ -170,5 +170,35 @@ namespace EasyShopping.Api.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpGet]
+        [ActionName("AcceptOrder")]
+        public IHttpActionResult AcceptOrder(int id)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.AcceptOrder(id, name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [ActionName("GetByStore")]
+        public IHttpActionResult GetByStore(int id)
+        {
+            try {
+                return Ok(_business.GetByStore(id));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
