@@ -78,6 +78,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Province")
                 .Include("OrderStatu")
+                .Include("Store")
                 .Where(x => x.UserID == userId).Take(5).OrderByDescending(x => x.CreatedDate).ToList();
             return orders;
         }
@@ -221,7 +222,9 @@ namespace EasyShopping.Repository.Repository
                 var result = _db.Orders.Include("Country")
                 .Include("District")
                 .Include("Province")
-                .Include("OrderStatu").Where(x => x.ParentId == id).ToList();
+                .Include("OrderStatu")
+                .Include("Store")
+                .Where(x => x.ParentId == id).ToList();
                 return result;
             }
             catch (Exception e)

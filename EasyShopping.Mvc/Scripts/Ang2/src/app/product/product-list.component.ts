@@ -12,7 +12,7 @@ import { ProductTypeService } from './product-type.service';
     providers: [ProductService, OrderServices, GlobalService, ProductTypeService]
 })
 
-export class ProductListComponent implements OnInit, OnDestroy {
+export class ProductListComponent implements OnInit{
     public products: any[];
     public CART: string = "cart";
     public PROFILE: string = 'profile';

@@ -68,7 +68,7 @@ namespace EasyShopping.BusinessLogic.Models
                 .ForMember(dto => dto.Price,
                 opt => opt.MapFrom(entity => entity.Product.Price))
                 .ForMember(dto => dto.Img,
-                opt=>opt.MapFrom(entity => entity.Product.ThumbailLink));
+                opt => opt.MapFrom(entity => entity.Product.ThumbailLink));
 
                 cfg.CreateMap<OrderViewDTO, Order>();
                 cfg.CreateMap<Order, OrderViewDTO>()
@@ -84,6 +84,9 @@ namespace EasyShopping.BusinessLogic.Models
                 ).ForMember(
                     dto => dto.Status,
                     opt => opt.MapFrom(entity => entity.OrderStatu.Description)
+                ).ForMember(
+                    dto => dto.Store,
+                    opt => opt.MapFrom(entity => entity.Store.Name)
                 );
 
                 cfg.CreateMap<OrderDTO, Order>();

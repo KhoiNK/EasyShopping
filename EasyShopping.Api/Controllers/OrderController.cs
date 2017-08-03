@@ -11,6 +11,7 @@ using System.Web.Http;
 
 namespace EasyShopping.Api.Controllers
 {
+    [Authorize]
     public class OrderController : ApiController
     {
         OrderBusinessLogic _business;
@@ -81,8 +82,10 @@ namespace EasyShopping.Api.Controllers
         [ActionName("GetOrderDetail")]
         public IHttpActionResult GetOrderDetail(int id)
         {
-            var result = _business.GetOrderDetail(id);
-            return Ok(result);
+            var order = _business.GetById(id);
+
+            return Ok(order);
+
         }
 
         [HttpPut]
@@ -123,7 +126,6 @@ namespace EasyShopping.Api.Controllers
 
         [HttpDelete]
         [ActionName("RemoveOrder")]
-        [Authorize]
         public bool RemoveOrder(int id)
         {
             var result = _business.RemoveOrder(id);
@@ -132,7 +134,6 @@ namespace EasyShopping.Api.Controllers
 
         [HttpDelete]
         [ActionName("RemoveItem")]
-        [Authorize]
         public bool RemoveItem(int id)
         {
             var result = _business.RemoveItem(id);
@@ -188,11 +189,11 @@ namespace EasyShopping.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [ActionName("GetByStore")]
         public IHttpActionResult GetByStore(int id)
         {
-            try {
+            try
+            {
                 return Ok(_business.GetByStore(id));
             }
             catch

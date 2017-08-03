@@ -26,8 +26,10 @@ namespace EasyShopping.BusinessLogic.Models
         public string District { get; set; }
         //public int WardID { get; set; }
         public int? StoreId { get; set; }
+        public string Store { get; set; }
         public double Price { get; set; }
         public IEnumerable<OrderDetailDTO> details { get; set; }
+        public IEnumerable<OrderViewDTO> Children { get; set; }
     }
 
     public class OrderDTO

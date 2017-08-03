@@ -10,7 +10,7 @@ namespace EasyShopping.Api.Constants
 {
     public static class Const
     {
-        public static readonly TimeSpan TokenTimeSpan = TimeSpan.FromMinutes(20);
+        public static readonly TimeSpan TokenTimeSpan = TimeSpan.FromMinutes(1440);
         public static readonly string Issuer = "http://easyshop.local";
         public static readonly byte[] SecretKey;
         public static readonly string Secret;

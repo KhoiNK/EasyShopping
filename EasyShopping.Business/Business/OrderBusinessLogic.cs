@@ -89,7 +89,12 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var context = _repo.GetById(id);
             var order = context.Translate<Order, OrderViewDTO>();
-            order.details = GetOrderDetail(order.ID);
+            if (order.StoreId.HasValue)
+            {
+                order.details = GetOrderDetail(order.ID);
+                return order;
+            }
+            order.Children = GetChildrenOrder(id);
             return order;
         }
 
@@ -314,6 +319,16 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var result = _repo.GetByStore(storeID).Translate<Order, OrderViewDTO>();
             foreach (var order in result)
+            {
+                order.details = GetOrderDetail(order.ID);
+            }
+            return result;
+        }
+
+        public IEnumerable<OrderViewDTO> GetChildrenOrder(int id)
+        {
+            var result = _repo.GetByParent(id).Translate<Order, OrderViewDTO>();
+            foreach(var order in result)
             {
                 order.details = GetOrderDetail(order.ID);
             }
