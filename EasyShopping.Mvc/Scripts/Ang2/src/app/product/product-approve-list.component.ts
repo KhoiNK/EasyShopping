@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ElementRef } from '@angular/core';
 import { ProductService } from './product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,11 +17,13 @@ export class ProductApproveListComponent implements OnInit {
     private id: number;
     public isAllowed: boolean = false;
     public isOwner: boolean = false;
+    public message: string;
     constructor(private productService: ProductService
         , private router: Router
         , private activateRoute: ActivatedRoute
         , private approveSrv: ApprovementServices
-        , private storeservice: StoreServices) {
+        , private storeservice: StoreServices
+        , private el: ElementRef) {
 
     }
 
@@ -70,4 +72,20 @@ export class ProductApproveListComponent implements OnInit {
         });
     }
 
+    SetMessage() {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#succMess');
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
+    }
 }

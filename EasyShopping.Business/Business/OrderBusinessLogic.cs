@@ -301,29 +301,33 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var fromUserId = _user.FindUser(name).ID;
             var order = _repo.GetById(id);
-            order.StatusID = WAITINGFORSHIPPING;
-            order.IsTaken = false;
-            int toUserID = 0;
-            if (order.ParentId.HasValue)
+            if(order.StatusID == PROCESSING)
             {
-                toUserID = _repo.GetById(order.ParentId.Value).UserID.Value;
+                order.StatusID = WAITINGFORSHIPPING;
+                order.IsTaken = false;
+                int toUserID = 0;
+                if (order.ParentId.HasValue)
+                {
+                    toUserID = _repo.GetById(order.ParentId.Value).UserID.Value;
+                }
+                else
+                {
+                    toUserID = order.UserID.Value;
+                }
+                var result = _repo.UpdateOrder(order);
+                if (result)
+                {
+                    var mess = new MessageDTO();
+                    mess.Description = "Your order " + id + " is Accepted.";
+                    mess.FromID = fromUserId;
+                    mess.SentID = toUserID;
+                    mess.MessageType = TYPE_ORDER;
+                    mess.DataID = id;
+                    _message.CreateMessage(mess);
+                }
+                return result;
             }
-            else
-            {
-                toUserID = order.UserID.Value;
-            }
-            var result = _repo.UpdateOrder(order);
-            if (result)
-            {
-                var mess = new MessageDTO();
-                mess.Description = "Your order " + id + " is Accepted.";
-                mess.FromID = fromUserId;
-                mess.SentID = toUserID;
-                mess.MessageType = TYPE_ORDER;
-                mess.DataID = id;
-                _message.CreateMessage(mess);
-            }
-            return result;
+            return false;
         }
 
         public IEnumerable<OrderViewDTO> GetByStore(int storeID)

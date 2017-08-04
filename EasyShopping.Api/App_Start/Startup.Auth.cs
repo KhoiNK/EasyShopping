@@ -31,11 +31,12 @@ namespace EasyShopping.Api
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
+            var _business = new UserBusinessLogic();
+            var users = _business.GetAllUserName().ToArray();
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            var _business = new UserBusinessLogic();
-            var users = _business.GetAllUserName().ToArray();
+            
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -76,7 +77,6 @@ namespace EasyShopping.Api
                        }
                    }
                });
-
             // Branch the pipeline here for requests that start with "/signalr"
             app.Map("/signalr", map =>
             {

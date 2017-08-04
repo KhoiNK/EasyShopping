@@ -52,7 +52,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             return Task.Factory.StartNew(() =>
                 {
-                    return _repo.FindUser(username).Translate<User,UserDTO>();
+                    return _repo.FindUser(username).Translate<User, UserDTO>();
                 }
             );
         }
@@ -68,7 +68,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             ClearCache(user.UserName);
 
-            if (_repo.Update(user.ID, BusinessTranslators.Translate<UserDTO,User>(user)))
+            if (_repo.Update(user.ID, BusinessTranslators.Translate<UserDTO, User>(user)))
             {
                 return true;
             }
