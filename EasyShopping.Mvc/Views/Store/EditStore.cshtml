@@ -39,7 +39,7 @@
 
             </div>
             <div class="form_row">
-                <button type="submit" class="form_submit" (click)="SaveChange($event)">Add</button>
+                <button type="submit" class="btn btn-success" (click)="SaveChange($event)">Save</button>
                 <a class="btn btn-danger" [routerLink]="['/stores/store-detail', store.ID]">Cancel</a>
                 <button hidden data-toggle="modal" data-target="#modalMessage" id="modalClick"></button>
             </div>
@@ -66,7 +66,7 @@
             <label>
                 Address:
             </label>
-            <p *ngIf="address != ''">{{address}}</p>
+            <p *ngIf="store.Address == ''">{{address}}</p>
             <p *ngIf="store.Address != ''">{{store.Address}}</p>
         </div>
         <div>

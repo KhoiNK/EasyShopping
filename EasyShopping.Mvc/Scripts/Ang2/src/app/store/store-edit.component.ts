@@ -28,7 +28,7 @@ export class StoreEditComponent implements OnInit {
     public thumbailImg: string;
     public subscription: Subscription;
     public storeId: number;
-    public mess: string = "";
+    public message: string = "";
 
     constructor(private storeService: StoreServices
         , private uploadService: UploadService
@@ -159,12 +159,15 @@ export class StoreEditComponent implements OnInit {
     EditStore(store: any) {
         this.storeService.EditStore(store).subscribe(
             (res: any) => {
-                if (res.ID) {
+                if (res == true) {
                     this.store = res;
                     this.SetMessage("Updated successfully", "storeMess_success");
                     setTimeout(() => {
                         this.router.navigate(['/stores/store-detail/' + this.storeId]);
                     }, 2000);
+                }
+                else {
+                    this.SetMessage("Updated failed", "storeMess_error");
                 }
             }, err => {
                 this.SetMessage("Updated failed", "storeMess_error");
@@ -174,7 +177,7 @@ export class StoreEditComponent implements OnInit {
 
     SetMessage(mess: string, id: string) {
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#' + id);
-        this.mess = mess;
+        this.message = mess;
         inputEl.removeAttribute('hidden');
     }
 }

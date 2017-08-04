@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
     @Styles.Render(ViewConstants.CssBundle)
-   
+    
 </head>
 <body style="padding:0px">
     @RenderBody()
@@ -18,7 +18,7 @@
         <script src="systemjs.config.js"></script>*@
 
     @RenderSection("scripts", required: false)
-    
+
     <script>
         window.GlobalSettings = {
             LoginUrl: 'http://api.easyshop.local/Token',
@@ -27,12 +27,16 @@
         };
         System.import('/Scripts/Ang2/dist/main.js').catch(function (err) { console.error(err); });
     </script>
-   
+
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
-    
+    <script>
+        $(document).ready(function () {
+            $('.summernote').summernote();
+        });
+    </script>
 </body>
 </html>

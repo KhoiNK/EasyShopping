@@ -61,11 +61,11 @@ export class Header implements OnInit {
                 }
             });
 
-        setInterval(() => {
-            if (tokenNotExpired('id_token')) {
-                this.GetMessCount();
-            }
-        }, 10000);
+        //setInterval(() => {
+        //    if (tokenNotExpired('id_token')) {
+        //        this.GetMessCount();
+        //    }
+        //}, 10000);
 
     }
 

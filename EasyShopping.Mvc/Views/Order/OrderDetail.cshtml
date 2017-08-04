@@ -1,20 +1,94 @@
 ﻿<h2>Order Detail</h2>
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">Order #{{order.ID}}</div>
-        <div class="col-md-3">Created Date: {{order.CreatedDate | date}}</div>
-        <div class="col-md-3"></div>
+<div class="container" style="width:100%">
+    <div class="row" style="background-color:#425161; height:40px;color:white">
+        <div class="col-md-4">Order #{{order.ID}}</div>
+        <div class="col-md-4" style="text-align:center">Created Date: {{order.CreatedDate | date}}</div>
+        <div class="col-md-4" style="text-align:right">Total: {{order.Total}}</div>
     </div>
-    <template [ngIf]="order.StoreId != null">
-
+    <template [ngIf]="order.Children == null">
+        <div class="row" style="margin:0px; border-bottom:1px solid #f1f1f1">
+            <div class="row">
+                <div class="col-md-6">{{order.Store}}</div>
+                <div class="col-md-6">{{order.Status}}</div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>
+                                 
+                            </td>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                Quantity
+                            </td>
+                            <td>
+                                Price
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let detail of order.details">
+                            <td>
+                                <img src="{{detail.Img}}" class="img-responsive" style="max-width:100px; max-height: 180px"/>
+                            </td>
+                            <td>
+                                {{detail.Product}}
+                            </td>
+                            <td>
+                                {{detail.Quantity}}
+                            </td>
+                            <td>
+                                {{detail.Price}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </template>
-    <div class="row">
-        <div class="row">
-            <div class="col-md-6">{{order.Store}}</div>
-            <div class="col-md-6">{{order.Status}}</div>
+    <template [ngIf]="order.Children != null">
+        <div class="row" *ngFor="let children of order.Children" style="margin:0px">
+            <div class="row">
+                <div class="col-md-6">{{children.Store}}</div>
+                <div class="col-md-6">{{children.Status}}</div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>
+                                Name
+                            </td>
+                            <td>
+                                Quantity
+                            </td>
+                            <td>
+                                Price
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let detail of children.details">
+                            <td>
+                                <img src="{{detail.Img}}" class="img-responsive" style="max-width:100px; max-height: 180px" />
+                            </td>
+                            <td>
+                                {{detail.Product}}
+                            </td>
+                            <td>
+                                {{detail.Quantity}}
+                            </td>
+                            <td>
+                                {{detail.Price}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="row">
-
-        </div>
-    </div>
+    </template>
 </div>

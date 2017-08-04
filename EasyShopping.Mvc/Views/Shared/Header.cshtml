@@ -26,14 +26,14 @@
                                 <ul class="collapse noti_mess" id="myNotiMess" *ngIf="mess != []">
                                     <li><i class="fa fa-caret-up" aria-hidden="true" style="color:white"></i></li>
                                     <li class="noti_list" *ngFor="let message of mess">
-                                       <a data-toggle="modal" data-target="#noti_detail">{{message.Description}} </a>
+                                       <a data-toggle="modal" data-target="#noti_detail" style="color:black" href="javascript:void(0)">{{message.Description}} </a>
                                     </li>
                                 </ul>
 
                             </li>
                             <li><a [routerLink]="['/orders/order-detail', cart]"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li *ngIf="!isSignedIn"><a [routerLink]="['/login']"><i class="fa fa-lock"></i> Login</a></li>
-                            <li *ngIf="isSignedIn"><a (click)="logout()"><i class="fa fa-lock"></i> Logout</a></li>
+                            <li *ngIf="isSignedIn"><a (click)="logout()" href="javascript:void(0)"><i class="fa fa-lock"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>

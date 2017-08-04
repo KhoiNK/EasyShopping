@@ -164,7 +164,7 @@ namespace EasyShopping.Repository.Repository
 
         public IEnumerable<OrderDetail> GetByStoreId(int storeId, int orderId)
         {
-            var result = _db.OrderDetails.Where(x => (x.Product.StoreID == storeId) &&(x.OrderID == orderId)).ToList();
+            var result = _db.OrderDetails.Include("Product").Where(x => (x.Product.StoreID == storeId) &&(x.OrderID == orderId)).ToList();
             return result;
         }
     }

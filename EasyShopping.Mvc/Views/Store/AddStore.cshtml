@@ -17,10 +17,13 @@
             </div>
             <div class="form_row">
                 <label>Description:</label>
-                <textarea [(ngModel)]="store.Description" class="form_name" name="description"></textarea>
+                <div class="summernote">
+                    <textarea [(ngModel)]="store.Description" class="form_name" name="description"></textarea>
+                </div>
             </div>
             <div class="form_row">
                 <label>Required Deposit:</label>
+                
                 <textarea [(ngModel)]="store.RequiredDeposit" class="form_name" name="description" id="mytextarea"></textarea>
             </div>
             <div class="form_row">

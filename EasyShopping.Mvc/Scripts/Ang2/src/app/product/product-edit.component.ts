@@ -96,14 +96,32 @@ export class ProductEditComponent implements OnInit, OnDestroy {
         this.productservice.Edit(product).subscribe(
             (res: any) => {
                 if (res == true) {
-                    this.message = "Edit Successfully!";
+                    this.SetMessage();
                     setTimeout(result => {
                         this.router.navigate(['/stores/store-detail/' + product.StoreID]);
                     }, 3000);
                 }
             }, err => {
+                this.SetErrMess("Added failed");
                 console.log(err);
             });
+    }
+
+    SetMessage() {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#succMess');
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
     }
 
     ngOnDestroy() {

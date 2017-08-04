@@ -34,7 +34,8 @@ namespace EasyShopping.Api
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            
+            var _business = new UserBusinessLogic();
+            var users = _business.GetAllUserName().ToArray();
             // Configure the application for OAuth based flow
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
@@ -52,8 +53,7 @@ namespace EasyShopping.Api
 
             // Enable the application to use bearer tokens to authenticate users
             //app.UseOAuthBearerTokens(OAuthOptions);
-            var _business = new UserBusinessLogic();
-            var users = _business.GetAllUserName().ToArray();
+            
             //new[] { "admin", "chushop1", "chushopvanhanvien1", "kolamgihet1", "kolamgihet2", "kolamgihet3", "56cccccc", "nhanvienshipshop12" },
             app.UseOAuthAuthorizationServer(OAuthOptions);
             //System.Diagnostics.Debugger.Launch();

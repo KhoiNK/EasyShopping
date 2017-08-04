@@ -89,11 +89,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var context = _repo.GetById(id);
             var order = context.Translate<Order, OrderViewDTO>();
-            if (order.StoreId.HasValue)
-            {
-                order.details = GetOrderDetail(order.ID);
-                return order;
-            }
+            order.details = GetOrderDetail(order.ID);
             order.Children = GetChildrenOrder(id);
             return order;
         }
@@ -104,7 +100,15 @@ namespace EasyShopping.BusinessLogic.Business
             var orders = _repo.GetByUserId(userId).Translate<Order, OrderViewDTO>();
             foreach (var order in orders)
             {
-                order.details = GetOrderDetail(order.ID);
+                if (order.StoreId.HasValue)
+                {
+                    order.details = _detail.GetByOrderId(order.ID).Translate<OrderDetail, OrderDetailDTO>().ToList();
+                }
+                else
+                {
+                    order.details = _repo.GetChildOrderDetail(order.ID).Translate<OrderDetail, OrderDetailDTO>().ToList();
+
+                }
             }
             return orders;
         }
@@ -169,6 +173,11 @@ namespace EasyShopping.BusinessLogic.Business
             if (order.StoreId != null)
             {
                 dto.StoreId = order.StoreId.Value;
+                dto.Total = dto.Price;
+                foreach (var detail in order.details)
+                {
+                    dto.Total = dto.Total + (detail.Quantity * detail.Price);
+                }
                 var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
                 if (result)
                 {
@@ -208,7 +217,7 @@ namespace EasyShopping.BusinessLogic.Business
                         newOrder.StoreId = d.Value.Product.StoreID;
                         newOrder.ParentId = order.ID;
                         newOrder.Price = 30000;
-                        _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
+                        newOrder.Total = newOrder.Price;
                         var childDetails = _detail.GetByStoreId(d.Value.Product.StoreID, order.ID);
                         foreach (var c in childDetails)
                         {
@@ -217,8 +226,10 @@ namespace EasyShopping.BusinessLogic.Business
                             child.OrderID = newOrder.ID;
                             _detail.EditDetail(child);
                             var temp = d.Value;
+                            newOrder.Total = newOrder.Total + (c.Quantity.Value * c.Product.Price.Value);
                             details.TryRemove(c.ID, out temp);
                         }
+                        _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
                         var mess = new MessageDTO();
                         mess.Description = "checked out order " + newOrder.ID;
                         mess.FromID = userId;
@@ -259,7 +270,7 @@ namespace EasyShopping.BusinessLogic.Business
             if (parentID.HasValue)
             {
                 toUserID = _repo.GetById(parentID.Value).UserID.Value;
-                if(fromUserId == toUserID)
+                if (fromUserId == toUserID)
                 {
                     toUserID = _repo.GetById(id).Store.UserID;
                 }
@@ -328,7 +339,7 @@ namespace EasyShopping.BusinessLogic.Business
         public IEnumerable<OrderViewDTO> GetChildrenOrder(int id)
         {
             var result = _repo.GetByParent(id).Translate<Order, OrderViewDTO>();
-            foreach(var order in result)
+            foreach (var order in result)
             {
                 order.details = GetOrderDetail(order.ID);
             }
