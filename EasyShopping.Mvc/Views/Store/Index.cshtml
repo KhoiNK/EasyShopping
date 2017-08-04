@@ -1,1 +1,28 @@
-﻿
+﻿<div class="col-sm-9">
+    <h1>Search Store</h1>
+    <div style="display: -webkit-box;position:relative">
+        <input [(ngModel)]="searchkey" type="text" (keyup)="LoadData()" class="search_box form-control" />
+        <button class="btn" style="background-color:transparent; position:absolute; right:0px"><span class="glyphicon glyphicon-search"></span></button>
+    </div>
+
+    @*<button (click)="LoadData()" class="btn-default">Search</button>*@
+    <div class="container" *ngIf="stores" style="padding:20px 0 20px 0">
+        <div *ngFor="let store of stores">
+            <template [ngIf]="store.StatusId == 1">
+                <div class="col-sm-4">
+                    <div class="product-image-wrapper">
+                        <div class="single-products">
+                            <div class="productinfo text-center">
+                                <a [routerLink]="['/stores/store-detail', store.ID]"><img src="{{store.ImgLink}}" alt="" style="width:200px; height:200px; text-align:center" /></a>
+                                <a [routerLink]="['/stores/store-detail', store.ID]"><h2>{{store.Name}}</h2></a>
+                                <p>{{store.Status}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
+

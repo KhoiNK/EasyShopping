@@ -1,1 +1,8 @@
-﻿
+﻿<div *ngIf="stores" class="col-sm-9">
+    Store List: <br />
+    <div *ngFor="let store of stores">
+        <a [routerLink]="['/stores/store-detail', store.ID]">{{store.Name}}</a>
+    </div>
+</div>
+
+
