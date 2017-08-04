@@ -38,7 +38,6 @@ export class ProductApproveListComponent implements OnInit {
             }
         }, err => {
             console.log(err);
-            //this.LoadData(this.id);
         });
         this.storeservice.CheckOwner(this.id).subscribe(res => {
             if (res == true == true) {
@@ -46,7 +45,6 @@ export class ProductApproveListComponent implements OnInit {
             }
         }, err => {
             console.log(err);
-            //this.LoadData(this.id);
         });
     }
 

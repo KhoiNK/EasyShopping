@@ -124,7 +124,6 @@ export class StoreEditComponent implements OnInit {
         imgEl.hidden = true;
         inputEl.setAttribute('src', "data:image/jpeg;base64," + btoa(binaryString));
         this.thumbailImg = btoa(binaryString);
-        //console.log(btoa(binaryString));
     }
 
 

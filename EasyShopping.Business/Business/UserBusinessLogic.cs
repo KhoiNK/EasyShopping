@@ -29,7 +29,6 @@ namespace EasyShopping.BusinessLogic.Business
                 string hash = Encryptor.MD5Hash(password);
                 string key = string.Format("{0}:{1}", username, password);
                 UserDTO user = null;
-
                 // Look in memory
                 if (Cache.ContainsKey(key))
                 {
@@ -38,11 +37,9 @@ namespace EasyShopping.BusinessLogic.Business
                 else
                 {
                     user = _repo.FindUser(username, hash).Translate<User, UserDTO>();
-
                     // TODO: Must delete this key, when update user
                     Cache[key] = user;
                 }
-
                 return user;
             });
 
@@ -88,9 +85,7 @@ namespace EasyShopping.BusinessLogic.Business
 
                 User userEntity = user.ToUserEntity();
                 UserDTO newUser = _repo.Add(userEntity).Translate<User, UserDTO>();
-
                 return newUser;
-
             });
         }
 

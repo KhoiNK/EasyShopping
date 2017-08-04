@@ -52,7 +52,6 @@ namespace EasyShopping.Api.Controllers
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e.StackTrace);
                 return BadRequest();
             }
@@ -83,9 +82,7 @@ namespace EasyShopping.Api.Controllers
         public IHttpActionResult GetOrderDetail(int id)
         {
             var order = _business.GetById(id);
-
             return Ok(order);
-
         }
 
         [HttpPut]
