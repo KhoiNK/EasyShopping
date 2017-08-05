@@ -18,7 +18,8 @@ namespace EasyShopping.Mvc
                 LibPath + "modernizr-*",
                 LibPath + "bootstrap.js",
                 LibPath + "respond.js",
-                LibPath + "summernote*"
+                LibPath + "summernote*",
+                LibPath + "slick.min.js"
             ));
 
             bundles.Add(new ScriptBundle(ViewConstants.AppBundle).Include(
@@ -36,7 +37,8 @@ namespace EasyShopping.Mvc
                 StylePath + "css/main.css",
                 StylePath + "css/prettyPhoto.css",
                 StylePath + "css/responsive.css",
-                StylePath + "css/summernote.css"
+                StylePath + "css/summernote.css",
+                StylePath + "slick.css"
             ));
         }
     }

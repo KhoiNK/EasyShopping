@@ -5,13 +5,20 @@
         <div class="col-md-4" style="text-align:center">Created Date: {{order.CreatedDate | date}}</div>
         <div class="col-md-4" style="text-align:right">Total: {{order.Total}}</div>
     </div>
-    <template [ngIf]="order.Children == null">
+    <template [ngIf]="order.Children?.length <= 0">
         <div class="row" style="margin:0px; border-bottom:1px solid #f1f1f1">
             <div class="row">
                 <div class="col-md-6">{{order.Store}}</div>
                 <div class="col-md-6">{{order.Status}}</div>
             </div>
+            
             <div class="row">
+                <div class="row" style="position:relative">
+                    <div style="border:3px solid black"></div>
+                    <div class="col-md-4"><div class="pull-left progress_dot"></div></div>
+                    <div class="col-md-4" style="text-align:-webkit-center"><div class="text-center progress_dot"></div></div>
+                    <div class="col-md-4"><div class="pull-right progress_dot"></div></div>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -49,7 +56,7 @@
             </div>
         </div>
     </template>
-    <template [ngIf]="order.Children != null">
+    <template [ngIf]="order.Children != []">
         <div class="row" *ngFor="let children of order.Children" style="margin:0px">
             <div class="row">
                 <div class="col-md-6">{{children.Store}}</div>

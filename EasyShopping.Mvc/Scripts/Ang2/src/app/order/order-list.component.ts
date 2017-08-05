@@ -1,4 +1,4 @@
-﻿import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { OrderServices } from './order.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class OrderList implements OnInit {
     public total: number = 0;
     public inputElement: HTMLInputElement;
     public statusId: number = 1;
+    public page: number = 1;
 
     constructor(private orderService: OrderServices, private el: ElementRef) {
         this.Math = Math;
@@ -34,13 +35,41 @@ export class OrderList implements OnInit {
         //}, err => {
         //    console.log(err);
         //});
-        
+
         if (id == null || id == undefined) {
             id = 4;
         }
         this.statusId = id;
         this.orderService.GetByStatus(id).subscribe((res: any) => {
             this.orders = res;
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    LoadAll(command: string) {
+        if (command == "init") {
+            this.LoadByUser(this.page);
+        }
+        if (command == "next") {
+            this.page = this.page + 1;
+            this.LoadByUser(this.page);
+        }
+        if (command == "back") {
+            this.page = this.page - 1;
+            this.LoadByUser(this.page);
+        }
+    }
+
+    LoadByUser(page: number) {
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector("#nextPage");
+        this.orderService.GetOrderByUserId(page).subscribe((res: any) => {
+            if (res != []) {
+                this.orders = res;
+            }
+            if (res.lenght <= 0) {
+                inputEl.hidden = true;
+            }
         }, err => {
             console.log(err);
         });

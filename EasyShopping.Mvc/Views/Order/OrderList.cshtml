@@ -1,16 +1,14 @@
 ﻿<div class="col-sm-9">
     <ul class="nav nav-tabs" (change)="ResetValue()">
         <li (click)="ResetValue()"><a data-toggle="tab" href="#menu" (click)="LoadData(4)">Ordering</a></li>
-        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu1" (click)="LoadData(1)">Waiting For Shipping</a></li>
-        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu2" (click)="LoadData(3)">Completed</a></li>
-        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu3" (click)="LoadData(2)">Delivering</a></li>
+        <li (click)="ResetValue()"><a data-toggle="tab" href="#menu1" (click)="LoadAll('init')">Orders</a></li>
     </ul>
     <div class="tab-content" *ngIf="orders">
         <div id="menu" class="tab-pane fade in active">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 4">
                     <div class="row">
-                        <div class="col-sm-1" (click)="SetOrderDetail(order.ID)"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID" ></i></div>
+                        <div class="col-sm-1" (click)="SetOrderDetail(order.ID)"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
                         <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
@@ -20,9 +18,7 @@
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
-                                    <td>
-                                         
-                                    </td>
+                                    <td></td>
                                     <td>
                                         Name
                                     </td>
@@ -36,11 +32,11 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let detail of order.details">
-                                    <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px"/></td>
+                                    <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px" /></td>
                                     <td>{{detail.Product}}</td>
                                     <td>
                                         <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ProductID)"></i>
-                                        <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" readonly style="max-width:50px; text-align:center"/>
+                                        <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" readonly style="max-width:50px; text-align:center" />
                                         <i class="fa fa-plus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'add', detail.ProductID)"></i>
                                     </td>
                                     <td>
@@ -56,9 +52,8 @@
         </div>
         <div id="menu1" class="tab-pane fade">
             <div *ngFor="let order of orders">
-                <template [ngIf]="order.StatusID === 1">
-                    <div class="row">
-                    <div class="col-sm-1"><a aria-hidden="true" data-toggle="collapse" [attr.href]="'#detail'+order.ID" aria-expanded="false" [attr.aria-controls]="'detail'+order.ID"><i class="fa fa-plus-square-o" ></i></a></div>
+                <div class="row">
+                    <div class="col-sm-1"><a aria-hidden="true" data-toggle="collapse" [attr.href]="'#detail'+order.ID" aria-expanded="false" [attr.aria-controls]="'detail'+order.ID"><i class="fa fa-plus-square-o"></i></a></div>
                     <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a></div>
                     <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                     <div class="col-sm-3"> Created Date: {{order.CreatedDate | date}}</div>
@@ -83,98 +78,17 @@
                                 <td>{{detail.Product}}</td>
                                 <td>
                                     {{detail.Quantity}}
-                                    
+
                                 </td>
                                 <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                </template>
-                
             </div>
-        </div>
-        <div id="menu2" class="tab-pane fade">
-            <div *ngFor="let order of orders">
-                <template [ngIf]="order.StatusID === 3">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <label></label>
-                            <i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i>
-                        </div>
-                        <div class="col-sm-3">
-                            #<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a>
-                        </div>
-                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
-                        <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
-
-                    </div>
-                    <div class="row collapse table-tab" id="detail{{order.ID}}">
-                        <table class="table">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <td>
-                                        Name
-                                    </td>
-                                    <td>
-                                        Quantity
-                                    </td>
-                                    <td>
-                                        Price
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let detail of order.details">
-                                    <td>{{detail.Product}}</td>
-                                    <td>
-                                        {{detail.Quantity}}
-                                        
-                                    </td>
-                                    <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </template>
-            </div>
-        </div>
-        <div id="menu3" class="tab-pane fade">
-            <div *ngFor="let order of orders">
-                <template [ngIf]="order.StatusID === 2">
-                    <div class="row">
-                        <div class="col-sm-3">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a></div>
-                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
-                        <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
-                    </div>
-                    <div class="row collapse table-tab" id="detail{{order.ID}}">
-                        <table class="table">
-                            <thead class="thead-inverse">
-                                <tr>
-                                    <td>
-                                        Name
-                                    </td>
-                                    <td>
-                                        Quantity
-                                    </td>
-                                    <td>
-                                        Price
-                                    </td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let detail of order.details">
-                                    <td>{{detail.Product}}</td>
-                                    <td>
-                                        {{detail.Quantity}}
-
-                                    </td>
-                                    <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </template>
+            <div>
+                <a *ngIf="page > 1" (click)="LoadAll('back')" href="javascript:void(0)">back</a>
+                <a (click)="LoadAll('next')" href="javascript:void(0)" id="nextPage" style="float:right">next</a>
             </div>
         </div>
     </div>

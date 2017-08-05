@@ -71,15 +71,16 @@ namespace EasyShopping.Repository.Repository
             }
         }
 
-        public IEnumerable<Order> GetByUserId(int userId)
+        public IEnumerable<Order> GetByUserId(int userId, int pageSize, int pageIndex)
         {
+            int skipped = (pageIndex - 1) * pageSize;
             var orders = _db.Orders
                 .Include("Country")
                 .Include("District")
                 .Include("Province")
                 .Include("OrderStatu")
                 .Include("Store")
-                .Where(x => x.UserID == userId).Take(5).OrderByDescending(x => x.CreatedDate).ToList();
+                .Where(x => (x.UserID == userId) && (x.StatusID != ORDERING)).OrderByDescending(x => x.CreatedDate).ToList().Skip(skipped).Take(pageSize);
             return orders;
         }
 

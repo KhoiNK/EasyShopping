@@ -3,11 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
-            <div class="features_items" *ngIf="products">
+            <div class="features_items" *ngIf="products" data-slick='{"slidesToShow": 4, "slidesToScroll": 4}'>
                 <!--features_items-->
                 <div class="clearfix"></div>
                 <div *ngFor="let product of products">
-                        <div class="col-sm-3">
+                        <div class="col-sm-3 product-card">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
@@ -25,25 +25,6 @@
             </div><!--features_items-->
         </div>
     </div>
-</div>
-<button data-toggle="modal" data-target="#blahblah">Click me</button>
-<div class="modal fade container" id="blahblah">
-    <h2 style="background-color:black; text-align: center; color:white">Store</h2>
-    <div style="border-bottom:1px solid black; background-color:white">
-        Name: asdas<br />
-        <div data-toggle="collapse" data-target="#blah"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
-        <div id="blah" class="collapse">
-            dklasjdklasklda
-        </div>
-        <div style="border-bottom:1px solid black; background-color:white">
-            Name: asdas<br />
-            <div data-toggle="collapse" data-target="#blah1"><i class="fa fa-sort-desc" aria-hidden="true"></i></div>
-            <div id="blah1" class="collapse">
-                dklasjdklasklda
-            </div>
-        </div>
-    </div>
-    
 </div>
 <div class="action_noti" id="cartMess" hidden>
     <label style="margin:10px">Added successfully!</label>

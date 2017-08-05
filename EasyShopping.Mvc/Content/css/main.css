@@ -2741,8 +2741,8 @@ form > textarea {
     max-width: 500%;
     padding-top: 0px;
     transition: 0.5s height;
-    width:200px;
-    padding-left:0px;
+    width: 200px;
+    padding-left: 0px;
 }
 
     .noti_mess li a {
@@ -2876,6 +2876,20 @@ form > textarea {
     width: 100%;
 }
 
-.same-roduct{
+.same-roduct {
     margin: 10px 0 10px 0;
+}
+
+.product-card {
+    max-height: 295px;
+}
+
+.progress_dot {
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    border: 3px solid black;
+    position: relative;
+    bottom: 15px;
+    border-radius: 30px;
 }

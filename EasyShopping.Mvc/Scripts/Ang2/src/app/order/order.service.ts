@@ -18,8 +18,8 @@ export class OrderServices {
         return this._http.post(this.apiUrl, data).map(res => res.json());
     }
 
-    GetOrderByUserId(): Observable<any[]> {
-        return this._http.get(this.apiUrl).map(res => res.json());
+    GetOrderByUserId(pageIndex: number): Observable<any[]> {
+        return this._http.get(this.apiUrl + "/GetByUser/" + pageIndex).map(res => res.json());
     }
 
     GetByStore(id: number): Observable<any> {

@@ -94,10 +94,10 @@ namespace EasyShopping.BusinessLogic.Business
             return order;
         }
 
-        public IEnumerable<OrderViewDTO> GetByUser(string username)
+        public IEnumerable<OrderViewDTO> GetByUser(string username, int pageSize, int pageIndex)
         {
             var userId = _user.FindUser(username).ID;
-            var orders = _repo.GetByUserId(userId).Translate<Order, OrderViewDTO>();
+            var orders = _repo.GetByUserId(userId, pageSize, pageIndex).Translate<Order, OrderViewDTO>();
             foreach (var order in orders)
             {
                 if (order.StoreId.HasValue)
