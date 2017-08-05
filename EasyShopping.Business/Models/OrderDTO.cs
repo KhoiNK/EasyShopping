@@ -44,10 +44,10 @@ namespace EasyShopping.BusinessLogic.Models
         public int ModifiedID { get; set; }
         public int StatusID { get; set; }
         public double Total { get; set; }
-        public int CountryID { get; set; }
-        public int CityID { get; set; }
-        public int DistrictID { get; set; }
-        public int WardID { get; set; }
+        public int? CountryID { get; set; }
+        public int? CityID { get; set; }
+        public int? DistrictID { get; set; }
+        public int? WardID { get; set; }
         public int? StoreId { get; set; }
         public double Price { get; set; }
         public int? ParentId { get; set; }

@@ -25,7 +25,7 @@
 
                                 <button class="btn btn-default" data-toggle="collapse" data-target="#expand_product_management" *ngIf="isAllowed">Product Management</button>
                                 <button class="btn btn-default" data-toggle="collapse" data-target="#expand_partner_management" *ngIf="isOwner">Partner Management</button>
-                                <button class="btn btn-default" data-toggle="collapse" data-target="#expand_order_management" *ngIf="isOwner">Order Management</button>
+                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
                                 <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true && !isApplied" data-toggle="modal" data-target="#apply">Apply</button>
                                 <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && isApplied" (click)="RemoveApply()">Remove Apply</button>
                             </div>
@@ -39,7 +39,7 @@
                                 <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner List</a>
                             </div>
                             <div id="expand_order_management" class="collapse expand_management">
-                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
+                                
                             </div>
                         </div>
                         <div class="col-md-1 col-sm-1" *ngIf="isOwner">

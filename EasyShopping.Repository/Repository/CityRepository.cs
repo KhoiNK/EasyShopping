@@ -32,8 +32,16 @@ namespace EasyShopping.Repository.Repository
 
         public Province GetByName(string name)
         {
-            var result = _db.Provinces.Where(x => x.Name.Contains(name)).Single();
-            return result;
+            try
+            {
+                var result = _db.Provinces.Where(x => x.Name.Contains(name)).Single();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return null;
+            }
         }
     }
 }
