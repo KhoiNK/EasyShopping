@@ -118,7 +118,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.location.forEach((component) => {
             if (component.types[0] == 'administrative_area_level_2') { this.order.District = component.long_name; }
             if (component.types[0] == 'administrative_area_level_1') { this.order.City = component.long_name; }
-            if (component.types[0] == 'country') { this.order.Country = component.long_name; }
+            if (component.types[0] == 'country') { this.order.Country = component.short_name; }
         });
 
         this.CheckOut(this.order);

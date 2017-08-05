@@ -138,7 +138,7 @@ export class StoreEditComponent implements OnInit {
             this.position.forEach((component) => {
                 if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
                 if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
-                if (component.types[0] == 'country') { this.store.Country = component.long_name; }
+                if (component.types[0] == 'country') { this.store.Country = component.short_name; }
             });
         }
         if (file == null) {
