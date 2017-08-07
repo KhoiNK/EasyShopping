@@ -118,5 +118,21 @@ namespace EasyShopping.Api.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("v1/User/GetUser")]
+        public IHttpActionResult GetUser()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(ApiTranslators.Translate<UserDTO, UserApiModel>(_business.GetByName(name).Result));
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

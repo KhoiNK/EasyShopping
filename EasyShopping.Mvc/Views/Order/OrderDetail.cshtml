@@ -3,7 +3,7 @@
     <div class="row" style="background-color:#425161; height:40px;color:white">
         <div class="col-md-4">Order #{{order.ID}}</div>
         <div class="col-md-4" style="text-align:center">Created Date: {{order.CreatedDate | date}}</div>
-        <div class="col-md-4" style="text-align:right">Total: {{order.Total}}</div>
+        <div class="col-md-4" style="text-align:right">Total: {{order.Total | currency:'vnd'}}</div>
     </div>
     <template [ngIf]="order.Children?.length <= 0">
         <div class="row" style="margin:0px; border-bottom:1px solid #f1f1f1">
@@ -48,7 +48,7 @@
                                 {{detail.Quantity}}
                             </td>
                             <td>
-                                {{detail.Price}}
+                                {{detail.Price | currency:'vnd'}}
                             </td>
                         </tr>
                     </tbody>
@@ -90,7 +90,7 @@
                                 {{detail.Quantity}}
                             </td>
                             <td>
-                                {{detail.Price}}
+                                {{detail.Price | currency:'vnd'}}
                             </td>
                         </tr>
                     </tbody>

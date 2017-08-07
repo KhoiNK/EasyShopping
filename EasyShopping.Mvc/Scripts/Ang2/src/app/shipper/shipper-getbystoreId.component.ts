@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShipperServices } from './shipper.service';
 import { OrderServices } from '../order/order.service';
 import { Subscription } from 'rxjs';
+import { GlobalService } from '../global-observable.service';
 
 @Component({
     selector: 'shipper-getbystore',
@@ -23,16 +24,26 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
         , private router: Router
         , private orderSrv: OrderServices
         , private el: ElementRef
+        , private gloSrv: GlobalService
     ) {
 
     };
 
     ngOnInit() {
-        this.subscription = this.activateRoute.params.subscribe(params => {
+        this.subscription = this.activateRoute.params.subscribe((params:any) => {
             this.storeid = params['id'];
         });
         this.LoadData();
         this.LoadOrder();
+        this.gloSrv.GetLoad().subscribe((res: any) => {
+            if (res == true) {
+                this.LoadData();
+                this.LoadOrder();
+                this.gloSrv.ClearLoadPage();
+            }
+        }, err => {
+            console.log(err);
+        });
     }
 
     LoadData() {
@@ -54,16 +65,18 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
     RejectShipper(id: number) {
         this.shipperSrvc.RejectShipper(id).subscribe((res: any) => {
             if (res == true) {
-                this.SetMessage();
+                this.SetMessage("Rejected Successfully!");
                 this.LoadData();
+
             }
         }, err => {
             console.log(err);
         });
     }
 
-    SetMessage() {
+    SetMessage(mess: string) {
         let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#succMess');
+        this.message = mess;
         inputel.removeAttribute('hidden');
         setTimeout(() => {
             inputel.hidden = true;
@@ -82,7 +95,9 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
     CancelOrder(id: number) {
         this.orderSrv.CancelOrder(id).subscribe((res: any) => {
             if (res == true) {
-                this.SetMessage();
+                this.SetMessage("Canceled successfully!");
+                this.LoadOrder();
+                this.gloSrv.SetLoadPage();
             }
         }, err => {
             this.SetErrMess("Cancelled failed");
@@ -93,7 +108,9 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
     AcceptOrder(id: number) {
         this.orderSrv.AcceptOrder(id).subscribe((res: any) => {
             if (res == true) {
-                this.SetMessage();
+                this.SetMessage("Approved successfully!");
+                this.LoadOrder();
+                this.gloSrv.SetLoadPage();
             }
         }, err => {
             console.log(err);

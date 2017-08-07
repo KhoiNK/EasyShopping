@@ -3,6 +3,7 @@ import { ShipperComponent } from './shipper.component';
 import { ShipperApplyComponent } from './shipper-apply.component';
 import { ShipperListComponent } from './shipper-approve.component';
 import { ShipperGetByStoreComponent } from './shipper-getbystoreId.component';
+import { ShipperIntroComponent} from './shipper-intro.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -13,7 +14,7 @@ const appRoutes: Routes = [{
     children: [
         {
             path: '',
-            component: ShipperApplyComponent,
+            component: ShipperIntroComponent,
         },
         {
             path: 'shipperlist',
@@ -22,6 +23,10 @@ const appRoutes: Routes = [{
         {
             path: 'shipper-store-list/:id',
             component: ShipperGetByStoreComponent
+        },
+        {
+            path: 'shipper-register',
+            component: ShipperApplyComponent
         }
     ]
 }];

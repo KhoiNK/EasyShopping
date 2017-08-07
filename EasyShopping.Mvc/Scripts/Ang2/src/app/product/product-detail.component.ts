@@ -3,11 +3,12 @@ import { ProductService } from './product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OrderServices } from '../order/order.service';
+import { ProductTypeService } from './product-type.service';
 
 @Component({
     selector: 'product-detail',
     templateUrl: 'Product/ProductDetail',
-    providers: [ProductService, OrderServices]
+    providers: [ProductService, OrderServices, ProductTypeService]
 })
 
 export class ProductDetailComponent implements OnInit, OnDestroy {
@@ -18,11 +19,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     public CART: string = "cart";
     public PROFILE: string = 'profile';
     public message: string = "";
+    public types: any[];
 
     constructor(private productService: ProductService
         , private activatedRoute: ActivatedRoute
         , private orderService: OrderServices
         , private el: ElementRef
+        , private productTypeSrv: ProductTypeService
     ) {
         this.product = {};
     }
@@ -89,6 +92,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 this.product = res;
                 this.GetSameData("" + this.product.Name);
             }
+        }, err => {
+            console.log(err);
+        });
+
+        this.productTypeSrv.GetList().subscribe((res: any) => {
+            this.types = res;
         }, err => {
             console.log(err);
         });

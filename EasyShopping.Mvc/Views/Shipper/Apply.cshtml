@@ -1,49 +1,88 @@
-﻿<div class="col-sm-9">
-    <h1>Be a part of us</h1>
-    <p>This is where introduction message place</p>
-    <button class="btn btn-success btn-lg" style="text-align:center" data-toggle="modal" data-target="#apply">Apply Now</button>
-    <div class="modal fade" id="apply" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Recruitment Requirement</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-success" *ngIf="message">{{message}}</div>
-                    <div class="alert alert-danger" *ngIf="error">{{error}}</div>
-                    <label>
-                        Bank Account:
-                    </label>
-                    <br />
-                    <input type="text" class="form_input" [(ngModel)]="shipper.BankAccount" />
-                    <br />
-                    <div style="position:relative">
-                        <label>
-                            Deposit:
-                        </label>
-                        <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="With deposit your chance to find a order is higher" style="position:absolute"></i>
-                    </div>
-                    <input type="text" class="form_input" [(ngModel)]="shipper.Deposit" />
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-success" (click)="SaveChange()">Apply</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button hidden id="messageModal" data-toggle="modal" data-target="#modalMessage"></button>
-                </div>
+﻿<div class="container">
+    <div class="row slide-shipper">
+        <div class="col-sm-12 ">
+            <div class="col-sm-6">
+                <h1>Easy Shopping</h1>
+                <h2>Become a shipper</h2>
+                <p>There is a thousand orders a day to do shipping and it is still raising day by day. </p>
+            </div>
+            <div class="col-sm-6">
             </div>
         </div>
-        <div class="modal fade" id="modalMessage" role="dialog" *ngIf="shipper" style="overflow:hidden">
-            <div class="modal-content" style="margin:100px">
-                <div class="modal-body" style="height:200px">
-                    <label style="color:#5cb85c">Created successfully!</label><br />
-                    Your ID is {{shipper.ID}}.<br />
-                    Please drop us an email which includes a copy of your CV and the title following [ES-Shipper] Shipper *Your ID*.<br />
-                    Thanks for being a part of us.<br />
-                    <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
-                    <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
+    </div>
+    <div class="row" style="background-color:#425161; color:white">
+        <h1 style="text-align:center">Why Us?</h1>
+        <div class="col-md-12" style="max-height:500px">
+            <div class="col-md-6">
+                <div style="text-align:right">
+                    <img src="~/Content/img/shipper/empty.png" style="height:500px" />
+                </div>
+            </div>
+            <div class="col-md-6 shipper-side-content">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="~/Content/img/shipper/icon_Mobility.png" />
+                    </div>
+                    <div class="col-md-9">
+                        <h1>Mobility</h1>
+                        <p>By using phone to use this app, the worry of hard to moving is long gone.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="~/Content/img/shipper/234171-market-and-economics.png" />
+                    </div>
+                    <div class="col-md-9">
+                        <h1>Huge Market</h1>
+                        <p>Easy Shopping provides a huge market with a thousand order a day.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="row" style="position:relative">
+        <h1 class="shipper-header">Be a shipper</h1>
+        <div style="padding: 0 10% 0 10%">
+            <div class="row announcement_row col-md-4" style="text-align:center">
+                <div>
+                    <div class="col-xs-12">
+                        <img src="~/Content/img/shipper/register.png" class="announcement_img" />
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>Register</h2>
+                        <div style="text-align:left">
+                            <p>To become a part of us you must register to be a shipper first.</p>
+                            <button style="text-align:center" [routerLink]="['/shippers/shipper-register']" *ngIf="isApplied == false">Apply now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row announcement_row col-md-4" style="text-align:center">
+                <div>
+                    <div class="col-xs-12">
+                        <img src="~/Content/img/shipper/icon-803718_960_720.png" class="announcement_img" />
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>Approve</h2>
+                        <p>After reviewing your CV we will activate your account. An activated account can use use full of shipper's functions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="announcement_row col-md-4" style="text-align:center">
+                <div>
+                    <div class="col-xs-12">
+                        <img src="~/Content/img/shipper/shipper.png" class="announcement_img" />
+                    </div>
+                    <div class="col-xs-12">
+                        <h2>Be a shipper</h2>
+                        <p>
+                            Shipper will use the mobile app to take orders which have specific information. We are providing many functions
+                            that help shipper can easily take and ship orders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </div>

@@ -59,5 +59,17 @@ namespace EasyShopping.BusinessLogic.Business
         {
             return _repo.Remove(id);
         }
+
+        public bool IsShipper(string name)
+        {
+            int userID = _user.FindUser(name).ID;
+            return _repo.IsShipper(userID);
+        }
+
+        public bool IsApplied(string name)
+        {
+            int userID = _user.FindUser(name).ID;
+            return _repo.IsApplied(userID);
+        }
     }
 }

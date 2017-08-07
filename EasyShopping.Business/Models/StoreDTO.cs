@@ -34,6 +34,7 @@ namespace EasyShopping.BusinessLogic.Models
         public bool IsRecruiting { get; set; }
         public string RecruitmentMessage { get; set; }
         public double? RequiredDeposit { get; set; }
+        public Nullable<int> LimitProduct { get; set; }
     }
 
 }

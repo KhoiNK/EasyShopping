@@ -42,5 +42,10 @@ namespace EasyShopping.Mvc.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult UpgradeStore()
+        {
+            return PartialView();
+        }
     }
 }

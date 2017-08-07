@@ -140,7 +140,7 @@ namespace EasyShopping.Repository.Repository
             return stores;
         }
 
-        public bool Put(Store store)
+        public bool Edit(Store store)
         {
             try
             {
@@ -163,6 +163,7 @@ namespace EasyShopping.Repository.Repository
                 editStore.RecruitmentMessage = store.RecruitmentMessage;
                 editStore.RequiredDeposit = store.RequiredDeposit;
                 editStore.IsRecruiting = store.IsRecruiting;
+                editStore.LimitProduct = store.LimitProduct;
                 _db.SaveChanges();
                 return true;
             }
@@ -201,5 +202,6 @@ namespace EasyShopping.Repository.Repository
             var orders = _db.Orders.Where(x => x.StoreId == id).ToList();
             return orders;
         }
+
     }
 }

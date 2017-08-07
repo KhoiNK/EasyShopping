@@ -34,4 +34,8 @@ export class UserServices {
         let delObv = this._http.delete(this.apiUrl + "/" + id);        
         return delObv.map(res => res.status == 200);
     }
+
+    GetUserDetail(): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetUser/").map(res => res.json());
+    }
 }

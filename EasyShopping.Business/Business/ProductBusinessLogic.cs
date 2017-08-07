@@ -37,7 +37,6 @@ namespace EasyShopping.BusinessLogic.Business
             if (_partner.IsPartner(data.StoreID, user.ID))
             {
                 data.StatusID = WAITINGFORAPPROVE;
-
             }
             else
             {
@@ -51,6 +50,12 @@ namespace EasyShopping.BusinessLogic.Business
             data.CreatedDate = System.DateTime.Now;
             data.ModifiedDate = System.DateTime.Now;
             ProductDTO product = _repo.Add(data.Translate<ProductDTO, Product>()).Translate<Product, ProductDTO>();
+            if(product != null)
+            {
+                var store = _store.FindByID(data.StoreID);
+                store.LimitProduct = store.LimitProduct - 1;
+                _store.Edit(store);
+            }
             string des = user.UserName + " created product " + data.Name; 
             CreateMessage(user.ID, _store.FindByID(data.StoreID).UserID, des);
             return product;
@@ -100,7 +105,14 @@ namespace EasyShopping.BusinessLogic.Business
                         CreateMessage(user.ID, _store.FindByID(data.StoreID).UserID, des);
                         return _repo.Edit(data.Translate<ProductDTO, Product>());
                     }
-                    return _repo.Remove(data.ID);
+                    var result = _repo.Remove(data.ID);
+                    if(result == true)
+                    {
+                        var store = _store.FindByID(data.StoreID);
+                        store.LimitProduct = store.LimitProduct + 1;
+                        _store.Edit(store);
+                    }
+                    return result;
 
                 default:
                     if (String.IsNullOrEmpty(data.ThumbailLink) && String.IsNullOrEmpty(data.ThumbailCode))
@@ -162,6 +174,9 @@ namespace EasyShopping.BusinessLogic.Business
                 CreateMessage(user.ID, _store.FindByID(product.StoreID).UserID, des);
                 return _repo.Edit(product);
             }
+            var store = _store.FindByID(product.StoreID);
+            store.LimitProduct = store.LimitProduct + 1;
+            _store.Edit(store);
             return _repo.Remove(id);
         }
 

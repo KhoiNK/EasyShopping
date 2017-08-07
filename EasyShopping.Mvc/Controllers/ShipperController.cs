@@ -28,5 +28,10 @@ namespace EasyShopping.Mvc.Controllers
         {
             return PartialView();
         }
+
+        public ActionResult Register()
+        {
+            return PartialView();
+        }
     }
 }

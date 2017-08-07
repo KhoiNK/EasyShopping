@@ -1,0 +1,64 @@
+﻿<div class="container">
+    <div class="row">
+        This is message.
+    </div>
+    <div class="row">
+        <h3>Your Recent Store</h3>
+        <p>Store: {{store.Name}}</p>
+        <p>Available slots: {{store.LimitProduct}}</p>
+    </div>
+    <div class="col-md-3">
+        <div style="padding: 20px; border: 1px solid #f1f1f1;">
+            <div style="margin:20px; text-align:center">
+                <h3 style="text-align:center">Package 1</h3><br />
+                <div>
+                    <p>Product slot: 10 slots</p>
+                    <p>Price: 100$</p>
+                </div>
+                <button class="purchase_button" (click)="Purchase(1)">Purchase</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div style="padding: 20px; border: 1px solid #f1f1f1;">
+            <div style="margin:20px; text-align:center">
+                <h3 style="text-align:center">Package 2</h3><br />
+                <div>
+                    <p>Product slot: 30 slots</p>
+                    <p>Price: 200$</p>
+                </div>
+                <button class="purchase_button" (click)="Purchase(2)">Purchase</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div style="padding: 20px; border: 1px solid #f1f1f1;">
+            <div style="margin:20px; text-align:center">
+                <h3 style="text-align:center">Package 3</h3><br />
+                <div>
+                    <p>Product slot: 50 slots</p>
+                    <p>Price: 300$</p>
+                </div>
+                <button class="purchase_button" (click)="Purchase(3)">Purchase</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div style="padding: 20px;border: 1px solid #f1f1f1;">
+            <div style="margin:20px; text-align:center">
+                <h3 style="text-align:center">Package 4</h3><br />
+                <div>
+                    <p>Product slot: 100 slots</p>
+                    <p>Price: 500$</p>
+                </div>
+                <button class="purchase_button" (click)="Purchase(4)">Purchase</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action_noti" id="succMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>

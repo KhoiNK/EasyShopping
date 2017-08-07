@@ -32,7 +32,7 @@ namespace Easyshopping.Repository.Repository
         public Country GetByName(string name)
         {
             try {
-                var result = _db.Countries.Where(x => x.CountryCode.Contains(name.Trim())).SingleOrDefault();
+                var result = _db.Countries.Where(x => (x.CountryCode.Contains(name.Trim())) || (x.CommonName.Contains(name.Trim()))).SingleOrDefault();
                 return result;
             }
             catch (Exception e)

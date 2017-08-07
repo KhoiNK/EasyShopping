@@ -68,7 +68,9 @@ namespace EasyShopping.BusinessLogic.Models
                 .ForMember(dto => dto.Price,
                 opt => opt.MapFrom(entity => entity.Product.Price))
                 .ForMember(dto => dto.Img,
-                opt => opt.MapFrom(entity => entity.Product.ThumbailLink));
+                opt => opt.MapFrom(entity => entity.Product.ThumbailLink))
+                .ForMember(dto =>dto.Weight,
+                opt =>opt.MapFrom(entity=> entity.Product.Weight));
 
                 cfg.CreateMap<OrderViewDTO, Order>();
                 cfg.CreateMap<Order, OrderViewDTO>()
@@ -305,7 +307,7 @@ namespace EasyShopping.BusinessLogic.Models
             store.IsRecruiting = dto.IsRecruiting;
             store.RecruitmentMessage = dto.RecruitmentMessage;
             store.RequiredDeposit = dto.RequiredDeposit;
-
+            store.LimitProduct = dto.LimitProduct;
             return store;
         }
     }

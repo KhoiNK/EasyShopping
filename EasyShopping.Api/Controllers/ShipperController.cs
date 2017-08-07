@@ -85,5 +85,39 @@ namespace EasyShopping.Api.Controllers
                 return BadRequest();
             }
         }
+
+        [Authorize]
+        [HttpGet]
+        [Route("v1/Shipper/IsShipper")]
+        public IHttpActionResult IsShipper()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.IsShipper(name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("v1/Shipper/IsApplied")]
+        public IHttpActionResult IsApplied()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.IsApplied(name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import { ShipperComponent } from './shipper.component';
 import { ShipperApplyComponent } from './shipper-apply.component';
 import { ShipperListComponent } from './shipper-approve.component';
 import { ShipperGetByStoreComponent } from './shipper-getbystoreId.component';
+import { ShipperIntroComponent } from './shipper-intro.component';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { ShipperGetByStoreComponent } from './shipper-getbystoreId.component';
         ShipperComponent,
         ShipperGetByStoreComponent,
         ShipperListComponent,
-        ShipperApplyComponent
+        ShipperApplyComponent,
+        ShipperIntroComponent
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

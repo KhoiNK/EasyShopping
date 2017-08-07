@@ -31,4 +31,12 @@ export class ShipperServices {
     Apply(data: any): Observable<any> {
         return this._http.post(this.apiUrl + "/Apply", data).map(res => res.json());
     }
+
+    IsShipper(): Observable<any> {
+        return this._http.get(this.apiUrl + "/IsShipper").map(res => res.json());
+    }
+
+    IsApplied(): Observable<any> {
+        return this._http.get(this.apiUrl + "/IsApplied").map(res => res.json());
+    } 
 }

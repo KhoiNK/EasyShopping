@@ -19,11 +19,11 @@ export class LoginComponent implements OnInit {
 
 
     constructor(private authService: IAuthService, private router: Router, private gloSrv: GlobalService) {
-        this.gloSrv.globalMess$.subscribe(res => {
-            this.err = res;
-        }, err => {
-            console.log(err);
-        });
+        //this.gloSrv.globalMess$.subscribe(res => {
+        //    this.err = res;
+        //}, err => {
+        //    console.log(err);
+        //});
     }
 
     ngOnInit() {

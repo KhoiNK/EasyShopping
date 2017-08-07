@@ -45,10 +45,13 @@
                         <div class="col-md-1 col-sm-1" *ngIf="isOwner">
                             <i class="fa fa-cogs management_btn" aria-hidden="true" data-toggle="collapse" data-target="#expand_store_management"></i>
                             <div class="collapse" id="expand_store_management">
-                                <div class="edit_btn col-xs-6">
+                                <div class="edit_btn col-xs-4">
+                                    <a [routerLink]="['/stores/store-upgrade', store.ID]"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="edit_btn col-xs-4">
                                     <a [routerLink]="['/stores/store-edit', store.ID]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 </div>
-                                <div class="remove_btn col-xs-6" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
+                                <div class="remove_btn col-xs-4" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
                                     <i class="fa fa-trash" aria-hidden="true" (click)="SetCommand('store', store.ID)" data-toggle="modal" data-target="#storeRemove"></i>
                                 </div>
                             </div>
@@ -72,7 +75,7 @@
                                     <br />
                                     <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
                                     <h2><a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a></h2>
-                                    <p>{{product.Price | currency:'USD':true:'1.0-0'}}</p>
+                                    <p>{{product.Price | currency:'vnd'}}</p>
                                     <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
                                 </div>
                             </div>

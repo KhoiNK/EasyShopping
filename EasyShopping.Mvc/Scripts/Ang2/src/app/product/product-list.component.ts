@@ -30,16 +30,6 @@ export class ProductListComponent implements OnInit{
 
     ngOnInit() {
         this.loadData();
-        //this.subscription = this.globalSrv.globalMess$.subscribe((res: any) => {
-        //    if (res == "") {
-        //        this.loadData();
-        //    }
-        //    else {
-        //        this.LoadWithName(res);
-        //    }
-        //}, err => {
-        //    console.log(err);
-        //    });
     }
 
     loadData() {
@@ -48,7 +38,7 @@ export class ProductListComponent implements OnInit{
         }, err => {
             console.log(err);
         });
-        this.productTypeSrv.GetWithTarget().subscribe((res: any) => {
+        this.productTypeSrv.GetList().subscribe((res: any) => {
             this.types = res;
         }, err => {
             console.log(err);

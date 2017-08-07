@@ -14,6 +14,10 @@ namespace EasyShopping.BusinessLogic.Business
         private const int WAITINGFORAPPROVE = 3;
         private const int OPEN = 1;
         private const int ADMIN = 1;
+        private const int PACKAGE1 = 10;
+        private const int PACKAGE2 = 30;
+        private const int PACKAGE3 = 50;
+        private const int PACKAGE4 = 100;
 
         private UserBusinessLogic _userbusiness = null;
         private ProductBusinessLogic _productbusiness = null;
@@ -46,7 +50,7 @@ namespace EasyShopping.BusinessLogic.Business
             if (DisString.Length > 1) { store.DistrictId = _district.GetByName(DisString[1]).Id; }
             else if (DisString.Length == 1) { store.DistrictId = _district.GetByName(DisString[0]).Id; }
             store.ModifiedByID = userId;
-
+            store.LimitProduct = PACKAGE1;
             store = _repo.Create(BusinessTranslators.ToStoreEntity(store)).Translate<Store, StoreDTO>();
             return store;
         }
@@ -133,7 +137,7 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 store.ImgLink = _repo.FindByID(store.ID).ImgLink;
             }
-            var result = _repo.Put(BusinessTranslators.ToStoreEntity(store));
+            var result = _repo.Edit(BusinessTranslators.ToStoreEntity(store));
             return result;
         }
 
@@ -152,6 +156,27 @@ namespace EasyShopping.BusinessLogic.Business
             }
             var result = _repo.IsPartner(user.ID, storeId);
             return result;
+        }
+
+        public bool UpgradeStore(int storeid, int packageid)
+        {
+            var store = _repo.FindByID(storeid);
+
+            switch (packageid)
+            {
+                case 2:
+                    store.LimitProduct = PACKAGE2 + store.LimitProduct;
+                    return _repo.Edit(store);
+                case 3:
+                    store.LimitProduct = PACKAGE3 + store.LimitProduct;
+                    return _repo.Edit(store);
+                case 4:
+                    store.LimitProduct = PACKAGE4 + store.LimitProduct;
+                    return _repo.Edit(store);
+                default:
+                    store.LimitProduct = PACKAGE1 + store.LimitProduct;
+                    return _repo.Edit(store);
+            }
         }
     }
 }

@@ -61,11 +61,11 @@ export class Header implements OnInit {
                 }
             });
 
-        //setInterval(() => {
-        //    if (tokenNotExpired('id_token')) {
-        //        this.GetMessCount();
-        //    }
-        //}, 10000);
+        setInterval(() => {
+            if (tokenNotExpired('id_token')) {
+                this.GetMessCount();
+            }
+        }, 3000);
 
     }
 
@@ -87,7 +87,7 @@ export class Header implements OnInit {
         this.messSrv.GetUnread().subscribe((res: any) => {
             this.count = res;
         }, err => {
-            
+
             console.log(err);
             this.count = 0;
         });
@@ -122,6 +122,25 @@ export class Header implements OnInit {
 
     SetSearchKey() {
         this.router.navigate(['/searchs', this.searchkey]);
+    }
+
+    MarkAsRead(id: number, mess: string) {
+        if (id != 0) {
+            this.messSrv.MarkAsRead(id).subscribe((res: any) => {
+                if (res == true) {
+                    this.SetNoti(mess);
+                }
+            }, err => {
+                console.log(err);
+            });
+        }
+        else {
+            this.SetNoti(mess);
+        }
+    }
+
+    SetNoti(mess: string) {
+        this.systemMess = mess;
     }
 
 }

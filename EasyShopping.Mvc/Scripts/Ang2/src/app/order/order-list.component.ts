@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { OrderServices } from './order.service';
 
+
 @Component({
     selector: 'order-list',
     templateUrl: 'Order/OrderList',
@@ -27,6 +28,7 @@ export class OrderList implements OnInit {
 
     ngOnInit() {
         this.LoadData(4);
+
     }
 
     LoadData(id: number) {

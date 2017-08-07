@@ -1,0 +1,106 @@
+﻿@*<div class="modal fade" id="apply" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Recruitment Requirement</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success" *ngIf="message">{{message}}</div>
+                    <div class="alert alert-danger" *ngIf="error">{{error}}</div>
+                    <label>
+                        Bank Account:
+                    </label>
+                    <br />
+                    <input type="text" class="form_input" [(ngModel)]="shipper.BankAccount" />
+                    <br />
+                    <div style="position:relative">
+                        <label>
+                            Deposit:
+                        </label>
+                        <i class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="With deposit your chance to find a order is higher" style="position:absolute"></i>
+                    </div>
+                    <input type="text" class="form_input" [(ngModel)]="shipper.Deposit" />
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" (click)="SaveChange()">Apply</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button hidden id="messageModal" data-toggle="modal" data-target="#modalMessage"></button>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalMessage" role="dialog" *ngIf="shipper" style="overflow:hidden">
+            <div class="modal-content" style="margin:100px">
+                <div class="modal-body" style="height:200px">
+                    <label style="color:#5cb85c">Created successfully!</label><br />
+                    Your ID is {{shipper.ID}}.<br />
+                    Please drop us an email which includes a copy of your CV and the title following [ES-Shipper] Shipper *Your ID*.<br />
+                    Thanks for being a part of us.<br />
+                    <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
+                    <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="container" >
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Register Instruction</h1>
+            <p>Shipper will use their own account in this system to login the mobile app</p><br />
+            <p><label>Deposit </label> will be used to return to the store owner or customer once shipper make it lost or be broken </p>
+            <p>Shipper will buy package, for every successful shipping, your total will be decreased 5% bases on shipping fee.</p>
+            <label>Note: After applying successfully we will check your account and activate it. Only activated account can use our provided functions.</label>
+        </div>
+        <div class="col-md-6" style="text-align:left">
+            <div class="form">
+                <div class="form_row">
+                    <label>UserName:</label>
+                    <p>{{user.UserName}}</p>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form_row">
+                    <label>DOB:</label>
+                    <p>{{user.DOB | date}}</p>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form_row">
+                    <label>Email:</label>
+                    <p>{{user.Email}}</p>
+                </div>
+            </div>
+            <div class="form">
+                <div class="form_row">
+                    <label>Deposit:</label>
+                    <input type="text" [(ngModel)]="shipper.Deposit" class="form_name" />
+                </div>
+            </div>
+            <div class="form">
+                <div class="form_row">
+                    <label>Bank Account:</label>
+                    <input type="text" [(ngModel)]="shipper.BankAccount" class="form_name" />
+                </div>
+            </div>
+            <div class="form">
+                <div class="form_row">
+                    <button class="btn btn-success" (click)="SaveChange()">Apply</button>
+                    <button type="button" class="btn btn-danger" [routerLink]="['/']">Cancel</button>
+                </div>
+            </div>
+            <button hidden id="messageModal" data-toggle="modal" data-target="#modalMessage"></button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalMessage" role="dialog" *ngIf="shipper" style="overflow:hidden">
+    <div class="modal-content" style="margin:100px">
+        <div class="modal-body" style="height:200px">
+            <label style="color:#5cb85c">Created successfully!</label><br />
+            Your ID is {{shipper.ID}}.<br />
+            Please drop us an email which includes a copy of your CV and the title following [ES-Shipper] Shipper *Your ID*.<br />
+            Thanks for being a part of us.<br />
+            <label>Note: Your store is not activated yet. After reviewing your CV we will active your store once the requirement is met.</label>
+            <a class="btn btn-default" [routerLink]="['/products']" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Back to Homepage</a>
+        </div>
+    </div>
+</div>

@@ -10,14 +10,13 @@ export class SideBar implements OnInit {
     constructor(private typeSrv: ProductTypeService) {
 
     }
-
+    
     ngOnInit() {
-        this.typeSrv.GetWithTarget().subscribe((res: any) => {
-            if (res) {
-                this.types = res;
-            }
+        this.typeSrv.GetList().subscribe((res: any) => {
+            this.types = res;
         }, err => {
             console.log(err);
         });
     }
+
 }

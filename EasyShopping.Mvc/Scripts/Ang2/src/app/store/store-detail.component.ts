@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderServices } from '../order/order.service';
 import { PartnerService } from '../partner/partner.service';
 import { ProductService } from '../product/product.service';
+import { ProductTypeService } from '../product/product-type.service';
 
 @Component({
     selector: 'store-detail',
@@ -13,7 +14,8 @@ import { ProductService } from '../product/product.service';
         StoreServices,
         OrderServices,
         PartnerService,
-        ProductService
+        ProductService,
+        ProductTypeService
     ]
 })
 export class StoreDetailComponent implements OnInit {
@@ -27,6 +29,7 @@ export class StoreDetailComponent implements OnInit {
     private command: string = "";
     public message: string = "";
     public tempId: number = 0;
+    public types: any[];
 
     constructor(private storeservice: StoreServices
         , private activatedRoute: ActivatedRoute
@@ -35,6 +38,7 @@ export class StoreDetailComponent implements OnInit {
         , private router: Router
         , private productservice: ProductService
         , private el: ElementRef
+        , private productTypeSrv: ProductTypeService
     ) {
         this.store = {};
     }
@@ -44,6 +48,7 @@ export class StoreDetailComponent implements OnInit {
             this.id = params['id'];
         });
         this.LoadData(this.id);
+
         this.storeservice.CheckAllowance(this.id).subscribe(res => {
             if (res == true) {
                 this.isAllowed = true;
@@ -51,6 +56,7 @@ export class StoreDetailComponent implements OnInit {
         }, err => {
             console.log(err);
         });
+
         this.storeservice.CheckOwner(this.id).subscribe(res => {
             if (res == true == true) {
                 this.isOwner = true;
@@ -58,11 +64,14 @@ export class StoreDetailComponent implements OnInit {
         }, err => {
             console.log(err);
         });
+
         this.partnerService.IsApplied(this.id).subscribe(res => {
             this.isApplied = res;
         }, err => {
             console.log(err);
         });
+
+
     }
 
     Apply() {
@@ -76,7 +85,7 @@ export class StoreDetailComponent implements OnInit {
         });
     }
 
-    SetCommand(command: string, id: number ) {
+    SetCommand(command: string, id: number) {
         this.command = command;
         this.tempId = id;
     }
@@ -88,6 +97,12 @@ export class StoreDetailComponent implements OnInit {
             }, err => {
                 console.log(err);
             });
+
+        this.productTypeSrv.GetList().subscribe((res: any) => {
+            this.types = res;
+        }, err => {
+            console.log(err);
+        });
     }
 
     AddToCart(productId: number) {
@@ -175,7 +190,7 @@ export class StoreDetailComponent implements OnInit {
                 setTimeout(() => {
                     window.location.reload();
                 }, 1000);
-                
+
             }
             else {
                 alert("remove failed!");

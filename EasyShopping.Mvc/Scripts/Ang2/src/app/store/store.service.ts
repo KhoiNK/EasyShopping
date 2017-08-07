@@ -53,4 +53,8 @@ export class StoreServices {
     Approve(id: number): Observable<any> {
         return this._http.get(this.apiUrl + "/Approve/" + id).map(res => res.json());
     }
+
+    UpgradeStore(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/UpgradeStore", data).map(res => res.json());
+    }
 }

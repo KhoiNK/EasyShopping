@@ -44,6 +44,7 @@ namespace EasyShopping.Repository.Models.Entity
         public Nullable<double> RequiredDeposit { get; set; }
         public Nullable<bool> IsRecruiting { get; set; }
         public string RecruitmentMessage { get; set; }
+        public Nullable<int> LimitProduct { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual District District { get; set; }

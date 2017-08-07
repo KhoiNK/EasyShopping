@@ -2,6 +2,7 @@
 import { OrderServices } from './order.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { GlobalService } from '../global-observable.service';
 
 
 @Component({
@@ -18,7 +19,10 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     public message: string;
     public data: any;
     public order: any;
-    constructor(private orderService: OrderServices, private activateRoute: ActivatedRoute, private el: ElementRef) {
+    constructor(private orderService: OrderServices
+        , private activateRoute: ActivatedRoute
+        , private el: ElementRef
+        , private gloSrv: GlobalService) {
         this.Math = Math;
         this.data = {};
         this.order = {};
@@ -35,6 +39,14 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
         });
         this.LoadData(this.id);
         //.subscribe(country => this.country = country);
+        this.subscription = this.gloSrv.GetLoad().subscribe((res: any) => {
+            if (res == true) {
+                this.LoadData(this.id);
+                this.gloSrv.ClearLoadPage();
+            }
+        }, err => {
+            console.log();
+        });
     }
 
     LoadData(id: number) {

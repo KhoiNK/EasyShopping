@@ -35,5 +35,12 @@ namespace EasyShopping.Api.Models
         public bool IsRecruiting { get; set; }
         public string RecruitmentMessage { get; set; }
         public double? RequiredDeposit { get; set; }
+        public Nullable<int> LimitProduct { get; set; }
+    }
+
+    public class PackageApiModel
+    {
+        public int ObjectID { get; set; }
+        public int PackageID { get; set; }
     }
 }

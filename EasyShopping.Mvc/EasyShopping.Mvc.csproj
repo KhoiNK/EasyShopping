@@ -239,13 +239,20 @@
     <Content Include="Content\img\home\searchicon.png" />
     <Content Include="Content\img\home\shipping.jpg" />
     <Content Include="Content\img\map.png" />
+    <Content Include="Content\img\shipper\02_hero_banner.jpg" />
+    <Content Include="Content\img\shipper\234171-market-and-economics.png" />
+    <Content Include="Content\img\shipper\5.jpg" />
+    <Content Include="Content\img\shipper\empty.png" />
+    <Content Include="Content\img\shipper\icon-803718_960_720.png" />
+    <Content Include="Content\img\shipper\icon_Mobility.png" />
+    <Content Include="Content\img\shipper\register.png" />
+    <Content Include="Content\img\shipper\shipper.png" />
     <Content Include="Content\lib\bootstrap.css" />
     <Content Include="Content\lib\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Ang2\.gitignore" />
-    <Content Include="Scripts\Ang2\e2e\app.e2e-spec.js" />
     <Content Include="Scripts\Ang2\gulpfile.js" />
     <Content Include="Scripts\Ang2\karma-test-shim.js" />
     <Content Include="Scripts\Ang2\karma.conf.js" />
@@ -265,7 +272,6 @@
     <Content Include="Scripts\Ang2\bs-config.e2e.json" />
     <Content Include="Scripts\Ang2\bs-config.json" />
     <Content Include="Scripts\Ang2\CHANGELOG.md" />
-    <Content Include="Scripts\Ang2\e2e\app.e2e-spec.js.map" />
     <Content Include="Scripts\Ang2\e2e\tsconfig.json" />
     <Content Include="Scripts\Ang2\LICENSE" />
     <Content Include="Scripts\Ang2\package.json" />
@@ -277,6 +283,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\EasyShopping.pubxml" />
     <None Include="Properties\PublishProfiles\ezishop - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ezishop - Web Deploy.pubxml" />
     <None Include="Scripts\lib\jquery-1.10.2.intellisense.js" />
@@ -337,6 +344,8 @@
     <Content Include="Views\Shared\Slider.cshtml" />
     <Content Include="Views\Store\Introduction.cshtml" />
     <Content Include="Views\Shared\SearchPage.cshtml" />
+    <Content Include="Views\Store\UpgradeStore.cshtml" />
+    <Content Include="Views\Shipper\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -353,6 +362,7 @@
     <Content Include="Scripts\lib\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Ang2\e2e\app.e2e-spec.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\app.routing.ts" />
@@ -400,6 +410,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-apply.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-approve.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-getbystoreId.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-intro.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.routing.ts" />
@@ -412,6 +423,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-edit.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-upgrade.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />

@@ -88,6 +88,15 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [Route("v1/Store/UpgradeStore")]
+        public IHttpActionResult UpgradeStore([FromBody] PackageApiModel package)
+        {
+            var result = _business.UpgradeStore(package.ObjectID, package.PackageID);
+            return Ok(result);
+        }
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public bool Approve(int id)

@@ -2,14 +2,16 @@
 import { OrderServices } from './order.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NgForm, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader, SebmGoogleMapMarker } from 'angular2-google-maps/core';
+import { UserServices } from '../user/user.service';
+import { GlobalService } from '../global-observable.service';
 
 const CART: string = "cart";
 @Component({
     selector: 'order-checkout',
     templateUrl: 'Order/CheckOut',
-    providers: [OrderServices]
+    providers: [OrderServices, UserServices]
 })
 
 export class CheckOutComponent implements OnInit, OnDestroy {
@@ -23,17 +25,23 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     public zoom: number;
     public latitude: number;
     public longitude: number;
-    public shippingfee: number = 30000;
+    public shippingfee: number = 0;
     public total: number = 0
     public phone: string;
-    
+    public user: any;
+    private flag: boolean = false;
+    public message: string = "";
+
     constructor(private orderService: OrderServices
         , private activateRoute: ActivatedRoute
         , private el: ElementRef
         , private router: Router
         , private mapsAPILoader: MapsAPILoader
-        , private ngZone: NgZone) {
+        , private ngZone: NgZone
+        , private userSrv: UserServices
+        , private gloSrv: GlobalService) {
         this.order = {};
+        this.user = {};
     }
     @ViewChild("search")
     public searchElementRef: ElementRef;
@@ -57,7 +65,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
             let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
                 types: ["address"]
             });
-            
+
             autocomplete.addListener("place_changed", () => {
                 this.ngZone.run(() => {
                     //get the place result
@@ -83,6 +91,10 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         //.subscribe(country => this.country = country);
     }
 
+    TurnFlag() {
+        this.flag = !this.flag;
+    }
+
     private setCurrentPosition() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -101,25 +113,42 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.orderService.GetDetail(id).subscribe((res: any) => {
             this.order = res;
             let details: any[] = this.order.details;
+            let weight: number = 0;
             details.forEach(item => {
                 this.total = this.total + (+item.Price * +item.Quantity);
+                weight = weight + (+item.Weight * +item.Quantity);
             });
+            this.shippingfee = 50 * weight;
             this.total = this.total + this.shippingfee;
             //load Places Autocomplete
             this.searchElementRef.nativeElement.value = res.Address;
         }, err => {
             console.log(err);
         });
+        
+        this.userSrv.GetUserDetail().subscribe((res: any) => {
+            this.user = res;
+        }, err => {
+            console.log(err);
+        });
     }
 
     SaveChange() {
-        this.order.Address = this.address;
-        let tempAdress: any;
-        this.location.forEach((component) => {
-            if (component.types[0] == 'administrative_area_level_2') { this.order.District = component.long_name; }
-            if (component.types[0] == 'administrative_area_level_1') { this.order.City = component.long_name; }
-            if (component.types[0] == 'country') { this.order.Country = component.short_name; }
-        });
+        if (this.flag == true) {
+            this.order.Address = this.address;
+            this.location.forEach((component) => {
+                if (component.types[0] == 'administrative_area_level_2') { this.order.District = component.long_name; }
+                if (component.types[0] == 'administrative_area_level_1') { this.order.City = component.long_name; }
+                if (component.types[0] == 'country') { this.order.Country = component.short_name; }
+            });
+        }
+        else
+        {
+            this.order.Address = this.user.Address;
+            this.order.District = this.user.District;
+            this.order.City = this.user.City;
+            this.order.Country = this.user.Country;
+        }
 
         this.CheckOut(this.order);
     }
@@ -128,16 +157,38 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.order.Note = this.note + "Phone:" + this.phone;
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
-                alert("Checkout Successfully!");
                 localStorage.removeItem(CART);
-                this.router.navigate(['/']);
-            }
+                this.SetMessage("Checked out successfully!");
+                this.gloSrv.SetLoadPage();
+                setTimeout(() => {
+                    this.router.navigate(['/']);
+                }, 3000);
+                
+            } 
             else {
-                alert("Checkout Failed!");
+                this.SetErrMess("Checked out failed!");
             }
         }, err => {
             console.log(err);
         });
+    }
+
+    SetMessage(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#succMess');
+        inputel.removeAttribute('hidden');
+        this.message = mess;
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
     }
 
     ngOnDestroy() {

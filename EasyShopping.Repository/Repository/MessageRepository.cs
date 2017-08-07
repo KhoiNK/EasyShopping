@@ -36,7 +36,7 @@ namespace EasyShopping.Repository.Repository
                     .Include("User1")
                     .Where(x => x.SentID == userId)
                     .OrderByDescending(x=>x.CreatedDate)
-                    .Take(5)
+                    .Take(20)
                     .ToList();
                 return result;
             }
@@ -101,7 +101,7 @@ namespace EasyShopping.Repository.Repository
 
         public int CountUnread(int userId)
         {
-            return _db.Messages.Where(x => x.SentID == userId).Count();
+            return _db.Messages.Where(x => (x.SentID == userId) && (x.IsRead == false)).Count();
         }
     }
 }

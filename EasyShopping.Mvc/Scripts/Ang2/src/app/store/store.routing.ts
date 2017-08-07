@@ -6,6 +6,7 @@ import { StoreListByUserComponent } from './store-listbyuserid.component';
 import { StoreAddComponent } from './store-add.component';
 import { StoreApproveList } from './store-approve-list.component';
 import { StoreEditComponent } from './store-edit.component';
+import { StoreUpgradeComponent } from './store-upgrade.component';
 
 const appRoutes: Routes = [{
     path: '',
@@ -36,6 +37,10 @@ const appRoutes: Routes = [{
         {
             path: 'store-edit/:id',
             component: StoreEditComponent
+        },
+        {
+            path: 'store-upgrade/:id',
+            component: StoreUpgradeComponent 
         }
     ]
 }];

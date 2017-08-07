@@ -21,4 +21,8 @@ export class MessageServices {
     GetUnread(): Observable<any> {
         return this._http.get(this.apiUrl + "/Count").map(res => res.json());
     }
+
+    MarkAsRead(id: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/MarkAsRead/" + id).map(res => res.json());
+    }
 }

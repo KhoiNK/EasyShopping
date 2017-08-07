@@ -161,9 +161,8 @@ namespace EasyShopping.BusinessLogic.Business
             dto.Note = order.Note;
             dto.OrderCode = order.OrderCode;
             dto.StatusID = PROCESSING;
-            dto.Total = order.Total;
+            dto.Total = 0;
             dto.UserID = userId;
-            dto.Price = 30000;
             dto.CityID = _city.GetByName(order.City).Id;
             dto.CountryID = _country.GetByName(order.Country).Id;
             var DisString = order.District.Split('.');
@@ -177,7 +176,9 @@ namespace EasyShopping.BusinessLogic.Business
                 foreach (var detail in order.details)
                 {
                     dto.Total = dto.Total + (detail.Quantity * detail.Price);
+                    dto.Price = dto.Price + (detail.Quantity * detail.Weight);
                 }
+                dto.Price = dto.Price * 50;
                 var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
                 if (result)
                 {
@@ -216,7 +217,6 @@ namespace EasyShopping.BusinessLogic.Business
                         newOrder.CountryID = dto.CountryID;
                         newOrder.StoreId = d.Value.Product.StoreID;
                         newOrder.ParentId = order.ID;
-                        newOrder.Price = 30000;
                         newOrder.Total = newOrder.Price;
                         var childDetails = _detail.GetByStoreId(d.Value.Product.StoreID, order.ID);
                         foreach (var c in childDetails)
@@ -227,8 +227,10 @@ namespace EasyShopping.BusinessLogic.Business
                             _detail.EditDetail(child);
                             var temp = d.Value;
                             newOrder.Total = newOrder.Total + (c.Quantity.Value * c.Product.Price.Value);
+                            newOrder.Price = newOrder.Price + (c.Quantity.Value * c.Product.Weight);
                             details.TryRemove(c.ID, out temp);
                         }
+                        newOrder.Price = 50 * newOrder.Price;
                         _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
                         var mess = new MessageDTO();
                         mess.Description = "checked out order " + newOrder.ID;
@@ -237,6 +239,7 @@ namespace EasyShopping.BusinessLogic.Business
                         mess.MessageType = TYPE_ORDER;
                         mess.DataID = newOrder.ID;
                         _message.CreateMessage(mess);
+                        dto.Total = dto.Total + newOrder.Total;
                     }
                     dto.StoreId = null;
                     dto.ParentId = null;
@@ -318,11 +321,20 @@ namespace EasyShopping.BusinessLogic.Business
                 if (result)
                 {
                     var mess = new MessageDTO();
-                    mess.Description = "Your order " + id + " is Accepted.";
+                    if (order.ParentId.HasValue)
+                    {
+                        mess.Description = "Your order " + order.ParentId.Value + " is Accepted.";
+                        mess.DataID = order.ParentId.Value;
+                    }
+                    else
+                    {
+                        mess.Description = "Your order " + id + " is Accepted.";
+                        mess.DataID = id;
+                    }
                     mess.FromID = fromUserId;
                     mess.SentID = toUserID;
                     mess.MessageType = TYPE_ORDER;
-                    mess.DataID = id;
+                    
                     _message.CreateMessage(mess);
                 }
                 return result;

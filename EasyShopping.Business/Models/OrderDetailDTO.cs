@@ -17,5 +17,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int ModifiedID { get; set; }
         public int Quantity { get; set; }
         public string Img { get; set; }
+        public int Weight { get; set; }
     }
 }

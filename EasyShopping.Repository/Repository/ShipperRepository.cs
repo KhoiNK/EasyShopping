@@ -32,6 +32,10 @@ namespace EasyShopping.Repository.Repository
         public ShipperDetail Apply(ShipperDetail data)
         {
             try {
+                if (IsApplied(data.ShipperId.Value))
+                {
+                    return null;
+                }
                 var shipper = new ShipperDetail();
                 shipper.BankAccount = data.BankAccount;
                 shipper.Deposit = data.Deposit;
@@ -106,6 +110,42 @@ namespace EasyShopping.Repository.Repository
             {
                 Console.WriteLine(e.StackTrace);
                 return null;
+            }
+        }
+
+        public bool IsApplied(int userId)
+        {
+            try
+            {
+                var result = _db.ShipperDetails.Where(x => (x.ShipperId == userId)).Count();
+                if (result > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return false;
+            }
+        }
+
+        public bool IsShipper(int userId)
+        {
+            try
+            {
+                var result = _db.ShipperDetails.Where(x => (x.ShipperId == userId) &&(x.StatusId == 2)).Count();
+                if(result > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return false;
             }
         }
     }

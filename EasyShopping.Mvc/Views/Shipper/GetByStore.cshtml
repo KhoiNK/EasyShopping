@@ -36,7 +36,7 @@
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                         <div class="col-sm-3" style="text-align:right">
-                            <button class="btn btn-success" (click)="AcceptOrder(order.ID)">Accept</button>
+                            <button class="btn btn-success" (click)="AcceptOrder(order.ID)">Approve</button>
                             <button class="btn btn-danger" (click)="CancelOrder(order.ID)">Reject</button>
                         </div>
                     </div>
@@ -205,7 +205,7 @@
 
 </div>
 <div class="action_noti" id="succMess" hidden>
-    <label style="margin:10px">Approved successfully!</label>
+    <label style="margin:10px">{{message}}</label>
 </div>
 <div class="error_noti" id="errMess" hidden>
     <label style="margin:10px">{{message}}</label>

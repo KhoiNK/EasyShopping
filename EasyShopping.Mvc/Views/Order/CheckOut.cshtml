@@ -1,21 +1,28 @@
 ﻿<div class="col-sm-7">
     <div class="form_row">
-        <label>Phone:</label>
-        <input type="text" [(ngModel)]="phone" class="form-control" />
+        <p>Name: {{user.FirstName}} {{user.LastName}}</p>
+        <p>Phone: {{user.Phone}}</p>
+        <p>Address: {{user.Address}}</p>
+    </div>
+    <button data-toggle="collapse" data-target="#addressForm" (click)="TurnFlag()" class="form_row">Change Address</button>
+    <div id="addressForm" class="collapse">
+        <div class="form_row">
+            <label>Phone:</label>
+            <input type="text" [(ngModel)]="phone" class="form-control" />
+        </div>
+        <div class="form_row">
+            <label>Address:</label>
+            <div class="form-group">
+                <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl" />
+            </div>
+            <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
+            </sebm-google-map>
+        </div>
     </div>
     <div class="form_row">
         <label>Note:</label>
-        <input type="text" [(ngModel)]="note" class="form-control"/>
-    </div>
-    <div class="form_row">
-
-        <label>Address:</label>
-        <div class="form-group">
-            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl" />
-        </div>
-        <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-            <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
-        </sebm-google-map>
+        <input type="text" [(ngModel)]="note" class="form-control" />
     </div>
     <div class="form_row">
         <button (click)="SaveChange()" class="btn btn-success">Check out</button>
@@ -62,4 +69,10 @@
             </tr>
         </tbody>
     </table>
+</div>
+<div class="action_noti" id="succMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>
