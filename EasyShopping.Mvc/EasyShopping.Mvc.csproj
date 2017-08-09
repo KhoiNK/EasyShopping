@@ -262,6 +262,8 @@
     <Content Include="Scripts\Ang2\src\favicon.ico" />
     <Content Include="Scripts\Ang2\src\index.html" />
     <Content Include="Scripts\Ang2\src\styles.css" />
+    <Content Include="Scripts\Ang2\src\systemjs-angular-loader.js" />
+    <Content Include="Scripts\Ang2\src\systemjs.config.extras.js" />
     <Content Include="Scripts\Ang2\src\systemjs.config.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
     <Content Include="Scripts\lib\bootstrap.min.js" />
@@ -302,6 +304,7 @@
     <Content Include="Scripts\lib\summernote.js" />
     <Content Include="Scripts\lib\summernote.min.js" />
     <Content Include="Scripts\lib\_references.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -372,19 +375,20 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\login.routing.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\auth\logout.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\city\city.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\commonService\google-map.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\commonService\load-location.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.module.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\district\district.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\footer.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\global-observable.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\header.component.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\country\country.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\message\message.service.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-checkout.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />
@@ -432,11 +436,11 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\upload-image.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user.service.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\main.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\test\app.component.spec.ts" />
   </ItemGroup>

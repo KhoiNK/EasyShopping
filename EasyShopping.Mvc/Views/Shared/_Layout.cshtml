@@ -18,16 +18,26 @@
         <script src="systemjs.config.js"></script>*@
 
     @RenderSection("scripts", required: false)
-
+    <script src="~/Scripts/Site.js"></script>
     <script>
         window.GlobalSettings = {
             LoginUrl: 'http://api.easyshop.local/Token',
             ApiBase: 'http://api.easyshop.local/v1/',
             slider: true
         };
-        System.import('/Scripts/Ang2/dist/main.js').catch(function (err) { console.error(err); });
-    </script>
 
+        System.import('/Scripts/Ang2/dist/main.js').catch(function (err) { console.error(err); });
+
+    </script>
+        @**
+        LoginUrl: 'http://api.easyshop.local/Token',
+                ApiBase: 'http://api.easyshop.local/v1/',
+                slider: true
+
+        LoginUrl: 'http://ezishopapi.azurewebsites.net/Token',
+            ApiBase: 'http://ezishopapi.azurewebsites.net/v1/',
+            slider: true
+        *@
     <script>
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
@@ -37,8 +47,7 @@
         $(document).ready(function () {
             $('.summernote').summernote();
         });
-
-        
     </script>
+
 </body>
 </html>

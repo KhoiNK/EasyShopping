@@ -4,37 +4,40 @@
         <!--header-middle-->
         <div class="container">
             <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="logo pull-left">
                         <a [routerLink]="['/']"><img src="~/Content/img/logo.png" alt="" /></a>
                         <img src="~/Content/img/partner2.png" class="side-logo" />
                     </div>
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li *ngIf="user"><a [routerLink]="['/users/user-detail', user.ID]"><i class="fa fa-user"></i>{{user.UserName}}</a></li>
-                            <li *ngIf="isSignedIn" class="dropdown">
-                                <a href="javascript:void(0)" class="dropdown-toggle">
+                            <li *ngIf="isSignedIn" class="dropdown" id="dropdown">
+                                <a href="javascript:void(0)" data-toggle="collapse" data-target="#mydropdown">
                                     <i class="fa fa-bell-o" aria-hidden="true" (click)="GetMessage()"></i>
                                 </a>
                                 <div class="noti_count" *ngIf="count > 0">
                                     {{count}}
                                 </div>
-                                <div class="dropdown-menu">
-                                    <ul class="noti_mess" *ngIf="mess != []">
-                                        <li class="dropdown">
-                                            <i class="fa fa-caret-up" aria-hidden="true" style="color:white"></i>
-                                        </li>
-                                        <li *ngFor="let message of mess">
-                                            <a style="color:black" (click)="MarkAsRead(0, message.Description)" *ngIf="message.IsRead == true">{{message.Description}} </a>
-                                            {{message.Description}}
-                                        </li>
-                                    </ul>
+                                <div class="noti_mess collapse" *ngIf="mess != []" id="mydropdown">
+                                    <i class="fa fa-caret-up" style="color:white"></i>
+                                    <div style="background-color:white;text-align:center">
+                                        <div *ngFor="let message of mess">
+                                            <a style="color:black;font-weight:bold" (click)="MarkAsRead(message.ID, message.Description)" *ngIf="message.IsRead == false" href="javascript:void(0)">{{message.Description}} </a>
+                                            <a style="color:black" *ngIf="message.IsRead == true" href="javascript:void(0)">{{message.Description}} </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
-                            <li><a [routerLink]="['/orders']"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a [routerLink]="['/orders']"><i class="fa fa-shopping-cart"></i> Cart</a>
+                                <div class="noti_count" *ngIf="count > 0">
+                                    {{count}}
+                                </div>
+                            </li>
+
                             <li *ngIf="!isSignedIn"><a [routerLink]="['/login']"><i class="fa fa-lock"></i> Login</a></li>
                             <li *ngIf="isSignedIn"><a (click)="logout()" href="javascript:void(0)"><i class="fa fa-lock"></i> Logout</a></li>
                         </ul>
@@ -94,11 +97,3 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        //Handles menu drop down
-        $('.dropdown-menu').find('form').click(function (e) {
-            e.stopPropagation();
-        });
-    });
-</script>

@@ -12,6 +12,7 @@ export class GlobalService {
     public _sysmess = new Subject<string>();
     public _isSignedin = new Subject<boolean>();
     public _isLoad = new Subject<boolean>();
+    public _countcart = new Subject<boolean>();
 
     constructor() {
     }
@@ -20,7 +21,15 @@ export class GlobalService {
     tokenexpired = this._isSignedin.asObservable();
     //isLoad$ = this._isLoad.asObservable();
     isLoad$: Subject<boolean> = new BehaviorSubject<boolean>(false);
-    
+    countCart = this._countcart.asObservable();
+
+    CountCart(key: boolean) {
+        this._countcart.next(key);
+    }
+
+    GetCountCartCommand(): Observable<boolean> {
+        return this.countCart;
+    }
 
     changeMess(key: string) {
         this._sysmess.next(key);

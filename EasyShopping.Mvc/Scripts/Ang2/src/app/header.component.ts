@@ -114,10 +114,11 @@ export class Header implements OnInit {
             else if (res.status === 400) {
                 this.mess = [];
             }
+            
         }, err => {
             console.log(err);
             this.mess = [];
-        });
+            });
     }
 
     SetSearchKey() {
@@ -143,4 +144,5 @@ export class Header implements OnInit {
         this.systemMess = mess;
     }
 
+    
 }
