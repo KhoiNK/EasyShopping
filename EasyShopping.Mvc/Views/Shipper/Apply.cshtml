@@ -1,4 +1,4 @@
-﻿<div class="container">
+﻿<div class="container" *ngIf="isShipper == false">
     <div class="row slide-shipper">
         <div class="col-sm-12 ">
             <div class="col-sm-6">
@@ -84,5 +84,108 @@
             </div>
         </div>
     </div>
-    
+
+</div>
+<div class="container" *ngIf="isShipper == true" style="background-color:#425161; color:white">
+    <img src="~/Content/img/shipper/buynow-logo-bk.png" style="padding-left: 30%"/>
+    <div class="row" style="width:100%; margin:0px">
+        <h3>Total</h3>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="width:100%; margin:0px">
+        <h3>Deposit</h3>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3" style="padding-bottom:35px">
+            <div class="purchase-box">
+                <div>
+                    <h3>Package 2</h3><br />
+                    <div>
+                        <p>Price: 200$</p>
+                    </div>
+                    <button class="purchase_button">Purchase</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action_noti" id="succMess" hidden>
+    <label style="margin:10px">{{message}}</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>

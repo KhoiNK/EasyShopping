@@ -61,6 +61,9 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<ImageDTO, Image>();
                 cfg.CreateMap<Image, ImageDTO>();
 
+                cfg.CreateMap<RecruitmentDTO, Recruitment>();
+                cfg.CreateMap<Recruitment, RecruitmentDTO>();
+
                 cfg.CreateMap<OrderDetailDTO, OrderDetail>();
                 cfg.CreateMap<OrderDetail, OrderDetailDTO>()
                 .ForMember(dto => dto.Product,

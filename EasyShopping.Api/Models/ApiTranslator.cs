@@ -46,6 +46,9 @@ namespace EasyShopping.Api.Models
                 cfg.CreateMap<CommentDTO, CommentApiModel>();
                 cfg.CreateMap<CommentApiModel, CommentDTO>();
 
+                cfg.CreateMap<RecruitmentDTO, RecruitmentApiModel>();
+                cfg.CreateMap<RecruitmentApiModel, RecruitmentDTO>();
+
                 cfg.CreateMap<CountryDTO, CountryApiModel>();
                 cfg.CreateMap<CountryApiModel, CountryDTO>();
 

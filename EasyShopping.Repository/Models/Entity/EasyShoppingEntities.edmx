@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EasyShoppingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID" />
@@ -203,6 +203,15 @@
           <Property Name="Rate" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recruitment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Requirement" Type="nvarchar" MaxLength="4000" />
+          <Property Name="StoreId" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -441,6 +450,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="WardID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Recruitme__Store__02FC7413">
+          <End Role="Stores" Type="Self.Stores" Multiplicity="0..1" />
+          <End Role="Recruitment" Type="Self.Recruitment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Recruitment">
+              <PropertyRef Name="StoreId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -955,6 +976,7 @@
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recruitment" EntityType="Self.Recruitment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipperDetail" EntityType="Self.ShipperDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShipperRating" EntityType="Self.ShipperRating" Schema="dbo" store:Type="Tables" />
@@ -995,6 +1017,10 @@
           <AssociationSet Name="FK__Order__WardID__5535A963" Association="Self.FK__Order__WardID__5535A963">
             <End Role="Ward" EntitySet="Ward" />
             <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Recruitme__Store__02FC7413" Association="Self.FK__Recruitme__Store__02FC7413">
+            <End Role="Stores" EntitySet="Stores" />
+            <End Role="Recruitment" EntitySet="Recruitment" />
           </AssociationSet>
           <AssociationSet Name="FK__Stores__CityId__6A30C649" Association="Self.FK__Stores__CityId__6A30C649">
             <End Role="Province" EntitySet="Province" />
@@ -1161,8 +1187,7 @@
             <End Role="Wishlist" EntitySet="Wishlist" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EasyShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1522,6 +1547,7 @@
           <NavigationProperty Name="Ward" Relationship="Self.FK__Stores__WardId__6D0D32F4" FromRole="Stores" ToRole="Ward" />
           <NavigationProperty Name="StoreStatu" Relationship="Self.FK_Stores_Store_Status" FromRole="Stores" ToRole="StoreStatus" />
           <NavigationProperty Name="User" Relationship="Self.FK_Stores_Users" FromRole="Stores" ToRole="Users" />
+          <NavigationProperty Name="Recruitments" Relationship="EasyShoppingModel.FK__Recruitme__Store__02FC7413" FromRole="Store" ToRole="Recruitment" />
         </EntityType>
         <EntityType Name="StoreStatu">
           <Key>
@@ -2417,7 +2443,34 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Wishlist" EntitySet="Wishlists" />
           </AssociationSet>
+          <EntitySet Name="Recruitments" EntityType="EasyShoppingModel.Recruitment" />
+          <AssociationSet Name="FK__Recruitme__Store__02FC7413" Association="EasyShoppingModel.FK__Recruitme__Store__02FC7413">
+            <End Role="Store" EntitySet="Stores" />
+            <End Role="Recruitment" EntitySet="Recruitments" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Recruitment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Requirement" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="StoreId" Type="Int32" />
+          <NavigationProperty Name="Store" Relationship="EasyShoppingModel.FK__Recruitme__Store__02FC7413" FromRole="Recruitment" ToRole="Store" />
+        </EntityType>
+        <Association Name="FK__Recruitme__Store__02FC7413">
+          <End Type="EasyShoppingModel.Store" Role="Store" Multiplicity="0..1" />
+          <End Type="EasyShoppingModel.Recruitment" Role="Recruitment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Store">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Recruitment">
+              <PropertyRef Name="StoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2805,6 +2858,16 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ProductDetailID" ColumnName="ProductDetailID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recruitments">
+            <EntityTypeMapping TypeName="EasyShoppingModel.Recruitment">
+              <MappingFragment StoreEntitySet="Recruitment">
+                <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+                <ScalarProperty Name="Requirement" ColumnName="Requirement" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

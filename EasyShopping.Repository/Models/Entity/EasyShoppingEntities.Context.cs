@@ -54,5 +54,6 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual DbSet<UserStatu> UserStatus { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
+        public virtual DbSet<Recruitment> Recruitments { get; set; }
     }
 }

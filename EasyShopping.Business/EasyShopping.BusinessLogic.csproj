@@ -52,6 +52,7 @@
     <Compile Include="Business\PartnerBusiness.cs" />
     <Compile Include="Business\ProductBusinessLogic.cs" />
     <Compile Include="Business\ProductTypeBusiness.cs" />
+    <Compile Include="Business\RecruitmentBusinessLogic.cs" />
     <Compile Include="Business\ShipperBusinessLogic.cs" />
     <Compile Include="Business\StoreBusinessLogic.cs" />
     <Compile Include="Business\UserBusinessLogic.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Models\ProductTypeDTO.cs" />
     <Compile Include="Models\ProvinceDTO.cs" />
     <Compile Include="Models\RatingDTO.cs" />
+    <Compile Include="Models\RecruitmentDTO.cs" />
     <Compile Include="Models\RoleDTO.cs" />
     <Compile Include="Models\ShipperDetailDTO.cs" />
     <Compile Include="Models\ShipperRatingDTO.cs" />

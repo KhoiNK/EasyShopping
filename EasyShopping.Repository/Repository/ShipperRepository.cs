@@ -20,11 +20,14 @@ namespace EasyShopping.Repository.Repository
 
         public bool Reject(int id)
         {
-            var shipper = _db.ShippingDetails.Where(x => x.ID == id).SingleOrDefault();
-            var order = _db.Orders.Where(x => x.ID == shipper.OrderID).SingleOrDefault();
+            var shipping = _db.ShippingDetails.Where(x => x.ID == id).SingleOrDefault();
+            var order = _db.Orders.Include("Store").Where(x => x.ID == shipping.OrderID).SingleOrDefault();
+            var shipper = _db.ShipperDetails.Where(x => x.ID == shipping.ShipperID).SingleOrDefault();
+            shipper.RecentBalance = shipper.RecentBalance + order.Store.RequiredDeposit;
             order.StatusID = WAITING_FOR_SHIPPING;
             order.IsTaken = false;
-            shipper.IsReject = true;
+            shipping.IsReject = true;
+            shipping.ModifiedDate = DateTime.Now;
             _db.SaveChanges();
             return true;
         }
@@ -102,7 +105,7 @@ namespace EasyShopping.Repository.Repository
                 var result = _db.ShippingDetails
                     .Include("Order")
                     .Include("ShipperDetail")
-                    .Where(x => (x.Order.StoreId == storeId) && (x.Order.StatusID == WAITING_FOR_SHIPPING))
+                    .Where(x => (x.Order.StoreId == storeId) && (x.Order.StatusID == WAITING_FOR_SHIPPING) && (x.IsReject == false))
                     .ToList();
                 return result;
             }
@@ -146,6 +149,19 @@ namespace EasyShopping.Repository.Repository
             {
                 Console.WriteLine(e.InnerException.InnerException.Message);
                 return false;
+            }
+        }
+
+        public ShipperDetail GetByUserId(int userId)
+        {
+            try
+            {
+                var result = _db.ShipperDetails.Where(x => x.ShipperId == userId).Single();
+                return result;
+            }
+            catch(Exception e) {
+                Console.WriteLine(e.InnerException.InnerException.Message);
+                return null;
             }
         }
     }

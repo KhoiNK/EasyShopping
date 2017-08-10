@@ -125,18 +125,37 @@ export class Header implements OnInit {
         this.router.navigate(['/searchs', this.searchkey]);
     }
 
-    MarkAsRead(id: number, mess: string) {
-        if (id != 0) {
+    MarkAsRead(id: number) {
+        let message: any = this.mess.filter(x => x.ID == id)[0];
+        if (message.IsRead == false) {
             this.messSrv.MarkAsRead(id).subscribe((res: any) => {
                 if (res == true) {
-                    this.SetNoti(mess);
+                    this.Navigator(message);
                 }
             }, err => {
                 console.log(err);
             });
         }
         else {
-            this.SetNoti(mess);
+            this.Navigator(message);
+        }
+    }
+
+    Navigator(message: any) {
+        if (message.MessageType == 1) {
+            this.router.navigate(['/orders/order-detail', message.DataID]);
+        }
+        if (message.MessageType == 2) {
+            this.router.navigate(['/products/product-approve-list', message.DataID]);
+        }
+        if (message.MessageType == 3) {
+            this.router.navigate(['/stores/store-detail', message.DataID]);
+        }
+        if (message.MessageType == 4) {
+            this.router.navigate(['/shippers/shipper-store-list', message.DataID]);
+        }
+        if (message.MessageType == 5) {
+            this.router.navigate(['/partners/partner-list', message.DataID]);
         }
     }
 

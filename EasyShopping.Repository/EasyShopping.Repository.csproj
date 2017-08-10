@@ -122,6 +122,9 @@
     <Compile Include="Models\Entity\Rating.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entity\Recruitment.cs">
+      <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entity\Role.cs">
       <DependentUpon>EasyShoppingEntities.tt</DependentUpon>
     </Compile>
@@ -171,6 +174,7 @@
     <Compile Include="Repository\PartnerRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\ProductTypeRepository.cs" />
+    <Compile Include="Repository\RecruitmentRepository.cs" />
     <Compile Include="Repository\ShipperRepository.cs" />
     <Compile Include="Repository\StoreRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />

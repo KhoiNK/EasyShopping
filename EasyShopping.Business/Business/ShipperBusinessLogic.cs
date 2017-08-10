@@ -71,5 +71,15 @@ namespace EasyShopping.BusinessLogic.Business
             int userID = _user.FindUser(name).ID;
             return _repo.IsApplied(userID);
         }
+
+        public bool BuyPackage(ShipperDetailDTO data, string name)
+        {
+            var userId = _user.FindUser(name).ID;
+            var shipper = _repo.GetByUserId(userId);
+            shipper.Deposit = shipper.Deposit.Value + data.Deposit;
+            shipper.Total = shipper.Total.Value + data.Total;
+            var result = _repo.Update(shipper);
+            return result;
+        }
     }
 }

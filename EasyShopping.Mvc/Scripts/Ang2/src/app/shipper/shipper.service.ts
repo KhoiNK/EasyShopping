@@ -39,4 +39,8 @@ export class ShipperServices {
     IsApplied(): Observable<any> {
         return this._http.get(this.apiUrl + "/IsApplied").map(res => res.json());
     } 
+
+    BuyPackage(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/BuyPackage", data).map(res => res.json());
+    }
 }

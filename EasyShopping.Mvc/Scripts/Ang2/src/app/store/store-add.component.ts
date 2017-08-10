@@ -41,6 +41,10 @@ export class StoreAddComponent implements OnInit {
     }
     @ViewChild("search")
     public searchElementRef: ElementRef;
+    @ViewChild("storename")
+    public storeName: ElementRef;
+    @ViewChild("bankaccount")
+    public bankaccount: ElementRef;
     ngOnInit() {
         //set google maps defaults
         this.zoom = 4;
@@ -108,28 +112,76 @@ export class StoreAddComponent implements OnInit {
 
 
     SaveChange() {
-        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
-        let file: File = inputEl.files[0];
-        this.store.Address = this.address;
-        this.store.LatX = this.latitude;
-        this.store.LatY = this.longitude;
-        this.position.forEach((component) => {
-            if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
-            if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
-            if (component.types[0] == 'country') { this.store.Country = component.short_name; }
-        });
+        let inputEl: HTMLInputElement;
+        if (this.CheckValue() == true) {
+            inputEl = this.el.nativeElement.querySelector('#photo');
+            let file: File = inputEl.files[0];
+            if (this.address != undefined) {
+                this.store.Address = this.address;
+                this.store.LatX = this.latitude;
+                this.store.LatY = this.longitude;
+                this.position.forEach((component) => {
+                    if (component.types[0] == 'administrative_area_level_2') { this.store.District = component.long_name; }
+                    if (component.types[0] == 'administrative_area_level_1') { this.store.City = component.long_name; }
+                    if (component.types[0] == 'country') { this.store.Country = component.short_name; }
+                });
+            }
+            else {
+                inputEl = this.el.nativeElement.querySelector('#storeMess');
+                inputEl.removeAttribute('hidden');
+                setTimeout(() => {
+                    inputEl.hidden = true;
+                }, 2000);
+            }
 
-        if (file == null) {
-            this.CreateStore(this.store);
-        }
-        if (file != null) {
-            this.uploadService.UploadImage(this.thumbailImg).subscribe((res: any) => {
-                this.store.ImgLink = res.data.link;
+            if (file == null) {
                 this.CreateStore(this.store);
-            }, err => {
-                console.log(err);
-            });
+            }
+            if (file != null) {
+                this.uploadService.UploadImage(this.thumbailImg).subscribe((res: any) => {
+                    this.store.ImgLink = res.data.link;
+                    this.CreateStore(this.store);
+                }, err => {
+                    console.log(err);
+                });
+            }
         }
+        else {
+            inputEl = this.el.nativeElement.querySelector('#storeMess');
+            inputEl.removeAttribute('hidden');
+            setTimeout(() => {
+                inputEl.hidden = true;
+            }, 2000);
+        }
+    }
+
+    Validate(value: string, id: string) {
+        let input: HTMLElement = this.el.nativeElement.querySelector('#' + id);;
+        if (value == "" || value == null) {
+            input.style.border = "1px solid red";
+            event.preventDefault;
+        } else {
+            input.removeAttribute("style");
+        }
+    }
+
+    CheckValue(): boolean {
+        if (this.store.Name == "") {
+            return false;
+        }
+        if (this.store.Description == "") {
+            return false;
+        }
+        if (this.store.BankAccount == "") {
+            return false;
+        }
+        if (this.store.Address == "") {
+            return false;
+        }
+        if (this.store.RequiredDeposit == "") {
+            return false;
+        }
+        return true;
     }
 
     CreateStore(store: any) {

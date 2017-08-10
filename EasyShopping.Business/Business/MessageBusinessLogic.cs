@@ -27,6 +27,7 @@ namespace EasyShopping.BusinessLogic.Business
             mess.IsRead = false;
             mess.SentID = message.SentID;
             mess.MessageType = message.MessageType;
+            mess.DataID = message.DataID;
             var result = _repo.CreateMessage(mess);
             return result.Translate<Message, MessageDTO>();
         }

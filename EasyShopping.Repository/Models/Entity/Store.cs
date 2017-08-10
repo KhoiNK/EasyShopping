@@ -21,6 +21,7 @@ namespace EasyShopping.Repository.Models.Entity
             this.Partners = new HashSet<Partner>();
             this.Products = new HashSet<Product>();
             this.StoreRatings = new HashSet<StoreRating>();
+            this.Recruitments = new HashSet<Recruitment>();
         }
     
         public int ID { get; set; }
@@ -60,5 +61,7 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual Ward Ward { get; set; }
         public virtual StoreStatu StoreStatu { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Recruitment> Recruitments { get; set; }
     }
 }

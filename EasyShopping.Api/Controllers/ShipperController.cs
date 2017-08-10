@@ -44,6 +44,24 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+        [ActionName("BuyPackage")]
+        public IHttpActionResult BuyPackage([FromBody] ShipperDetailApiModel data)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                var result = _business.BuyPackage(ApiTranslators.Translate<ShipperDetailApiModel, ShipperDetailDTO>(data), name);
+                return Ok(result);
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+        }
+
         [HttpGet]
         [ActionName("Approve")]
         [Authorize(Roles = Constants.Roles.Admin)]

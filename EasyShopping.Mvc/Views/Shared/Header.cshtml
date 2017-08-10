@@ -26,8 +26,8 @@
                                     <i class="fa fa-caret-up" style="color:white"></i>
                                     <div style="background-color:white;text-align:center">
                                         <div *ngFor="let message of mess">
-                                            <a style="color:black;font-weight:bold" (click)="MarkAsRead(message.ID, message.Description)" *ngIf="message.IsRead == false" href="javascript:void(0)">{{message.Description}} </a>
-                                            <a style="color:black" *ngIf="message.IsRead == true" href="javascript:void(0)">{{message.Description}} </a>
+                                            <a style="color:black;font-weight:bold" (click)="MarkAsRead(message.ID)" *ngIf="message.IsRead == false" href="javascript:void(0)">{{message.Description}} </a>
+                                            <a style="color:black" (click)="MarkAsRead(message.ID)" href="javascript:void(0)" *ngIf="message.IsRead == true">{{message.Description}} </a>
                                         </div>
                                     </div>
                                 </div>
@@ -63,10 +63,10 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li id="home"><a [routerLink]="['']" class="active">Home</a></li>
-                            <li *ngIf="isSignedIn"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
-                            <li *ngIf="isSignedIn"><a [routerLink]="['/orders']">My Orders</a></li>
+                            <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
+                            <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/orders']">My Orders</a></li>
                             <li *ngIf="role == 'Admin'"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
-                            <li *ngIf="isSignedIn"><a [routerLink]="['/shippers']">Be a shipper</a></li>
+                            <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/shippers']">Be a shipper</a></li>
                             <li *ngIf="role == 'Admin'"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
 
                         </ul>

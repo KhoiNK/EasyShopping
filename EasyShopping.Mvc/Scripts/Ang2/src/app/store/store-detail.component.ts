@@ -6,6 +6,7 @@ import { OrderServices } from '../order/order.service';
 import { PartnerService } from '../partner/partner.service';
 import { ProductService } from '../product/product.service';
 import { ProductTypeService } from '../product/product-type.service';
+import { RecruitServices } from '../recruitment/recruitment.service';
 
 @Component({
     selector: 'store-detail',
@@ -15,7 +16,8 @@ import { ProductTypeService } from '../product/product-type.service';
         OrderServices,
         PartnerService,
         ProductService,
-        ProductTypeService
+        ProductTypeService,
+        RecruitServices
     ]
 })
 export class StoreDetailComponent implements OnInit {
@@ -30,6 +32,7 @@ export class StoreDetailComponent implements OnInit {
     public message: string = "";
     public tempId: number = 0;
     public types: any[];
+    public recruit: any;
 
     constructor(private storeservice: StoreServices
         , private activatedRoute: ActivatedRoute
@@ -39,39 +42,51 @@ export class StoreDetailComponent implements OnInit {
         , private productservice: ProductService
         , private el: ElementRef
         , private productTypeSrv: ProductTypeService
+        , private recruitSrv: RecruitServices
     ) {
         this.store = {};
+        this.recruit = {};
     }
 
     ngOnInit() {
         this.subscription = this.activatedRoute.params.subscribe(params => {
             this.id = params['id'];
+            this.LoadData(this.id);
+
+            this.storeservice.CheckAllowance(this.id).subscribe(res => {
+                if (res == true) {
+                    this.isAllowed = true;
+                }
+            }, err => {
+                console.log(err);
+            });
+
+            this.storeservice.CheckOwner(this.id).subscribe(res => {
+                if (res == true == true) {
+                    this.isOwner = true;
+                }
+            }, err => {
+                console.log(err);
+            });
+
+            this.partnerService.IsApplied(this.id).subscribe(res => {
+                this.isApplied = res;
+            }, err => {
+                console.log(err);
+            });
+
+            this.recruitSrv.GetByStore(this.id).subscribe((res: any) => {
+                if (res != null) {
+                    this.recruit = res;
+                }
+                else {
+                    this.recruit = {};
+                }
+            }, err => {
+                console.log(err);
+            });
         });
-        this.LoadData(this.id);
-
-        this.storeservice.CheckAllowance(this.id).subscribe(res => {
-            if (res == true) {
-                this.isAllowed = true;
-            }
-        }, err => {
-            console.log(err);
-        });
-
-        this.storeservice.CheckOwner(this.id).subscribe(res => {
-            if (res == true == true) {
-                this.isOwner = true;
-            }
-        }, err => {
-            console.log(err);
-        });
-
-        this.partnerService.IsApplied(this.id).subscribe(res => {
-            this.isApplied = res;
-        }, err => {
-            console.log(err);
-        });
-
-
+        
     }
 
     Apply() {
@@ -134,14 +149,33 @@ export class StoreDetailComponent implements OnInit {
 
     SetRecruitment() {
         this.store.IsRecruiting = true;
+        this.recruit.StoreId = this.id;
         this.storeservice.EditStore(this.store).subscribe((res: any) => {
             if (res == true) {
-                this.SetMessage("Edited successfully!");
-                window.location.reload();
+                if (this.recruit.ID == undefined || this.recruit.ID == 0) {
+                    this.recruitSrv.Create(this.recruit).subscribe((res: any) => {
+                        if (res == true) {
+                            this.SetMessage("Updated successfully!");
+                            window.location.reload();
+                        }
+                    }, err => {
+                        console.log(err);
+                    });
+                }
+                if (this.recruit.ID != undefined || this.recruit.ID != 0) {
+                    this.recruitSrv.Update(this.recruit).subscribe((res: any) => {
+                        if (res == true) {
+                            this.SetMessage("Updated successfully!");
+                            window.location.reload();
+                        }
+                    }, err => { console.log(err) });
+                }
+                
             }
         }, err => {
             console.log(err);
         });
+        
     }
 
     DisableRecruitment() {

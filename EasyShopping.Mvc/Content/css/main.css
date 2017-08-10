@@ -27,7 +27,6 @@ a:hover {
 a:focus {
     outline: none;
     outline-offset: 0;
-    background-color:none;
 }
 
 a {
@@ -72,7 +71,7 @@ a#scrollUp {
 
 .header_top {
     /*background: none repeat scroll 0 0 #F0F0E9;*/
-    background-color:none;
+    background-color: none;
 }
 
 .contactinfo ul li:first-child {
@@ -206,6 +205,9 @@ a#scrollUp {
             background: none;
         }
 
+        .shop-menu ul li a:focus, .shop-menu ul li a.active {
+            background-color: rgb(66, 81, 97);
+        }
 
 .header-bottom {
     background-color: rgb(66, 81, 97);
@@ -241,11 +243,10 @@ a#scrollUp {
             color: #fe980f;
         }
 
-        .mainmenu ul li a:hover, .mainmenu ul li a.active, .shop-menu ul li a.active {
+        .mainmenu ul li a:hover, .mainmenu ul li a.active, .shop-menu ul li a.active, .mainmenu ul li a:focus {
             font-weight: bold;
-            background: none;
-            background-color: none;
             color: #fe980f;
+            background-color: rgb(66, 81, 97);
         }
 
 .search_box input {
@@ -1016,6 +1017,7 @@ h2.title {
 
 .nav-tabs {
     background-color: #425161;
+    border-radius: 4px 4px 0 0;
 }
 
     .nav-tabs li.active a, .nav-tabs li.active a:hover, .nav-tabs li.active a:focus {
@@ -1023,7 +1025,6 @@ h2.title {
         -moz-border-left-colors: none;
         -moz-border-right-colors: none;
         -moz-border-top-colors: none;
-        background-color: none;
         color: #425161;
         cursor: default;
         margin-right: 0;
@@ -1738,7 +1739,6 @@ h2.title {
 }
 
 .form_submit {
-    float: right;
     clear: both;
     margin: 0px 5px 0 0px;
     color: #fff;
@@ -2123,3 +2123,25 @@ form > textarea {
         color: white;
         border: 1px solid rgba(184, 184, 184, 0.58);
     }
+
+.purchase-box {
+    padding: 20px;
+    border: 1px solid #f1f1f1;
+}
+
+    .purchase-box > div {
+        margin: 20px;
+        text-align: center;
+    }
+
+        .purchase-box > div > h3 {
+            text-align: center;
+        }
+
+.apply_btn {
+    width: 100%;
+    margin-top: 10px;
+    background-color: red;
+    border: 0;
+    color:white;
+}

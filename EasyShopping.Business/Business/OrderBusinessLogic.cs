@@ -30,6 +30,8 @@ namespace EasyShopping.BusinessLogic.Business
         private const int PROCESSING = 6;
         private const int TYPE_ORDER = 1;
         private const int WAITINGFORSHIPPING = 1;
+        private const int STORE_ORDER = 4;
+        private const int PARTNER = 5;
         #endregion
 
         public OrderBusinessLogic()
@@ -186,8 +188,8 @@ namespace EasyShopping.BusinessLogic.Business
                     mess.Description = "Order " + order.ID + " is checked out.";
                     mess.FromID = userId;
                     mess.SentID = _repo.GetById(order.ID).Store.UserID;
-                    mess.MessageType = TYPE_ORDER;
-                    mess.DataID = order.ID;
+                    mess.MessageType = STORE_ORDER;
+                    mess.DataID = order.StoreId;
                     _message.CreateMessage(mess);
                 }
                 return result;
@@ -236,8 +238,8 @@ namespace EasyShopping.BusinessLogic.Business
                         mess.Description = "checked out order " + newOrder.ID;
                         mess.FromID = userId;
                         mess.SentID = _repo.GetById(newOrder.ID).Store.UserID;
-                        mess.MessageType = TYPE_ORDER;
-                        mess.DataID = newOrder.ID;
+                        mess.MessageType = STORE_ORDER;
+                        mess.DataID = newOrder.StoreId;
                         _message.CreateMessage(mess);
                         dto.Total = dto.Total + newOrder.Total;
                     }
@@ -290,11 +292,20 @@ namespace EasyShopping.BusinessLogic.Business
             if (result)
             {
                 var mess = new MessageDTO();
-                mess.Description = "Your order " + id + " is canceled.";
+                
                 mess.FromID = fromUserId;
                 mess.SentID = toUserID;
                 mess.MessageType = TYPE_ORDER;
-                mess.DataID = id;
+                if (parentID.HasValue)
+                {
+                    mess.Description = "Your order " + parentID.Value + " is canceled.";
+                    mess.DataID = parentID.Value;
+                }
+                else
+                {
+                    mess.Description = "Your order " + id + " is canceled.";
+                    mess.DataID = id;
+                }
                 _message.CreateMessage(mess);
             }
             return result;

@@ -1,165 +1,177 @@
 ﻿@Html.Partial("~/Views/Shared/SideBar.cshtml")
 <div class="col-sm-9 padding-right">
-    <div class="features_items">
-        <!--features_items-->
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-sm-5 col-md-4">
-                            <img src="{{store.ImgLink}}" alt="http://placehold.it/150x200" class="img-rounded img-responsive" style="width:150px;height:200px" />
-
-                        </div>
-                        <div class="col-sm-6 col-md-7">
-                            <h2 style="color:#f4651a">
-                                {{store.Name}}
-                            </h2>
-
-                            <i class="fa fa-user-o"></i> Status: {{store.Status}}
-                            <br />
-                            <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
-                            <br />
-                            <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}
-                            <br />
+    <ul class="nav nav-tabs" (change)="ResetValue()">
+        <li><a data-toggle="tab" href="#menu">Store</a></li>
+        <li *ngIf="store.IsRecruiting == true || isOwner"><a data-toggle="tab" href="#menu1">Recruitment</a></li>
+    </ul>
+    <div class="tab-content" style="border-bottom:0px">
+        <div id="menu" class="tab-pane fade in active">
+            <div class="features_items">
+                <!--features_items-->
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 10px;">
+                        <div class="well well-sm">
                             <div class="row">
+                                <div class="col-sm-5 col-md-4">
+                                    <img src="{{store.ImgLink}}" alt="http://placehold.it/150x200" class="img-rounded img-responsive" style="width:150px;height:200px" />
 
-                                <button class="btn btn-default" data-toggle="collapse" data-target="#expand_product_management" *ngIf="isAllowed">Product Management</button>
-                                <button class="btn btn-default" data-toggle="collapse" data-target="#expand_partner_management" *ngIf="isOwner">Partner Management</button>
-                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Shipping List</a>
-                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true && !isApplied" data-toggle="modal" data-target="#apply">Apply</button>
-                                <button class="btn btn-default" *ngIf="!isOwner && !isAllowed && isApplied" (click)="RemoveApply()">Remove Apply</button>
-                            </div>
-                            <div id="expand_product_management" class="collapse expand_management">
-                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
-                                <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
-                            </div>
-                            <div id="expand_partner_management" class="collapse expand_management">
-                                <button *ngIf="isOwner && store.IsRecruiting == false" data-toggle="modal" data-target="#recruit" class="btn btn-default">Recruit</button>
-                                <button *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()" class="btn btn-default">Disable Recruitment</button>
-                                <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner List</a>
-                            </div>
-                            <div id="expand_order_management" class="collapse expand_management">
-                                
+                                </div>
+                                <div class="col-sm-6 col-md-7">
+                                    <h2 style="color:#f4651a">
+                                        {{store.Name}}
+                                    </h2>
+
+                                    <i class="fa fa-user-o"></i> Status: {{store.Status}}
+                                    <br />
+                                    <i class="glyphicon glyphicon-pencil"></i> Desription: {{store.Description}}
+                                    <br />
+                                    <i class="glyphicon glyphicon-map-marker"></i> Address: {{store.Address}}
+                                    <br />
+                                    <div class="row">
+                                        <button class="btn btn-default" data-toggle="collapse" data-target="#expand_product_management" *ngIf="isAllowed">Product Management</button>
+                                        <button class="btn btn-default" data-toggle="collapse" *ngIf="isOwner" [routerLink]="['/partners/partner-list', store.ID]">Partner Management</button>
+                                        <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/shippers/shipper-store-list', store.ID]">Order List</a>
+                                    </div>
+                                    <div id="expand_product_management" class="collapse expand_management">
+                                        <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                        <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-sm-1" *ngIf="isOwner">
+                                    <i class="fa fa-cogs management_btn" aria-hidden="true" data-toggle="collapse" data-target="#expand_store_management"></i>
+                                    <div class="collapse" id="expand_store_management">
+                                        <div class="edit_btn col-xs-4">
+                                            <a [routerLink]="['/stores/store-upgrade', store.ID]"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="edit_btn col-xs-4">
+                                            <a [routerLink]="['/stores/store-edit', store.ID]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="remove_btn col-xs-4" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
+                                            <i class="fa fa-trash" aria-hidden="true" (click)="SetCommand('store', store.ID)" data-toggle="modal" data-target="#storeRemove"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-1 col-sm-1" *ngIf="isOwner">
-                            <i class="fa fa-cogs management_btn" aria-hidden="true" data-toggle="collapse" data-target="#expand_store_management"></i>
-                            <div class="collapse" id="expand_store_management">
-                                <div class="edit_btn col-xs-4">
-                                    <a [routerLink]="['/stores/store-upgrade', store.ID]"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="features_items" *ngIf="store.Products">
+                    <div *ngFor="let product of store.Products">
+                        <template [ngIf]="product.StatusID == 1">
+                            <div class="col-sm-3 product-card">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productButton">
+                                            <a class="btn btn-primary product_btn" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a class="btn btn-primary product_btn" style="background-color:red" *ngIf="isAllowed" (click)="SetCommand('product', product.ID)" data-toggle="modal" data-target="#confirmRemove" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                        </div>
+                                        <div class="productinfo text-center">
+                                            <br />
+                                            <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
+                                            <h2><a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a></h2>
+                                            <p>{{product.Price | currency:'vnd'}}</p>
+                                            <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="edit_btn col-xs-4">
-                                    <a [routerLink]="['/stores/store-edit', store.ID]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                </div>
-                                <div class="remove_btn col-xs-4" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
-                                    <i class="fa fa-trash" aria-hidden="true" (click)="SetCommand('store', store.ID)" data-toggle="modal" data-target="#storeRemove"></i>
-                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal fade" id="apply" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Recruitment Requirement</h4>
+                            </div>
+                            <div class="modal-body">
+                                {{store.RecruitmentMessage}}
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="confirmRemove" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Are you sure want to remove this {{command}}?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" (click)="Remove()" data-dismiss="modal">OK</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="storeRemove" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                Are you sure want to remove this {{command}}?
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-success" (click)="Remove()" data-dismiss="modal">OK</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="features_items" *ngIf="store.Products">
-            <div *ngFor="let product of store.Products">
-                <template [ngIf]="product.StatusID == 1">
-                    <div class="col-sm-3 product-card">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productButton">
-                                    <a class="btn btn-primary product_btn" *ngIf="isAllowed" [routerLink]="['/products/product-edit', product.ID]" title="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                    <a class="btn btn-primary product_btn" style="background-color:red" *ngIf="isAllowed" (click)="SetCommand('product', product.ID)" data-toggle="modal" data-target="#confirmRemove" title="Remove"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                                </div>
-                                <div class="productinfo text-center">
-                                    <br />
-                                    <a [routerLink]="['/products/product-detail', product.ID]"><img src="{{product.ThumbailLink}}" alt="" /></a>
-                                    <h2><a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a></h2>
-                                    <p>{{product.Price | currency:'vnd'}}</p>
-                                    <button *ngIf="product.StatusId != 3" class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                </div>
-                            </div>
+        <div id="menu1" class="tab-pane fade">
+            <div style="padding-top:20px">
+                <div class="col-md-3" style="border-right: 1px solid black">
+                    <h2 style="color:#f4651a">
+                        {{store.Name}}
+                    </h2>
+                    <img src="{{store.ImgLink}}" style="max-width:100%; object-fit:scale-down; max-height: 295px" />
+                    <button class="btn apply_btn" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true && !isApplied" (click)="Apply()">Apply</button>
+                    <button class="btn apply_btn" *ngIf="!isOwner && !isAllowed && isApplied" (click)="RemoveApply()">Remove Apply</button>
+                </div>
+                <div class="col-md-9" *ngIf="recruit">
+                    <h1>{{store.RecruitmentMessage}}</h1>
+                    <div style="width:100%; border:1px solid black"></div>
+                    <h3>Job Description</h3>
+                    <p>{{recruit.Description}}</p>
+                    <h3>Job Requirement</h3>
+                    <p>{{recruit.Requirement}}</p>
+                </div>
+                <template [ngIf]="isOwner">
+                    <div class="form" *ngIf="isOwner">
+                        <div class="form_row">
+                            <label>Title:</label>
+                            <input type="text" [(ngModel)]="store.RecruitmentMessage" placeholder="Name" class="form_name" #name="ngModel" />
+                        </div>
+                        <div class="form_row">
+                            <label>Description:</label>
+                            <textarea type="text" [(ngModel)]="recruit.Description" placeholder="Name" class="form_name" #name="ngModel"></textarea>
+                        </div>
+                        <div class="form_row">
+                            <label>Requirement:</label>
+                            <textarea type="text" [(ngModel)]="recruit.Requirement" placeholder="Name" class="form_name" #name="ngModel"></textarea>
+                        </div>
+                        <div class="form_row">
+                            <button class="btn btn-success" (click)="SetRecruitment()" data-dismiss="modal">Apply</button>
+                            <button class="btn btn-danger" *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()">Disable Recruitment</button>
                         </div>
                     </div>
                 </template>
+
             </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="modal fade" id="recruit" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Recruitment Announcement</h4>
-                    </div>
-                    <div class="modal-body">
-                        <textarea [(ngModel)]="store.RecruitmentMessage"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" (click)="SetRecruitment()" data-dismiss="modal">Apply</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="apply" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Recruitment Requirement</h4>
-                    </div>
-                    <div class="modal-body">
-                        {{store.RecruitmentMessage}}
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" (click)="Apply()" data-dismiss="modal">Apply</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="message" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        {{message}}
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" (click)="Apply()">Apply</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="confirmRemove" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        Are you sure want to remove this {{command}}?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" (click)="Remove()" data-dismiss="modal">OK</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="storeRemove" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        Are you sure want to remove this {{command}}?
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" (click)="Remove()" data-dismiss="modal">OK</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!--features_items-->
+    </div>
+    <!--features_items-->
 </div>
 <div class="action_noti" id="storeMess" hidden>
     <label style="margin:10px">{{message}}</label>
 </div>
+
+
+

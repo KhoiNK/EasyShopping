@@ -8,11 +8,16 @@
 window.onclick = function (e) {
     if (!e.target.matches('#dropdown')) {
         var myDropdown = document.getElementById("mydropdown");
-        
-        if (myDropdown.classList.contains('in')) {
-            myDropdown.classList.remove('in');
-            myDropdown.classList.add('collapse');
-            //myDropdown.hidden = true;
+        if (myDropdown != null) {
+            if (myDropdown.classList.contains('in')) {
+                myDropdown.classList.remove('in');
+                myDropdown.classList.add('collapse');
+                //myDropdown.hidden = true;
+            }
         }
     }
 }
+
+$(document).ready(function () {
+    $('.summernote').summernote();
+});

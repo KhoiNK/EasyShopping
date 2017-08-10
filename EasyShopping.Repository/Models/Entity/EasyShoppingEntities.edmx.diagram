@@ -82,6 +82,8 @@
         <AssociationConnector Association="EasyShoppingModel.FK__Users__WardID__6FE99F9F" ManuallyRouted="false" />
         <AssociationConnector Association="EasyShoppingModel.FK_Users_User_Status" ManuallyRouted="false" />
         <AssociationConnector Association="EasyShoppingModel.FK_UserWishlist" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EasyShoppingModel.Recruitment" Width="1.5" PointX="17.25" PointY="38.25" />
+        <AssociationConnector Association="EasyShoppingModel.FK__Recruitme__Store__02FC7413" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
