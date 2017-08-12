@@ -32,6 +32,8 @@ namespace EasyShopping.BusinessLogic.Business
         private const int WAITINGFORSHIPPING = 1;
         private const int STORE_ORDER = 4;
         private const int PARTNER = 5;
+        private const int COMPLETE = 3;
+        private const int DELIVERING = 2;
         #endregion
 
         public OrderBusinessLogic()
@@ -292,7 +294,7 @@ namespace EasyShopping.BusinessLogic.Business
             if (result)
             {
                 var mess = new MessageDTO();
-                
+
                 mess.FromID = fromUserId;
                 mess.SentID = toUserID;
                 mess.MessageType = TYPE_ORDER;
@@ -315,7 +317,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var fromUserId = _user.FindUser(name).ID;
             var order = _repo.GetById(id);
-            if(order.StatusID == PROCESSING)
+            if (order.StatusID == PROCESSING)
             {
                 order.StatusID = WAITINGFORSHIPPING;
                 order.IsTaken = false;
@@ -345,7 +347,7 @@ namespace EasyShopping.BusinessLogic.Business
                     mess.FromID = fromUserId;
                     mess.SentID = toUserID;
                     mess.MessageType = TYPE_ORDER;
-                    
+
                     _message.CreateMessage(mess);
                 }
                 return result;
@@ -359,6 +361,15 @@ namespace EasyShopping.BusinessLogic.Business
             foreach (var order in result)
             {
                 order.details = GetOrderDetail(order.ID);
+                var shipdetail = new ShippingDetail();
+                try { shipdetail = _repo.GetById(order.ID).ShippingDetails.Where(x => x.OrderID == order.ID).Single(); }
+                catch { shipdetail = null; }
+                if (shipdetail != null)
+                {
+                    var user = _user.FindByID(shipdetail.ShipperID.Value);
+                    order.Shipper = user.UserName;
+                    order.ShipperID = shipdetail.ShipperID.Value;
+                }
             }
             return result;
         }
@@ -370,6 +381,24 @@ namespace EasyShopping.BusinessLogic.Business
             {
                 order.details = GetOrderDetail(order.ID);
             }
+            return result;
+        }
+
+        public bool Update(OrderViewDTO data)
+        {
+            var order = _repo.GetById(data.ID);
+            order.Address = data.Address;
+            order.CreatedDate = data.CreatedDate;
+            order.ID = data.ID;
+            order.IsPaid = data.IsPaid;
+            order.ModifiedDate = data.ModifiedDate;
+            order.Note = data.Note;
+            order.OrderCode = data.OrderCode;
+            order.Price = data.Price;
+            order.StatusID = data.StatusID;
+            order.StoreId = data.StoreId;
+            order.Total = data.Total;
+            var result = _repo.UpdateOrder(order);
             return result;
         }
     }

@@ -5,6 +5,7 @@ import { OrderServices } from '../order/order.service';
 import { GlobalService } from '../global-observable.service';
 import { Subscription } from 'rxjs';
 import { ProductTypeService } from './product-type.service';
+import { order } from '../order/Order';
 
 @Component({
     selector: 'product-list',
@@ -19,6 +20,8 @@ export class ProductListComponent implements OnInit{
     public subscription: Subscription;
     public types: any[];
     public message: string = "";
+    public cart: order = new order();
+
     constructor(private productservice: ProductService
         , private orderService: OrderServices
         , private globalSrv: GlobalService
@@ -45,37 +48,39 @@ export class ProductListComponent implements OnInit{
         });
     }
     AddToCart(productId: number) {
-        if (localStorage.getItem(this.PROFILE) == {}) {
-            alert("please login first!");
-            event.preventDefault();
-        }
-        else {
-            let order: any = {};
-            let cartId = localStorage.getItem(this.CART);
-            if (cartId == null) {
-                order.productId = productId;
-                this.orderService.AddToCart(order).subscribe((res: any) => {
-                    localStorage.setItem(this.CART, JSON.stringify(res.ID));
-                    this.SetMessage();
-                }, err => {
-                    this.SetErrMess("Please login first");
-                    setTimeout(() => {
-                        this.router.navigate(['/login']);
-                    }, 3000);
-                    console.log(err);
-                });
-            } else {
-                order.productId = productId;
-                order.cartId = cartId;
-                this.orderService.AddToCart(order).subscribe((res: any) => {
-                    if (JSON.stringify(res) == 'true') {
-                        this.SetMessage();
+        let order: any = {};
+        let cart = localStorage.getItem(this.CART);
+        if (cart == null) {
+            order.productId = productId;
+            this.orderService.AddToCart(order).subscribe((res: any) => {
+                localStorage.setItem(this.CART, JSON.stringify(res.ID));
+                this.cart.cartID = res.ID;
+                this.cart.products.push(productId);
+                localStorage.setItem("order", JSON.stringify(this.cart));
+                this.SetMessage();
+            }, err => {
+                this.SetErrMess("Please login first");
+                setTimeout(() => {
+                    this.router.navigate(['/login']);
+                }, 3000);
+                console.log(err);
+            });
+        } else {
+            order.productId = productId;
+            order.cartId = cart;
+            let oldcart = JSON.parse(localStorage.getItem("order"));
+            this.orderService.AddToCart(order).subscribe((res: any) => {
+                let existproduct: any[] = oldcart.products;
+                if (JSON.stringify(res) == 'true') {
+                    if (existproduct.some(x => x == productId) == false) {
+                        oldcart.products.push(productId);
+                        localStorage.setItem("order", JSON.stringify(oldcart));
                     }
-                }, err => {
-                    this.SetErrMess("Added failed");
-                    console.log(err);
-                });
-            }
+                    this.SetMessage();
+                }
+            }, err => {
+                console.log(err);
+            });
         }
     }
 

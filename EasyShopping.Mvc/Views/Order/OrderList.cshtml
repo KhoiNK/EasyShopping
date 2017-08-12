@@ -41,7 +41,7 @@
                                     </td>
                                     <td>
                                         {{detail.Price | currency:'USD':true:'1.2-2'}}
-                                        <i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveItem(detail.ID)"></i>
+                                        <i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveItem(detail.ID, order.ID)"></i>
                                     </td>
                                 </tr>
                             </tbody>

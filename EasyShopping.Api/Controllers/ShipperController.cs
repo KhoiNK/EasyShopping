@@ -20,7 +20,16 @@ namespace EasyShopping.Api.Controllers
         }
 
         [HttpGet]
+        [ActionName("GetAll")]
+        public IHttpActionResult GetAll(int id)
+        {
+            var result = ApiTranslators.Translate<ShipperDetailDTO, ShipperDetailApiModel>(_business.GetAll(id, 10));
+            return Ok(result);
+        }
+
+        [HttpGet]
         [ActionName("GetByStore")]
+        [Authorize]
         public IHttpActionResult GetByStore(int id)
         {
             var result = _business.GetByStoreId(id);
@@ -29,6 +38,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpPost]
         [ActionName("Apply")]
+        [Authorize]
         public IHttpActionResult Apply([FromBody] ShipperDetailApiModel data)
         {
             try

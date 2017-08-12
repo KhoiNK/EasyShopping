@@ -86,14 +86,22 @@ namespace EasyShopping.Repository.Repository
 
         public Order GetById(int id)
         {
-            var order = _db.Orders
+            try {
+                var order = _db.Orders
                 .Include("Country")
                 .Include("District")
                 .Include("Province")
                 .Include("OrderStatu")
                 .Include("Store")
+                .Include("ShippingDetails")
                 .Where(x => x.ID == id).Single();
-            return order;
+                return order;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                return null;
+            }
         }
 
         public bool Remove(int id)
@@ -105,6 +113,8 @@ namespace EasyShopping.Repository.Repository
                 {
                     foreach (var detail in details)
                     {
+                        var product = _db.Products.Where(x => x.ID == detail.ProductID).Single();
+                        product.Quantity = product.Quantity + detail.Quantity.Value;
                         _db.OrderDetails.Remove(detail);
                     }
                 }
@@ -146,9 +156,10 @@ namespace EasyShopping.Repository.Repository
                 {
                     order.DistrictID = null;
                 }
-                order.CountryID = data.CountryID;
                 order.CityID = data.CityID;
+                order.CountryID = data.CountryID;
                 order.Address = data.Address;
+                order.IsPaid = data.IsPaid;
                 _db.SaveChanges();
                 return true;
             }
@@ -207,7 +218,11 @@ namespace EasyShopping.Repository.Repository
                 .Include("Country")
                 .Include("District")
                 .Include("Province")
-                .Include("OrderStatu").Where(x => (x.StoreId == id) && (x.StatusID != WAITINGFORSHIPPING)).ToList();
+                .Include("OrderStatu")
+                .Include("ShippingDetails")
+                .Where(x => (x.StoreId == id) && (x.StatusID != WAITINGFORSHIPPING) && (x.StatusID != ORDERING))
+                .OrderBy(x=>x.IsPaid)
+                .ToList();
                 return result;
             }
             catch(Exception e)

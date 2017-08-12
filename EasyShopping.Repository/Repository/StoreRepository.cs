@@ -28,7 +28,8 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x=>x.StatusID != REMOVE)
+                .Where(x=>x.StatusID == WAITINGFORAPPROVE)
+                .OrderByDescending(x=>x.CreatedDate)
                 .ToList()
                 .Skip(skipped);
             return stores;

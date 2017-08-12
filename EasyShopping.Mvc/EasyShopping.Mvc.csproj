@@ -395,6 +395,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.module.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\order\order.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\order\Order.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\part-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\partner\partner.module.ts" />

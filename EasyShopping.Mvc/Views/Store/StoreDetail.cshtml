@@ -127,7 +127,7 @@
         </div>
         <div id="menu1" class="tab-pane fade">
             <div style="padding-top:20px">
-                <div class="col-md-3" style="border-right: 1px solid black">
+                <div class="col-md-3">
                     <h2 style="color:#f4651a">
                         {{store.Name}}
                     </h2>
@@ -135,26 +135,26 @@
                     <button class="btn apply_btn" *ngIf="!isOwner && !isAllowed && store.IsRecruiting == true && !isApplied" (click)="Apply()">Apply</button>
                     <button class="btn apply_btn" *ngIf="!isOwner && !isAllowed && isApplied" (click)="RemoveApply()">Remove Apply</button>
                 </div>
-                <div class="col-md-9" *ngIf="recruit">
+                <div class="col-md-9" *ngIf="recruit" style="border-left: 1px solid black">
+                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#recruitment"><i class="fa fa-pencil-square-o" aria-hidden="true" style="position:absolute; width:30px;right: 2px;color: #425161;" *ngIf="isOwner"></i></a>
                     <h1>{{store.RecruitmentMessage}}</h1>
                     <div style="width:100%; border:1px solid black"></div>
                     <h3>Job Description</h3>
                     <p>{{recruit.Description}}</p>
                     <h3>Job Requirement</h3>
                     <p>{{recruit.Requirement}}</p>
-                </div>
-                <template [ngIf]="isOwner">
-                    <div class="form" *ngIf="isOwner">
+                    <div class="form collapse" *ngIf="isOwner" id="recruitment">
                         <div class="form_row">
                             <label>Title:</label>
                             <input type="text" [(ngModel)]="store.RecruitmentMessage" placeholder="Name" class="form_name" #name="ngModel" />
                         </div>
                         <div class="form_row">
                             <label>Description:</label>
-                            <textarea type="text" [(ngModel)]="recruit.Description" placeholder="Name" class="form_name" #name="ngModel"></textarea>
+                            <textarea type="text" [(ngModel)]="recruit.Description" placeholder="Name" class="form_name summernote" #name="ngModel"></textarea>
                         </div>
                         <div class="form_row">
                             <label>Requirement:</label>
+
                             <textarea type="text" [(ngModel)]="recruit.Requirement" placeholder="Name" class="form_name" #name="ngModel"></textarea>
                         </div>
                         <div class="form_row">
@@ -162,7 +162,9 @@
                             <button class="btn btn-danger" *ngIf="isOwner && store.IsRecruiting == true" (click)="DisableRecruitment()">Disable Recruitment</button>
                         </div>
                     </div>
-                </template>
+                </div>
+
+
 
             </div>
         </div>
@@ -172,6 +174,7 @@
 <div class="action_noti" id="storeMess" hidden>
     <label style="margin:10px">{{message}}</label>
 </div>
+<ng2-summernote [(ngModel)]="recruit.Requirement" height="500" lang="vi-VN" ngDefaultControl><p>asdasdas</p></ng2-summernote>
 
 
 

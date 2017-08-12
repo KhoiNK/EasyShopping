@@ -5,8 +5,7 @@ import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt/angular2-jwt';
 import { AgmCoreModule } from 'angular2-google-maps/core';
-//import { AgmCoreModule } from '@agm/core';
-
+import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
@@ -16,10 +15,7 @@ import { Footer } from './footer.component';
 import { SideBar } from './sidebar.component';
 import { SliderComponent } from './slider.component';
 import { SearchPageComponent } from './searchpage.component';
-//import { GetListCountries } from './country-list/country-list.component';
 import { routing } from './app.routing';
-import { GoogleMapComponent } from './commonService/google-map.component';
-import { ProductListComponent } from '../app/product/product-list.component';
 import { GlobalService } from './global-observable.service';
 
 @NgModule({
@@ -33,7 +29,7 @@ import { GlobalService } from './global-observable.service';
             apiKey: 'AIzaSyAnEYt5edclSFmFHCSgp665PgUvIesC_jo',
             libraries: ["places"]
         }),
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
     declarations: [
         Header,
@@ -42,7 +38,8 @@ import { GlobalService } from './global-observable.service';
         SliderComponent,
         AppComponent,
         LoginComponent,
-        SearchPageComponent
+        SearchPageComponent,
+        Ng2Summernote
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },

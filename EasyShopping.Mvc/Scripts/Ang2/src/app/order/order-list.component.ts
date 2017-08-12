@@ -86,7 +86,7 @@ export class OrderList implements OnInit {
             this.data.Quantity = +quantity + 1;
         }
         if (command == "minus") {
-            this.data.Quantity = +quantity - 1;
+            this.data.Quantity = +quantity - 1; 
         }
         this.orderService.ChangeQuantity(this.data).subscribe((res: any) => {
             if (res == true) {
@@ -122,9 +122,15 @@ export class OrderList implements OnInit {
         this.id = 0;
     }
 
-    RemoveItem(id: number) {
+    RemoveItem(id: number, orderid: number) {
         this.orderService.RemoveItem(id).subscribe((res: any) => {
             if (res == true) {
+                let order:any = JSON.parse(localStorage.getItem("order"));
+                let details: any[] = this.orders.filter(x => x.ID == orderid)[0].details;
+                let productId: number = details.filter(x => x.ID == id)[0].ProductID;
+                var index = order.products.indexOf(productId);
+                order.products.splice(index,1);
+                localStorage.setItem("order", JSON.stringify(order));    
                 this.SetMessage("Removed successfully!");
                 this.LoadData(this.statusId);
             }
@@ -142,6 +148,7 @@ export class OrderList implements OnInit {
             if (res == true) {
                 this.SetMessage("Removed successfully!");
                 localStorage.removeItem("cart");
+                localStorage.removeItem("order");
                 this.LoadData(this.statusId);
             }
             if (res == false) {

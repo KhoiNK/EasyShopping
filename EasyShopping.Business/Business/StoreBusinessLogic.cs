@@ -178,5 +178,11 @@ namespace EasyShopping.BusinessLogic.Business
                     return _repo.Edit(store);
             }
         }
+
+        public IEnumerable<StoreDTO> GetAll(int pageIndex, int pageSize)
+        {
+            var result = _repo.GetList(pageSize, pageIndex).Translate<Store, StoreDTO>();
+            return result;
+        }
     }
 }

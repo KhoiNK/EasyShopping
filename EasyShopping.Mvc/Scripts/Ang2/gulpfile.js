@@ -40,7 +40,10 @@ gulp.task('tslint-hot', lintCode);
 /**
  * Compiles TypeScript sources and writes to `dist` folder.
  */
-const TS_FILES = ['src/**/*.ts', 'typings/**/*.d.ts', '!node_modules/**/*.*'];
+const TS_FILES = ['src/**/*.ts'
+    , 'typings/**/*.d.ts'
+    , '!node_modules/**/*.*'
+    , 'node_modules/ng2-summernote/ng2-summernote.ts'];
 let compile = function () {
 
     var onError = function (err) {

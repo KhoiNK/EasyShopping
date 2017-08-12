@@ -61,4 +61,8 @@ export class OrderServices {
     CancelOrder(id: number): Observable<any> {
         return this._http.get(this.apiUrl + "/CancelOrder/" + id).map(res => res.json());
     }
+
+    EditOrder(data: any): Observable<any> {
+        return this._http.put(this.apiUrl + "/EditOrder", data).map(res => res.json());
+    }
 }

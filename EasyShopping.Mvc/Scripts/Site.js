@@ -17,7 +17,3 @@ window.onclick = function (e) {
         }
     }
 }
-
-$(document).ready(function () {
-    $('.summernote').summernote();
-});

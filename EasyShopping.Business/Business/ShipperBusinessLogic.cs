@@ -81,5 +81,11 @@ namespace EasyShopping.BusinessLogic.Business
             var result = _repo.Update(shipper);
             return result;
         }
+
+        public IEnumerable<ShipperDetailDTO> GetAll(int pageIndex, int pageSize)
+        {
+            var result = _repo.GetAll(pageSize, pageIndex).Translate<ShipperDetail, ShipperDetailDTO>();
+            return result;
+        }
     }
 }

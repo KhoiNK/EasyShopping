@@ -28,8 +28,13 @@ namespace EasyShopping.BusinessLogic.Models
         public int? StoreId { get; set; }
         public string Store { get; set; }
         public double Price { get; set; }
+        public string Shipper { get; set; }
+        public int ShipperID { get; set; }
+        public int? UserID { get; set; }
         public IEnumerable<OrderDetailDTO> details { get; set; }
         public IEnumerable<OrderViewDTO> Children { get; set; }
+        public Nullable<bool> IsPaid { get; set; }
+
     }
 
     public class OrderDTO
@@ -51,5 +56,6 @@ namespace EasyShopping.BusinessLogic.Models
         public int? StoreId { get; set; }
         public double Price { get; set; }
         public int? ParentId { get; set; }
+        public Nullable<bool> IsPaid { get; set; }
     }
 }

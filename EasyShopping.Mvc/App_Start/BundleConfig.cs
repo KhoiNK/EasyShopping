@@ -18,7 +18,7 @@ namespace EasyShopping.Mvc
                 LibPath + "modernizr-*",
                 LibPath + "bootstrap.js",
                 LibPath + "respond.js",
-                LibPath + "summernote*",
+                LibPath + "summernote.js",
                 LibPath + "slick.min.js"
             ));
 
@@ -26,6 +26,8 @@ namespace EasyShopping.Mvc
                 AppPath + "node_modules/core-js/client/shim.min.js",
                 AppPath + "node_modules/zone.js/dist/zone.js",
                 AppPath + "node_modules/systemjs/dist/system.src.js",
+                AppPath + "node_modules/summernote/dist/lang/summernote-vi-VN.min.js",
+                AppPath + "node_modules/summernote/dist/summernote.min.js",
                 //AppPath + "dist/systemjs-angular-loader.js",
                 AppPath + "dist/systemjs.config.js" // Lazy loading JS files.
             ));

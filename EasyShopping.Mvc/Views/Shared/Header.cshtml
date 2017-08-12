@@ -32,9 +32,12 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a [routerLink]="['/orders']"><i class="fa fa-shopping-cart"></i> Cart</a>
-                                <div class="noti_count" *ngIf="count > 0">
-                                    {{count}}
+                            <li>
+                                <a [routerLink]="['/orders']">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                                <div class="noti_count" *ngIf="cartitem > 0">
+                                    {{cartitem}}
                                 </div>
                             </li>
 
@@ -66,7 +69,7 @@
                             <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/stores/store-add']">Create Store</a></li>
                             <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/orders']">My Orders</a></li>
                             <li *ngIf="role == 'Admin'"><a [routerLink]="['/stores/store-approve-list']">Store List</a></li>
-                            <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/shippers']">Be a shipper</a></li>
+                            <li *ngIf="isSignedIn && role != 'Admin'"><a [routerLink]="['/shippers']">Shipper</a></li>
                             <li *ngIf="role == 'Admin'"><a [routerLink]="['/shippers/shipperlist']">Approve Shipper</a></li>
 
                         </ul>

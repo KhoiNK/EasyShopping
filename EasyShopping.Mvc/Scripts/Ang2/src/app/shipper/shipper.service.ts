@@ -43,4 +43,8 @@ export class ShipperServices {
     BuyPackage(data: any): Observable<any> {
         return this._http.put(this.apiUrl + "/BuyPackage", data).map(res => res.json());
     }
+
+    GetAll(pageIndex: number): Observable<any> {
+        return this._http.get(this.apiUrl + "/GetAll/" + pageIndex).map(res => res.json());
+    }
 }

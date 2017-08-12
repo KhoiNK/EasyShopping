@@ -105,6 +105,22 @@ namespace EasyShopping.Api.Controllers
         }
 
         [HttpPut]
+        [Route("v1/Order/EditOrder")]
+        public IHttpActionResult EditOrder([FromBody] OrderViewDTO order)
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.Update(order));
+            }
+            catch
+            {
+                return Ok(false);
+            }
+        }
+
+        [HttpPut]
         [Route("v1/Order/ChangeQuantity")]
         public bool ChangeQuantity([FromBody] OrderDetailDTO data)
         {

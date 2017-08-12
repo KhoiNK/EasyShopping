@@ -7,6 +7,8 @@ import { PartnerService } from '../partner/partner.service';
 import { ProductService } from '../product/product.service';
 import { ProductTypeService } from '../product/product-type.service';
 import { RecruitServices } from '../recruitment/recruitment.service';
+import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
+import { order } from '../order/Order';
 
 @Component({
     selector: 'store-detail',
@@ -33,6 +35,7 @@ export class StoreDetailComponent implements OnInit {
     public tempId: number = 0;
     public types: any[];
     public recruit: any;
+    public cart: order = new order();
 
     constructor(private storeservice: StoreServices
         , private activatedRoute: ActivatedRoute
@@ -84,7 +87,7 @@ export class StoreDetailComponent implements OnInit {
                 }
             }, err => {
                 console.log(err);
-            });
+                });
         });
         
     }
@@ -122,20 +125,29 @@ export class StoreDetailComponent implements OnInit {
 
     AddToCart(productId: number) {
         let order: any = {};
-        let cartId = localStorage.getItem(this.CART);
-        if (cartId == null) {
+        let cart = localStorage.getItem(this.CART);
+        if (cart == null) {
             order.productId = productId;
             this.orderService.AddToCart(order).subscribe((res: any) => {
                 localStorage.setItem(this.CART, JSON.stringify(res.ID));
+                this.cart.cartID = res.ID;
+                this.cart.products.push(productId);
+                localStorage.setItem("order", JSON.stringify(this.cart));
                 this.SetMessage("Added successfully!");
             }, err => {
                 console.log(err);
             });
-        } else {
+        } else { 
             order.productId = productId;
-            order.cartId = cartId;
+            order.cartId = cart;
+            let oldcart = JSON.parse(localStorage.getItem("order"));
             this.orderService.AddToCart(order).subscribe((res: any) => {
+                let existproduct: any[] = oldcart.products;
                 if (JSON.stringify(res) == 'true') {
+                    if (existproduct.some(x => x == productId) == false) {
+                        oldcart.products.push(productId);
+                        localStorage.setItem("order", JSON.stringify(oldcart));
+                    }
                     this.SetMessage("Added successfully!");
                 }
             }, err => {

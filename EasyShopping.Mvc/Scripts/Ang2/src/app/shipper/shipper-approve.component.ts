@@ -11,16 +11,43 @@ export class ShipperListComponent {
     public searchkey: number;
     public shipper: any;
     public subscription: Subscription;
+    public shippers: any[];
+    public page: number;
+
     constructor(private shipperSrvc: ShipperServices) {
         this.shipper = {};
+        this.page = 1;
     }
 
     LoadData() {
-        this.shipperSrvc.GetById(this.searchkey).subscribe((res: any) => {
-            this.shipper = res;
-        }, error => {
-            console.log(error);
-        });
+        if (this.searchkey == null || this.searchkey == undefined) {
+            this.GetShippers(1);
+        } else {
+            this.shipperSrvc.GetById(this.searchkey).subscribe((res: any) => {
+                this.shipper = res;
+            }, error => {
+                console.log(error);
+            });
+        }
+    }
+
+    LoadByPage(command: string) {
+        if (command == "next") {
+            this.page = this.page + 1;
+            this.GetShippers(this.page);
+        }
+        if (command == "back") {
+            this.page = this.page - 1;
+            this.GetShippers(this.page);
+        }
+    }
+
+    GetShippers(page: number) {
+        this.shipperSrvc.GetAll(page).subscribe((res: any) => {
+            this.shippers = res;
+        }, err => {
+            console.log(err);
+        })
     }
 
     Approve(id: number) {

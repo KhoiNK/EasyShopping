@@ -64,7 +64,7 @@
                                         {{detail.Quantity}}
                                     </td>
                                     <td>
-                                        {{detail.Price | currency:'USD':true:'1.2-2'}}
+                                         {{detail.Price | currency: 'VND'}}   
                                     </td>
                                 </tr>
                             </tbody>
@@ -162,11 +162,15 @@
         <div id="menu4" class="tab-pane fade">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 3">
-                    <div class="row">
+                    <div class="row" style="padding-top:10px">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
                         <div class="col-sm-2">#{{order.ID}}</div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
+                        <div class="col-sm-3" style="text-align:center">
+                            <i class="fa fa-check-circle" aria-hidden="true" style="color: #5cb85c;font-size: 30px;" *ngIf="order.IsPaid == true" data-toggle="tooltip" title="This order is paid"></i>
+                            <button class="btn btn-success" (click)="IsPaid(order.ID)" *ngIf="order.IsPaid == false">Paid</button>
+                        </div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">
@@ -192,7 +196,7 @@
                                         {{detail.Quantity}}
                                     </td>
                                     <td>
-                                        {{detail.Price | currency:'USD':true:'1.2-2'}}
+                                        {{detail.Price | currency:'VND'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -202,7 +206,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="action_noti" id="succMess" hidden>
     <label style="margin:10px">{{message}}</label>

@@ -30,7 +30,7 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
     };
 
     ngOnInit() {
-        this.subscription = this.activateRoute.params.subscribe((params:any) => {
+        this.subscription = this.activateRoute.params.subscribe((params: any) => {
             this.storeid = params['id'];
         });
         this.LoadData();
@@ -115,6 +115,40 @@ export class ShipperGetByStoreComponent implements OnInit, OnDestroy {
         }, err => {
             console.log(err);
             this.SetErrMess("Accepted failed");
+        });
+    }
+
+    ChangeTotal(id: number) {
+        let input: HTMLInputElement = this.el.nativeElement.querySelector("#order" + id);
+        let order = this.orders.filter(x => x.ID == id)[0];
+        order.Total = input.value;
+        this.orderSrv.EditOrder(order).subscribe((res: any) => {
+            if (res == true) {
+                this.SetMessage("Updated successfully!");
+                setTimeout(() => {
+                    this.LoadOrder();
+                });
+            }
+        }, err => {
+            console.log(err);
+        });
+    }
+
+    IsPaid(id: number) {
+        let order = this.orders.filter(x => x.ID == id)[0];
+        order.IsPaid = true;
+        this.orderSrv.EditOrder(order).subscribe((res: any) => {
+            if (res == true) {
+                this.SetMessage("Updated successfully!");
+                setTimeout(() => {
+                    this.LoadOrder();
+                }, 1000);
+            }
+            else {
+                alert("failed");
+            }
+        }, err => {
+            console.log(err);
         });
     }
 

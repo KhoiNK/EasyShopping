@@ -27,6 +27,7 @@ export class Header implements OnInit {
     public count: number = 0;
     public mess: any[];
     public systemMess: string = "";
+    public cartitem: number;
 
     constructor(private authService: IAuthService
         , private router: Router
@@ -61,12 +62,22 @@ export class Header implements OnInit {
                 }
             });
 
+        //setInterval(() => {
+        //    if (tokenNotExpired('id_token')) {
+        //        this.GetMessCount();
+        //    }
+        //}, 3000);
         setInterval(() => {
-            if (tokenNotExpired('id_token')) {
-                this.GetMessCount();
-            }
-        }, 3000);
+            let order: any = JSON.parse(localStorage.getItem("order"));
 
+            if (order == undefined || order == null) {
+                this.cartitem = 0;
+            }
+
+            if (order != undefined || order != null) {
+                this.cartitem = order.products.length;
+            }
+        }, 1000);
     }
 
     loggedIn() {

@@ -196,6 +196,7 @@ a#scrollUp {
 
         .shop-menu ul li a i {
             margin-right: 3px;
+            font-size:20px;
         }
 
 
@@ -2144,4 +2145,7 @@ form > textarea {
     background-color: red;
     border: 0;
     color:white;
+}
+.summernote{
+
 }

@@ -32,9 +32,17 @@ namespace EasyShopping.Repository.Repository
             return true;
         }
 
+        public IEnumerable<ShipperDetail> GetAll(int pageSize, int pageIndex)
+        {
+            int skipped = (pageIndex - 1) * pageSize;
+            var result = _db.ShipperDetails.Include("User").Where(x => x.StatusId == 1).OrderByDescending(x=>x.RegDate).Skip(skipped).Take(pageSize).ToList();
+            return result;
+        }
+
         public ShipperDetail Apply(ShipperDetail data)
         {
-            try {
+            try
+            {
                 if (IsApplied(data.ShipperId.Value))
                 {
                     return null;
@@ -51,7 +59,7 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return shipper;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.InnerException.Message);
                 return null;
@@ -60,7 +68,8 @@ namespace EasyShopping.Repository.Repository
 
         public bool Update(ShipperDetail data)
         {
-            try {
+            try
+            {
                 var shipper = _db.ShipperDetails.Where(x => x.ID == data.ID).SingleOrDefault();
                 shipper.BankAccount = data.BankAccount;
                 shipper.Deposit = data.Deposit;
@@ -71,7 +80,7 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return false;
@@ -87,11 +96,12 @@ namespace EasyShopping.Repository.Repository
 
         public ShipperDetail GetById(int id)
         {
-            try {
+            try
+            {
                 var shipper = _db.ShipperDetails.Where(x => x.ID == id).SingleOrDefault();
                 return shipper;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return null;
@@ -109,7 +119,7 @@ namespace EasyShopping.Repository.Repository
                     .ToList();
                 return result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 return null;
@@ -138,14 +148,14 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var result = _db.ShipperDetails.Where(x => (x.ShipperId == userId) &&(x.StatusId == 2)).Count();
-                if(result > 0)
+                var result = _db.ShipperDetails.Where(x => (x.ShipperId == userId) && (x.StatusId == 2)).Count();
+                if (result > 0)
                 {
                     return true;
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.InnerException.Message);
                 return false;
@@ -159,7 +169,8 @@ namespace EasyShopping.Repository.Repository
                 var result = _db.ShipperDetails.Where(x => x.ShipperId == userId).Single();
                 return result;
             }
-            catch(Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e.InnerException.InnerException.Message);
                 return null;
             }

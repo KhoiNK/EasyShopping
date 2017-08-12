@@ -32,6 +32,7 @@
             'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
             'angular2-jwt': 'npm:angular2-jwt',
             'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
+            'ng2-summernote': 'npm:ng2-summernote',
             //'@agm/core': 'npm:@agm/core/core.umd.js'
             //'angularfire2': 'npm:angularfire2',
             //'firebase': 'npm:firebase',
