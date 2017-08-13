@@ -95,9 +95,9 @@
                 <div>
                     <h3>Package 2</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND100.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(100000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Total')">Purchase</button>
                 </div>
             </div>
         </div>
@@ -106,31 +106,31 @@
                 <div>
                     <h3>Package 2</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND500.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Total')">Purchase</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3" style="padding-bottom:35px">
             <div class="purchase-box">
                 <div>
-                    <h3>Package 2</h3><br />
+                    <h3>Package 3</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND2.000.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Total')">Purchase</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3" style="padding-bottom:35px">
             <div class="purchase-box">
                 <div>
-                    <h3>Package 2</h3><br />
+                    <h3>Package 4</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND10.000.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Total')">Purchase</button>
                 </div>
             </div>
         </div>
@@ -140,11 +140,11 @@
         <div class="col-md-3" style="padding-bottom:35px">
             <div class="purchase-box">
                 <div>
-                    <h3>Package 2</h3><br />
+                    <h3>Package 1</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND100.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Deposit')">Purchase</button>
                 </div>
             </div>
         </div>
@@ -153,39 +153,55 @@
                 <div>
                     <h3>Package 2</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND500.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Deposit')">Purchase</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3" style="padding-bottom:35px">
             <div class="purchase-box">
                 <div>
-                    <h3>Package 2</h3><br />
+                    <h3>Package 3</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND2.000.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Deposit')">Purchase</button>
                 </div>
             </div>
         </div>
         <div class="col-md-3" style="padding-bottom:35px">
             <div class="purchase-box">
                 <div>
-                    <h3>Package 2</h3><br />
+                    <h3>Package 4</h3><br />
                     <div>
-                        <p>Price: 200$</p>
+                        <p>Price: VND10.000.000</p>
                     </div>
-                    <button class="purchase_button">Purchase</button>
+                    <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Deposit')">Purchase</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="action_noti" id="succMess" hidden>
+<div class="action_noti" id="succMess" style="z-index:9999" hidden>
     <label style="margin:10px">{{message}}</label>
 </div>
-<div class="error_noti" id="errMess" hidden>
+<div class="error_noti" id="errMess" style="z-index:9999" hidden>
     <label style="margin:10px">{{message}}</label>
+</div>
+
+<div class="modal fade" id="packageMess" role="dialog" style="overflow:hidden" *ngIf="shipper">
+    <div class="modal-content" style="margin:100px">
+        <div class="modal-body">
+           <h2>Purchase Detail</h2>
+            <label>Name: </label><p>{{user.userName}}</p><br />
+            <label>Total: </label><p>{{shipper.Total | currency:'vnd'}}</p>
+            <label>Deposit: </label><p>{{shipper.Deposit | currency:'vnd'}}</p>
+            <label>Package: {{package.Pack}} + {{package.Total | currency:'vnd'}}</label>
+            <div id="paypalhere"></div>
+            <div id="paypal-button"></div>
+            <button hidden (click)="BuyPackage()" id="purchasebtn"></button>
+            <a class="btn btn-danger" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Close</a>
+        </div>
+    </div>
 </div>

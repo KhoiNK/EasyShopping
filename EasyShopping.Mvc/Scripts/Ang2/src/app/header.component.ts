@@ -7,6 +7,8 @@ import { tokenNotExpired } from 'angular2-jwt';
 import { MessageServices } from '../app/message/message.service';
 import { Subject } from 'rxjs/Subject';
 import { GlobalService } from './global-observable.service';
+import { OrderServices } from './order/order.service';
+import { order } from './order/Order';
 
 const PROFILE: string = 'profile',
     CART: string = 'cart';
@@ -14,7 +16,7 @@ const PROFILE: string = 'profile',
 @Component({
     selector: 'my-header',
     templateUrl: '/Home/Header',
-    providers: [UserServices, ProductService, MessageServices, GlobalService]
+    providers: [UserServices, ProductService, MessageServices, GlobalService, OrderServices]
 })
 
 export class Header implements OnInit {
@@ -28,6 +30,7 @@ export class Header implements OnInit {
     public mess: any[];
     public systemMess: string = "";
     public cartitem: number;
+    public order: order = new order();
 
     constructor(private authService: IAuthService
         , private router: Router
@@ -36,6 +39,7 @@ export class Header implements OnInit {
         , private el: ElementRef
         , private messSrv: MessageServices
         , private gloSrv: GlobalService
+        , private ordeSrv: OrderServices
     ) {
         let cacheProfile = {};
         let cartId = localStorage.getItem(CART);
@@ -61,7 +65,10 @@ export class Header implements OnInit {
                     this.isSignedIn = false;
                 }
             });
-
+        let order = JSON.parse(localStorage.getItem("order"));
+        if (order == undefined || order == null) {
+            this.SetCart();
+        }
         //setInterval(() => {
         //    if (tokenNotExpired('id_token')) {
         //        this.GetMessCount();
@@ -174,5 +181,15 @@ export class Header implements OnInit {
         this.systemMess = mess;
     }
 
-    
+    SetCart() {
+        this.ordeSrv.GetByStatus(4).subscribe((res: any) => {
+            this.order.cartID = res[0].ID;
+            var details: any[] = res[0].details;
+            details.forEach((component) => {
+                this.order.products.push(component.ID);
+            });
+            localStorage.setItem("order", JSON.stringify(this.order));
+            localStorage.setItem(CART, res[0].ID);
+        });
+    }
 }

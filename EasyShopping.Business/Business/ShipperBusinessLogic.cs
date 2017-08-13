@@ -87,5 +87,12 @@ namespace EasyShopping.BusinessLogic.Business
             var result = _repo.GetAll(pageSize, pageIndex).Translate<ShipperDetail, ShipperDetailDTO>();
             return result;
         }
+
+        public ShipperDetailDTO GetByUserID(string name)
+        {
+            var userID = _user.FindUser(name).ID;
+            var result = _repo.GetByUserId(userID);
+            return result.Translate<ShipperDetail, ShipperDetailDTO>();
+        }
     }
 }

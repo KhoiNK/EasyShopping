@@ -166,7 +166,7 @@ namespace EasyShopping.Repository.Repository
         {
             try
             {
-                var result = _db.ShipperDetails.Where(x => x.ShipperId == userId).Single();
+                var result = _db.ShipperDetails.Include("User").Where(x => x.ShipperId == userId).Single();
                 return result;
             }
             catch (Exception e)

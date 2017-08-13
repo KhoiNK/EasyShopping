@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
     templateUrl: '/Shipper/GetApproveList',
     providers: [ShipperServices]
 })
-export class ShipperListComponent {
+export class ShipperListComponent implements OnInit {
     public searchkey: number;
     public shipper: any;
     public subscription: Subscription;
@@ -17,6 +17,10 @@ export class ShipperListComponent {
     constructor(private shipperSrvc: ShipperServices) {
         this.shipper = {};
         this.page = 1;
+    }
+
+    ngOnInit() {
+        this.LoadData();
     }
 
     LoadData() {

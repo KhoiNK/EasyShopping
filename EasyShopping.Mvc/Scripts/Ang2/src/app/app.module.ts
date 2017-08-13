@@ -17,6 +17,7 @@ import { SliderComponent } from './slider.component';
 import { SearchPageComponent } from './searchpage.component';
 import { routing } from './app.routing';
 import { GlobalService } from './global-observable.service';
+import { DistanceService } from './upload/distance.service';
 
 @NgModule({
     imports: [
@@ -54,7 +55,8 @@ import { GlobalService } from './global-observable.service';
             },
             noJwtError: true
         }),
-        GlobalService
+        GlobalService,
+        DistanceService
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

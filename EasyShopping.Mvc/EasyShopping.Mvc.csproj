@@ -18,7 +18,7 @@
     <AssemblyName>EasyShopping.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -436,6 +436,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.routing.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\base64Encode.service.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\distance.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\upload\upload-image.service.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\user\user-edit.component.ts" />
@@ -475,7 +476,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>8148</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://easyshop.local</IISUrl>
+          <IISUrl>http://localhost:8148/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

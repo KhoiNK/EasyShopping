@@ -47,4 +47,8 @@ export class ShipperServices {
     GetAll(pageIndex: number): Observable<any> {
         return this._http.get(this.apiUrl + "/GetAll/" + pageIndex).map(res => res.json());
     }
+
+    GetByUser(): Observable<any> {
+        return this._http.get(this.apiUrl).map(res => res.json());
+    }
 }

@@ -87,6 +87,7 @@ export class AuthService extends IAuthService {
         localStorage.removeItem(REFRESH_TOKEN);
         localStorage.removeItem(PROFILE);
         localStorage.removeItem(CART);
+        localStorage.removeItem("order");
         
         this._authSubject.next({
             isAuthenticated: false,

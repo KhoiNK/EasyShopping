@@ -27,6 +27,24 @@ namespace EasyShopping.Api.Controllers
             return Ok(result);
         }
 
+
+        [HttpGet]
+        [Authorize]
+        [ActionName("GetByUser")]
+        public IHttpActionResult GetByUser()
+        {
+            try
+            {
+                var identity = (ClaimsIdentity)User.Identity;
+                var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
+                return Ok(_business.GetByUserID(name));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet]
         [ActionName("GetByStore")]
         [Authorize]
@@ -109,7 +127,8 @@ namespace EasyShopping.Api.Controllers
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
                 return Ok(_business.Reject(id));
             }
-            catch {
+            catch
+            {
                 return BadRequest();
             }
         }

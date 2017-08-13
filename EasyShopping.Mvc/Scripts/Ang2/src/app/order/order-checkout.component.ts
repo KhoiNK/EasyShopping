@@ -6,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { AgmCoreModule, MapsAPILoader, SebmGoogleMapMarker } from 'angular2-google-maps/core';
 import { UserServices } from '../user/user.service';
 import { GlobalService } from '../global-observable.service';
+import { DistanceService } from '../upload/distance.service';
 
 const CART: string = "cart";
 @Component({
@@ -39,7 +40,8 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         , private mapsAPILoader: MapsAPILoader
         , private ngZone: NgZone
         , private userSrv: UserServices
-        , private gloSrv: GlobalService) {
+        , private gloSrv: GlobalService
+        , private distenaceSrv: DistanceService) {
         this.order = {};
         this.user = {};
     }
@@ -125,7 +127,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         }, err => {
             console.log(err);
         });
-        
+
         this.userSrv.GetUserDetail().subscribe((res: any) => {
             this.user = res;
         }, err => {
@@ -142,8 +144,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
                 if (component.types[0] == 'country') { this.order.Country = component.short_name; }
             });
         }
-        else
-        {
+        else {
             this.order.Address = this.user.Address;
             this.order.District = this.user.District;
             this.order.City = this.user.City;
@@ -154,6 +155,12 @@ export class CheckOutComponent implements OnInit, OnDestroy {
     }
 
     CheckOut(order: any) {
+        let distance: any = {};
+        this.distenaceSrv.Distance(this.order.Address, "Ha%20Noi").subscribe((res: any) => {
+            distance = res;
+        }, err => {
+            console.log(err);
+        });
         this.order.Note = this.note + "Phone:" + this.phone;
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
@@ -163,8 +170,8 @@ export class CheckOutComponent implements OnInit, OnDestroy {
                 setTimeout(() => {
                     this.router.navigate(['/']);
                 }, 3000);
-                
-            } 
+
+            }
             else {
                 this.SetErrMess("Checked out failed!");
             }
