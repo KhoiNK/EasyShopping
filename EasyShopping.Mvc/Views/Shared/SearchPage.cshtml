@@ -22,7 +22,7 @@
     <template [ngIf]="products">
         <div *ngFor="let product of products">
             <template [ngIf]="product.Status == 'Available'">
-                <div class="col-sm-3">
+                <div class="col-sm-3 product-card">
                     <a class="product-image-wrapper" [routerLink]="['/products/product-detail', product.ID]">
                         <div class="single-products">
                             <div class="productinfo text-center">

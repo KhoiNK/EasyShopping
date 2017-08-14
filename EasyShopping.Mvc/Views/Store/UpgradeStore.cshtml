@@ -13,9 +13,9 @@
                 <h3>Package 1</h3><br />
                 <div>
                     <p>Product slot: 10 slots</p>
-                    <p>Price: 100$</p>
+                    <p>Price: 100.000</p>
                 </div>
-                <button class="purchase_button" (click)="Purchase(1)">Purchase</button>
+                <button class="purchase_button" onclick="payment(100000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(1,10)">Purchase</button>
             </div>
         </div>
     </div>
@@ -25,9 +25,9 @@
                 <h3 >Package 2</h3><br />
                 <div>
                     <p>Product slot: 30 slots</p>
-                    <p>Price: 200$</p>
+                    <p>Price: 500.000</p>
                 </div>
-                <button class="purchase_button" (click)="Purchase(2)">Purchase</button>
+                <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2,30)">Purchase</button>
             </div>
         </div>
     </div>
@@ -37,9 +37,9 @@
                 <h3 style="text-align:center">Package 3</h3><br />
                 <div>
                     <p>Product slot: 50 slots</p>
-                    <p>Price: 300$</p>
+                    <p>Price: 2.000.000</p>
                 </div>
-                <button class="purchase_button" (click)="Purchase(3)">Purchase</button>
+                <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(3,50)">Purchase</button>
             </div>
         </div>
     </div>
@@ -49,9 +49,9 @@
                 <h3>Package 4</h3><br />
                 <div>
                     <p>Product slot: 100 slots</p>
-                    <p>Price: 500$</p>
+                    <p>Price: 10.000.000</p>
                 </div>
-                <button class="purchase_button" (click)="Purchase(4)">Purchase</button>
+                <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(4,100)">Purchase</button>
             </div>
         </div>
     </div>
@@ -61,4 +61,18 @@
 </div>
 <div class="error_noti" id="errMess" hidden>
     <label style="margin:10px">{{message}}</label>
+</div>
+<div class="modal fade" id="packageMess" role="dialog" style="overflow:hidden" *ngIf="store">
+    <div class="modal-content" style="margin:10% 30% 0 30%;">
+        <div class="modal-body">
+            <h2>Purchase Detail</h2>
+            <label>Name: </label><p>{{store.Name}}</p>
+            <label>Available products: </label><p>{{store.LimitProduct}}</p>
+            <label>Package: {{packageid}} - {{slot}} slots</label>
+            <div id="paypalhere"></div>
+            <div id="paypal-button"></div>
+            <button hidden (click)="Purchase()" id="purchasebtn"></button>
+            <a class="btn btn-danger" style="bottom: 6px;position: absolute;right: 3px;" data-dismiss="modal">Close</a>
+        </div>
+    </div>
 </div>

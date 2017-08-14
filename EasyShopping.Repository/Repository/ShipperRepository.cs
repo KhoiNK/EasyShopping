@@ -35,7 +35,7 @@ namespace EasyShopping.Repository.Repository
         public IEnumerable<ShipperDetail> GetAll(int pageSize, int pageIndex)
         {
             int skipped = (pageIndex - 1) * pageSize;
-            var result = _db.ShipperDetails.Include("User").Where(x => x.StatusId == 1).OrderByDescending(x=>x.RegDate).Skip(skipped).Take(pageSize).ToList();
+            var result = _db.ShipperDetails.Include("User").OrderByDescending(x=>x.RegDate).Skip(skipped).Take(pageSize).ToList();
             return result;
         }
 
@@ -172,6 +172,32 @@ namespace EasyShopping.Repository.Repository
             catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.InnerException.Message);
+                return null;
+            }
+        }
+
+        public ShippingDetail GetShipper(int orderid)
+        {
+            try {
+                var result = _db.ShippingDetails.Include("ShipperDetail").Where(x => x.OrderID == orderid).SingleOrDefault();
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public ShipperDetail GetByStoreOrder(int orderId)
+        {
+            try {
+                var shipping = _db.ShippingDetails.Where(x => (x.OrderID == orderId) && (x.IsReject == false)).Single();
+                var result = _db.ShipperDetails.Include("User").Where(x => x.ID == shipping.ShipperID).Single();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
                 return null;
             }
         }

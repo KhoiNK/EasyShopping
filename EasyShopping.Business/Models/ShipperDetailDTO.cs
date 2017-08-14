@@ -9,6 +9,7 @@ namespace EasyShopping.BusinessLogic.Models
     {
         public int ID { get; set; }
         public Nullable<int> ShipperId { get; set; }
+        public string Shipper { get; set; }
         public Nullable<System.DateTime> RegDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
         public Nullable<int> StatusId { get; set; }

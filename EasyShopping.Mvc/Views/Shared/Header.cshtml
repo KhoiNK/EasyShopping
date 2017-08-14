@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box search_recommend">
-                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" (keyup.enter)="SetSearchKey()" [(ngModel)]="searchkey" />
+                        <input type="text" placeholder="Search" (keyup)="SearchProduct()" (keyup.enter)="SetSearchKey()" [(ngModel)]="searchkey" id="headersearch"/>
                         <ul *ngIf="products" id="searchResult">
                             <li *ngFor="let product of products">
                                 <a [routerLink]="['/products/product-detail', product.ID]">{{product.Name}}</a>

@@ -14,8 +14,12 @@ export class partnerListComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
     public partners: any[];
     public storeId: number;
+    public message: string;
 
-    constructor(private partnerservice: PartnerService, private activateRoute: ActivatedRoute, private router: Router) {
+    constructor(private partnerservice: PartnerService
+        , private activateRoute: ActivatedRoute
+        , private router: Router
+        , private el: ElementRef) {
 
     };
 
@@ -50,7 +54,7 @@ export class partnerListComponent implements OnInit, OnDestroy {
         if (result) {
             this.partnerservice.RemovePartner(id).subscribe((res: any) => {
                 if (res == true) {
-                    alert("Remove Successfully!");
+                    this.SetMessage("Updated successfully!");
                     this.LoadData();
                 }
                 else {
@@ -60,6 +64,24 @@ export class partnerListComponent implements OnInit, OnDestroy {
                 console.log(err);
             });
         }
+    }
+
+    SetMessage(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#cartMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        let inputel: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
+        this.message = mess;
+        inputel.removeAttribute('hidden');
+        setTimeout(() => {
+            inputel.hidden = true;
+        }, 5000);
     }
 
     ngOnDestroy() {

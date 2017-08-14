@@ -220,6 +220,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("Province")
                 .Include("OrderStatu")
                 .Include("ShippingDetails")
+                .Include("OrderDetails")
                 .Where(x => (x.StoreId == id) && (x.StatusID != WAITINGFORSHIPPING) && (x.StatusID != ORDERING))
                 .OrderBy(x=>x.IsPaid)
                 .ToList();

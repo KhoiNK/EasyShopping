@@ -195,7 +195,6 @@ export class StoreAddComponent implements OnInit {
                     }, 1000);
                 }
                 if (res.ID) {
-                    alert("Added Successfully!");
                     this.store = res;
                     let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#modalClick');
                     inputEl.click();

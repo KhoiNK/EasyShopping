@@ -1,5 +1,5 @@
 ﻿@Html.Partial("~/Views/Shared/SideBar.cshtml")
-<div class="col-sm-9 padding-right">
+<div class="col-sm-9 padding-right" *ngIf="store.StatusId != 2">
     <ul class="nav nav-tabs" (change)="ResetValue()">
         <li><a data-toggle="tab" href="#menu">Store</a></li>
         <li *ngIf="store.IsRecruiting == true || isOwner"><a data-toggle="tab" href="#menu1">Recruitment</a></li>
@@ -174,7 +174,7 @@
 <div class="action_noti" id="storeMess" hidden>
     <label style="margin:10px">{{message}}</label>
 </div>
-<ng2-summernote [(ngModel)]="recruit.Requirement" height="500" lang="vi-VN" ngDefaultControl><p>asdasdas</p></ng2-summernote>
+
 
 
 

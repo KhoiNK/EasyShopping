@@ -1,12 +1,18 @@
-﻿<div class="col-sm-9">
+﻿<div class="col-sm-7">
     <div style="display: -webkit-box; position:relative">
-        <input [(ngModel)]="searchkey" class="search_box form-control" (keyup)="LoadData()" />
+        <input [(ngModel)]="searchkey" class="search_box form-control" (keyup.enter)="SearchShipper()" />
     </div>
-    <table class="table" *ngIf="shipper">
+    <table class="table" *ngIf="shippers">
         <thead>
             <tr>
                 <td>
+                     
+                </td>
+                <td>
                     ID
+                </td>
+                <td>
+                    Username
                 </td>
                 <td>
                     Action
@@ -15,9 +21,51 @@
         </thead>
         <tbody>
             <tr *ngFor="let ship of shippers">
+                <td>
+                    <a style="color: #425161;" href="javascript:void(0)" (click)="SetShipper(ship.ID)"><i class="fa fa-pencil-square-o" aria-hidden="true" (click)="SetShipper(ship.ID)"></i></a>
+                </td>
                 <td>{{ship.ID}}</td>
-                <td><button class="btn btn-success" (click)="Approve(shipper.ID)" *ngIf="shipper.StatusId == 1">Approve</button></td>
+                <td>{{ship.Shipper}}</td>
+                <td><button class="btn btn-success" (click)="Approve(ship.ID)" *ngIf="ship.StatusId == 1">Approve</button></td>
             </tr>
         </tbody>
     </table>
+</div>
+<div class="col-sm-5" *ngIf="shipper != {}">
+    <div class="add-form" style="margin-left:0px">
+        <h2>Edit Shipper</h2>
+        <div class="form" style="height:500px; max-height:500px">
+            <div class="form_row">
+                <label>ID:</label>
+                <p>{{shipper.ID}}</p>
+            </div>
+            <div class="form_row">
+                <label>Username:</label>
+                <p>{{shipper.Shipper}}</p>
+            </div>
+            <div class="form_row">
+                <label>Register date:</label>
+                <p>{{shipper.RegDate | date}}</p>
+            </div>
+            <div class="form_row">
+                <label>Deposit:</label>
+                <p>Recent deposit: {{shipper.Deposit | currency:'vnd'}}</p>
+                <input type="text" [(ngModel)]="Deposit" class="form_name" style="width:100%" />
+            </div>
+            <div class="form_row">
+                <label>Total:</label>
+                <p>Recent total: {{shipper.Total | currency:'vnd'}}</p>
+                <input type="text" [(ngModel)]="Total" class="form_name" style="width:100%" />
+            </div>
+            <div class="form_row">
+                <button class="btn btn-success" (click)="SaveChange()">Apply</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="action_noti" id="succMess" hidden>
+    <label style="margin:10px">Added successfully!</label>
+</div>
+<div class="error_noti" id="errMess" hidden>
+    <label style="margin:10px">{{message}}</label>
 </div>

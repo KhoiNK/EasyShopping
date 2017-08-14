@@ -23,6 +23,7 @@ namespace EasyShopping.BusinessLogic.Business
         private CountryRepository _country;
         private DistrictRepository _district;
         private MessageBusinessLogic _message;
+        private ShipperRepository _shipper;
         #endregion
         #region CONSTANT
         private const int ORDERING = 4;
@@ -46,6 +47,7 @@ namespace EasyShopping.BusinessLogic.Business
             _city = new CityRepository();
             _district = new DistrictRepository();
             _message = new MessageBusinessLogic();
+            _shipper = new ShipperRepository();
         }
 
         public OrderViewDTO CreateOrder(string username, int productId)
@@ -182,7 +184,7 @@ namespace EasyShopping.BusinessLogic.Business
                     dto.Total = dto.Total + (detail.Quantity * detail.Price);
                     dto.Price = dto.Price + (detail.Quantity * detail.Weight);
                 }
-                dto.Price = dto.Price * 50;
+                dto.Price = dto.Price * 5;
                 var result = _repo.UpdateOrder(dto.Translate<OrderDTO, Order>());
                 if (result)
                 {
@@ -234,7 +236,7 @@ namespace EasyShopping.BusinessLogic.Business
                             newOrder.Price = newOrder.Price + (c.Quantity.Value * c.Product.Weight);
                             details.TryRemove(c.ID, out temp);
                         }
-                        newOrder.Price = 50 * newOrder.Price;
+                        newOrder.Price = 5 * newOrder.Price;
                         _repo.UpdateOrder(newOrder.Translate<OrderDTO, Order>());
                         var mess = new MessageDTO();
                         mess.Description = "checked out order " + newOrder.ID;
@@ -357,18 +359,19 @@ namespace EasyShopping.BusinessLogic.Business
 
         public IEnumerable<OrderViewDTO> GetByStore(int storeID)
         {
-            var result = _repo.GetByStore(storeID).Translate<Order, OrderViewDTO>();
+            var orders = _repo.GetByStore(storeID);
+            var result = orders.Translate<Order, OrderViewDTO>();
+            var shipdetail = new ShippingDetail();
+
             foreach (var order in result)
             {
-                order.details = GetOrderDetail(order.ID);
-                var shipdetail = new ShippingDetail();
-                try { shipdetail = _repo.GetById(order.ID).ShippingDetails.Where(x => x.OrderID == order.ID).Single(); }
-                catch { shipdetail = null; }
-                if (shipdetail != null)
+                order.details = orders.Where(x => x.ID == order.ID).Single().OrderDetails.ToList().Translate<OrderDetail, OrderDetailDTO>();
+
+                if (orders.Where(x => x.ID == order.ID).Single().IsTaken == true)
                 {
-                    var user = _user.FindByID(shipdetail.ShipperID.Value);
-                    order.Shipper = user.UserName;
-                    order.ShipperID = shipdetail.ShipperID.Value;
+                    var shipper = _shipper.GetByStoreOrder(order.ID);
+                    order.Shipper = shipper.User.UserName;
+                    order.ShipperID = shipper.User.ID;
                 }
             }
             return result;

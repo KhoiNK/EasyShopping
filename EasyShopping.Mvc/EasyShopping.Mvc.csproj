@@ -239,6 +239,8 @@
     <Content Include="Content\img\home\searchicon.png" />
     <Content Include="Content\img\home\shipping.jpg" />
     <Content Include="Content\img\map.png" />
+    <Content Include="Content\img\payment\package.PNG" />
+    <Content Include="Content\img\payment\Purchase detail.PNG" />
     <Content Include="Content\img\shipper\02_hero_banner.jpg" />
     <Content Include="Content\img\shipper\234171-market-and-economics.png" />
     <Content Include="Content\img\shipper\5.jpg" />

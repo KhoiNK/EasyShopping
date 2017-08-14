@@ -147,7 +147,11 @@ namespace EasyShopping.BusinessLogic.Models
                 cfg.CreateMap<Role, RoleDTO>();
 
                 cfg.CreateMap<ShipperDetailDTO, ShipperDetail>();
-                cfg.CreateMap<ShipperDetail, ShipperDetailDTO>();
+                cfg.CreateMap<ShipperDetail, ShipperDetailDTO>()
+                .ForMember(
+                    dto => dto.Shipper,
+                    opt =>opt.MapFrom(entity => entity.User.UserName)
+                 );
 
                 cfg.CreateMap<ShipperRatingDTO, ShipperRating>();
                 cfg.CreateMap<ShipperRating, ShipperRatingDTO>();

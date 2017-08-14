@@ -28,6 +28,8 @@ namespace EasyShopping.BusinessLogic.Business
             data.RegDate = DateTime.Now;
             data.StatusId = WAITINGFORAPPROVE;
             data.ShipperId = _user.FindUser(username).ID;
+            data.Deposit = 0;
+            data.Total = 0;
             return _repo.Apply(data.Translate<ShipperDetailDTO, ShipperDetail>()).Translate<ShipperDetail, ShipperDetailDTO>();
         }
 
@@ -75,8 +77,17 @@ namespace EasyShopping.BusinessLogic.Business
         public bool BuyPackage(ShipperDetailDTO data, string name)
         {
             var userId = _user.FindUser(name).ID;
-            var shipper = _repo.GetByUserId(userId);
+            var shipper = new ShipperDetail();
+            if(userId != 1)
+            {
+                shipper = _repo.GetByUserId(userId);
+            }
+            else
+            {
+                shipper = _repo.GetByUserId(data.ShipperId.Value);
+            }
             shipper.Deposit = shipper.Deposit.Value + data.Deposit;
+            shipper.RecentBalance = shipper.RecentBalance + data.Deposit;
             shipper.Total = shipper.Total.Value + data.Total;
             var result = _repo.Update(shipper);
             return result;

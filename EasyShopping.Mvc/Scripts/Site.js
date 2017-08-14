@@ -16,10 +16,22 @@ window.onclick = function (e) {
             }
         }
     }
+    if (!e.target.matches('#headersearch')) {
+        var myDropdown = document.getElementById("searchResult");
+        if (myDropdown != null) {
+            
+            myDropdown.hidden = true;
+        }
+    }
+    if (e.target.matches('#headersearch')) {
+        var myDropdown = document.getElementById("searchResult");
+        myDropdown.removeAttribute('hidden');
+    }
 }
 
 function payment(e) {
     var totalPrice = e * 0.00004;
+    totalPrice =  parseInt(totalPrice);
     var element = document.getElementById("paypal-button");
     if (element != null) {
         element.parentNode.removeChild(element);

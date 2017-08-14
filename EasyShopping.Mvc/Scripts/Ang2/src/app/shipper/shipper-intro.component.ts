@@ -59,9 +59,11 @@ export class ShipperIntroComponent implements OnInit {
     BuyPackage() {
         if (this.package.Pack == "Total") {
             this.shipper.Total = this.package.Total;
+            this.shipper.Deposit = 0;
         }
         if (this.package.Pack == "Deposit") {
             this.shipper.Deposit = this.package.Total;
+            this.shipper.Total = 0;
         }
         this.shipperSrv.BuyPackage(this.shipper).subscribe((res: any) => {
             if (res == true) {

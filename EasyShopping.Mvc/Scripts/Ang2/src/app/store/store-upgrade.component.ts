@@ -16,6 +16,8 @@ export class StoreUpgradeComponent implements OnInit, OnDestroy {
     public subcription: Subscription;
     public package: any;
     public message: string;
+    public packageid: number;
+    public slot: number;
 
     constructor(private storeSrv: StoreServices, private el: ElementRef, private activatedRoute: ActivatedRoute) {
         this.store = {};
@@ -37,9 +39,14 @@ export class StoreUpgradeComponent implements OnInit, OnDestroy {
         });
     }
 
-    Purchase(id: number) {
+    SetPackage(id: number, slot: number) {
+        this.packageid = id;
+        this.slot = slot;
+    }
+
+    Purchase() {
         this.package.ObjectID = this.storeId;
-        this.package.PackageID = id;
+        this.package.PackageID = this.packageid;
         this.storeSrv.UpgradeStore(this.package).subscribe((res: any) => {
             if (res == true) {
                 this.SetMessage("Purchased successfully!");

@@ -21,6 +21,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("GetAll")]
+        [Authorize(Roles =Constants.Roles.Admin)]
         public IHttpActionResult GetAll(int id)
         {
             var result = ApiTranslators.Translate<ShipperDetailDTO, ShipperDetailApiModel>(_business.GetAll(id, 10));
@@ -119,6 +120,7 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("Reject")]
+        [Authorize(Roles =Constants.Roles.Admin)]
         public IHttpActionResult Reject(int id)
         {
             try
