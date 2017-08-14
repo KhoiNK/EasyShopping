@@ -160,8 +160,13 @@ export class CheckOutComponent implements OnInit, OnDestroy {
             distance = res;
         }, err => {
             console.log(err);
-        });
-        this.order.Note = this.note + "Phone:" + this.phone;
+            });
+        if (this.flag == true && this.phone != undefined) {
+            this.order.Note = this.note + "Phone:" + this.phone;
+        } else {
+            this.order.Note = this.note + "Phone:" + this.user.Phone;
+        }
+        
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
                 localStorage.removeItem(CART);

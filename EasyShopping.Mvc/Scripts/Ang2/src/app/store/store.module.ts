@@ -13,6 +13,7 @@ import { StoreApproveList } from './store-approve-list.component';
 import { StoreEditComponent } from './store-edit.component';
 import { StoreUpgradeComponent } from './store-upgrade.component';
 import { StoreIntroComponent } from './store-intro.component';
+import { GetOrderByStoreComponent } from './store-getorderbystoreId.component';
 
 //import { GoogleMapComponent } from '../commonService/google-map.component';
 
@@ -33,7 +34,8 @@ import { StoreIntroComponent } from './store-intro.component';
         StoreApproveList,
         StoreEditComponent,
         StoreUpgradeComponent,
-        StoreIntroComponent
+        StoreIntroComponent,
+        GetOrderByStoreComponent
         //GoogleMapComponent
     ],
     providers: [

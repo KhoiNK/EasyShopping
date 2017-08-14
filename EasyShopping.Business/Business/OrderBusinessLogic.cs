@@ -372,6 +372,7 @@ namespace EasyShopping.BusinessLogic.Business
                     var shipper = _shipper.GetByStoreOrder(order.ID);
                     order.Shipper = shipper.User.UserName;
                     order.ShipperID = shipper.User.ID;
+                    order.ShippingId = shipper.ShippingDetails.Where(x => x.OrderID == order.ID && x.IsReject == false).Single().ID;
                 }
             }
             return result;

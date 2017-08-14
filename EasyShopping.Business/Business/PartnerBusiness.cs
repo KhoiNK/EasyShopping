@@ -11,12 +11,20 @@ namespace EasyShopping.BusinessLogic.Business
 {
     public class PartnerBusiness
     {
-        PartnerRepository _repo;
-        UserBusinessLogic _user;
+        private PartnerRepository _repo;
+        private UserBusinessLogic _user;
+        private StoreRepository _store;
+        private MessageRepository _mess;
+
+        private const int MESS_PARTNER = 5;
+        private const int MESS_STORE = 3;
+
         public PartnerBusiness()
         {
             _repo = new PartnerRepository();
             _user = new UserBusinessLogic();
+            _store = new StoreRepository();
+            _mess = new MessageRepository();
         }
 
         public bool IsApplied(int storeId, string username)
@@ -28,13 +36,24 @@ namespace EasyShopping.BusinessLogic.Business
         public bool Apply(string name, int storeId)
         {
             var partner = new PartnerDTO();
+            var user = _user.GetByName(name).Result;
+            var store = _store.FindByID(storeId);
             partner.ModifiedDate = DateTime.Now;
-            partner.UseID = _user.GetByName(name).Result.ID;
+            partner.UseID = user.ID;
             partner.StoreID = storeId;
             partner.CreatedDate = DateTime.Now;
             partner.isWorking = false;
             if (_repo.Apply(partner.Translate<PartnerDTO, Partner>()) != null)
             {
+                var mess = new Message();
+                mess.CreatedDate = DateTime.Now;
+                mess.DataID = storeId;
+                mess.Description = user.UserName + " just applied to your store " + store.Name;
+                mess.IsRead = false;
+                mess.MessageType = MESS_PARTNER;
+                mess.SentID = store.UserID;
+                mess.FromID = user.ID;
+                _mess.CreateMessage(mess);
                 return true;
             }
             return false;
@@ -71,9 +90,19 @@ namespace EasyShopping.BusinessLogic.Business
         {
             
             var partner = FindById(id);
+            var store = _store.FindByID(partner.StoreID);
             partner.ModifiedID = _user.GetByName(name).Result.ID;
             partner.ModifiedDate = DateTime.Now;
             partner.isWorking = true;
+            var mess = new Message();
+            mess.CreatedDate = DateTime.Now;
+            mess.DataID = partner.StoreID;
+            mess.Description = "Your apply to store " + store.Name + " is accepted.";
+            mess.IsRead = false;
+            mess.MessageType = MESS_STORE;
+            mess.SentID = partner.UseID;
+            mess.FromID = store.UserID;
+            _mess.CreateMessage(mess);
             return _repo.Edit(partner.Translate<PartnerDTO, Partner>());
         }
 

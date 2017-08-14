@@ -25,7 +25,9 @@ window.onclick = function (e) {
     }
     if (e.target.matches('#headersearch')) {
         var myDropdown = document.getElementById("searchResult");
-        myDropdown.removeAttribute('hidden');
+        if (myDropdown != null) {
+            myDropdown.removeAttribute('hidden');
+        }
     }
 }
 

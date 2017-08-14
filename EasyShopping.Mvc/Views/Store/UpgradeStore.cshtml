@@ -1,8 +1,74 @@
 ﻿<div class="container">
-    <div class="row">
-        This is message.
+    <div class="row" style="padding:0 10px 0 10px">
+        <h1>Payment Instrument</h1>
+        <p>
+            Payment instruments and schemes are an essential part of payment systems. Cards, credit transfers, direct debits and e-money are non-cash payment instruments with which end users of payment systems transfer funds between accounts at banks or other financial institutions.
+        </p>
+        <p>
+            Providing and using payment instruments generally does not generate systemic risk. However, these instruments must be extremely safe and efficient to maintain confidence in the currency and promote an efficient economy.
+        </p>
+        <a href="javascript:void(0)">
+            <div data-toggle="collapse" data-target="#onlinepayment" class="payment-link">
+                <div>
+                    <i class="fa fa-plus-square" aria-hidden="true">
+                    </i>
+                </div>
+                <p>Online payment</p>
+            </div>
+        </a>
+        <div class="collapse payment-intro" id="onlinepayment">
+            <div>
+                <img src="https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg" /><br />
+                <a href="https://www.paypal.com/us/webapps/mpp/popup/about-payment-methods">Read more about paypal's payment instrument</a>
+                <div>
+                    <h2>Instrument</h2>
+                    <label>Step 1: Choose your package</label>
+                    <p>Scroll down and you will see our package for Total and Deposit</p>
+                    <p>Choose your suitable package</p>
+                    <img src="~/Content/img/payment/package.PNG" class="img-responsive" /><br />
+                    <label>Step 2: Click purchase</label>
+                    <p>Click purchase button to see your Package detail</p>
+                    <img src="~/Content/img/payment/Purchase detail.PNG" class="img-responsive" />
+                    <p>After choosing purchase a dialog with Package detail will be shown up</p>
+                    <label>Step 3: Choose paypal</label>
+                    <p>We only accept online payment using paypal.</p>
+                </div>
+            </div>
+        </div>
+        <div data-toggle="collapse" data-target="#offlinepayment">
+            <a href="javascript:void(0)">
+                <div data-toggle="collapse" data-target="#offlinepayment" class="payment-link">
+                    <div>
+                        <i class="fa fa-plus-square" aria-hidden="true">
+                        </i>
+                    </div>
+                    <p>Cash payment</p>
+                </div>
+            </a>
+        </div>
+        <div class="collapse payment-intro" id="offlinepayment">
+            <div>
+                <div>
+                    <h2>Provided Bank:</h2>
+                    <div>
+                        <h3>Vietcombank</h3>
+                        <label>Bank account: </label><p>740001568200</p>
+                        <label>Username: </label><p>
+                            Nguyen Kim Khoi
+                        </p>
+                    </div>
+                </div>
+                <h2>Instrument</h2>
+                <label>Step 1: Send your money to us</label>
+                <p>Send us money with the folowing form: </p>
+                <p style="font-weight:bold">[Shipper] *Your Username* - *money*</p>
+                <label>Step 2: Approve</label>
+                <p>After receiving your money we will raise your Total/Deposit same as the amount we have received.</p>
+
+            </div>
+        </div>
     </div>
-    <div class="row">
+    <div class="row" style="text-align:center">
         <h3>Your Recent Store</h3>
         <p>Store: {{store.Name}}</p>
         <p>Available slots: {{store.LimitProduct}}</p>

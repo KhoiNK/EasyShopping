@@ -6,7 +6,7 @@ import { routing } from './shipper.routing';
 import { ShipperComponent } from './shipper.component';
 import { ShipperApplyComponent } from './shipper-apply.component';
 import { ShipperListComponent } from './shipper-approve.component';
-import { ShipperGetByStoreComponent } from './shipper-getbystoreId.component';
+
 import { ShipperIntroComponent } from './shipper-intro.component';
 
 @NgModule({
@@ -18,7 +18,6 @@ import { ShipperIntroComponent } from './shipper-intro.component';
     ],
     declarations: [
         ShipperComponent,
-        ShipperGetByStoreComponent,
         ShipperListComponent,
         ShipperApplyComponent,
         ShipperIntroComponent

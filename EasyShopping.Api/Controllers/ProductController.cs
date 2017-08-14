@@ -73,10 +73,6 @@ namespace EasyShopping.Api.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var name = identity.Claims.Where(x => x.Type == ClaimTypes.Name).Single().Value;
-                if (!_store.IsOwner(id, name))
-                {
-                    return null;
-                }
                 var list = ApiTranslators.Translate<ProductDTO, ProductApiModel>(_business.GetApproveList(id));
                 return list;
             }

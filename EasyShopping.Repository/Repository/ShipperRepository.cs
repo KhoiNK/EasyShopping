@@ -115,7 +115,7 @@ namespace EasyShopping.Repository.Repository
                 var result = _db.ShippingDetails
                     .Include("Order")
                     .Include("ShipperDetail")
-                    .Where(x => (x.Order.StoreId == storeId) && (x.Order.StatusID == WAITING_FOR_SHIPPING) && (x.IsReject == false))
+                    .Where(x => (x.Order.StoreId == storeId) && (x.Order.StatusID == WAITING_FOR_SHIPPING) && (x.IsReject == false) && (x.Order.IsTaken == true))
                     .ToList();
                 return result;
             }
@@ -192,7 +192,7 @@ namespace EasyShopping.Repository.Repository
         {
             try {
                 var shipping = _db.ShippingDetails.Where(x => (x.OrderID == orderId) && (x.IsReject == false)).Single();
-                var result = _db.ShipperDetails.Include("User").Where(x => x.ID == shipping.ShipperID).Single();
+                var result = _db.ShipperDetails.Include("ShippingDetails").Include("User").Where(x => x.ID == shipping.ShipperID).Single();
                 return result;
             }
             catch (Exception e)

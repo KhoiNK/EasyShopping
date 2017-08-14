@@ -120,7 +120,6 @@ namespace EasyShopping.Api.Controllers
 
         [HttpGet]
         [ActionName("Reject")]
-        [Authorize(Roles =Constants.Roles.Admin)]
         public IHttpActionResult Reject(int id)
         {
             try

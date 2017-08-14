@@ -5,7 +5,6 @@ import { Http, HttpModule, RequestOptions } from '@angular/http';
 import { LocationStrategy, HashLocationStrategy, CommonModule } from '@angular/common';
 import { AuthHttp, AuthConfig, provideAuth } from 'angular2-jwt/angular2-jwt';
 import { AgmCoreModule } from 'angular2-google-maps/core';
-import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login.component';
@@ -39,8 +38,7 @@ import { DistanceService } from './upload/distance.service';
         SliderComponent,
         AppComponent,
         LoginComponent,
-        SearchPageComponent,
-        Ng2Summernote
+        SearchPageComponent
     ], 
     providers: [
         { provide: IAuthService, useClass: AuthService },

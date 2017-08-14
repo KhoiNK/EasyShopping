@@ -41,8 +41,11 @@ export class partnerListComponent implements OnInit, OnDestroy {
     Approve(id: number) {
         this.partnerservice.Approve(id).subscribe((res: any) => {
             if (res == true) {
-                alert("Approve successfully!");
-                this.LoadData();
+                this.SetMessage("Updated successfully!");
+                setTimeout(() => {
+                    this.LoadData();
+                }, 2000);
+                
             }
         }, err => {
             console.log(err);
@@ -55,7 +58,9 @@ export class partnerListComponent implements OnInit, OnDestroy {
             this.partnerservice.RemovePartner(id).subscribe((res: any) => {
                 if (res == true) {
                     this.SetMessage("Updated successfully!");
-                    this.LoadData();
+                    setTimeout(() => {
+                        this.LoadData();
+                    }, 2000);
                 }
                 else {
                     alert("Remove failed!");
@@ -72,7 +77,7 @@ export class partnerListComponent implements OnInit, OnDestroy {
         inputel.removeAttribute('hidden');
         setTimeout(() => {
             inputel.hidden = true;
-        }, 1000);
+        }, 2000);
     }
 
     SetErrMess(mess: string) {
@@ -81,7 +86,7 @@ export class partnerListComponent implements OnInit, OnDestroy {
         inputel.removeAttribute('hidden');
         setTimeout(() => {
             inputel.hidden = true;
-        }, 5000);
+        }, 2000);
     }
 
     ngOnDestroy() {

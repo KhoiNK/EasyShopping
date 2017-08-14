@@ -34,6 +34,7 @@ namespace EasyShopping.BusinessLogic.Models
         public IEnumerable<OrderDetailDTO> details { get; set; }
         public IEnumerable<OrderViewDTO> Children { get; set; }
         public Nullable<bool> IsPaid { get; set; }
+        public int ShippingId { get; set; }
 
     }
 

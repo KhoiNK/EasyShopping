@@ -1,6 +1,7 @@
 ﻿<div class="col-sm-12">
     <ul class="nav nav-tabs" (change)="ResetValue()">
         <li><a data-toggle="tab" href="#menu">Shipping list</a></li>@*Reject shipper*@
+        <li><a data-toggle="tab" href="#menu5">Waiting for shipping</a></li>
         <li><a data-toggle="tab" href="#menu1">Ordering</a></li> @*approve processing order*@
         <li><a data-toggle="tab" href="#menu2">Cancel</a></li>
         <li><a data-toggle="tab" href="#menu3">Delivering</a></li> @* Store owner can cancel in this tab *@
@@ -8,7 +9,7 @@
     </ul>
     <div class="tab-content" *ngIf="orders">
         <div id="menu" class="tab-pane fade in active">
-            <table class="table" *ngIf="shippers">
+            <table class="table">
                 <thead>
                     <tr>
                         <td>Shipper</td>
@@ -18,11 +19,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let shipper of shippers">
-                        <td>{{shipper.ShipperName}}</td>
-                        <td>{{shipper.OrderID}}</td>
-                        <td>{{shipper.Status}}</td>
-                        <td><button class="btn btn-danger" (click)="RejectShipper(shipper.ID)">Reject</button></td>
+                    <tr *ngFor="let order of orders">
+                        <template [ngIf]="order.StatusID == 1 && order.ShippingId != 0">
+                            <td>{{order.Shipper}}</td>
+                            <td>{{order.ID}}</td>
+                            <td>{{order.Status}}</td>
+                            <td><button class="btn btn-danger" (click)="RejectShipper(order.ShippingId)">Reject</button></td>
+                        </template>
                     </tr>
                 </tbody>
             </table>
@@ -32,7 +35,7 @@
                 <template [ngIf]="order.StatusID === 6">
                     <div class="row" style="padding:10px 0 10px 0; ">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
-                        <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
+                        <div class="col-sm-2">#{{order.ID}}<br /></div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                         <div class="col-sm-3" style="text-align:right">
@@ -64,7 +67,7 @@
                                         {{detail.Quantity}}
                                     </td>
                                     <td>
-                                         {{detail.Price | currency: 'VND'}}   
+                                        {{detail.Price | currency: 'VND'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -76,9 +79,9 @@
         <div id="menu2" class="tab-pane fade">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 5">
-                    <div class="row">
+                    <div class="row" style="padding:10px 0 10px 0; ">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
-                        <div class="col-sm-2">#<a [routerLink]="['order-detail', order.ID]">{{order.ID}}</a><br /></div>
+                        <div class="col-sm-2">#{{order.ID}}<br /></div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
@@ -118,7 +121,7 @@
         <div id="menu3" class="tab-pane fade">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 2">
-                    <div class="row">
+                    <div class="row" style="padding:10px 0 10px 0; ">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
                         <div class="col-sm-2">#{{order.ID}}</div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
@@ -171,6 +174,48 @@
                             <i class="fa fa-check-circle" aria-hidden="true" style="color: #5cb85c;font-size: 30px;" *ngIf="order.IsPaid == true" data-toggle="tooltip" title="This order is paid"></i>
                             <button class="btn btn-success" (click)="IsPaid(order.ID)" *ngIf="order.IsPaid == false">Paid</button>
                         </div>
+                    </div>
+                    <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <table class="table">
+                            <thead class="thead-inverse">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        Name
+                                    </td>
+                                    <td>
+                                        Quantity
+                                    </td>
+                                    <td>
+                                        Price
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let detail of order.details">
+                                    <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px" /></td>
+                                    <td>{{detail.Product}}</td>
+                                    <td>
+                                        {{detail.Quantity}}
+                                    </td>
+                                    <td>
+                                        {{detail.Price | currency:'VND'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div id="menu5" class="tab-pane fade">
+            <div *ngFor="let order of orders">
+                <template [ngIf]="order.StatusID === 1 && order.ShippingId == 0">
+                    <div class="row" style="padding-top:10px">
+                        <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
+                        <div class="col-sm-2">#{{order.ID}}</div>
+                        <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
+                        <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">

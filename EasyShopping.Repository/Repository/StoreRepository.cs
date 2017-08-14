@@ -28,8 +28,8 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x=>x.StatusID == WAITINGFORAPPROVE)
-                .OrderByDescending(x=>x.CreatedDate)
+                .Where(x => x.StatusID == WAITINGFORAPPROVE)
+                .OrderByDescending(x => x.CreatedDate)
                 .ToList()
                 .Skip(skipped);
             return stores;
@@ -54,12 +54,13 @@ namespace EasyShopping.Repository.Repository
             {
                 return null;
             }
-           
+
         }
 
         public Store Create(Store data)
         {
-            try {
+            try
+            {
                 var store = new Store();
                 store = data;
                 if (store.DistrictId == 0)
@@ -71,7 +72,7 @@ namespace EasyShopping.Repository.Repository
                 _db.SaveChanges();
                 return FindByID(store.ID);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.StackTrace);
                 Console.WriteLine(e.InnerException.InnerException.Message);
@@ -87,7 +88,7 @@ namespace EasyShopping.Repository.Repository
             {
                 var store = _db.Stores.Where(x => x.ID == id).Single();
                 var products = _db.Products.Where(s => s.StoreID == store.ID).ToList();
-                foreach(var p in products)
+                foreach (var p in products)
                 {
                     p.StatusID = REMOVE;
                 }
@@ -125,7 +126,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => x.Name.Contains(name) && (x.StatusID == OPEN))
+                .Where(x => x.Name.Contains(name) && ((x.StatusID == OPEN) || (x.StatusID == WAITINGFORAPPROVE)))
                 .ToList();
         }
 
@@ -137,7 +138,7 @@ namespace EasyShopping.Repository.Repository
                 .Include("District")
                 .Include("Country")
                 .Include("Province")
-                .Where(x => (x.UserID == id) && (x.StatusID == OPEN)).ToList();
+                .Where(x => (x.UserID == id) && ((x.StatusID == WAITINGFORAPPROVE)||(x.StatusID == OPEN))).ToList();
             return stores;
         }
 
@@ -197,7 +198,7 @@ namespace EasyShopping.Repository.Repository
                 return false;
             }
         }
-        
+
         public IEnumerable<Order> GetStoreOrders(int id)
         {
             var orders = _db.Orders.Where(x => x.StoreId == id).ToList();

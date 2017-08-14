@@ -241,6 +241,8 @@
     <Content Include="Content\img\map.png" />
     <Content Include="Content\img\payment\package.PNG" />
     <Content Include="Content\img\payment\Purchase detail.PNG" />
+    <Content Include="Content\img\payment\store selling slot.PNG" />
+    <Content Include="Content\img\payment\store-packages.PNG" />
     <Content Include="Content\img\shipper\02_hero_banner.jpg" />
     <Content Include="Content\img\shipper\234171-market-and-economics.png" />
     <Content Include="Content\img\shipper\5.jpg" />
@@ -419,7 +421,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\searchpage.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-apply.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-approve.component.ts" />
-    <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-getbystoreId.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-getorderbystoreId.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper-intro.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\shipper\shipper.module.ts" />

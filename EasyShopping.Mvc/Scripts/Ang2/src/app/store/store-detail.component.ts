@@ -7,7 +7,6 @@ import { PartnerService } from '../partner/partner.service';
 import { ProductService } from '../product/product.service';
 import { ProductTypeService } from '../product/product-type.service';
 import { RecruitServices } from '../recruitment/recruitment.service';
-import { Ng2Summernote } from 'ng2-summernote/ng2-summernote';
 import { order } from '../order/Order';
 
 @Component({
@@ -78,16 +77,7 @@ export class StoreDetailComponent implements OnInit {
                 console.log(err);
             });
 
-            this.recruitSrv.GetByStore(this.id).subscribe((res: any) => {
-                if (res != null) {
-                    this.recruit = res;
-                }
-                else {
-                    this.recruit = {};
-                }
-            }, err => {
-                console.log(err);
-                });
+            
         });
         
     }
@@ -188,6 +178,19 @@ export class StoreDetailComponent implements OnInit {
             console.log(err);
         });
         
+    }
+
+    GetRecruitment() {
+        this.recruitSrv.GetByStore(this.id).subscribe((res: any) => {
+            if (res != null) {
+                this.recruit = res;
+            }
+            else {
+                this.recruit = {};
+            }
+        }, err => {
+            console.log(err);
+        });
     }
 
     DisableRecruitment() {
