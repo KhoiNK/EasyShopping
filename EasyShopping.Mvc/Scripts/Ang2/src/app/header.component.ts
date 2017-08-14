@@ -69,11 +69,11 @@ export class Header implements OnInit {
         if (order == undefined || order == null) {
             this.SetCart();
         }
-        //setInterval(() => {
-        //    if (tokenNotExpired('id_token')) {
-        //        this.GetMessCount();
-        //    }
-        //}, 3000);
+        setInterval(() => {
+            if (tokenNotExpired('id_token')) {
+                this.GetMessCount();
+            }
+        }, 3000);
         setInterval(() => {
             let order: any = JSON.parse(localStorage.getItem("order"));
 

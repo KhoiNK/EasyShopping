@@ -1,8 +1,6 @@
 ﻿import { Component, OnInit, ElementRef } from '@angular/core';
 import { ShipperServices } from './shipper.service';
 import { UserServices } from '../user/user.service';
-import { Http } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt/angular2-jwt';
 
 @Component({
     selector: 'shipper-intro',
@@ -22,7 +20,7 @@ export class ShipperIntroComponent implements OnInit {
     constructor(private shipperSrv: ShipperServices
         , private el: ElementRef
         , private userSrv: UserServices
-        , private _http: AuthHttp) {
+        ) {
         this.package = {};
         this.shipper = {};
         this.user = {};

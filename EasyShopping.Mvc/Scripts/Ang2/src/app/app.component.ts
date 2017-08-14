@@ -6,7 +6,7 @@ import { GlobalService } from './global-observable.service';
     template: `
     <my-header></my-header>
 
-    <div class="container body-content">
+    <div class="container body-content" style="min-height:500px">
         
         <router-outlet></router-outlet>
     </div>

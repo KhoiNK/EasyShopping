@@ -244,6 +244,7 @@
     <Content Include="Content\img\shipper\02_hero_banner.jpg" />
     <Content Include="Content\img\shipper\234171-market-and-economics.png" />
     <Content Include="Content\img\shipper\5.jpg" />
+    <Content Include="Content\img\shipper\Buy-Now-PNG-Pic.png" />
     <Content Include="Content\img\shipper\buynow-logo-bk.png" />
     <Content Include="Content\img\shipper\empty.png" />
     <Content Include="Content\img\shipper\icon-803718_960_720.png" />
@@ -430,6 +431,7 @@
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-approve-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-detail.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-edit.component.ts" />
+    <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-intro.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-list.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-listbyuserid.component.ts" />
     <TypeScriptCompile Include="Scripts\Ang2\src\app\store\store-upgrade.component.ts" />

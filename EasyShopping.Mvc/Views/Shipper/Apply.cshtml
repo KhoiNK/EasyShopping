@@ -112,10 +112,10 @@
                 <label>Step 1: Choose your package</label>
                 <p>Scroll down and you will see our package for Total and Deposit</p>
                 <p>Choose your suitable package</p>
-                <img src="~/Content/img/payment/package.PNG" /><br />
+                <img src="~/Content/img/payment/package.PNG" class="img-responsive"/><br />
                 <label>Step 2: Click purchase</label>
                 <p>Click purchase button to see your Package detail</p>
-                <img src="~/Content/img/payment/Purchase detail.PNG" />
+                <img src="~/Content/img/payment/Purchase detail.PNG" class="img-responsive"/>
                 <p>After choosing purchase a dialog with Package detail will be shown up</p>
                 <label>Step 3: Choose paypal</label>
                 <p>We only accept online payment using paypal.</p>
@@ -153,104 +153,110 @@
             
         </div>
     </div>
-    <div style="background-color:#425161;">
-        <img src="~/Content/img/shipper/buynow-logo-bk.png" style="padding-left: 30%" />
+    <div  style="text-align:center" href="javascript:void(0)">
+        <a href="javascript:void(0)" data-toggle="collapse" data-target="#packagediv"><img src="~/Content/img/shipper/Buy-Now-PNG-Pic.png" style="max-width: 200px;" /></a>
     </div>
+    <div id="packagediv" class="collapse">
+        @*<div style="background-color:#425161;">
+            <img src="~/Content/img/shipper/buynow-logo-bk.png" style="padding-left: 30%" />
+        </div>*@
 
-    <div class="row" style="width:100%; margin:0px; background-color:#f1f1f1">
-        <h3 style="text-align:center">Total</h3>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 2</h3><br />
+        <div class="row" style="width:100%; margin:0px; background-color:#f1f1f1">
+            <h3 style="text-align:center">Total</h3>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
                     <div>
-                        <p>Price: VND100.000</p>
+                        <h3>Package 2</h3><br />
+                        <div>
+                            <p>Price: VND100.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(100000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Total')">Purchase</button>
                     </div>
-                    <button class="purchase_button" onclick="payment(100000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Total')">Purchase</button>
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
+                    <div>
+                        <h3>Package 2</h3><br />
+                        <div>
+                            <p>Price: VND500.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Total')">Purchase</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
+                    <div>
+                        <h3>Package 3</h3><br />
+                        <div>
+                            <p>Price: VND2.000.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Total')">Purchase</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
+                    <div>
+                        <h3>Package 4</h3><br />
+                        <div>
+                            <p>Price: VND10.000.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Total')">Purchase</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 2</h3><br />
+        <div class="row" style="width:100%; margin:0px; background-color:#f1f1f1">
+            <h3 style="text-align:center">Deposit</h3>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
                     <div>
-                        <p>Price: VND500.000</p>
+                        <h3>Package 1</h3><br />
+                        <div>
+                            <p>Price: VND100.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Deposit')">Purchase</button>
                     </div>
-                    <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Total')">Purchase</button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 3</h3><br />
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
                     <div>
-                        <p>Price: VND2.000.000</p>
+                        <h3>Package 2</h3><br />
+                        <div>
+                            <p>Price: VND500.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Deposit')">Purchase</button>
                     </div>
-                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Total')">Purchase</button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 4</h3><br />
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
                     <div>
-                        <p>Price: VND10.000.000</p>
+                        <h3>Package 3</h3><br />
+                        <div>
+                            <p>Price: VND2.000.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Deposit')">Purchase</button>
                     </div>
-                    <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Total')">Purchase</button>
+                </div>
+            </div>
+            <div class="col-md-3" style="padding-bottom:35px">
+                <div class="purchase-box">
+                    <div>
+                        <h3>Package 4</h3><br />
+                        <div>
+                            <p>Price: VND10.000.000</p>
+                        </div>
+                        <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Deposit')">Purchase</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" style="width:100%; margin:0px; background-color:#f1f1f1">
-        <h3 style="text-align:center">Deposit</h3>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 1</h3><br />
-                    <div>
-                        <p>Price: VND100.000</p>
-                    </div>
-                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(100000, 'Deposit')">Purchase</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 2</h3><br />
-                    <div>
-                        <p>Price: VND500.000</p>
-                    </div>
-                    <button class="purchase_button" onclick="payment(500000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(500000, 'Deposit')">Purchase</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 3</h3><br />
-                    <div>
-                        <p>Price: VND2.000.000</p>
-                    </div>
-                    <button class="purchase_button" onclick="payment(2000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(2000000, 'Deposit')">Purchase</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3" style="padding-bottom:35px">
-            <div class="purchase-box">
-                <div>
-                    <h3>Package 4</h3><br />
-                    <div>
-                        <p>Price: VND10.000.000</p>
-                    </div>
-                    <button class="purchase_button" onclick="payment(10000000)" data-toggle="modal" data-target="#packageMess" (click)="SetPackage(10000000, 'Deposit')">Purchase</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <div class="action_noti" id="succMess" style="z-index:9999" hidden>
     <label style="margin:10px">{{message}}</label>
