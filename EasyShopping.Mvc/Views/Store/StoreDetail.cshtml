@@ -37,7 +37,7 @@
                                         <a class="btn btn-default" *ngIf="isOwner" [routerLink]="['/stores/store-getorder', store.ID]">Order List</a>
                                     </div>
                                     <div id="expand_product_management" class="collapse expand_management">
-                                        <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
+                                        <a class="btn btn-default" *ngIf="isAllowed && store.LimitProduct > 0" [routerLink]="['/products/product-add', store.ID]">Add Product</a>
                                         <a class="btn btn-default" *ngIf="isAllowed" [routerLink]="['/products/product-approve-list', store.ID]">Approve List</a>
                                     </div>
                                 </div>
