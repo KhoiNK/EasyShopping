@@ -19,6 +19,7 @@
                                 <div class="col-sm-6 col-md-7">
                                     <h2 style="color:#f4651a">
                                         {{store.Name}}
+                                        <i class="fa fa-check-circle store-card-check-store-detail" aria-hidden="true" *ngIf="store.StatusId == 1" data-toggle="tooltip" data-placement="top" title="This store has been confirmed"></i>
                                     </h2>
 
                                     <i class="fa fa-user-o"></i> Status: {{store.Status}}
@@ -44,13 +45,10 @@
                                 <div class="col-md-1 col-sm-1" *ngIf="isOwner">
                                     <i class="fa fa-cogs management_btn" aria-hidden="true" data-toggle="collapse" data-target="#expand_store_management"></i>
                                     <div class="collapse" id="expand_store_management">
-                                        <div class="edit_btn col-xs-4">
-                                            <a [routerLink]="['/stores/store-upgrade', store.ID]"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="edit_btn col-xs-4">
+                                        <div class="edit_btn col-xs-6">
                                             <a [routerLink]="['/stores/store-edit', store.ID]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                         </div>
-                                        <div class="remove_btn col-xs-4" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
+                                        <div class="remove_btn col-xs-6" data-toggle="modal" data-target="#storeRemove" (click)="SetCommand('store', store.ID)">
                                             <i class="fa fa-trash" aria-hidden="true" (click)="SetCommand('store', store.ID)" data-toggle="modal" data-target="#storeRemove"></i>
                                         </div>
                                     </div>

@@ -1972,11 +1972,40 @@ form > textarea {
 
 #expand_store_management {
     height: auto;
-    right: 90px;
     width: 100px;
+    position: relative;
+    left: -56px;
+}
+
+.store-card {
+    max-height: 226px;
     position: relative;
 }
 
+    .store-card img {
+        object-fit: scale-down;
+        max-height: 180px;
+        max-width: 180px;
+        width: 180px;
+        height: 180px;
+    }
+
+.store-card-check {
+    position: absolute;
+    color: green;
+    font-size: -webkit-xxx-large;
+    z-index: 999;
+    left: -15px;
+    top: 9px;
+    background: white;
+}
+
+.store-card-check-store-detail {
+    color: green;
+    font-size: larger;
+    z-index: 999;
+    background: white;
+}
 
 
 .edit_btn {
@@ -2205,6 +2234,7 @@ form > textarea {
     border: 1px solid grey;
     box-shadow: 3px 4px 7px 0px rgba(0, 0, 0, 0.45);
 }
-.message-box > div{
-    padding: 0 10px 0 10px;
-}
+
+    .message-box > div {
+        padding: 0 10px 0 10px;
+    }

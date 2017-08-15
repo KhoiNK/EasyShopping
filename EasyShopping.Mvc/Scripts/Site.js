@@ -74,3 +74,7 @@ function payment(e) {
 
     }, '#paypal-button');
 }
+
+$(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+});

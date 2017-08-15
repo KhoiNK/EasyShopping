@@ -57,4 +57,8 @@ export class StoreServices {
     UpgradeStore(data: any): Observable<any> {
         return this._http.put(this.apiUrl + "/UpgradeStore", data).map(res => res.json());
     }
+
+    GetList(page: number) {
+        return this._http.get(this.apiUrl + "/GetList/" + page).map(res => res.json());
+    }
 }

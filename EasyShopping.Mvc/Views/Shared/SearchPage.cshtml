@@ -2,17 +2,20 @@
     <h2 style="color:#425161">Stores match "{{searchname}}"</h2>
     <div style="border-top:1px solid #fe9a15"></div>
     <template [ngIf]="stores">
-        <div *ngFor="let store of stores" style="max-height:226px">
+        <div *ngFor="let store of stores" class="store-card">
             <a class="container search_container" [routerLink]="['/stores/store-detail', store.ID]">
+                <i class="fa fa-check-circle store-card-check" aria-hidden="true" *ngIf="store.StatusId == 1"></i>
                 <div class="col-sm-3">
-                    <img src="{{store.ImgLink}}" class="img-responsive" style="object-fit:scale-down; max-height: 180px"/>
+                    <img src="{{store.ImgLink}}"/>
                 </div>
                 <div class="col-sm-3" style="margin-top:50px; font-size:larger">
+                    
                     Name: {{store.Name}}<br />
                     Des: {{store.Description}} <br />
                     Created Date: {{store.CreatedDate | date}}
                 </div>
             </a>
+            
         </div>
     </template>
 

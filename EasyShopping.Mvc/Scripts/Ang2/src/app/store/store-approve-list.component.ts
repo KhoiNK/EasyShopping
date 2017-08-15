@@ -9,23 +9,36 @@ import { Subscription } from 'rxjs';
     providers: [StoreServices]
 })
 
-export class StoreApproveList {
-    public searchkey: number;
-    public store: any;
+export class StoreApproveList implements OnInit {
+    public searchkey: string;
+    public storesList: any[];
+    public stores: any[];
+    public subscription: Subscription;
+    public page: number;
 
     constructor(private storeService: StoreServices, private router: Router, private el: ElementRef) {
-        this.store = {};
+        this.page = 1;
+    }
+
+    ngOnInit() {
+        this.LoadData();
+    }
+
+    LoadData() {
+        this.storeService.GetList(this.page).subscribe((res: any) => {
+            this.storesList = res;
+            this.stores = res;
+        }, error => {
+            console.log(error);
+        });
     }
 
     SearchStore() {
-        if (this.searchkey != 0) {
-            this.storeService.GetStoreById(this.searchkey).subscribe((res: any) => {
-                this.store = res;
-            }, err => {
-                let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#errorMess');
-                inputEl.removeAttribute('hidden');
-                console.log(err);
-            });
+        let search = this.searchkey;
+        if (this.searchkey == "" || this.searchkey == null || this.searchkey == undefined) {
+            this.stores = this.storesList;
+        } else {
+            this.stores = this.storesList.filter(x => (x.Name == this.searchkey) || (x.ID == this.searchkey));
         }
     }
 
@@ -35,7 +48,7 @@ export class StoreApproveList {
                 let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#approveMess');
                 inputEl.removeAttribute('hidden');
                 setTimeout(() => {
-                    window.location.reload();
+                    this.LoadData();
                 }, 2000);
                 
             }

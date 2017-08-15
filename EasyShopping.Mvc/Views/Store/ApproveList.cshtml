@@ -2,11 +2,11 @@
     <div class="row" style="padding:20px">
         <div class="form_row">
             <label>Search Store: </label> 
-            <input type="text" class="form_name" [(ngModel)]="searchkey" #term (keyup.enter)="SearchStore()" placeholder="Store ID Ex: 1, 2, 3 ...." />
+            <input type="text" class="form_name" [(ngModel)]="searchkey" #term (keyup.enter)="SearchStore()" placeholder="Store ID/ Specific Name Ex: 1, 2, 3, Thien ...." />
         </div>
         <div class="form_row" hidden id="errorMess"><label style="color:indianred;">This store does not exist.</label></div>
     </div>
-    <div *ngIf="store">
+    <div>
         <table class="table">
             <thead>
                 <tr>
@@ -17,11 +17,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let store of stores">
                     <td>{{store.ID}}</td>
                     <td>{{store.Name}}</td>
                     <td>{{store.Status}}</td>
-                    <td><button *ngIf="store.StatusId == 3" class="btn btn-success" (click)="Approve(store.ID)">Approve</button> | <button *ngIf="store.StatusId == 3" class="btn btn-danger" (click)="Cancel(store.ID)">Cancel</button></td>
+                    <td><button class="btn btn-success" (click)="Approve(store.ID)">Approve</button> | <button *ngIf="store.StatusId == 3" class="btn btn-danger" (click)="Cancel(store.ID)">Cancel</button></td>
                 </tr>
             </tbody>
         </table>

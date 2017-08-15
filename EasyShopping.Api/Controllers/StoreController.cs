@@ -118,6 +118,15 @@ namespace EasyShopping.Api.Controllers
             }
         }
 
+        [HttpGet]
+        [ActionName("GetList")]
+        [Authorize(Roles = Constants.Roles.Admin)]
+        public IHttpActionResult GetList(int id)
+        {
+            var result = _business.GetAll(id, 10);
+            return Ok(result);
+        }
+
         #region Allowance
         [HttpGet]
         [ActionName("GetAllowance")]
