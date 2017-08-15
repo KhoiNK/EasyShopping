@@ -30,7 +30,7 @@ export class Header implements OnInit {
     public mess: any[];
     public systemMess: string = "";
     public cartitem: number;
-    public order: order = new order();
+    public order: order;
 
     constructor(private authService: IAuthService
         , private router: Router
@@ -45,6 +45,7 @@ export class Header implements OnInit {
         let cartId = localStorage.getItem(CART);
         this.profile = {};
         this.user = {};
+        this.order = new order();
     }
 
     ngOnInit() {
@@ -65,10 +66,7 @@ export class Header implements OnInit {
                     this.isSignedIn = false;
                 }
             });
-        let order = JSON.parse(localStorage.getItem("order"));
-        if (order == undefined || order == null) {
-            this.SetCart();
-        }
+        
         setInterval(() => {
             if (tokenNotExpired('id_token')) {
                 this.GetMessCount();
@@ -77,14 +75,23 @@ export class Header implements OnInit {
         setInterval(() => {
             let order: any = JSON.parse(localStorage.getItem("order"));
 
-            if (order == undefined || order == null) {
-                this.cartitem = 0;
-            }
-
             if (order != undefined || order != null) {
                 this.cartitem = order.products.length;
             }
+            if (order == undefined || order == null) {
+                this.cartitem = 0;
+                if (tokenNotExpired('id_token')) {
+                    this.SetCart();
+                }
+            }
         }, 1000);
+
+        //setInterval(() => {
+        //    let order = JSON.parse(localStorage.getItem("order"));
+        //    if (order == undefined || order == null) {
+        //        this.SetCart();
+        //    }
+        //}, 3000);
     }
 
     loggedIn() {
@@ -99,6 +106,18 @@ export class Header implements OnInit {
         this.count = 0;
         this.role = {};
         this.router.navigate(['/']);
+    }
+
+    SetOrder() {
+        let order: any = JSON.parse(localStorage.getItem("order"));
+
+        if (order == undefined || order == null) {
+            this.cartitem = 0;
+        }
+
+        if (order != undefined || order != null) {
+            this.cartitem = order.products.length;
+        }
     }
 
     GetMessCount() {
@@ -170,7 +189,7 @@ export class Header implements OnInit {
             this.router.navigate(['/stores/store-detail', message.DataID]);
         }
         if (message.MessageType == 4) {
-            this.router.navigate(['/shippers/shipper-store-list', message.DataID]);
+            this.router.navigate(['/stores/store-getorder', message.DataID]);
         }
         if (message.MessageType == 5) {
             this.router.navigate(['/partners/partner-list', message.DataID]);
@@ -182,14 +201,24 @@ export class Header implements OnInit {
     }
 
     SetCart() {
-        this.ordeSrv.GetByStatus(4).subscribe((res: any) => {
-            this.order.cartID = res[0].ID;
-            var details: any[] = res[0].details;
-            details.forEach((component) => {
-                this.order.products.push(component.ID);
+        if (tokenNotExpired('id_token')) {
+            this.ordeSrv.GetByStatus(4).subscribe((res: any) => {
+                if (res[0]) {
+                    this.order.cartID = 0;
+                    this.order.products = [];
+                    this.order.cartID = res[0].ID;
+                    var details: any[] = res[0].details;
+                    details.forEach((component) => {
+                        this.order.products.push(component.ID);
+                    });
+                    localStorage.setItem("order", JSON.stringify(this.order));
+                    localStorage.setItem(CART, res[0].ID);
+                } else {
+                    this.order.cartID = 0;
+                    this.order.products = [];
+                    localStorage.setItem("order", JSON.stringify(this.order));
+                }
             });
-            localStorage.setItem("order", JSON.stringify(this.order));
-            localStorage.setItem(CART, res[0].ID);
-        });
+        }
     }
 }

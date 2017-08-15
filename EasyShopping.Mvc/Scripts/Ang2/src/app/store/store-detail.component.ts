@@ -125,6 +125,7 @@ export class StoreDetailComponent implements OnInit {
                 localStorage.setItem("order", JSON.stringify(this.cart));
                 this.SetMessage("Added successfully!");
             }, err => {
+                this.SetErrMess("Please login first!");
                 console.log(err);
             });
         } else { 
@@ -252,6 +253,15 @@ export class StoreDetailComponent implements OnInit {
     SetMessage(mess: string) {
         this.message = mess;
         let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#storeMess');
+        inputEl.removeAttribute('hidden');
+        setTimeout(() => {
+            inputEl.hidden = true;
+        }, 1000);
+    }
+
+    SetErrMess(mess: string) {
+        this.message = mess;
+        let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#errMess');
         inputEl.removeAttribute('hidden');
         setTimeout(() => {
             inputEl.hidden = true;

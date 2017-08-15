@@ -148,7 +148,11 @@ export class OrderList implements OnInit {
             if (res == true) {
                 this.SetMessage("Removed successfully!");
                 localStorage.removeItem("cart");
-                localStorage.removeItem("order");
+                let order: any = JSON.parse(localStorage.getItem("order"));
+                order.cartID = 0;
+                order.products = [];
+                localStorage.setItem("order", JSON.stringify(order));
+                this.orderdetail = {};
                 this.LoadData(this.statusId);
             }
             if (res == false) {

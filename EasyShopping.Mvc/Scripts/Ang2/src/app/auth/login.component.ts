@@ -46,5 +46,6 @@ export class LoginComponent implements OnInit {
     private login() {
         // Validate
         this.authService.signIn(this.username, this.password);
+        this.gloSrv.SetLoadPage(true);
     }
 }

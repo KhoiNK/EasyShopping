@@ -20,7 +20,7 @@ export class GlobalService {
     globalMess$ = this._sysmess.asObservable();
     tokenexpired = this._isSignedin.asObservable();
     //isLoad$ = this._isLoad.asObservable();
-    isLoad$: Subject<boolean> = new BehaviorSubject<boolean>(false);
+    isLoad$ = this._isLoad.asObservable();
     countCart = this._countcart.asObservable();
 
     CountCart(key: boolean) {
@@ -39,19 +39,7 @@ export class GlobalService {
         this._isSignedin.next(tokenNotExpired('id_token'));
     }
 
-    SetLoadPage() {
-        this._isLoad.next(true);
+    SetLoadPage(key: boolean) {
+        this._isLoad.next(key);
     }
-
-    ClearLoadPage() {
-        this.isLoad$.next(false);
-    }
-
-    GetLoad(): Observable<any> {
-        return this._isLoad.asObservable();
-    }
-
-    //LoadPage(result: boolean) {
-    //    this._isLoad.next(result);
-    //}
 }

@@ -170,6 +170,7 @@ export class CheckOutComponent implements OnInit, OnDestroy {
         this.orderService.CheckOut(order).subscribe((res: any) => {
             if (res == true) {
                 localStorage.removeItem(CART);
+                localStorage.removeItem("order");
                 this.SetMessage("Checked out successfully!");
                 this.gloSrv.SetLoadPage();
                 setTimeout(() => {
