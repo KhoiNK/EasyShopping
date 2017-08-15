@@ -78,7 +78,7 @@ export class GetOrderByStoreComponent implements OnInit, OnDestroy {
             if (res == true) {
                 this.SetMessage("Canceled successfully!");
                 this.LoadOrder();
-                this.gloSrv.SetLoadPage();
+                this.gloSrv.SetLoadPage(true);
             }
         }, err => {
             this.SetErrMess("Cancelled failed");
@@ -91,7 +91,7 @@ export class GetOrderByStoreComponent implements OnInit, OnDestroy {
             if (res == true) {
                 this.SetMessage("Approved successfully!");
                 this.LoadOrder();
-                this.gloSrv.SetLoadPage();
+                this.gloSrv.SetLoadPage(true);
             }
         }, err => {
             console.log(err);
@@ -129,6 +129,22 @@ export class GetOrderByStoreComponent implements OnInit, OnDestroy {
                 alert("failed");
             }
         }, err => {
+            console.log(err);
+        });
+    }
+
+    ToDelivering(id: number) {
+        let order = this.orders.filter(x => x.ID == id)[0];
+        order.StatusID = 2;
+        this.orderSrv.EditOrder(order).subscribe((res: any) => {
+            if (res == true) {
+                this.SetMessage("Updated successfully!");
+                setTimeout(() => {
+                    this.LoadOrder();
+                }, 2000);
+            }
+        }, err => {
+            this.SetErrMess("Updated failed!");
             console.log(err);
         });
     }

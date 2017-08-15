@@ -6,16 +6,16 @@
             <a class="container search_container" [routerLink]="['/stores/store-detail', store.ID]">
                 <i class="fa fa-check-circle store-card-check" aria-hidden="true" *ngIf="store.StatusId == 1"></i>
                 <div class="col-sm-3">
-                    <img src="{{store.ImgLink}}"/>
+                    <img src="{{store.ImgLink}}" />
                 </div>
                 <div class="col-sm-3" style="margin-top:50px; font-size:larger">
-                    
+
                     Name: {{store.Name}}<br />
                     Des: {{store.Description}} <br />
                     Created Date: {{store.CreatedDate | date}}
                 </div>
             </a>
-            
+
         </div>
     </template>
 
@@ -23,19 +23,15 @@
     <h2 style="color:#425161">Products match "{{searchname}}"</h2>
     <div style="border-top:1px solid #fe9a15"></div>
     <template [ngIf]="products">
-        <div *ngFor="let product of products">
+        <div *ngFor="let product of products" class="col-sm-3 single-products-search">
             <template [ngIf]="product.Status == 'Available'">
-                <div class="col-sm-3 product-card">
-                    <a class="product-image-wrapper" [routerLink]="['/products/product-detail', product.ID]">
-                        <div class="single-products">
-                            <div class="productinfo text-center">
-                                <img src="{{product.ThumbailLink}}" alt="" />
-                                <p>{{product.Name}}</p>
-                                <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <a class="" [routerLink]="['/products/product-detail', product.ID]">
+                    <div class="text-center">
+                        <img src="{{product.ThumbailLink}}" alt="" style="max-height:150px"/>
+                        <p>{{product.Name}}</p>
+                        <p class="price">{{product.Price | currency:'USD':true:'1.0-0'}}</p>
+                    </div>
+                </a>
             </template>
         </div>
     </template>

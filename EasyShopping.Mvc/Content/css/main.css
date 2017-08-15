@@ -854,6 +854,20 @@ h2.title {
     position: relative;
 }
 
+.single-products-search {
+    padding-top: 10px;
+    height: 250px;
+    max-width: 200px;
+}
+
+    .single-products-search > a > div {
+        border: 1px solid #f1f1f1;
+    }
+
+    .single-products-search > a > div:hover{
+        border: 1px solid #cbc7c7;
+    }
+
 .new, .sale {
     position: absolute;
     top: 0;

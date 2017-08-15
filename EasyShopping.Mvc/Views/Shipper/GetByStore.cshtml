@@ -165,7 +165,7 @@
         <div id="menu4" class="tab-pane fade">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 3">
-                    <div class="row" style="padding-top:10px">
+                    <div class="row" style="padding: 10px 0 10px 0;">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
                         <div class="col-sm-2">#{{order.ID}}</div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
@@ -211,11 +211,14 @@
         <div id="menu5" class="tab-pane fade">
             <div *ngFor="let order of orders">
                 <template [ngIf]="order.StatusID === 1 && order.ShippingId == 0">
-                    <div class="row" style="padding-top:10px">
+                    <div class="row" style="padding: 10px 0 10px 0;">
                         <div class="col-sm-1"><i class="fa fa-plus-square-o" aria-hidden="true" data-toggle="collapse" [attr.data-target]="'#detail'+order.ID"></i></div>
                         <div class="col-sm-2">#{{order.ID}}</div>
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
+                        <div class="col-sm-3" style="text-align:center">
+                            <button class="btn btn-success" (click)="ToDelivering(order.ID)" >To Delivering</button>
+                        </div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
                         <table class="table">

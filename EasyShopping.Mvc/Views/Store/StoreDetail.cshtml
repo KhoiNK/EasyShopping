@@ -61,7 +61,7 @@
                 <div class="features_items" *ngIf="store.Products">
                     <div *ngFor="let product of store.Products">
                         <template [ngIf]="product.StatusID == 1">
-                            <div class="col-sm-3 product-card">
+                            <div class="col-sm-3 product-card" style="max-height:320px; padding-top:10px">
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productButton">
