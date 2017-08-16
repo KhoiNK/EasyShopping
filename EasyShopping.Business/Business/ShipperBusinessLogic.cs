@@ -14,6 +14,7 @@ namespace EasyShopping.BusinessLogic.Business
     {
         private ShipperRepository _repo;
         private UserRepository _user;
+        private MessageRepository _mess;
         private const int WAITINGFORAPPROVE = 1;
         private const int ACTIVE = 2;
 
@@ -21,6 +22,7 @@ namespace EasyShopping.BusinessLogic.Business
         {
             _repo = new ShipperRepository();
             _user = new UserRepository();
+            _mess = new MessageRepository();
         }
 
         public ShipperDetailDTO Apply(ShipperDetailDTO data, string username)
@@ -37,6 +39,15 @@ namespace EasyShopping.BusinessLogic.Business
         {
             var shipper = _repo.GetById(id).Translate<ShipperDetail, ShipperDetailDTO>();
             shipper.StatusId = ACTIVE;
+            var mess = new Message();
+            mess.DataID = null;
+            mess.Description = "You have been processed to be a shipper.";
+            mess.FromID = 1;
+            mess.IsRead = false;
+            mess.MessageType = null;
+            mess.SentID = shipper.ShipperId;
+            mess.CreatedDate = DateTime.Now;
+            _mess.CreateMessage(mess);
             return _repo.Update(shipper.Translate<ShipperDetailDTO, ShipperDetail>());
         }
 

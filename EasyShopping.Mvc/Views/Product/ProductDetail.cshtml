@@ -5,7 +5,7 @@
         <div class="col-lg-9">
             <label>Supplier: <a [routerLink]="['/stores/store-detail', product.StoreID]">{{product.Store}}</a></label><br />
             <label>Name : {{product.Name}}</label><br />
-            <label>Price: {{product.Price | currency:'USD':true:'1.2-2'}}</label><br />
+            <label>Price: {{product.Price | currency:'VND'}}</label><br />
             <button class="btn btn-default add-to-cart" (click)="AddToCart(product.ID)">Add To Cart</button>
         </div>
     </div>

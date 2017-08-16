@@ -35,12 +35,12 @@
                                     <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px" /></td>
                                     <td>{{detail.Product}}</td>
                                     <td>
-                                        <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ProductID)"></i>
+                                        <i class="fa fa-minus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'minus', detail.ProductID)" *ngIf="detail.Quantity > 1"></i>
                                         <input type="text" [(ngModel)]="detail.Quantity" id="item{{detail.ID}}" readonly style="max-width:50px; text-align:center" />
                                         <i class="fa fa-plus" aria-hidden="true" (click)="ChangeQuantity(detail.ID, 'add', detail.ProductID)"></i>
                                     </td>
                                     <td>
-                                        {{detail.Price | currency:'USD':true:'1.2-2'}}
+                                        {{detail.Price | currency:'VND'}}
                                         <i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveItem(detail.ID, order.ID)"></i>
                                     </td>
                                 </tr>
@@ -63,6 +63,9 @@
                         <thead class="thead-inverse">
                             <tr>
                                 <td>
+                                     
+                                </td>
+                                <td>
                                     Name
                                 </td>
                                 <td>
@@ -75,12 +78,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let detail of order.details">
+                                <td><img src="{{detail.Img}}" class="img-responsive" style="max-width:100px" /></td>
                                 <td>{{detail.Product}}</td>
                                 <td>
                                     {{detail.Quantity}}
-
                                 </td>
-                                <td>{{detail.Price | currency:'USD':true:'1.2-2'}}</td>
+                                <td>{{detail.Price | currency:'VND'}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -97,7 +100,7 @@
     <h2 style="color:#425161">Order Detail</h2>
     <div style="border:0.5px solid grey"></div>
     <div class="col">Temporary Cost:</div>
-    <div class="col"><label style="font-weight:bold">{{total | currency:'USD':true:'1.2-2'}}</label></div>
+    <div class="col"><label style="font-weight:bold">{{total | currency:'VND'}}</label></div>
     <div style="border:0.5px solid grey"></div>
     <div><a class="btn checkout_btn" [routerLink]="['/orders/order-checkout', id]">Check Out</a></div>
 </div>

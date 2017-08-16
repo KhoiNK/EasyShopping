@@ -32,8 +32,8 @@ export class GetOrderByStoreComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.activateRoute.params.subscribe((params: any) => {
             this.storeid = params['id'];
+            this.LoadOrder();
         });
-        this.LoadOrder();
     }
 
     LoadOrder() {
@@ -133,9 +133,10 @@ export class GetOrderByStoreComponent implements OnInit, OnDestroy {
         });
     }
 
-    ToDelivering(id: number) {
+    ToCompleted(id: number) {
         let order = this.orders.filter(x => x.ID == id)[0];
-        order.StatusID = 2;
+        order.StatusID = 3;
+        order.IsPaid = false;
         this.orderSrv.EditOrder(order).subscribe((res: any) => {
             if (res == true) {
                 this.SetMessage("Updated successfully!");

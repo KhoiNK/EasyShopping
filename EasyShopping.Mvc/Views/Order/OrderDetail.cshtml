@@ -1,25 +1,24 @@
-﻿<h2>Order Detail</h2>
-<div class="container" style="width:100%">
-    <div class="row" style="background-color:#425161; height:40px;color:white">
-        <div class="col-md-4">Order #{{order.ID}}</div>
-        <div class="col-md-4" style="text-align:center">Created Date: {{order.CreatedDate | date}}</div>
-        <div class="col-md-4" style="text-align:right">Total: {{order.Total | currency:'vnd'}}</div>
+﻿<div class="container" style="width:100%">
+    <div class="row order-detail-head">
+        <div>
+            <div class="col-md-4">Order #{{order.ID}}</div>
+            <div class="col-md-4" style="text-align:center">Created Date: {{order.CreatedDate | date}}</div>
+            <div class="col-md-4" style="text-align:right">Total: {{order.Total | currency:'vnd'}}</div>
+        </div>
     </div>
     <template [ngIf]="order.Children?.length <= 0">
-        <div class="row" style="margin:0px; border-bottom:1px solid #f1f1f1">
-            <div class="row">
-                <div class="col-md-6">{{order.Store}}</div>
-                <div class="col-md-6">{{order.Status}}</div>
+        <div class="row order-detail">
+            <div class="row order-detail-info">
+                <div class="col-md-6"><h4><a [routerLink]="['/stores/store-detail', order.StoreId]">{{order.Store}}</a></h4></div>
+                <div class="col-md-6" style="text-align:right"><h4>Status: {{order.Status}}</h4></div>
             </div>
-            
-            <div class="row">
-                
-                <table class="table">
-                    <thead>
+
+            <div class="row" style="margin:0px">
+
+                <table class="table" style="margin-top:0">
+                    <thead style="font-weight:bold">
                         <tr>
-                            <td>
-                                 
-                            </td>
+                            <td></td>
                             <td>
                                 Name
                             </td>
@@ -34,10 +33,10 @@
                     <tbody>
                         <tr *ngFor="let detail of order.details">
                             <td>
-                                <img src="{{detail.Img}}" class="img-responsive" style="max-width:100px; max-height: 180px"/>
+                                <img src="{{detail.Img}}" class="img-responsive" style="max-width:100px; max-height: 180px" />
                             </td>
                             <td>
-                                {{detail.Product}}
+                                <a [routerLink]="['/products/product-detail', detail.ProductID]">{{detail.Product}}</a>
                             </td>
                             <td>
                                 {{detail.Quantity}}
@@ -52,14 +51,14 @@
         </div>
     </template>
     <template [ngIf]="order.Children != []">
-        <div class="row" *ngFor="let children of order.Children" style="margin:0px">
-            <div class="row">
-                <div class="col-md-6">{{children.Store}}</div>
-                <div class="col-md-6">{{children.Status}}</div>
+        <div class="row order-detail" *ngFor="let children of order.Children">
+            <div class="row order-detail-info">
+                <div class="col-md-6"><h4><a [routerLink]="['/stores/store-detail', children.StoreId]">{{children.Store}}</a></h4></div>
+                <div class="col-md-6" style="text-align:right"><h4>Status: {{children.Status}}</h4></div>
             </div>
-            <div class="row">
-                <table class="table">
-                    <thead>
+            <div class="row" style="margin:0">
+                <table class="table" style="margin:0">
+                    <thead style="font-weight:bold">
                         <tr>
                             <td></td>
                             <td>
@@ -79,7 +78,7 @@
                                 <img src="{{detail.Img}}" class="img-responsive" style="max-width:100px; max-height: 180px" />
                             </td>
                             <td>
-                                {{detail.Product}}
+                                <a [routerLink]="['/products/product-detail', detail.ProductID]">{{detail.Product}}</a>
                             </td>
                             <td>
                                 {{detail.Quantity}}

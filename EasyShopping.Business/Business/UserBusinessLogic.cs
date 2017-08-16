@@ -24,6 +24,7 @@ namespace EasyShopping.BusinessLogic.Business
 
         public Task<UserDTO> Login(string username, string password)
         {
+            //var testuser = _repo.FindUser(username, Encryptor.MD5Hash(password));
             return Task.Factory.StartNew(() =>
             {
                 string hash = Encryptor.MD5Hash(password);

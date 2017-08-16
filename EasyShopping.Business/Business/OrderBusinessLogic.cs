@@ -388,7 +388,7 @@ namespace EasyShopping.BusinessLogic.Business
             return result;
         }
 
-        public bool Update(OrderViewDTO data)
+        public bool Update(OrderViewDTO data, string name)
         {
             var order = _repo.GetById(data.ID);
             order.Address = data.Address;
@@ -400,6 +400,27 @@ namespace EasyShopping.BusinessLogic.Business
             order.OrderCode = data.OrderCode;
             order.Price = data.Price;
             order.StatusID = data.StatusID;
+            if(order.StatusID == COMPLETE)
+            {
+                var mess = new MessageDTO();
+                mess.MessageType = TYPE_ORDER;
+                mess.IsRead = false;
+                if (order.ParentId.HasValue)
+                {
+                    mess.DataID = order.ParentId.Value;
+                    mess.SentID = _repo.GetById(order.ParentId.Value).UserID.Value;
+                    mess.Description = "Your order " + order.ParentId.Value + " is completed.";
+                }
+                else
+                {
+                    mess.DataID = data.ID;
+                    mess.SentID = data.UserID.Value;
+                    mess.Description = "Your order " + order.ID + " is completed.";
+                }
+                mess.CreatedDate = DateTime.Now;
+                mess.FromID = _user.FindUser(name).ID;
+                _message.CreateMessage(mess);
+            }
             order.StoreId = data.StoreId;
             order.Total = data.Total;
             var result = _repo.UpdateOrder(order);

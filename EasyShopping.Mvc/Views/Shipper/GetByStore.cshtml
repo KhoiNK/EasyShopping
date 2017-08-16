@@ -44,6 +44,7 @@
                         </div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <div style="display: -webkit-inline-box;"><label>Address: </label><p> {{order.Address}}</p></div>
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -86,6 +87,7 @@
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <div style="display: -webkit-inline-box;"><label>Address: </label><p> {{order.Address}}</p></div>
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -129,6 +131,7 @@
                         <div class="col-sm-3"><button class="btn btn-danger" (click)="CancelOrder(order.ID)">Reject</button></div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <div style="display: -webkit-inline-box;"><label>Address: </label><p> {{order.Address}}</p></div>
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -153,7 +156,6 @@
                                     </td>
                                     <td>
                                         {{detail.Price | currency:'USD':true:'1.2-2'}}
-                                        <i class="fa fa-times" aria-hidden="true" style="float: right;color: #c50707" (click)="RemoveItem(detail.ID)"></i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -172,10 +174,11 @@
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                         <div class="col-sm-3" style="text-align:center">
                             <i class="fa fa-check-circle" aria-hidden="true" style="color: #5cb85c;font-size: 30px;" *ngIf="order.IsPaid == true" data-toggle="tooltip" title="This order is paid"></i>
-                            <button class="btn btn-success" (click)="IsPaid(order.ID)" *ngIf="order.IsPaid == false">Paid</button>
+                            <button class="btn btn-success" (click)="IsPaid(order.ID)" *ngIf="order.IsPaid == false || order.IsPaid == null">Paid</button>
                         </div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <div style="display: -webkit-inline-box;"><label>Address: </label><p> {{order.Address}}</p></div>
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>
@@ -217,10 +220,11 @@
                         <div class="col-sm-3">Order Code: {{order.OrderCode}}</div>
                         <div class="col-sm-3">Created Date: {{order.CreatedDate | date}}</div>
                         <div class="col-sm-3" style="text-align:center">
-                            <button class="btn btn-success" (click)="ToDelivering(order.ID)" >To Delivering</button>
+                            <button class="btn btn-success" (click)="ToCompleted(order.ID)" >Complete</button>
                         </div>
                     </div>
                     <div class="row collapse table-tab" id="detail{{order.ID}}">
+                        <div style="display: -webkit-inline-box;"><label>Address: </label><p> {{order.Address}}</p></div>
                         <table class="table">
                             <thead class="thead-inverse">
                                 <tr>

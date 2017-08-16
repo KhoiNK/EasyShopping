@@ -864,9 +864,9 @@ h2.title {
         border: 1px solid #f1f1f1;
     }
 
-    .single-products-search > a > div:hover{
-        border: 1px solid #cbc7c7;
-    }
+        .single-products-search > a > div:hover {
+            border: 1px solid #cbc7c7;
+        }
 
 .new, .sale {
     position: absolute;
@@ -1674,7 +1674,6 @@ h2.title {
     padding: 5px;
     box-shadow: 0 0 0 0;
     transition: 0.5s;
-    margin-top: 3%;
 }
 
 #table th {
@@ -2251,4 +2250,40 @@ form > textarea {
 
     .message-box > div {
         padding: 0 10px 0 10px;
+    }
+
+.order-detail {
+    margin: 10px;
+    border: 1px solid #dfdfdf;
+    border-radius: 9px;
+    background-color: rgba(241, 241, 241, 0.59);
+}
+
+.order-detail-info {
+    margin: 0px;
+    background-color: #425161;
+    border-radius: 9px 9px 0 0;
+    height: 41px;
+    width: 100%;
+    color: white;
+}
+
+    .order-detail-info > div > h4 {
+        margin: 10px 0 0 0;
+    }
+
+        .order-detail-info > div > h4 > a {
+            color: white;
+            font-weight: bold;
+        }
+
+.order-detail-head {
+    height: 40px;
+    border-bottom: 3px solid #fe980f;
+    font-size: larger;
+}
+
+    .order-detail-head > div {
+        margin-top: 9px;
+        color: #425161;
     }
