@@ -126,6 +126,7 @@ export class StoreDetailComponent implements OnInit {
                 this.SetMessage("Added successfully!");
             }, err => {
                 this.SetErrMess("Please login first!");
+                this.router.navigate(['/login']);
                 console.log(err);
             });
         } else { 

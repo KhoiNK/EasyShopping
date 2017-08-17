@@ -132,6 +132,7 @@ export class StoreAddComponent implements OnInit {
                 setTimeout(() => {
                     inputEl.hidden = true;
                 }, 2000);
+                event.preventDefault();
             }
 
             if (file == null) {

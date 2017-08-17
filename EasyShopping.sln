@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShopping.Repository", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShopping.BusinessLogic", "EasyShopping.Business\EasyShopping.BusinessLogic.csproj", "{9A51E5A5-DD89-4905-874F-2B01DEA9199F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyShoppingApiTests", "EasyShoppingApiTests\EasyShoppingApiTests.csproj", "{EF7BB3AA-C578-4947-8DA3-3F070C48CCDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A51E5A5-DD89-4905-874F-2B01DEA9199F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF7BB3AA-C578-4947-8DA3-3F070C48CCDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF7BB3AA-C578-4947-8DA3-3F070C48CCDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF7BB3AA-C578-4947-8DA3-3F070C48CCDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF7BB3AA-C578-4947-8DA3-3F070C48CCDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
