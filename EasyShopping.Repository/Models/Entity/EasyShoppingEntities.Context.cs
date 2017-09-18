@@ -41,6 +41,7 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Recruitment> Recruitments { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<ShipperDetail> ShipperDetails { get; set; }
         public virtual DbSet<ShipperRating> ShipperRatings { get; set; }
@@ -54,6 +55,5 @@ namespace EasyShopping.Repository.Models.Entity
         public virtual DbSet<UserStatu> UserStatus { get; set; }
         public virtual DbSet<Ward> Wards { get; set; }
         public virtual DbSet<Wishlist> Wishlists { get; set; }
-        public virtual DbSet<Recruitment> Recruitments { get; set; }
     }
 }
